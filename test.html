@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 
@@ -482,3 +483,183 @@
 </script>
 
 </html>
+=======
+            <!DOCTYPE html>
+            <html>
+
+            <head>
+                <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+                <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+            	<style>
+              body {margin:0;}
+            		table {
+                			border-collapse: collapse;
+
+            				}
+                    ul{
+                      list-style-type: none;
+                      margin: 0;
+                      padding: 0;
+                      overflow: hidden;
+                     background-color: #333;
+                  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+                    }
+
+            		table, th, td {
+              								border: 0px solid black;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              padding: 0;
+            								  }
+            								td{
+            									text-align: center;
+            								  margin: 100%;
+            									}
+            									tr:hover
+                              {
+                                margin: 100%;
+            										background-color:#f5f5f5;
+                        			}
+
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 20px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                width:100%;
+                }
+                #header {
+                background-color:#DD4132;
+                color:white;
+                text-align:center;
+                padding:5px;
+                 width:100%
+
+             }
+             li{
+             float: left;
+            }
+            li a{
+             display: block;
+             color: white;
+             padding: 20px 30px;
+             text-decoration: none
+            }
+            li a:hover:not(.active)
+            {
+             background-color: #111;
+            }
+            .boom{
+
+            }
+            td input:hover:not(.active)
+            {
+              background-color: #111;
+            }
+            .active{
+              background-color: #FF0000;
+            }
+
+            	</style>
+            </head>
+            <body style="margin:0;">
+                        <!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WMXFLF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WMXFLF');</script>
+<!-- End Google Tag Manager -->
+              <ul class="navbar">
+                <li style="float:center"><a href="#" >CALCULATOR</a></li>
+
+              </ul>
+            <br/>
+            <form Name="calc">
+            	<div style="overflow-x:auto;">
+            <table align="center" border=0>
+            <tr>
+            <td colspan=4 ><input type=text class="boom" id='messageInput' text-decorations:none style= width:100% Name="display"></td>
+            </tr>
+            <tr>
+            <td><input href="#" class="button" type=button value="0"  OnClick="calc.display.value+='0'"></td>
+            <td><input class="button" type=button value="1" OnClick="calc.display.value+='1'"></td>
+            <td><input class="button" type=button value="2" OnClick="calc.display.value+='2'"></td>
+            <td><input class="button" type=button value="+" OnClick="calc.display.value+='+'"></td>
+            </tr>
+            <tr>
+            <td><input class="button" type=button value="3" OnClick="calc.display.value+='3'"></td>
+            <td><input class="button" type=button value="4" OnClick="calc.display.value+='4'"></td>
+            <td><input class="button" type=button value="5" OnClick="calc.display.value+='5'"></td>
+            <td><input class="button" type=button value="-" OnClick="calc.display.value+='-'"></td>
+            </tr>
+            <tr>
+            <td><input class="button" type=button value="6" OnClick="calc.display.value+='6'"></td>
+            <td><input class="button" type=button value="7" OnClick="calc.display.value+='7'"></td>
+            <td><input class="button" type=button value="8" OnClick="calc.display.value+='8'"></td>
+            <td><input class="button" type=button value="x" OnClick="calc.display.value+='*'"></td>
+            </tr>
+            <tr>
+            <td><input class="button" type=button value="9" OnClick="calc.display.value+='9'"></td>
+            <td><input class="button" type=button value="C" OnClick="calc.display.value=''"></td>
+            <td><input class="button" type=button value="=" OnClick="makelist();"></td>
+            <td><input class="button" type=button value="/" OnClick="calc.display.value+='/'"></td>
+            </tr>
+            </table>
+            </div>
+            </form>
+
+
+            <ul id="list">
+            </ul>
+
+            <script type="text/javascript">
+             var myDataRef = new Firebase('htmlttps://calculator1995.firebaseio.com/');
+            function makelist(){
+                var a=calc.display.value+"";
+
+                //myDataRef.child("asd").push({text:a});
+
+                calc.display.value=eval(calc.display.value);
+                myDataRef.push({name: a, text: calc.display.value+"" });
+            }
+            function getKeys(keys, obj, path) {
+                for(key in obj) { var xx;
+                    for(x in key){ console.log(key.Object[0].text+ "asd "+x);}
+                    keys.push([key, xx]);
+                    if(typeof(obj[key]) == 'object' && !(obj[key] instanceof Array))
+                        getKeys(keys, obj[key], currpath);
+                }
+            }
+
+
+               myDataRef.limitToLast(10).on('child_added', function(snapshot) {
+            var message = snapshot.val();
+            displayChatMessage( message.name,message.text);
+                  });
+
+
+
+            function displayChatMessage(messageInput,asd) {
+                 var messageList = $('#list');
+                 var messageElement = $("<li>");
+                var nameElement = $("<strong class='example-chat-username'></strong>")
+                nameElement.text("operation = ");
+                messageElement.text(messageInput+" = "+asd).prepend(nameElement);
+
+                //ADD MESSAGE
+                messageList.append(messageElement)
+
+                //SCROLL TO BOTTOM OF MESSAGE LIST
+                messageList[0].scrollTop = messageList[0].scrollHeight;
+
+                    };
+            </script>
+            </body>
+            </html>
+>>>>>>> c0dca2325b48820fd27ec3aa1e727996f843bf41
