@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Joel Hanson | portfolio</title>
+    <script src="/js/jquery.min.js"></script>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        body {
+            background: #280b27 url(images/header.gif) repeat-x center top fixed;
+            color: #444948;
+            font: normal 16px/24px "ProximaNovaLight", "Helvetica Neue", Helvetica, sans-serif;
+            background-size: contain;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        pre,
+        code {
+            font-size: 1em;
+        }
+
+        header {
+            height: auto;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        header .joel {
+            padding-top: 100px;
+        }
+
+        header .photo {
+            display: block;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+
+        header h2 {
+            color: #fff;
+            text-align: center;
+            display: block;
+            font-size: 3em;
+            line-height: 1em;
+            padding-top: 20px;
+        }
+
+        header h2 span {
+            display: block;
+            font-size: 18px;
+            padding-top: 15px;
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam,
+            feugiat vitae,
+            ultri255,
+            0.6);
+            font-family: ProximaNovaLight;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        header .social {
+            text-align: center;
+            padding-top: 0;
+        }
+
+        header .social a {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            text-indent: -999em;
+            -webkit-transform: scale(0.5, 0.5);
+            transform: scale(0.5, 0.5);
+            background-position: center center;
+            background-repeat: no-repeat;
+            text-align: center;
+            border: 0;
+            -webkit-transition: all .2s ease-in-out;
+            /* For Safari 3.1 to 6.0 */
+            transition: all .2s ease-in-out;
+        }
+
+        header .social a.twitter {
+            background-image: url(images/twitter.png);
+        }
+
+        header .social a.linkedin {
+            background-image: url(images/linkedin.png);
+        }
+
+        header .social a.reddit {
+            background-image: url(images/reddit.png);
+        }
+
+        header .social a.email {
+            background-image: url(images/email.png);
+        }
+
+        header .social a.github {
+            background-image: url(images/github.png);
+        }
+
+        #top {}
+
+        #container {
+            margin: 526px auto 0 auto;
+            width: auto;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+            z-index: 3;
+            padding-top: 10px;
+        }
+
+        .portfolio {
+            width: 700px;
+            padding: 20px 20px 40px;
+            overflow: hidden;
+            margin: 0 auto;
+            display: block;
+            padding-bottom: 150px;
+        }
+
+        .portfolio h2 {
+            font-size: 1.125rem;
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 30px 20px 0;
+            color: #777777;
+            letter-spacing: 0.1em;
+        }
+
+        .portfolio h2:after {
+            width: 30px;
+            height: 1px;
+            background: #dcdcdc;
+            content: " ";
+            display: block;
+            margin-top: 15px;
+        }
+
+        .portfolio p {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 30px 20px 0;
+            color: #9d9d9d;
+        }
+
+        .portfolio a {
+            text-decoration: none;
+        }
+
+        .band {
+            width: auto;
+            background: white;
+            clear: both;
+        }
+
+        .contain {
+            zoom: 1;
+        }
+
+        .contain:before,
+        .contain:after {
+            content: "";
+            display: table;
+        }
+
+        .contain:after {
+            clear: both;
+        }
+
+        .contain {
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border-color: transparent;
+            border-style: solid;
+            border-left-width: 20px;
+            border-right-width: 20px;
+            margin: 0 auto;
+            padding-top: 30px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contain:after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+
+        @media all and (min-width: 480px) and (max-width: 719px) {
+            .contain {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                border-left-width: 40px;
+                border-right-width: 40px;
+            }
+            .contain:after {
+                content: " ";
+                display: block;
+                clear: both;
+            }
+        }
+
+        @media all and (min-width: 720px) and (max-width: 1023px) {
+            .contain {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                border-left-width: 60px;
+                border-right-width: 60px;
+                padding-top: 60px;
+            }
+            .contain:after {
+                content: " ";
+                display: block;
+                clear: both;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .contain {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 1320px;
+                border-left-width: 80px;
+                border-right-width: 80px;
+                padding-top: 60px;
+            }
+            .contain:after {
+                content: " ";
+                display: block;
+                clear: both;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .about-info {
+                width: 48.275862069%;
+                float: left;
+                margin-right: 3.4482758621%;
+            }
+        }
+
+        .about-contact {
+            display: none;
+        }
+
+        @media all and (min-width: 720px) {
+            .about-contact {
+                display: block;
+                padding-top: 60px;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .about-contact {
+                margin-left: 8.6206896552%;
+                width: 39.6551724138%;
+                float: left;
+                margin-right: 3.4482758621%;
+                float: right;
+                margin-right: 0;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .about-contact {
+                padding-top: 0;
+            }
+        }
+
+        .about-contact a {
+            color: #9d9d9d;
+        }
+
+        @media all and (min-width: 720px) and (max-width: 1023px) {
+            .about-contact .left {
+                width: 46.4285714286%;
+                float: left;
+                margin-right: 7.1428571429%;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .about-contact .left {
+                width: 56.5217391304%;
+                float: left;
+                margin-right: 8.6956521739%;
+            }
+        }
+
+        @media all and (min-width: 720px) and (max-width: 1023px) {
+            .about-contact .right {
+                width: 46.4285714286%;
+                float: left;
+                margin-right: 7.1428571429%;
+                float: right;
+                margin-right: 0;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .about-contact .right {
+                width: 34.7826086957%;
+                float: left;
+                margin-right: 8.6956521739%;
+                float: right;
+                margin-right: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <header id="top">
+        <div class="joel">
+            <img src="photo.jpg" class="photo" alt="Joel Hanson the one with shades" />
+            <h2 style="color:#b7aee2;font-family:monospace;font-style:Bold;font-weight:300">Joel Hanson <span>Web Developer</span></h2>
+            <div class="social">
+                <a class="twitter" href="https://twitter.com/joelhanson25" data-username="joelscherf">Twitter</a>
+                <a class="linkedin" href="https://in.linkedin.com/in/joel-hanson" data-username="10998304">LinkedIn</a>
+                <a class="github" href="https://github.com/Joel-hanson">Github</a>
+                <a class="email" href="mailto:joelhansfont-size: 1.125remon025@gmail.com">Email me</a>
+                <a class="reddit" href="https://www.reddit.com/user/joelhanson25">reddit</a>
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <section class="portfolio band">
+            <div class="contain">
+                <div class="about-info">
+                    <h2>Portfolio</h2>
+                    <div class="abt"></div>
+                </div>
+                <div class="about-contact">
+                    <h2>Contact</h2>
+                    <div class="cotl left"></div>
+                    <div class="cotr right"></div>
+                </div>
+
+            </div>
+        </section>
+
+
+    </div>
+</body>
+<script>
+    $(function() {
+        var error = false;
+
+        $("input,textarea").focus(function() {
+            $(this).removeClass("error");
+            error = false;
+        });
+
+        $('.email').click(function(e) {
+            if ($(window).width() > 640) {
+                e.preventDefault();
+                $("html, body").animate({
+                    scrollTop: $(document).height()
+                }, "slow");
+            }
+        });
+
+        if ($(window).width() > 640) {
+
+            var headerHeight = $('header').height();
+
+            $(document).scroll(function() {
+                var pos = $(document).scrollTop();
+
+                // $('#contact').css('display', ((pos > headerHeight) ? 'block' : 'none'));
+
+                var parallax = parseInt(pos * -0.3) + 'px';
+                var rgba = (pos / headerHeight) * 0.4;
+
+                $('.joel').css('margin-top', parallax);
+                $('header').css('background', 'rgba(0,0,0,' + rgba);
+
+
+            });
+
+        }
+
+        $("#submit").click(function(e) {
+            var fields = {
+                name: $("#name"),
+                email: $("#email"),
+                subject: $("#subject"),
+                message: $("#message")
+            };
+
+            if (fields.name.val() == "") {
+                fields.name.addClass("error");
+                error = true;
+            }
+            if (fields.email.val() == "") {
+                fields.email.addClass("error");
+                error = true;
+            } else {
+                var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                if (!reg.test(fields.email.val())) {
+                    fields.email.addClass("error");
+                    error = true;
+                }
+            }
+            if (fields.subject.val() == "") {
+                fields.subject.addClass("error");
+                error = true;
+            }
+            if (fields.message.val() == "") {
+                fields.message.addClass("error");
+                error = true;
+            }
+
+            if (!error) {
+                $.ajax({
+                    type: $("form").attr("method"),
+                    url: $("form").attr("action"),
+                    data: "name=" + $("#name").val() + "&email=" + $("#email").val() + "&subject=" + $("#subject").val() + "&budget=" + $("#budget").val() + "&message=" + $("#message").val().replace('&', '%26'),
+                    beforeSend: function() {
+                        $("#status button").hide();
+                    },
+                    success: function(html) {
+                        $("#status #success").html(html).show();
+                    },
+                    error: function(html) {
+                        $("#status button").show();
+                        $("#status #error").html(html).show();
+                    }
+                });
+            }
+            e.preventDefault()
+        });
+    });
+    var bio = {
+        "name": "Joel Hanson",
+        "role": "Computer Engineer,Web Developer",
+        "contacts": {
+            "mobile": "+918156978004",
+            "email": "joelhanson025@gmail.com",
+            "location1": "India,kerala"
+        },
+        "skills": ["javascript", "polymer", "web Developer", "Android"],
+        "welcomemessage": "I love Coding",
+        "about": "Joel Hanson is a web developer and for the past 3-4 years he's worked for some of the events in his college;producing two event websites work wherever he's been.<br /><br />Working at the very highest level as a web developer and has little bit of knowledge in Android also made projects in Android, Joel provides his experience,knowledge and expertise to clients offering them something more than your average developer.",
+        "portfolio": "Joel Hanson has worked on projects for college have made websites using the latest technologies like polymer and firebase.His work shows experience in wed and android sectors."
+    };
+    var HTMLabout = '<p>%data%</p>';
+    var HTMLContactemail = '<p>Email:<br /><a href="joelhanson025@gmail.com">%data%</a></p>';
+    var HTMLContactphone = '<p>Phone:<br />%data%</p>';
+    var HTMLContactlocation = '<p>Location:<br />%data%</p>';
+    var formattedAbout = HTMLabout.replace("%data%", bio.about);
+    var formattedContactemail = HTMLContactemail.replace("%data%", bio.contacts.email);
+    var formattedContactphone = HTMLContactphone.replace("%data%", bio.contacts.mobile);
+    var formattedContactlocation = HTMLContactlocation.replace("%data%", bio.contacts.location1);
+    $(".abt").append(formattedAbout);
+    $(".cotl").append(formattedContactemail);
+    $(".cotl").append(formattedContactphone);
+    $(".cotr").append(formattedContactlocation);
+</script>
+
+</html>
