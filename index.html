@@ -19,8 +19,10 @@
             background: #280b27 url(images/header.jpg) repeat-x center top fixed;
             color: #444948;
             font: normal 16px/24px "ProximaNovaLight", "Helvetica Neue", Helvetica, sans-serif;
-            background-size: contain;
+            background-size: cover;
         }
+
+
 
         body,
         h1,
@@ -32,6 +34,21 @@
         pre,
         code {
             font-size: 1em;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .info h3 {
+            color: #777777;
+            font-family: "FFMarkWebPro", Helvetica, Arial, sans-serif;
+            font-weight: normal;
+            line-height: 1.333;
+            margin-top: 1.625em;
+            margin-bottom: 1.3em;
         }
 
         header {
@@ -147,9 +164,9 @@
         }
 
         .portfolio h2:after {
-            width: 30px;
-            height: 1px;
-            background: #dcdcdc;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, rgba(252, 231, 225, 1) 0%, rgba(254, 217, 198, 1) 18%, rgba(246, 117, 78, 1) 34%, rgba(225, 48, 57, 1) 51%, rgba(185, 23, 64, 1) 67%, rgba(110, 4, 46, 1) 85%, rgba(44, 13, 44, 1) 100%);
             content: " ";
             display: block;
             margin-top: 15px;
@@ -328,43 +345,316 @@
                 margin-right: 0;
             }
         }
+
+        .test {
+            background-color: #fff;
+        }
+
+        ul.panels {
+            margin: 30px 0 0 20px;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .panel {
+            width: 100%;
+            float: left;
+            margin-left: 0;
+            margin-right: 0;
+            float: left;
+            list-style: none;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+
+        .panel:nth-child(2n) {
+            float: right;
+            margin-right: 0;
+        }
+
+        @media all and (min-width: 720px) and (max-width: 1023px) {
+            .panel {
+                width: 46.4285714286%;
+                float: left;
+                margin-right: 7.1428571429%;
+            }
+        }
+
+        @media all and (min-width: 720px) {
+            .panel {
+                background: #efefef;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .panel {
+                width: 48.275862069%;
+                float: left;
+                margin-right: 3.4482758621%;
+            }
+        }
+
+        .panel a {
+            width: 100%;
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            color: #9d9d9d;
+            display: block;
+            float: left;
+            padding-bottom: 20px;
+            padding-top: 67%;
+            text-decoration: none;
+        }
+
+        @media all and (min-width: 480px) {
+            .panel a {
+                padding-top: 65%;
+            }
+        }
+
+        @media all and (min-width: 720px) {
+            .panel a {
+                height: 300px;
+                background-position: center center;
+                background-size: cover;
+                padding-bottom: 0;
+                padding-top: 0;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .panel a {
+                height: 350px;
+            }
+        }
+
+        .panel a .info {
+            width: 100%;
+            height: 100%;
+            display: block;
+            float: left;
+            opacity: 1;
+        }
+
+        @media all and (min-width: 720px) {
+            .panel a .info {
+                width: 100%;
+                background: #efefef;
+                opacity: 0;
+                padding-left: 10%;
+                padding-right: 10%;
+                -webkit-transition: all 0.2s linear 0s;
+                transition: all 0.2s linear 0s;
+                -webkit-backface-visibility: hidden;
+                -webkit-transform: translateZ(0);
+                box-shadow: 0;
+            }
+        }
+
+        .panel a:hover .info {
+            opacity: 1;
+        }
+
+        @media all and (min-width: 720px) {
+            .panel a .info-contain {
+                padding-left: 8%;
+                padding-right: 8%;
+                position: relative;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+            .panel a .info-contain {
+                padding-left: 10%;
+                padding-right: 10%;
+            }
+        }
+
+        .panel a .info-contain h3 {
+            display: block;
+            font-size: 18px;
+            font-size: 1.125rem;
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        .panel a .info-contain h3:after {
+            background: #d7d7d7;
+        }
+
+        .panel a .info-contain p {
+            display: block;
+            font-family: Helvetica, Arial, sans-serif;
+            font-style: normal;
+        }
+
+        ul,
+        ol,
+        dl {
+            margin-top: 1.625em;
+            margin-bottom: 1.625em;
+        }
+
+        nav>ul,
+        nav>ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav>ul li,
+        nav>ol li {
+            display: inline-block;
+        }
+
+        .menu ul {
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .menu ul li {
+            display: block;
+            list-style: none;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-size: 1.25rem;
+        }
+
+        @media all and (min-width: 720px) {
+            .menu ul li {
+                display: inline-block;
+                margin-left: 35px;
+                margin-bottom: 0;
+            }
+        }
+
+        .menu ul li:first-child {
+            margin-left: 0;
+        }
+
+        .menu ul li a {
+            display: inline-block;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-decoration: none;
+            -webkit-transition: all 0.2s linear 0s;
+            transition: all 0.2s linear 0s;
+        }
+
+        nav {
+            display: block;
+        }
+
+        nav>ul,
+        nav>ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav>ul li,
+        nav>ol li {
+            display: inline-block;
+        }
+        .center {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px; /* margin is -0.5 * dimension */
+    margin-top: -25px;
+
+}​
+
     </style>
 
 </head>
 
-<body>
-    <header id="top">
-        <div class="joel">
-            <img src="photo.jpeg" class="photo" alt="Joel Hanson the one with shades" />
-            <h2 style="color:#b7aee2;font-family:monospace;font-style:Bold;font-weight:300">Joel Hanson <span>Web Developer</span></h2>
-            <div class="social">
-                <a class="twitter" href="https://twitter.com/joelhanson25" data-username="joelscherf">Twitter</a>
-                <a class="linkedin" href="https://in.linkedin.com/in/joel-hanson" data-username="10998304">LinkedIn</a>
-                <a class="github" href="https://github.com/Joel-hanson">Github</a>
-                <a class="email" href="mailto:joelhansfont-size: 1.125remon025@gmail.com">Email me</a>
-                <a class="reddit" href="https://www.reddit.com/user/joelhanson25">reddit</a>
-            </div>
-        </div>
-    </header>
-    <div id="container">
-        <section class="portfolio band">
-            <div class="contain">
-                <div class="about-info">
-                    <h2>Portfolio</h2>
-                    <div class="abt"></div>
-                </div>
-                <div class="about-contact">
-                    <h2>Contact</h2>
-                    <div class="cotl left"></div>
-                    <div class="cotr right"></div>
-                </div>
+<body class="body">
+    <div class="nav">
+        <a href="#" class="closenav">
 
-            </div>
-        </section>
+        </a>
+        <nav class="menu center">
+            <ul>
+                <li>
+                    fdghdf
+                </li>
+            </ul>
+        </nav>
 
 
     </div>
+    <div class="full" hidden="hidden">
+
+        <header id="top">
+            <div class="joel">
+                <img src="photo.jpeg" class="photo" alt="Joel Hanson the one with shades" />
+                <h2 style="color:#b7aee2;font-family:monospace;font-style:Bold;font-weight:300">Joel Hanson <span>Web Developer</span></h2>
+                <div class="social">
+                    <a class="twitter" href="https://twitter.com/joelhanson25" data-username="joelscherf">Twitter</a>
+                    <a class="linkedin" href="https://in.linkedin.com/in/joel-hanson" data-username="10998304">LinkedIn</a>
+                    <a class="github" href="https://github.com/Joel-hanson">Github</a>
+                    <a class="email" href="mailto:joelhansfont-size: 1.125remon025@gmail.com">Email me</a>
+                    <a class="reddit" href="https://www.reddit.com/user/joelhanson25">reddit</a>
+                </div>
+            </div>
+        </header>
+        <div id="container">
+            <section class="portfolio band ">
+                <div class="contain">
+                    <div class="about-info">
+                        <h2>About</h2>
+                        <div class="abt"></div>
+                    </div>
+                    <div class="about-contact">
+                        <h2>Contact</h2>
+                        <div class="cotl left"></div>
+                        <div class="cotr right"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="portfolio band">
+                <div class="contain">
+                    <h2>Selected Works</h2>
+                    <ul class="panels wrk">
+
+                    </ul>
+                </div>
+            </section>
+            </section>
+            <section class="portfolio band">
+                <div class="contain ">
+
+                    <h2>inspirer</h2>
+
+                    <p>"Work hard Play Hard"</p>
+                    <p>“There are three responses to a piece of design – yes, no, and WOW! Wow is the one to aim for.” <em>-Milton Glaser</em></p>
+                    <p><em>   [Middle English, from Old English]</em></p>
+
+
+                </div>
+
+            </section>
+        </div>
+
+    </div>
 </body>
+
 <script>
     $(function() {
         var error = false;
@@ -403,56 +693,7 @@
 
         }
 
-        $("#submit").click(function(e) {
-            var fields = {
-                name: $("#name"),
-                email: $("#email"),
-                subject: $("#subject"),
-                message: $("#message")
-            };
 
-            if (fields.name.val() == "") {
-                fields.name.addClass("error");
-                error = true;
-            }
-            if (fields.email.val() == "") {
-                fields.email.addClass("error");
-                error = true;
-            } else {
-                var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-                if (!reg.test(fields.email.val())) {
-                    fields.email.addClass("error");
-                    error = true;
-                }
-            }
-            if (fields.subject.val() == "") {
-                fields.subject.addClass("error");
-                error = true;
-            }
-            if (fields.message.val() == "") {
-                fields.message.addClass("error");
-                error = true;
-            }
-
-            if (!error) {
-                $.ajax({
-                    type: $("form").attr("method"),
-                    url: $("form").attr("action"),
-                    data: "name=" + $("#name").val() + "&email=" + $("#email").val() + "&subject=" + $("#subject").val() + "&budget=" + $("#budget").val() + "&message=" + $("#message").val().replace('&', '%26'),
-                    beforeSend: function() {
-                        $("#status button").hide();
-                    },
-                    success: function(html) {
-                        $("#status #success").html(html).show();
-                    },
-                    error: function(html) {
-                        $("#status button").show();
-                        $("#status #error").html(html).show();
-                    }
-                });
-            }
-            e.preventDefault()
-        });
     });
     var bio = {
         "name": "Joel Hanson",
@@ -465,20 +706,43 @@
         "skills": ["javascript", "polymer", "web Developer", "Android"],
         "welcomemessage": "I love Coding",
         "about": "Joel Hanson is a web developer and for the past 3-4 years he's worked for some of the events in his college;producing two event websites work wherever he's been.<br /><br />Working at the very highest level as a web developer and has little bit of knowledge in Android also made projects in Android, Joel provides his experience,knowledge and expertise to clients offering them something more than your average developer.",
-        "portfolio": "Joel Hanson has worked on projects for college have made websites using the latest technologies like polymer and firebase.His work shows experience in wed and android sectors."
+        "portfolio": "Joel Hanson has worked on projects for college have made websites using the latest technologies like polymer and firebase.His work shows experience in wed and android sectors.",
+        "work": {
+            "number": 2,
+            "linkss": ["https://webdoodle2016.firebaseapp.com/", "http://static.wixstatic.com/media/6c775e_4be8bcb996d54d30a1cb76b4733c5bc5.png_srz_925_805_85_22_0.50_1.20_0.00_png_srz"],
+            "picurl": ["/images/doodlepic.png", "/images/comingsoon.png"],
+            "workhead": ["Web doodle", "coming soon"],
+            "workdetails": ["A Website making contest for our college techfest 'palmarius'", "coming soon"]
+        }
     };
     var HTMLabout = '<p>%data%</p>';
     var HTMLContactemail = '<p>Email:<br /><a href="joelhanson025@gmail.com">%data%</a></p>';
     var HTMLContactphone = '<p>Phone:<br />%data%</p>';
     var HTMLContactlocation = '<p>Location:<br />%data%</p>';
+    var HTMLWorklink = '<li class="panel"><a href="%link%" style="background-image:';
+    var HTMLWorkpic = ' url(%picurl%);"><div class="info"style="padding:0" ><div class="info-contain">';
+    var HTMLWorkhead = '<h2>%workhead%</h2>';
+    var HTMLWorkdetail = '<p>%workdetails%</p></div></div></a></li>';
     var formattedAbout = HTMLabout.replace("%data%", bio.about);
     var formattedContactemail = HTMLContactemail.replace("%data%", bio.contacts.email);
     var formattedContactphone = HTMLContactphone.replace("%data%", bio.contacts.mobile);
     var formattedContactlocation = HTMLContactlocation.replace("%data%", bio.contacts.location1);
+    var formattedWork = [];
+    for (var i = 0; i < bio.work.number; i++) {
+
+        formattedWork[i] = [HTMLWorklink.replace("%link%", bio.work.linkss[i]) + HTMLWorkpic.replace("%picurl%", bio.work.picurl[i]) + HTMLWorkhead.replace("%workhead%", bio.work.workhead[i]) + HTMLWorkdetail.replace("%workdetails%", bio.work.workdetails[
+            i])]; //,HTMLWork.replace(, ),HTMLWork.replace("%workhead%", bio.work.workhead[i]),HTMLWork.replace("%workdetails%", bio.work.workdetails[i])];
+        //  formattedWork[i] = [];
+    }
     $(".abt").append(formattedAbout);
     $(".cotl").append(formattedContactemail);
     $(".cotl").append(formattedContactphone);
+
     $(".cotr").append(formattedContactlocation);
+    for (var i = 0; i < bio.work.number; i++) {
+        $(".wrk").append(formattedWork[i]);
+    }
+    $(".body").css('background-image','none')
 </script>
 
 </html>
