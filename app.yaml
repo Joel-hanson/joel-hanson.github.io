@@ -1,0 +1,22 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /bower_components
+  static_dir: build/es6-bundled/bower_components
+  secure: always
+
+- url: /image
+  static_dir: build/es6-bundled/image
+  secure: always
+
+- url: /manifest.json
+  static_files: build/es6-bundled/manifest.json
+  upload: build/es6-bundled/manifest.json
+  secure: always
+
+- url: /.*
+  static_files: build/es6-bundled/index.html
+  upload: build/es6-bundled/index.html
+  secure: always

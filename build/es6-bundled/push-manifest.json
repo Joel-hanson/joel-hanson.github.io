@@ -1,0 +1,23 @@
+{
+  "src/joel-app.html": {
+    "src/joel-header.html": {
+      "type": "document",
+      "weight": 1
+    },
+    "src/joel-app.html": {
+      "type": "document",
+      "weight": 1
+    },
+    "src/joel-section.html": {
+      "type": "document",
+      "weight": 1
+    },
+    "src/joel-footer.html": {
+      "type": "document",
+      "weight": 1
+    }
+  },
+  "src/joel-footer.html": {},
+  "src/joel-header.html": {},
+  "src/joel-section.html": {}
+}

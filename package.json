@@ -1,30 +1,29 @@
 {
-  "name": "joel-hanson.github.io",
+  "name": "polymer-2-first-element",
   "version": "1.0.0",
-  "description": "potfolio",
-  "main": "index.html",
+  "description": "my portfolio",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "serve": "browser-sync start --server 'src' --files 'src' --single",
-    "test": "npm run test"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Joel-hanson/joel-hanson.github.io.git"
+    "url": "git+https://github.com/PolymerLabs/polymer-2-first-element.git"
   },
-  "keywords": [
-    "joelhanson",
-    "vue",
-    "js",
-    "css"
-  ],
-  "author": "Joel-hanson",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Joel-hanson/joel-hanson.github.io/issues"
+    "url": "https://github.com/PolymerLabs/polymer-2-first-element/issues"
   },
-  "homepage": "https://github.com/Joel-hanson/joel-hanson.github.io#readme",
+  "homepage": "https://github.com/PolymerLabs/polymer-2-first-element#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.3"
-  },
-  "dependencies": {}
+    "browser-sync": "^2.18.12",
+    "gulp-livereload": "^3.8.1",
+    "gulp-run-command": "0.0.7",
+    "sw-precache": "^5.1.1"
+  }
 }

@@ -1,0 +1,182 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./joel-header.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="./joel-section.html">
+<link rel="import" href="./joel-footer.html">
+
+
+<dom-module id="joel-app">
+  <template>
+    <style>
+       :host {
+        display: block;
+      }
+
+
+      .name {
+        color: #fff;
+      }
+
+      app-header {
+        position: fixed;
+        font-family: 'Roboto', Helvetica, sans-serif;
+        top: 0;
+        left: 0;
+        width: 100%;
+        color: #fff;
+        background-color: #f44336;
+        z-index: 100;
+
+        --app-header-shadow: {
+          box-shadow: inset 0px 5px 2px -3px rgba(0, 0, 0, 0.2);
+        }
+        ;
+      }
+
+      paper-progress {
+        width: 100%;
+      }
+
+      #myimg {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+      }
+
+      .iconparent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .downso {
+        box-shadow: 0px 5px 2px 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .flex-center-justified {
+        @apply --layout-horizontal;
+        @apply --layout-center-justified;
+      }
+
+      .profile {
+        margin-top: 60px;
+        background-color: #f44336;
+      }
+
+      .wrapper {
+        padding: 70px 40px 0;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        text-align: center;
+      }
+
+      .profile h1 {
+        font-weight: 600;
+        letter-spacing: -2px;
+        font-size: 3em;
+        color: #222;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+
+      .profile h2 {
+        font-size: 20px;
+        font-weight: 300;
+        color: #212121;
+        margin-top: 10px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-style: normal;
+      }
+
+      .profile h3 {
+        font-weight: 300;
+        color: #FFEBEE;
+        margin-top: 10px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-style: normal;
+      }
+      .aboutsection{
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 50px 40px 20px;
+
+      }
+      .download{
+position: absolute;
+display: block;
+right:25px;       
+        top: 450px;
+      }
+      @media(min-width: 799px) {
+         .download{
+right: 25%;       
+      }
+      }
+     #downloadimg{
+       width: 50px;
+height: 50px;
+     }
+  footer{
+    text-align: center;
+  }
+  .container{
+    height: 420px;
+  }
+  
+    </style>
+    <div class="container profile flex-center-justified">
+      <section class="wrapper">
+        <a href="">
+          <iron-image id="myimg" src="../images/joel1.jpg" preload fade style="background-color: lightgray;" sizing="cover"></iron-image>
+        </a>
+
+        <h1>Joel Hanson</h1>
+        <h2>I am a Computer Science Engineer</h2>
+        <h3>Web Developer and A Machine Learning Enthusiast</h3>
+        
+      </section>
+      
+    </div>
+    <div class="download">
+        <a href="./document/resume.pdf"> 
+      <iron-image id="downloadimg" src="../images/arrow.svg" preload sizing="cover"></iron-image>
+        </a>
+    </div>
+    <app-header condenses reveals sticky effects="waterfall">
+      <app-toolbar class="iconparent">
+        <joel-header></joel-header>
+      </app-toolbar>
+    </app-header>
+<section class="aboutsection">
+  <joel-section></joel-section>
+</section>
+<footer>
+  <joel-footer></joel-footer>
+</footer>
+
+  </template>
+
+  <script>
+    class JoelApp extends Polymer.Element {
+      static get is() {
+        return 'joel-app';
+      }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'joel-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(JoelApp.is, JoelApp);
+    
+  </script>
+  </dom-module

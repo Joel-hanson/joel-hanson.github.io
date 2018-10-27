@@ -1,0 +1,322 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="../bower_components/polymerfire/firebase-messaging.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+
+
+
+
+
+<!--
+`<joel-section>` is Description
+
+@element joel-section
+-->
+<dom-module id="joel-section">
+    <template>
+        <style include="app-grid-style">
+             :host {
+                display: block;
+                --paper-tabs-selection-bar-color: #fff;
+                --app-grid-columns: 3;
+                --app-grid-gutter: 5px;
+                --app-grid-expandible-item-columns: 3;
+                --app-grid-item-height: 350px;
+                --paper-tabs: {
+                    background-color: #f44336;
+                    border-radius: 5px;
+                    height: 50px;
+                }
+                ;
+            }
+
+            @media(max-width: 799px) {
+                 :host {
+                    --app-grid-columns: 1;
+                    --app-grid-gutter: 10px;
+                    --app-grid-item-height: 350px;
+                }
+            }
+
+            h3 {
+                font-size: 20px;
+                font-weight: 400;
+            }
+
+            .about {
+                color: #666;
+            }
+
+            a {
+                color: #f44336;
+                text-decoration: none;
+            }
+
+            .list-view {
+                display: table;
+                padding: 0;
+            }
+
+            .list-item {
+                display: table-row;
+            }
+
+            .list-header {
+                display: table-cell;
+                vertical-align: top;
+                padding-top: 16px;
+            }
+
+            .list-detail {
+                display: table-cell;
+                padding: 0 0 39px 0;
+            }
+
+            .aboutimg {
+                height: 50px;
+                width: 50px;
+                margin-right: 32px;
+            }
+
+
+
+            .summary {
+                line-height: 1.7;
+            }
+
+            .titleproject {
+                font-weight: 200;
+            }
+
+            .imgtab {
+                height: 30px;
+                width: 30px;
+            }
+
+            .proitem {
+                text-align: center;
+            }
+
+            ul {
+                padding: 0;
+                list-style: none;
+            }
+
+            .single {
+                @apply --app-grid-expandible-item;
+            }
+
+            .imgitem {
+                height: 300px;
+                width: 180px;
+            }
+
+            .border_ {
+                border: 3px solid #666;
+                border-radius: 20px;
+            }
+
+            .togglebtn {
+                --paper-toggle-button-checked-bar-color: var(--paper-red-400);
+                --paper-toggle-button-checked-button-color: var(--paper-red-500);
+                --paper-toggle-button-checked-ink-color: var(--paper-red-500);
+            }
+        </style>
+
+        <article class="about">
+            <ol class="list-view">
+                <li class="list-item">
+                    <div class="list-header">
+                        <paper-toggle-button class="togglebtn " id="togglebtn-js" checked="[[user]]" on-tap="login"></paper-toggle-button>
+                        <firebase-app auth-domain="hello-world-154108.firebaseapp.com" database-url="https://hello-world-154108.firebaseio.com" api-key="AIzaSyDCHsETDDLX3jQCQ_oFu0HcdXmziUwegDM"
+                            storage-bucket="hello-world-154108.appspot.com" messaging-sender-id="802996930755">
+                        </firebase-app>
+                        <firebase-auth id="auth" user="{{user}}" provider="google" status-known="{{statusKnown}}" on-error="handleError">
+                        </firebase-auth>
+
+                        <firebase-messaging id="messaging" token="{{token}}" on-message="handleMessage">
+                        </firebase-messaging>
+
+                        <firebase-document path="/users/[[user.uid]]/token" data="[[token]]">
+                        </firebase-document>
+                    </div>
+                    <div class="list-detail">
+                        <div>
+                            <h3>Get Update Notifications</h3>
+                        </div>
+
+                    </div>
+                </li>
+                <li class="list-item">
+                    <div class="list-header">
+                        <iron-image class="aboutimg" src="../images/school.svg"></iron-image>
+                    </div>
+                    <div class="list-detail">
+                        <div>
+                            <h3>Education</h3>
+                        </div>
+                        <p class="summary">
+                            I'm a Computer Science graduate from <a href="sahrdaya.ac.in">Sahrdaya College of Engineering and Technology</a>,
+                            Kerala.I done my higher secondary studies from <a href="https://www.facebook.com/StThomas-HSS-Thope-Thrissur-159108357502021/">st.Thomas HSS thope</a>                            Thrissur.Also my Secondary school Education was from <a href="donboscomannuthy.in/">Don Bosco Mannuthy </a>kerala
+                            Thrissur And doing a android course from <a href="udemy.com">Udemy.</a></p>
+                    </div>
+                </li>
+                <li class="list-item">
+                    <div class="list-header">
+                        <iron-image class="aboutimg" src="../images/monitor.svg"></iron-image>
+                    </div>
+                    <div class="list-detail">
+                        <div>
+                            <h3>Experience</h3>
+                        </div>
+                        <p class="summary">
+                            I'm a currently working at Loku Technologies,Banglore as a Web Developer and had done project on machine learning and android
+                            also using different frameworks and Technologies.
+                        </p>
+                    </div>
+                </li>
+                <li class="list-item">
+                    <div class="list-header">
+                        <iron-image class="aboutimg" src="../images/laptop.svg"></iron-image>
+                    </div>
+                    <div class="list-detail">
+                        <div>
+                            <h3>Skills</h3>
+                        </div>
+                        <p class="summary">
+                            I have skills in Android, Java, C, C++, HTML, CSS, Javascript, Jquery, python, Angularjs, Github, Firebase, AWS, Google Cloud
+                            Platform, Polymer Web framework, etc.....</p>
+                    </div>
+                </li>
+                <li class="list-item">
+                    <div class="list-header">
+                        <iron-image class="aboutimg" src="../images/heart.svg"></iron-image>
+                    </div>
+                    <div class="list-detail">
+                        <h3>Projects</h3>
+                    </div>
+                </li>
+
+            </ol>
+            <div class="projectsection">
+                <paper-tabs selected="{{selected}}" scrollable fit-container>
+                    <paper-tab>
+                        <iron-image class="imgtab" src="../images/codingwhite.svg" preload sizing="cover"></iron-image>
+                    </paper-tab>
+                    <paper-tab>
+                        <iron-image class="imgtab " src="../images/androidwhite.svg" preload sizing="cover"></iron-image>
+                    </paper-tab>
+                    <paper-tab>
+                        <iron-image class="imgtab " src="../images/robotwhite.svg" preload sizing="cover"></iron-image>
+                    </paper-tab>
+                </paper-tabs>
+            </div>
+            <div class="projectitems">
+                <iron-pages selected="{{selected}}">
+                    <div class="proitem">
+                        <h3>Web</h3>
+                        <ul class="app-grid">
+                            <li class="item ">
+                                <a href="https://jananistore.com">
+                                    <iron-image class="imgitem border_" src="../images/janani.jpg" preload fade sizing="contain"></iron-image>
+                                </a>
+                            </li>
+                            <li class="item ">
+                                <a href="https://joel-hanson.github.io/">
+                                    <iron-image class="imgitem border_" src="../images/joelport.jpg" preload fade sizing="contain"></iron-image>
+                                </a>
+                            </li>
+                            <li class="item ">
+                                <a href="http://plantdisease.tk/">
+                                    <iron-image class="imgitem border_" src="../images/plant.jpg" preload fade sizing="contain"></iron-image>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="proitem">
+                        <h3>Android</h3>
+                        <ul class="app-grid">
+                            <li class="item single">
+                                <iron-image class="imgitem border_" src="../images/stopwatch.png" preload fade sizing="contain"></iron-image>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="proitem">
+                        <h3>Machine Learning</h3>
+                        <ul class="app-grid">
+                            <li class="item single">
+                                <iron-image class="imgitem border_" src="../images/plant.jpg" preload fade sizing="contain"></iron-image>
+                            </li>
+
+                        </ul>
+                    </div>
+                </iron-pages>
+            </div>
+        </article>
+
+    </template>
+
+    <script>
+        class JoelSection extends Polymer.Element {
+            static get is() {
+                return 'joel-section';
+            }
+            static get properties() {
+                return {
+                    selected: {
+                        type: Number,
+                        value: 0,
+                    },
+                    user: {
+                        type: Object,
+                    },
+
+                    disabled: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    statusKnown: {
+                        type: Object,
+                    }
+                };
+
+            }
+
+
+            login() {
+                if (this.user === null) {
+                    this.disabled = true;
+                    return this.$.auth.signInWithPopup()
+                    .then(() => {
+                        this.disabled = false;
+                            console.log("shit1");
+                        
+                        this.$.messaging.requestPermission().then(() => {
+                            console.log("shit2");
+                            
+                        }).catch(() => {
+                            console.log("no permission granted");
+                        });
+                    }).catch((err) =>{console.log(err);
+                    });
+                } else {
+                    return this.$.auth.signOut().then(() => {
+                        this.disabled = false;
+                    });
+                }
+            }
+        }
+
+
+        window.customElements.define(JoelSection.is, JoelSection);
+    </script>
+</dom-module>

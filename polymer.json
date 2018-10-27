@@ -1,0 +1,48 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/joel-app.html",
+  "fragments": [
+      "src/joel-footer.html",
+      "src/joel-header.html",
+      "src/joel-section.html"
+  ],
+  "sources": [
+    "src/**/*",
+    "index.html",
+    "images/*",
+    "document/*"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/webcomponents-lite.js",
+    "manifest.json",
+    "firebase-messaging-sw.js",
+    "bower_components/firebase/firebase-app.js",
+    "bower_components/firebase/firebase-messaging.js"
+  ],
+  "builds": [{
+    "name": "es6-bundled",
+    "browserCapabilities": [
+      "es2016"
+    ],
+    "js": {
+      "minify": false,
+      "compile": false
+    },
+    "css": {
+      "minify": true
+    },
+    "html": {
+      "minify": true
+    },
+    "bundle": true,
+    "addServiceWorker": true,
+    "addPushManifest": true,
+    "insertPrefetchLinks": true,
+    "preset": "es5-bundled"
+  }],
+  "lint": {
+    "rules": [
+      "polymer-2"
+    ]
+  }
+}

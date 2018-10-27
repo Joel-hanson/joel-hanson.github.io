@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,user-scalable=yes"><title>Joel Hanson | Web Developer and Machine Learning Enthusiast</title><meta name="description" content="my portfolio"><meta name="theme-color" content="#f44336"><meta name="mobile-web-app-capable" content="yes"><link rel="shortcut icon" href="image/joel1.jpg"><link rel="import" href="/src/joel-app.html"><link rel="manifest" href="/manifest.json"><link rel="icon" sizes="192x192" href="/image/joel1.jpg"><style>html,
+    body{padding:0;margin:0;font-family:'Roboto', Helvetica, sans-serif;}</style><link rel="prefetch" href="/src/joel-header.html"><link rel="prefetch" href="/src/joel-section.html"><link rel="prefetch" href="/src/joel-footer.html"></head><body><joel-app></joel-app><script>
+  if ('serviceWorker' in navigator && 'PushManager' in window) {
+    console.log('Service Worker and Push is supported');
+
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function (swReg) {
+        console.log('Service Worker is registered', swReg);
+
+        swRegistration = swReg;
+      })
+      .catch(function (error) {
+        console.error('Service Worker Error', error);
+      });
+  } else {
+    console.warn('Push messaging is not supported');
+    pushButton.textContent = 'Push Not Supported';
+  }
+</script><noscript>javascript is disabled or the having trouble with the network or browser</noscript><script>
+  (function () {
+    'use strict';
+    var onload = function () {
+      if (!window.HTMLImports) {
+        document.dispatchEvent(
+          new CustomEvent('WebComponentsReady', {
+            bubbles: true
+          })
+        );
+      }
+    };
+
+    var webComponentsSupported = (
+      'registerElement' in document &&
+      'import' in document.createElement('link') &&
+      'content' in document.createElement('template')
+    );
+    if (!webComponentsSupported) {
+      var script = document.createElement('script');
+      script.prefetch = true;
+      script.src =
+        'bower_components/webcomponentsjs/webcomponents-lite.js';
+      script.onload = onload;
+      document.head.appendChild(script);
+    } else {
+      onload();
+    }
+  })();
+</script></body></html>

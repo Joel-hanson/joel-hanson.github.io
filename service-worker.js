@@ -1,0 +1,1 @@
+console.log("sw to be installed in build time");
