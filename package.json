@@ -1,0 +1,31 @@
+{
+  "name": "joel-hanson.github.io",
+  "version": "1.0.0",
+  "description": "potfolio",
+  "main": "index.html",
+  "scripts": {
+    "serve": "browser-sync start --server 'src' --files 'src' --single",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joel-hanson/joel-hanson.github.io.git"
+  },
+  "keywords": [
+    "joelhanson",
+    "vue",
+    "js",
+    "css"
+  ],
+  "author": "Joel-hanson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joel-hanson/joel-hanson.github.io/issues"
+  },
+  "homepage": "https://github.com/Joel-hanson/joel-hanson.github.io#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.3"
+  },
+  "dependencies": {
+  }
+}
