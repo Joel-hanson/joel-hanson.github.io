@@ -1,0 +1,29 @@
+{
+  "name": "polymer-2-first-element",
+  "version": "1.0.0",
+  "description": "my portfolio",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PolymerLabs/polymer-2-first-element.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PolymerLabs/polymer-2-first-element/issues"
+  },
+  "homepage": "https://github.com/PolymerLabs/polymer-2-first-element#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "gulp-livereload": "^3.8.1",
+    "gulp-run-command": "0.0.7",
+    "sw-precache": "^5.1.1"
+  }
+}
