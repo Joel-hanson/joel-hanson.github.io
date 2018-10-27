@@ -1,50 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-    <script src="./main.js" type="module"></script>
+    <script src="./app.js" type="module"></script>
+    <script src="./components/typewriter.js" type="module"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+
 </head>
+
 <body>
 
-    <div id="app">
-        <type-writer></type-writer>
-        <button-counter></button-counter>
-        <div class="mdc-layout-grid">
-            <div class="mdc-layout-grid__inner">
-                <div class="mdc-layout-grid__cell--align-center"></div>
+    <div id="app" class="container">
+        <div class="header-wrapper-class">
+            <type-writer></type-writer>
+        </div>
+        <div class="section-container">
+            <!-- <div class="image-wrapper-class">
+                <img src="https://picsum.photos/150/150" alt="profile_pic">
+            </div>
+            <div class="side-card-height">
+                <div class="my-card-class side-first-class"></div>
+            </div> -->
             </div>
         </div>
-    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <style>
-body, html { 
-  margin: 0;
-  padding:0;
-}
-/* Google Fonts */
-@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+    }
 
-/* Global */
+    .header-wrapper-class {
+        height: 50vh;
+    }
 
-body{
-  height: calc(50vh - 8em);
-  padding: 4em;
-  color: white;
-  font-family: 'Anonymous Pro', monospace;  
-  background-color: rgb(25,25,25);  
-}
+    /* Google Fonts */
+    @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+    /* Global */
+    body {
+        height: calc(50vh - 8em);
+        padding: 4em;
+        color: white;
+        font-family: 'Source Code Pro', monospace;
+        background-color: rgb(25, 25, 25);
+    }
 </style>
+<link rel="stylesheet" href="./css/typewriter.css">
 
-
-<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-<script>
-//made by vipul mirajkar thevipulm.appspot.com
-
-</script>
 </html>
