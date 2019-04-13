@@ -4,22 +4,22 @@
   "description": "my portfolio",
   "icons": [
     {
-      "src": "image/joel1.jpg",
+      "src": "image/joel3.jpg",
       "type": "image/jpg",
       "sizes": "48x48"
     },
     {
-      "src": "image/joel1.jpg",
+      "src": "image/joel3.jpg",
       "type": "image/jpg",
       "sizes": "96x96"
     },
      {
-      "src": "image/joel1.jpg",
+      "src": "image/joel3.jpg",
       "type": "image/jpg",
       "sizes": "1080x1080"
     },
     {
-      "src": "image/joel1.jpg",
+      "src": "image/joel3.jpg",
       "type": "image/jpg",
       "sizes": "192x192"
     }
