@@ -3,6 +3,8 @@
     margin: 0 auto;
 }
 .section-container {
+    border: 1px solid;
+    min-height: 500px;
 }
 .side-card-height {
     height: 800px;
