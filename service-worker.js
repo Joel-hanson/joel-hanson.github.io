@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["bower_components/webcomponentsjs/webcomponents-lite.js","c89f66cb63a098895f4b1b42eb371673"],["document/resume.pdf","cdebf2ff894e5f1182bae0320cd1e2cf"],["firebase-messaging-sw.js","93eee5a94120842a55bede30ed643a57"],["index.html","38a898ef50e8078838df33f2c6c8384d"],["manifest.json","d70438a74a22d18a59260792db490d47"],["src/joel-app.html","24a45e2d859b03cb1bbe96d45ffd0567"],["src/joel-footer.html","0d58875cdca61097d75ca6af61eca308"],["src/joel-header.html","6ab016c50467782c769cc6af8b5a36f2"],["src/joel-section.html","4141ccbf0a2f01a5c680c7472965ec8f"]];
+var precacheConfig = [["/webcomponents-lite.js","c89f66cb63a098895f4b1b42eb371673"],["document/resume.pdf","cdebf2ff894e5f1182bae0320cd1e2cf"],["firebase-messaging-sw.js","93eee5a94120842a55bede30ed643a57"],["index.html","38a898ef50e8078838df33f2c6c8384d"],["manifest.json","d70438a74a22d18a59260792db490d47"],["src/joel-app.html","24a45e2d859b03cb1bbe96d45ffd0567"],["src/joel-footer.html","0d58875cdca61097d75ca6af61eca308"],["src/joel-header.html","6ab016c50467782c769cc6af8b5a36f2"],["src/joel-section.html","4141ccbf0a2f01a5c680c7472965ec8f"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
