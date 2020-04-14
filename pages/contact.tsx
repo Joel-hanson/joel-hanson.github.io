@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { Props } from '../interfaces';
-import { withRouter } from 'next/router';
+import Layout from '../components/Layout'
+import { withRouter } from 'next/router'
 
+const ContactPage: React.FunctionComponent = () => (
+    <Layout title="Contact | JoelHanson">
+        <h1>Contact</h1>
+        <p>This is the contact page</p>
+    </Layout>
+)
 
-const Contact = withRouter((props) => (
-    <h1>Contact</h1>
-));
-
-export default Contact;
+export default withRouter(ContactPage)

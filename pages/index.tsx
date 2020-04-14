@@ -1,26 +1,11 @@
-import Layout from '../components/Layout';
-import Head from 'next/head';
+import Layout from '../components/Layout'
+import { withRouter } from 'next/router'
 
-
-const IndexPage = () => (
-    <div className="main">
-        <Head>
-            <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet"></link>
-        </Head>
-    
-        <Layout title="Joel Hanson">
-        
-        </Layout>
-        <style jsx>
-            {`
-                .main {
-                    margin:0;
-                    padding:0;
-                    font-family: 'Muli', sans-serif;
-                }
-            `}  
-        </style>
-    </div>
+const IndexPage: React.FunctionComponent = () => (
+    <Layout title="About | JoelHanson">
+        <h1>About</h1>
+        <p>This is the about page</p>
+    </Layout>
 )
 
-export default IndexPage
+export default withRouter(IndexPage)

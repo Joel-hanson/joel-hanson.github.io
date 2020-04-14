@@ -2,7 +2,7 @@ import { navDetail } from '../interfaces'
 
 /** The link details. */
 export const navItems: navDetail[] = [
-  { navTitle: "About me", navLink: '/about' },
+  { navTitle: "About me", navLink: '/' },
   { navTitle: "Work", navLink: '/work' },
   { navTitle: "Blogs", navLink: '/blogs' },
   { navTitle: "Contact", navLink: '/contact' },

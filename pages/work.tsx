@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { Props } from '../interfaces';
-import { withRouter } from 'next/router';
+import Layout from '../components/Layout'
+import { withRouter } from 'next/router'
 
+const WorksPage: React.FunctionComponent = () => (
+    <Layout title="Work | JoelHanson">
+        <h1>Works</h1>
+        <p>This is the works page</p>
+    </Layout>
+)
 
-const Work = withRouter((props) => (
-    <h1>Work</h1>
-));
-
-export default Work;
+export default withRouter(WorksPage)
