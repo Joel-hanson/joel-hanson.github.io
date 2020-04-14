@@ -1,0 +1,33 @@
+{
+  "name": "joel-hanson.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joel-hanson/joel-hanson.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joel-hanson/joel-hanson.github.io/issues"
+  },
+  "homepage": "https://github.com/Joel-hanson/joel-hanson.github.io#readme",
+  "devDependencies": {
+    "@types/node": "^13.11.0",
+    "@types/react": "^16.9.32",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "next": "^9.3.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-grid-system": "^6.3.0"
+  }
+}
