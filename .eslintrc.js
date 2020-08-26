@@ -1,17 +1,23 @@
 module.exports = {
   root: true,
-  env: {
-    node: true
+  parser: '@typescript-eslint/parser', // the TypeScript parser we installed earlier
+  parserOptions: {
+    ecmaFeatures: { jsx: true } // Allows for the parsing of JSX
   },
-  'extends': [
-    'plugin:vue/essential',
-    '@vue/standard'
+  extends: [
+    'eslint:recommended', // eslint default rules
+    'plugin:@typescript-eslint/eslint-recommended', // eslint TypeScript rules (github.com/typescript-eslint/typescript-eslint)
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended', // eslint react rules (github.com/yannickcr/eslint-plugin-react)
+    "plugin:jsx-a11y/recommended", // accessibility plugin
+
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended'
   ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'prettier/prettier': [ 
+      "error", {}, { "usePrettierrc": true }
+    ],
+    'react/prop-types': 'off', // We turn off prop-types rule, as we will use TypeScript's types instead.
   },
-  parserOptions: {
-    parser: 'babel-eslint'
-  }
-}
+};

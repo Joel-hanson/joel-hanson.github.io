@@ -1,18 +1,18 @@
 import * as React from 'react';
 // import Link from 'next/link';
 import Head from 'next/head';
-import { Props, navDetails, routerLink } from '../interfaces';
-import { navItems } from '../utils/data'
+import { Props, NavItemsInterface, RouterLinkInterface, LayoutInterface } from '../interfaces';
 import { Container } from 'react-grid-system';
 import { useRouter } from 'next/router'
 import globalStyles from '../styles/global.js'
+import { navItems } from '../utils/data';
 
 
-const ActiveLink: React.FunctionComponent<routerLink> = ({ children, href }) => {
+const ActiveLink: React.FunctionComponent<RouterLinkInterface> = ({ children, href }) => {
     const router = useRouter()
     const style = {
         margin: "12px",
-        color: router.pathname === (href || "") ? 'red' : '#353535',
+        color: router.pathname === (href || "") ? '#ef5350' : '#353535',
         textDecoration: 'none',
     }
 
@@ -33,25 +33,27 @@ const Footer: React.FunctionComponent<Props> = ({ title }) => (
         <span>{title}</span>
         <style jsx>{`
             .footer {
-                text-align: center;
+                text-align: left;
                 position: fixed;
                 left: 0;
                 bottom: 0;
                 height: 30px;
                 width: 100%;
+                font-size: 10px;
+                margin: 0 12px;
         `}</style>
     </footer>
 );
 
-const Header: React.FunctionComponent<navDetails> = ({ items }) => (
+const Header: React.FunctionComponent<NavItemsInterface> = ({ items }) => (
     <header className="header">
         <nav className="nav">
-            {items.map(navDetail => (
-                <ActiveLink href={navDetail.navLink} key={navDetail.navTitle}>
-                    {navDetail.navTitle}
+            {items.map(NavDetailInterface => (
+                <ActiveLink href={NavDetailInterface.navLink} key={NavDetailInterface.navTitle}>
+                    {NavDetailInterface.navTitle}
                 </ActiveLink>
-                // <Link href={{ pathname: navDetail.navLink, query: navDetail.navTitle }} key={navDetail.navTitle} >
-                //     <a className="nav-title">{navDetail.navTitle}</a>
+                // <Link href={{ pathname: NavDetailInterface.navLink, query: NavDetailInterface.navTitle }} key={NavDetailInterface.navTitle} >
+                //     <a className="nav-title">{NavDetailInterface.navTitle}</a>
                 // </Link>
             ))}
         </nav>
@@ -68,9 +70,9 @@ const Header: React.FunctionComponent<navDetails> = ({ items }) => (
     </header>
 );
 
-const Layout: React.FunctionComponent<Props> = ({
+const Layout: React.FunctionComponent<LayoutInterface> = ({
     children,
-    title = 'title',
+    title = 'title'
 }) => (
         <div>
             <Container>
