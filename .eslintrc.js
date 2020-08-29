@@ -2,6 +2,8 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser', // the TypeScript parser we installed earlier
   parserOptions: {
+    ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
+    sourceType: "module", // Allows for the use of imports
     ecmaFeatures: { jsx: true } // Allows for the parsing of JSX
   },
   extends: [
@@ -20,4 +22,5 @@ module.exports = {
     ],
     'react/prop-types': 'off', // We turn off prop-types rule, as we will use TypeScript's types instead.
   },
+  env: { "commonjs": true }
 };
