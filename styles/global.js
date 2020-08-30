@@ -6,6 +6,9 @@ export default css.global`
     padding: 0;
     font-family: "Muli", sans-serif;
   }
+  .custom-container {
+    margin: auto !important;
+  }
   .name-text {
     font-size: 3rem;
     font-weight: 800;
@@ -19,7 +22,8 @@ export default css.global`
     font-weight: 500;
   }
   .layout-body {
-    margin-top: 25px;
+    margin: 25px 0 100px 0;
+    height: 550px;
   }
   // .timeline-col:before {
   //     width: 100%;
@@ -31,10 +35,13 @@ export default css.global`
   //     height: 4px;
   //     content: "";
   // }
+  .timeline-col {
+    height: 100%;
+  }
   .timeline-col:after {
     width: 100%;
     left: 22px;
-    box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.1);
     position: absolute;
     height: 4px;
     content: "";
@@ -49,4 +56,7 @@ export default css.global`
   //     margin-top: -100px;
   //     position: relative;
   // }
+  .details-col {
+    height: 100%;
+  }
 `;

@@ -41,7 +41,6 @@ const Footer: React.FunctionComponent<Props> = ({ title }) => (
     <style jsx>{`
             .footer {
                 text-align: left;
-                position: fixed;
                 left: 0;
                 bottom: 0;
                 height: 30px;
@@ -85,7 +84,7 @@ const Layout: React.FunctionComponent<LayoutInterface> = ({
   title = "title",
 }) => (
   <div>
-    <Container>
+    <Container className="custom-container">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -97,7 +96,7 @@ const Layout: React.FunctionComponent<LayoutInterface> = ({
       </Head>
       <Header items={navItems}></Header>
       {children}
-      <Footer title="Build with Next.js"></Footer>
+      {/* <Footer title="Build with Next.js"></Footer> */}
     </Container>
     <style jsx global>
       {globalStyles}

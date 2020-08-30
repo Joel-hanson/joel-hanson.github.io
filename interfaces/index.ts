@@ -36,3 +36,12 @@ export type PitstopInterface = {
 export type TimelineInterface = {
   items: PitstopInterface[];
 };
+
+export type workInterface = {
+  month: string;
+  year: number;
+  title: string;
+  description: string;
+  github: string;
+  website: string;
+};

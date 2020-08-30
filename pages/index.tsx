@@ -27,7 +27,11 @@ const IndexPage: React.FunctionComponent = () => (
       </p>
     </LayoutHeader>
     <LayoutBody>
-      <Col>
+      <Col className="timeline-col">
+        <Timeline items={timelineItems}></Timeline>
+        {/* <div className="fade"></div> */}
+      </Col>
+      <Col className="details-col">
         <span className="detailed-description">
           Water is one of the most important substances that are needed for
           plants and animals. We cannot lead our day to day life without water.
@@ -37,10 +41,6 @@ const IndexPage: React.FunctionComponent = () => (
           cooking, cleaning, and washing and so on. We cannot imagine a life
           without water. Short descritiption
         </span>
-      </Col>
-      <Col className="timeline-col">
-        <Timeline items={timelineItems}></Timeline>
-        {/* <div className="fade"></div> */}
       </Col>
     </LayoutBody>
   </Layout>

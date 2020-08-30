@@ -56,7 +56,7 @@ const Timeline: React.FunctionComponent<TimelineInterface> = ({ items }) => (
       .timeline-container {
         position: relative;
         display: inline-block;
-        max-height: 500px;
+        height: inherit;
         overflow: auto;
       }
       ::-webkit-scrollbar {
