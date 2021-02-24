@@ -1,5 +1,4 @@
 name: Build-project
-
 on:
   push:
     branches:
@@ -28,6 +27,7 @@ jobs:
           else
             echo "no changes detected";
           fi
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
