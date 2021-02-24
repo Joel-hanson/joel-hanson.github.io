@@ -1,0 +1,35 @@
+name: Build-project
+
+on:
+  push:
+    branch: main
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run build
+        run: |
+        npm install
+        npm run build
+
+      - name: Commit files
+        run: |
+          git config --local user.email "joelhanson025@gmail.com"
+          git config --local user.name "github-actions[bot]"
+          if [ -n "$(git status --porcelain)" ]; then
+            date=$(date '+%Y-%m-%d %H:%M:%S')
+            git commit -m "Build file on `date +'%Y-%m-%d %H:%M:%S'`" -a
+          else
+            echo "no changes detected";
+          fi
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
