@@ -17,7 +17,7 @@ const IndexPage: React.FunctionComponent = () => (
     <LayoutHeader>
       <div className="center-layout-container">
         <div className="center-layout-image">
-          <img src="/images/profileIcon.jpg" alt="icon" className="profile-icon"/>
+          <img src="/images/profileIcon.jpg" alt="icon" className="profile-icon" />
         </div>
         <div className="center-layout-text">
           <p className="main-text">
@@ -32,7 +32,7 @@ const IndexPage: React.FunctionComponent = () => (
         </div>
         <div className="center-layout-link-container">
           {
-              socialItems.map((item, index) => (<SocialLink name={item.name} key={index} link={item.link} hoverColor={item.hoverColor} index={index}></SocialLink>))
+            socialItems.map((item, index) => (<SocialLink name={item.name} key={index} link={item.link} hoverColor={item.hoverColor} index={index}></SocialLink>))
           }
         </div>
       </div>
