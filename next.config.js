@@ -1,5 +1,4 @@
 module.exports = {
-  distDir: 'build',
   trailingSlash: true,
   exportPathMap: async function (
     defaultPathMap,
