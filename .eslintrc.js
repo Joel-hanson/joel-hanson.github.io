@@ -6,6 +6,7 @@ module.exports = {
     sourceType: "module", // Allows for the use of imports
     ecmaFeatures: { jsx: true } // Allows for the parsing of JSX
   },
+  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended', // eslint default rules
     'plugin:@typescript-eslint/eslint-recommended', // eslint TypeScript rules (github.com/typescript-eslint/typescript-eslint)
@@ -13,7 +14,6 @@ module.exports = {
     'plugin:react/recommended', // eslint react rules (github.com/yannickcr/eslint-plugin-react)
     "plugin:jsx-a11y/recommended", // accessibility plugin
 
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended'
   ],
   rules: {

@@ -5,11 +5,13 @@ export type Props = {
 export type RouterLinkInterface = {
   title?: string;
   href: string;
+  position: string;
 };
 
 export type NavDetailInterface = {
   navTitle: string;
   navLink: string;
+  navPosition: string;
 };
 
 export type NavItemsInterface = {
@@ -45,3 +47,10 @@ export type workInterface = {
   github: string;
   website: string;
 };
+
+export type SocialLinksInterface = {
+  name: string;
+  link: string;
+  hoverColor: string;
+  index?: number
+}

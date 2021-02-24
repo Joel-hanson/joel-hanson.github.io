@@ -2,14 +2,15 @@ import {
   NavDetailInterface,
   PitstopInterface,
   workInterface,
+  SocialLinksInterface,
 } from "../interfaces";
 
 /** The link details. */
 export const navItems: NavDetailInterface[] = [
-  { navTitle: "Home", navLink: "/" },
-  { navTitle: "Work", navLink: "/work" },
-  { navTitle: "Blogs", navLink: "/blogs" },
-  { navTitle: "Contact", navLink: "/contact" },
+  { navTitle: "Joel Hanson", navLink: "/", navPosition: "left" },
+  // { navTitle: "Work", navLink: "/work", navPosition: "right" },
+  // { navTitle: "Blogs", navLink: "/blogs", navPosition: "right" },
+  { navTitle: "Contact", navLink: "/contact", navPosition: "right" },
 ];
 
 export const timelineItems: PitstopInterface[] = [
@@ -117,3 +118,28 @@ export const workItems: workInterface[] = [
     website: "https://joel-hanson.github.io",
   },
 ];
+
+export const socialItems: SocialLinksInterface[] = [
+  {
+    "name": "GitHub",
+    "link": "https://github.com/joel-hanson",
+    "hoverColor": "#24292e"
+  },
+  {
+    "name": "Twitter",
+    "link": "https://twitter.com/joelhanson25",
+    "hoverColor": "#1DA1F2"
+  },
+  {
+    "name": "Medium",
+    "link": "https://medium.com/@Joelhanson25",
+    "hoverColor": "#24292e"
+  },
+  {
+    "name": "LinkedIn",
+    "link": "https://linkedin.com/in/joel-hanson/",
+    "hoverColor": "#2867B2"
+  },
+];
+
+export const MyEmail: string = "joel" + "hanson025" + "[at]" + "gmail.com";

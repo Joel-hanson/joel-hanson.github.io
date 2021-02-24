@@ -7,7 +7,6 @@ import {
   RouterLinkInterface,
   LayoutInterface,
 } from "../interfaces";
-import { Container } from "react-grid-system";
 import { useRouter } from "next/router";
 import globalStyles from "../styles/global.js";
 import { navItems } from "../utils/data";
@@ -15,12 +14,14 @@ import { navItems } from "../utils/data";
 const ActiveLink: React.FunctionComponent<RouterLinkInterface> = ({
   children,
   href,
+  position,
 }) => {
   const router = useRouter();
   const style = {
-    margin: "12px",
+    padding: "12px",
     color: router.pathname === (href || "") ? "#ef5350" : "#353535",
     textDecoration: "none",
+    fontSize: "var(--font-s)",
   };
 
   const handleClick = (e: { preventDefault: () => void }) => {
@@ -29,7 +30,7 @@ const ActiveLink: React.FunctionComponent<RouterLinkInterface> = ({
   };
 
   return (
-    <a href={href} onClick={handleClick} style={style}>
+    <a href={href} onClick={handleClick} style={style} className={position == "left" ? "nav-left" : ""}>
       {children}
     </a>
   );
@@ -53,27 +54,36 @@ const Footer: React.FunctionComponent<Props> = ({ title }) => (
 
 const Header: React.FunctionComponent<NavItemsInterface> = ({ items }) => (
   <header className="header">
-    <nav className="nav">
-      {items.map((NavDetailInterface) => (
-        <ActiveLink
-          href={NavDetailInterface.navLink}
-          key={NavDetailInterface.navTitle}
-        >
-          {NavDetailInterface.navTitle}
-        </ActiveLink>
-        // <Link href={{ pathname: NavDetailInterface.navLink, query: NavDetailInterface.navTitle }} key={NavDetailInterface.navTitle} >
-        //     <a className="nav-title">{NavDetailInterface.navTitle}</a>
-        // </Link>
-      ))}
-    </nav>
+    <div className="wrapper">
+        <nav className="container">
+          {items.map((navDetails) => (
+            <ActiveLink
+              href={navDetails.navLink}
+              key={navDetails.navTitle}
+              position={navDetails.navPosition}
+            >
+              {navDetails.navTitle}
+            </ActiveLink>
+            // <Link href={{ pathname: navDetails.navLink, query: navDetails.navTitle }} key={navDetails.navTitle} >
+            //     <a className="nav-title">{navDetails.navTitle}</a>
+            // </Link>
+          ))}
+        </nav>
+    </div>
     <style jsx>{`
       .header {
+        padding: 0.35rem 0;
+        position: fixed;
+        top: 0;
         width: 100%;
-        text-align: right;
-        height: 30px;
+        padding: 0.55rem 0;
+        backdrop-filter: blur(8px);
+        z-index: 10;
       }
-      .nav {
-        padding: 16px;
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
       }
     `}</style>
   </header>
@@ -84,7 +94,7 @@ const Layout: React.FunctionComponent<LayoutInterface> = ({
   title = "title",
 }) => (
   <div>
-    <Container className="custom-container">
+    <div className="custom-container">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -97,7 +107,7 @@ const Layout: React.FunctionComponent<LayoutInterface> = ({
       <Header items={navItems}></Header>
       {children}
       {/* <Footer title="Build with Next.js"></Footer> */}
-    </Container>
+    </div>
     <style jsx global>
       {globalStyles}
     </style>
