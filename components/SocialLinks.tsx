@@ -13,6 +13,7 @@ const SocialLink: React.FunctionComponent<SocialLinksInterface> = ({
         <style jsx>{`
         a {
             margin-left: ${index == 0 ? "" : "1.5rem"};
+            color: #ef5350;
         }
         a:hover {
             color: ${hoverColor};

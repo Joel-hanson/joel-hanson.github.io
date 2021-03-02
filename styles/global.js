@@ -1,16 +1,27 @@
 import css from "styled-jsx/css";
 
 export default css.global`
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateY(-50%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }  
   body {
     margin: 0;
     padding: 0;
-    font-family: "Muli", sans-serif;
+    font-family: "Mulish", sans-serif;
   }
   .custom-container {
     margin: auto !important;
   }
   .main-text {
     font-size: var(--font-m);
+    animation: .8s ease-in-out 0s 1 slideInFromLeft;
   }
   .name-text {
     font-size: 3rem;
@@ -95,6 +106,7 @@ export default css.global`
     background-repeat: no-repeat;
     text-shadow: .1em 0 var(--bg-primary-hex),-.1em 0 var(--bg-primary-hex);
     text-decoration: none;
+    animation: .8s ease-in-out 0s 1 slideInFromLeft;
   }
   // .timeline-col:before {
   //     width: 100%;
@@ -119,5 +131,6 @@ export default css.global`
     border-radius: 50%;
     width: 15%;
     height: 15%;
+    animation: .8s ease-in-out 0s 1 slideInFromLeft;
   }
 `;
