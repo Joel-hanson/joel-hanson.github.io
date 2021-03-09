@@ -130,7 +130,7 @@ export default css.global`
   .profile-icon {
     border-radius: 50%;
     width: 15%;
-    height: 15%;
+    height: auto;
     animation: .8s ease-in-out 0s 1 slideInFromLeft;
   }
 `;

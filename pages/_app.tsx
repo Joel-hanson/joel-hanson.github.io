@@ -17,8 +17,9 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src: url('/fonts/mulish-v3-latin-regular.eot'); /* IE9 Compat Modes */
-    src: local('Mulish'),
+    src: local(''),
         url('/fonts/mulish-v3-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
         url('/fonts/mulish-v3-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
         url('/fonts/mulish-v3-latin-regular.woff') format('woff'), /* Modern Browsers */
@@ -30,6 +31,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
+    font-display: swap;
     src: url('/fonts/mulish-v3-latin-700.eot'); /* IE9 Compat Modes */
     src: local(''),
         url('/fonts/mulish-v3-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */

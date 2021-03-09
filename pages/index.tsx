@@ -17,7 +17,7 @@ const IndexPage: React.FunctionComponent = () => (
     <LayoutHeader>
       <div className="center-layout-container">
         <div className="center-layout-image">
-          <img src="/images/profileIcon.jpg" alt="icon" className="profile-icon" />
+          <img src="/images/profileIcon.jpg" alt="icon" className="profile-icon" width="15%" height="15%" />
         </div>
         <div className="center-layout-text">
           <p className="main-text">
