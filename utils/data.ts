@@ -132,7 +132,7 @@ export const socialItems: SocialLinksInterface[] = [
   },
   {
     "name": "Medium",
-    "link": "https://medium.com/@Joelhanson25",
+    "link": "https://joel-hanson.medium.com/",
     "hoverColor": "#24292e"
   },
   {
