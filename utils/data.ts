@@ -10,7 +10,7 @@ export const navItems: NavDetailInterface[] = [
   { navTitle: "Joel Hanson", navLink: "/", navPosition: "left" },
   // { navTitle: "Work", navLink: "/work", navPosition: "right" },
   // { navTitle: "Blogs", navLink: "/blogs", navPosition: "right" },
-  { navTitle: "Contact", navLink: "/contact", navPosition: "right" },
+  { navTitle: "Email", navLink: "/contact", navPosition: "right" },
 ];
 
 export const timelineItems: PitstopInterface[] = [
@@ -140,6 +140,11 @@ export const socialItems: SocialLinksInterface[] = [
     "link": "https://linkedin.com/in/joel-hanson/",
     "hoverColor": "#2867B2"
   },
+  // {
+  //   "name": "Resume",
+  //   "link": "/files/Profile.pdf",
+  //   "hoverColor": "#2867B2"
+  // },
 ];
 
 export const MyEmail: string = "joel" + "hanson025" + "[at]" + "gmail.com";

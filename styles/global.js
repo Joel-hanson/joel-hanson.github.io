@@ -22,6 +22,7 @@ export default css.global`
   .main-text {
     font-size: var(--font-m);
     animation: .8s ease-in-out 0s 1 slideInFromLeft;
+    line-height: 1.7;
   }
   .name-text {
     font-size: 3rem;
