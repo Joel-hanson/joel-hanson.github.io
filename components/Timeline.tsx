@@ -14,7 +14,7 @@ const Pitstop: React.FunctionComponent<PitstopInterface> = ({
       month: "long",
       day: "numeric",
     };
-    const formatted_date = new Intl.DateTimeFormat("en-US", options).format(
+    const formatted_date = new Intl.DateTimeFormat("en-US").format(
       date
     );
     return formatted_date;

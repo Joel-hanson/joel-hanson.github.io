@@ -21,14 +21,20 @@ const IndexPage: React.FunctionComponent = () => (
         </div>
         <div className="center-layout-text">
           <p className="main-text">
-            Joel Hanson is a <b>Software Engineer / AI Engineer</b> in India. He creates intuitive and creative solutions with the best of his skills and knowledge.
-          </p>
-          <p className="main-text">
-            He currently works at {" "}
-            <Anchor link="https://impress.ai" color="#ff9502" background="#ffeac2">
+          My name is Joel Hanson, and I'm a <b>Software Engineer</b> at {" "}
+            <Anchor link="https://ibm.com" color="#0f62fe" background="#82cfff">
+            IBM
+            </Anchor>
+            {" "}right now. 
+            I formerly worked at <Anchor link="https://impress.ai" color="#ff9502" background="#ffeac2">
               impress.ai
-            </Anchor>.
+            </Anchor> as an <b>AI Engineer</b>. I'm now working on ways to make artificial intelligence (AI) more accessible to the general population.
           </p>
+
+            <p className="main-text">Please see my <Anchor link="/files/Profile.pdf" color="#E53935" background="#FFCDD2">
+              resume
+            </Anchor> if you want to learn more about me.
+            </p>
         </div>
         <div className="center-layout-link-container">
           {
