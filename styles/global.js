@@ -1,13 +1,13 @@
 import css from "styled-jsx/css";
 
 export default css.global`
-  @keyframes slideInFromLeft {
-    0% {
-      transform: translateY(-50%);
+  @keyframes slideInFromBottom {
+    from {
+      transform: translate3d(0, 40px, 0);
       opacity: 0;
     }
-    100% {
-      transform: translateY(0);
+    to {
+      transform: translate3d(0, 0, 0);
       opacity: 1;
     }
   }  
@@ -21,7 +21,7 @@ export default css.global`
   }
   .main-text {
     font-size: var(--font-m);
-    animation: .8s ease-in-out 0s 1 slideInFromLeft;
+    animation: .8s ease-in-out 0s 1 slideInFromBottom;
     line-height: 1.7;
   }
   .name-text {
@@ -107,7 +107,7 @@ export default css.global`
     background-repeat: no-repeat;
     text-shadow: .1em 0 var(--bg-primary-hex),-.1em 0 var(--bg-primary-hex);
     text-decoration: none;
-    animation: .8s ease-in-out 0s 1 slideInFromLeft;
+    animation: .8s ease-in-out 0s 1 slideInFromBottom;
   }
   // .timeline-col:before {
   //     width: 100%;
@@ -132,6 +132,6 @@ export default css.global`
     border-radius: 50%;
     width: 15%;
     height: auto;
-    animation: .8s ease-in-out 0s 1 slideInFromLeft;
+    animation: .8s ease-in-out 0s 1 slideInFromBottom;
   }
 `;
