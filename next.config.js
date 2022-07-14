@@ -9,4 +9,5 @@ module.exports = {
       "/contact": { page: "/contact" },
     };
   },
+  ignoreDuringBuilds: true,
 };
