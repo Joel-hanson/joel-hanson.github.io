@@ -8,12 +8,6 @@ const Pitstop: React.FunctionComponent<PitstopInterface> = ({
   description,
 }) => {
   const formatDate = (date: Date) => {
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
     const formatted_date = new Intl.DateTimeFormat("en-US").format(
       date
     );
