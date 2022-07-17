@@ -36,39 +36,40 @@ const ActiveLink: React.FunctionComponent<RouterLinkInterface> = ({
   );
 };
 
-const Footer: React.FunctionComponent<Props> = ({ title }) => (
-  <footer className="footer">
-    <span>{title}</span>
-    <style jsx>{`
-            .footer {
-                text-align: left;
-                left: 0;
-                bottom: 0;
-                height: 30px;
-                width: 100%;
-                font-size: 10px;
-                margin: 0 12px;
-        `}</style>
-  </footer>
-);
+// const Footer: React.FunctionComponent<Props> = ({ title }) => (
+//   <footer className="footer">
+//     <span>{title}</span>
+//     <style jsx>{`
+//         .footer {
+//             text-align: left;
+//             left: 0;
+//             bottom: 0;
+//             height: 30px;
+//             width: 100%;
+//             font-size: 10px;
+//             margin: 0 12px;
+//           }
+//     `}</style>
+//   </footer>
+// );
 
 const Header: React.FunctionComponent<NavItemsInterface> = ({ items }) => (
   <header className="header">
     <div className="wrapper">
-        <nav className="container">
-          {items.map((navDetails) => (
-            <ActiveLink
-              href={navDetails.navLink}
-              key={navDetails.navTitle}
-              position={navDetails.navPosition}
-            >
-              {navDetails.navTitle}
-            </ActiveLink>
-            // <Link href={{ pathname: navDetails.navLink, query: navDetails.navTitle }} key={navDetails.navTitle} >
-            //     <a className="nav-title">{navDetails.navTitle}</a>
-            // </Link>
-          ))}
-        </nav>
+      <nav className="container">
+        {items.map((navDetails) => (
+          <ActiveLink
+            href={navDetails.navLink}
+            key={navDetails.navTitle}
+            position={navDetails.navPosition}
+          >
+            {navDetails.navTitle}
+          </ActiveLink>
+          // <Link href={{ pathname: navDetails.navLink, query: navDetails.navTitle }} key={navDetails.navTitle} >
+          //     <a className="nav-title">{navDetails.navTitle}</a>
+          // </Link>
+        ))}
+      </nav>
     </div>
     <style jsx>{`
       .header {
@@ -105,8 +106,8 @@ const Layout: React.FunctionComponent<LayoutInterface> = ({
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
         <link rel="manifest" href="/images/site.webmanifest" />
         <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-        <link rel="preload" href="/fonts/mulish-v3-latin-regular.woff2" as="font" type="font/woff2" crossOrigin="true" /> 
-        <link rel="preload" href="/fonts/mulish-v3-latin-700.woff2" as="font" type="font/woff2" crossOrigin="true" /> 
+        <link rel="preload" href="/fonts/mulish-v3-latin-regular.woff2" as="font" type="font/woff2" crossOrigin="true" />
+        <link rel="preload" href="/fonts/mulish-v3-latin-700.woff2" as="font" type="font/woff2" crossOrigin="true" />
         <meta name="msapplication-TileColor" content="#ef5350" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
