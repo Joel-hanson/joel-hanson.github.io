@@ -1,7 +1,6 @@
 import * as React from "react";
 import Layout from "../components/Layout";
 import { withRouter } from "next/router";
-import { Col, Row } from "react-grid-system";
 import WorkCard from "../components/WorkCard";
 import { workItems } from "../utils/data";
 

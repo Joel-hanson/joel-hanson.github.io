@@ -1,14 +1,9 @@
 import * as React from "react";
 import Layout from "../components/Layout";
 import { withRouter } from "next/router";
-import { timelineItems } from "../utils/data";
 import Anchor from "../components/Anchor";
-import Timeline from "../components/Timeline";
 import LayoutHeader from "../components/LayoutHeader";
 import SocialLink from "../components/SocialLinks";
-import LayoutBody from "../components/LayoutBody";
-import { Col } from "react-grid-system";
-import styled from "styled-components";
 import { socialItems } from "../utils/data";
 
 
@@ -21,20 +16,20 @@ const IndexPage: React.FunctionComponent = () => (
         </div>
         <div className="center-layout-text">
           <p className="main-text">
-          My name is Joel Hanson, and I'm a <b>Software Engineer</b> at {" "}
+            My name is Joel Hanson, and I&lsquo;m a <b>Software Engineer</b> at {" "}
             <Anchor link="https://ibm.com" color="#0f62fe" background="#82cfff">
-            IBM
+              IBM
             </Anchor>
-            {" "}right now. 
+            {" "}right now.
             I formerly worked at <Anchor link="https://impress.ai" color="#ff9502" background="#ffeac2">
               impress.ai
-            </Anchor> as an <b>AI Engineer</b>. I'm now working on ways to make artificial intelligence (AI) more accessible to the general population.
+            </Anchor> as an <b>AI Engineer</b>. I&lsquo;m now working on ways to make artificial intelligence (AI) more accessible to the general population.
           </p>
 
-            <p className="main-text">Please see my <Anchor link="/files/Profile.pdf" color="#E53935" background="#FFCDD2">
-              resume
-            </Anchor> if you want to learn more about me.
-            </p>
+          <p className="main-text">Please see my <Anchor link="/files/Profile.pdf" color="#E53935" background="#FFCDD2">
+            resume
+          </Anchor> if you want to learn more about me.
+          </p>
         </div>
         <div className="center-layout-link-container">
           {

@@ -10,22 +10,22 @@ const CopyEmail: React.FunctionComponent<Props> = () => {
     padding: "12px",
     textDecoration: "none",
     fontSize: "var(--font-s)",
-    cursor: "pointer"
+    cursor: "pointer",
   };
 
   const handleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    let emailAddress = MyEmail;
+    const emailAddress = MyEmail;
     window.location.href = "mailto:" + emailAddress.replace("[at]", "@");
   };
 
   return (
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <a onClick={handleClick} style={style}>
       {MyEmail}
     </a>
   );
 };
-
 
 const ContactPage: React.FunctionComponent = () => (
   <Layout title="Contact | JoelHanson">
