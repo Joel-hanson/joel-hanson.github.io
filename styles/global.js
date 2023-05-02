@@ -73,7 +73,7 @@ export default css.global`
   }
   .center-layout-text {
     margin-top: 1rem;
-    max-width: 538px;
+    max-width: 100%;
     justify-self: end;
   }
   .center-layout-link-container {
