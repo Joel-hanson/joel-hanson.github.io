@@ -1,0 +1,205 @@
+\documentclass[a4paper,20pt]{article}
+\usepackage{fontspec}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[pdftex]{hyperref}
+\usepackage{fancyhdr}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.530in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.45in}
+\addtolength{\textheight}{1in}
+
+\urlstyle{rm}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\fontsize{10}{12}{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeItemSingle}[1]{
+  \item\fontsize{10}{12}{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeItemWithoutTitle}[1]{
+  \item\fontsize{10}{12}{
+    {\vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{#3} & \textit{#4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-3pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-----------------------------
+%%%%%%  CV STARTS HERE  %%%%%%
+
+\begin{document}
+    \setmainfont{Arial}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{{\LARGE Joel Hanson}} & \href{mailto:}{joelhanson025@gmail.com}\\
+  \href{https://github.com/joel-hanson/joel-hanson.github.io}{github.com/joel-hanson/joel-hanson.github.io} & ~~~+91-815-6978-004 \\
+  \href{https://github.com/joel-hanson}{github.com/joel-hanson} & Kerala, India \\
+\end{tabular*}
+
+\section{Summary}
+    % Innovative software engineer with 5+ years of experience. 
+  \fontsize{10}{12}{
+    {Software Engineer with 5+ years of experience building scaling complex distributed systems, and various cloud products. Eager to switch roles at IBM to help develop fascinating solutions as a research engineer.  In the past, I teamed with platform infrastructure teams, data scientists, and machine learning engineers to create reliable, scalable, and user-friendly platforms that significantly increased ML-Ops velocity across the organization. worked with four startups to create products with extensive machine learning, micro-services, and container-driven architecture. \vspace{-2pt}}
+  }
+
+\section{Skills}
+\resumeSubHeadingListStart
+	\resumeSubItem{Languages}{Python, JavaScript, SQL, Bash, JAVA, Go, C, C++}
+	\resumeSubItem{Frameworks}{Django, Flask, Pandas, SQLAlchemy, FastAPI, Celery, NodeJS}
+	\resumeSubItem{Tools}{Docker, Kubernetes, Openshift, GIT, PostgreSQL, Operators in Kubernetes}
+% 	\resumeSubItem{Platforms}{~~~~~~~Linux, Web, Windows, Arduino, Raspberry, AWS, GCP, Alibaba Cloud, IBM Cloud}
+% 	\resumeSubItem{Soft Skills}{~~~~~~~Leadership, Event Management, Writing, Public Speaking, Time Management}
+
+\resumeSubHeadingListEnd
+\vspace{-5pt}
+\section{Work Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading{IBM - International Business Machines}{}
+    {Software Engineer }{August 2021 - Present}
+    \resumeItemListStart
+        \resumeItem
+        {IBM Event Streams - Apache Kafka for the enterprise}{Engineered innovative cloud architecture to gather billions of events while keeping contemporary information security in mind and partnering with open-source project Strimzi Apache Kafka on Kubernetes.}
+        \vspace{2pt}
+        \resumeItem
+        {Gateway For Events - Component to capture analytical insights}{A proxy microservice was incorporated to monitor events and provide broad analytical insights. This is a one-of-a-kind gateway feature that is integrated into event-based products to gather information from events and deliver a 360-degree view.}
+        % \vspace{2pt}
+        % \resumeItem
+        % {Kafka Bridge Integration - RESTful interface to interact with Kafka cluster}{Integrated a scalable micro service to communicate with Kafka cluster.}
+        \vspace{2pt}
+        \resumeItem
+        {Kubernetes Ephemeral Storage Management}{Introduced code changes to add limits and requests for ephemeral storage to Kubernetes pod containers. At least 4 client complaints about the eviction of container pods decreased after the deployment.}
+        % \vspace{2pt}
+        % \resumeItem
+        % {Vulnerability management}{Slashed security vulnerabilities by an average of 90\% for all clients.}
+        \vspace{2pt}
+        \resumeItem
+        {Jenkins Nightly Pipeline}{To maintain a healthy codebase, more than 15 Jenkins components were designed to run as a nightly routine.}
+        \vspace{2pt}
+        \resumeItem
+        {Mentoring And Leadership}{Educated and mentored 6 candidates for the future generation of developers, IT professionals, and CIOs in collaboration with two academic institutions.}
+        \vspace{2pt}
+        \resumeItem
+        {Skills} {IBM Cloud, Kubernetes, Docker, Kubernetes Operators, Kafka, Java, GoLang, Openshift, Jenkins and Bash.}
+    \resumeItemListEnd
+% \vspace{-5pt}
+    \resumeSubheading
+    {Impress.ai}{Start-Up}
+    {AI Engineer / Software Engineer}{September 2018 - August 2021}
+    \resumeItemListStart
+        \resumeItem
+        {Automated Candidate Evaluation - Chatbot-based pipeline for applicant assessment}{Developed and oversaw the design and implementation of the project to use machine learning to evaluate candidates. This was employed by one of Singapore's renowned schools to cut the time needed to assess more than 4,000 applications from 470 hours to only 2 hours.}
+        \vspace{2pt}
+        \resumeItem
+        {Automated Data Migration - Moving client assets from the user acceptance testing platform to production using ETL methods}{Reduced the time required for releasing the product by 90\% using a tool to automate the process of moving required data from one server to another.}
+        \vspace{2pt}
+        \resumeItem
+        {Refactoring And Unit Testing}{The platform was reorganized to offer considerable improvements, and unit tests were added to cover the platform's key areas, increasing test coverage from 4\% to 29\%.}
+        \vspace{2pt}
+        \resumeItem
+        {Skills}{Microservices, Functional Programming, Head First Design Patterns, Clean Code, Numpy, Celery, Pandas, Pytorch, Machine Learning Model Deployment, ML Model Training Pipeline, and Data cleaning was also carried out, custom CI/CD in GitHub Actions, CircleCI, and Agile methodology}
+    \resumeItemListEnd
+
+% \vspace{-5pt}
+    \resumeSubheading
+    {Travidux Technologies}{Start-Up}
+    {Software Engineer}{October 2017 - September 2018}
+    \resumeItemListStart
+        \resumeItem
+        {Booking Platform}{Created an online travel booking portal with the collaboration of Kerala Tourism Development Cooperation(KTDC). Furthermore, a secure payment gateway for the application was integrated}
+        \vspace{2pt}
+        \resumeItem
+        {Source Code Management And CI/CD Pipelines}{Restructured 3 projects to have version control using git and implemented process to deploy websites from locally hosted GitLab having continuous integration with code style checks.}
+        \vspace{2pt}
+        \resumeItem
+        {Skills}{Python, Django, Flask, Git, Angular 2+, Digital ocean, CI/CD processes using Gitlab runners, PostgreSQL, SQL, SQLAlchemy, MongoDB, NodeJS and ExpressJS, etc...}
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------------
+\vspace{-5pt}
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Calicut University \scriptsize{(Sahrdaya College of Engineering)}}{Kerala, India}
+      {Bachelor of Technology - Computer Science And Engineering;}{June 2013 – June 2017}
+      {}
+    %   {\scriptsize \textit{ \footnotesize{\newline{}\textbf{Courses:} Operating Systems, Data Structures, Analysis Of Algorithms, Artificial Intelligence, Machine Learning, Networking, Databases}}}
+    \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+\vspace{-5pt}
+\section{Projects}
+\resumeSubHeadingListStart
+\resumeSubItem{Webservice for Pycaret AutoML}{An AutoML RESTful API web application to run classification, and regression on structured data. Bring about a central ML model store with versioning to collaboratively manage the full lifecycle of an ML model. Also has advanced features like deploying models using Kubernetes API. Tech: Python, Azure Cloud, Celery, Redis, Pandas, Numpy, Scipy, Docker. - (January 2022)}
+\vspace{2pt}
+\resumeSubItem{Health Informatics (OCR, NLP: Entity Recognition and Relation extraction, Neo4j and Elasticsearch.)}{Patient journey and treatment and disease patterns based on health care data. Tech: Python, Neo4j, FastAPI, Celery, Redis, Docker, MicroServices - (November 2021)}
+\vspace{2pt}
+\resumeSubItem{Large Scale ETL Pipeline}{Large scale ETL pipeline to extract it from a huge file and transform it to a suitable format and load it to Redshift. It was able to scale the processing of files having a size of more than 10GB. Python, SQL, AWS S3, Lambda Functions, Redshift, Bash - (July 2021)}
+\vspace{2pt}
+\resumeSubItem{Autonomize.ai (Healthcare data insights at scale)}{Process millions of files to automate the process of extracting medical data from reports and make it searchable. Tech: Elasticsearch, Python, AWS Lambda, SQS, SNS, AWS Glue, Opensearch(Elasticsearch, Kibana), Typescript, Cloudformation, CDK - (Aug 21)}
+\vspace{2pt}
+% \resumeSubItem{Search Engine and Social Network(Web Development, Web Crawler, Search)}{Created from scratch a social network and a search engine based on the idea of integrating Facebook and Google. The launched website was among top 1000 websites in India during 2012-2013. Tech: PHP, MySQL, HTML, CSS, Web Sockets, JavaScript, RSS, XML ( May '12)}
+\resumeSubHeadingListEnd
+
+%-----------Publications-----------------
+\vspace{-5pt}
+\section{Publications}
+\resumeSubHeadingListStart
+    \resumeSubItem{Survey On Image Processing Based Plant Leaf Disease Detection (2016)}{A survey was conducted on some of the existing image processing methods for leaf disease detection and looked into some of the common machine learning methods.}
+    \vspace{2pt}
+    \resumeSubItem{Plant Leaf Disease Detection Using Deep Learning And Convolutional Neural Network (2017)}{A solution to solve this using transfer learning. We came up with a production-ready web application to detect diseases from plant leaf images.}
+\resumeSubHeadingListEnd
+\vspace{-5pt}
+\end{document}
