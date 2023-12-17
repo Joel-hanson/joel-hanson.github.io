@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /files/
+
+Sitemap: https://www.joel-hanson.github.com/sitemap.xml

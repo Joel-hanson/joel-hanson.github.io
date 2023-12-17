@@ -1,0 +1,173 @@
+baseURL: https://joel-hanson.github.io/
+languageCode: en-us
+title: Joel Hanson
+theme: 'PaperMod'
+paginate: 5
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+taxonomies:
+  # category: categories
+  tag: tags
+
+related:
+  includeNewer: true
+  indices:
+  # - name: categories
+  #   weight: 40
+  - name: tags
+    weight: 60
+  threshold: 90
+  toLower: false
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Joel Hanson
+  description: "Joel Hanson"
+  keywords: [Blog, Portfolio, PaperMod]
+  author: Joel Hanson
+  # author: ["Me", "You"] # multiple authors
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: true
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+  searchHidden: false
+
+  assets:
+    disableHLJS: false # to disable highlight.js
+    disableFingerprinting: false
+    favicon: "/images/favicon.ico"
+    favicon16x16: "/images/favicon-16x16.png"
+    favicon32x32: "/images/favicon-32x32.png"
+    apple_touch_icon: "/images/apple-touch-icon.png"
+    safari_pinned_tab: "/images/android-chrome-512x512.png"
+
+  label:
+    text: "Joel Hanson"
+    # icon: /images/apple-touch-icon.png
+    # iconHeight: 24
+
+  # profile-mode
+  profileMode:
+    enabled: false # needs to be explicitly set
+    title: Joel Hanson
+    subtitle: >
+      Hey there! I’m Joel Hanson, a Software Engineer at IBM, currently immersed in leveraging event streams for a smarter use of data. My past role was as an AI Engineer at impress.ai. Now, my focus is on making AI more user-friendly for everyone. Specifically, I’m diving into real-time machine learning, transitioning from batch to stream processing, and evolving architectures from request-driven to event-driven for a more dynamic AI world.
+
+      I share insights about my journey as a software engineer, constantly learning something new each day about my work and life.
+    imageUrl: "/images/profile.jpg"
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: Profile Photo
+    buttons:
+      - name: Posts
+        url: posts
+      - name: Tags
+        url: tags
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Hey there \U0001F44B"
+    Content: |
+      Hey there! I’m Joel Hanson, a Software Engineer at IBM, currently immersed in leveraging event streams for a smarter use of data. 
+      &#13;&#10;
+      My past role was as an AI Engineer at impress.ai. Now, my focus is on making AI more user-friendly for everyone. Specifically, I’m diving into real-time machine learning, transitioning from batch to stream processing, and evolving architectures from request-driven to event-driven for a more dynamic AI world.
+  socialIcons:
+    - name: github
+      url: "https://github.com/Joel-hanson"
+    - name: linkedin
+      url: "https://linkedin.com/in/joel-hanson/"
+    - name: medium
+      url: "https://joel-hanson.medium.com/"
+    - name: twitter
+      url: "https://twitter.com/joelhanson25"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: false # hide on single page
+
+  editPost:
+    URL: "https://github.com/Joel-hanson/joel-hanson.github.io/blob/main/content"
+    Text: "Suggest Changes" # edit text
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    # - identifier: categories
+    #   name: Categories
+    #   url: /categories/
+    #   weight: 10
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 30
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 40
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 50
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    style: catppuccin-mocha
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary

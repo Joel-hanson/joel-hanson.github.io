@@ -1,0 +1,6 @@
+body {
+    font-family: 'Fira Code', monospace;
+    line-height: 1.6;
+    word-break: break-word;
+    background: var(--theme);
+}
