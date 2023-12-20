@@ -170,6 +170,75 @@ static PyObject *read_csv_file(PyObject *self, PyObject *args) {
 
 This implementation ensures that the CSV reader is resilient to different error conditions, providing informative error messages and handling memory allocation issues gracefully.
 
+## Python Setup and Running the Code
+
+Now, let's go through the steps to set up your Python environment and run the CSV reader module:
+
+A `setup.py` file is typically used in Python projects to provide metadata about the project and to specify the packaging details. For a Python extension module written in C, the `setuptools` library can be used to simplify the packaging process.
+
+Here's a basic `setup.py` file for the CSV reader module:
+
+```python
+from setuptools import setup, Extension
+
+# Define the extension module
+customcsv_module = Extension(
+    'customcsv',  # Name of the module
+    sources=['customcsv.c'],  # C source file
+)
+
+# Setup information
+setup(
+    name='customcsv',
+    version='1.0',
+    description='Custom CSV reader in C with Python integration',
+    ext_modules=[customcsv_module],
+)
+```
+
+Save this file as `setup.py` in the same directory as your C code (`customcsv.c`). This `setup.py` file specifies the name of the extension module (`customcsv`) and the source file (`customcsv.c`). The `setuptools.setup` function is then used to provide metadata about the project.
+
+To build and install the module, follow these steps:
+
+1. Open a terminal and navigate to the directory containing `setup.py` and `customcsv.c`.
+
+1. Run the following command to build the extension module:
+
+    ```bash
+    python setup.py build_ext --inplace
+    ```
+
+    This command uses `setuptools` to build the extension module and places the compiled `customcsv.so` (or `customcsv.pyd` on Windows) in the current directory.
+
+1. After a successful build, you can import the module in Python scripts as shown in the previous example.
+
+```python
+# reader.py
+import customcsv
+
+file_path = "example.csv"  # Replace with your CSV file path
+result = customcsv.read_csv_file(file_path)
+
+print(result)
+```
+
+1. Run your Python script:
+
+    ```bash
+    python reader.py
+    ```
+
+1. System-wide Installation (Optional)
+If you want to install the module system-wide, use the following command:
+
+```bash
+python setup.py install
+```
+
+After running this command, the compiled module will be placed in the site-packages directory of your Python installation, making it accessible to all Python scripts on your system.
+
+This setup allows for a more standardized and manageable packaging and distribution of your C extension module with Python. Adjust the `setup.py` file according to your project's specific details and requirements.
+
 ## Conclusion
 
 In this blog post, we've walked through the process of creating a CSV reader in C, integrated with Python using the CPython API. The reader is equipped with robust error handling to handle various scenarios, making it a reliable tool for working with CSV files.
