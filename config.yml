@@ -10,7 +10,6 @@ buildFuture: false
 buildExpired: false
 
 googleAnalytics: G-L6SPMXG29J
-
 minify:
   disableXML: true
   minifyOutput: true
@@ -60,11 +59,11 @@ params:
   assets:
     disableHLJS: false # to disable highlight.js
     disableFingerprinting: false
-    favicon: "/images/favicon.ico"
-    favicon16x16: "/images/favicon-16x16.png"
-    favicon32x32: "/images/favicon-32x32.png"
-    apple_touch_icon: "/images/apple-touch-icon.png"
-    safari_pinned_tab: "/images/android-chrome-512x512.png"
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+    safari_pinned_tab: "/android-chrome-512x512.png"
 
   label:
     text: "Joel Hanson"
