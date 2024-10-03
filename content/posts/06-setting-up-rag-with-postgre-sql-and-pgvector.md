@@ -42,7 +42,7 @@ Let's start by creating a supercharged PostgreSQL image with the pgvector extens
 mkdir postgres-pgvector && cd postgres-pgvector
 ```
 
-1. Create a file named `Dockerfile` with the following content:
+2. Create a file named `Dockerfile` with the following content:
 
 ```dockerfile
 FROM postgres:14
@@ -70,13 +70,13 @@ RUN apt-get remove -y build-essential git postgresql-server-dev-14 && \
 RUN echo "CREATE EXTENSION vector;" > /docker-entrypoint-initdb.d/init.sql
 ```
 
-1. Build the Docker image:
+3. Build the Docker image:
 
 ```bash
 docker build -t postgres-pgvector .
 ```
 
-1. Run the container:
+4. Run the container:
 
 ```bash
 docker run -d --name postgres-vector -p 5432:5432 postgres-pgvector
