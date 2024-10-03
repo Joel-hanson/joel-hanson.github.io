@@ -70,13 +70,13 @@ RUN apt-get remove -y build-essential git postgresql-server-dev-14 && \
 RUN echo "CREATE EXTENSION vector;" > /docker-entrypoint-initdb.d/init.sql
 ```
 
-1. Build the Docker image:
+2. Build the Docker image:
 
 ```bash
 docker build -t postgres-pgvector .
 ```
 
-1. Run the container:
+3. Run the container:
 
 ```bash
 docker run -d --name postgres-vector -p 5432:5432 postgres-pgvector
