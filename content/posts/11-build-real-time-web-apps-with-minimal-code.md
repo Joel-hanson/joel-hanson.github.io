@@ -32,6 +32,8 @@ I've created a demonstration repository that shows just how easy it is to implem
 - Updates the dashboard in real-time
 - Uses less than 50 lines of Python code
 
+![sse-stream project UI](/images/sse-stream.png "sse stream project UI")
+
 #### Key Components
 
 - Flask for the backend
