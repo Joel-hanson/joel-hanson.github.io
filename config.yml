@@ -2,7 +2,7 @@ baseURL: https://joel-hanson.github.io/
 languageCode: en-us
 title: Joel Hanson
 theme: 'PaperMod'
-paginate: 5
+paginate: 10
 
 enableRobotsTXT: true
 buildDrafts: false
@@ -40,7 +40,7 @@ params:
   disableThemeToggle: false
 
   ShowReadingTime: true
-  ShowShareButtons: false
+  ShowShareButtons: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
