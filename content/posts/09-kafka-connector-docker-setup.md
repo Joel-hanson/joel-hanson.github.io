@@ -6,7 +6,7 @@ draft: false
 
 In this tutorial, we'll walk through the process of setting up a Kafka connector using Docker and docker-compose.yml. We'll focus on configuring a file connector, which is useful for reading data from files and writing data to files using Kafka.
 
-REPO: <https://github.com/Joel-hanson/kafka-connector-docker-setup>
+> #### *[Link to repository](https://github.com/Joel-hanson/kafka-connector-docker-setup)*
 
 ## Prerequisites
 
@@ -60,6 +60,7 @@ services:
       CONNECT_PLUGIN_PATH: "/opt/kafka/plugins"
     volumes:
       - ./data:/data
+      - ./custom-plugins:/opt/kafka/custom-plugin
 ```
 
 The `connect` service is built from our custom Dockerfile and depends on the `kafka` service. We've set up environment variables to configure Kafka Connect, including the bootstrap servers, storage topics, and converters.
