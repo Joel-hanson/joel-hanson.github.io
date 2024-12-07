@@ -3,7 +3,7 @@ title: "Server-Sent Events: Build Real-Time Web Apps with Minimal Code"
 date: 2024-12-07T21:19:08+05:30
 ShowToc: true
 TocOpen: false
-summary: "This blog post explores online machine learning through a practical example using the CIFAR10 dataset and Apache Kafka."
+summary: "In this technical deep-dive, we unravel the power of Server-Sent Events (SSE), a game-changing web technology that simplifies real-time communication. Developers often struggle with complex, resource-intensive methods for creating live updates, but SSE offers an elegant solution that's both lightweight and powerful."
 draft: false
 ---
 
