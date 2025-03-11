@@ -12,10 +12,12 @@ Here’s the correct configuration:
 
 ```properties
 # Define the predicate to detect tombstone records (i.e., records with null values)
+
 predicates=dropTombstone
 predicates.dropTombstone.type=org.apache.kafka.connect.transforms.predicates.RecordIsTombstone
 
 # Configure the Filter transformation to drop records that match the predicate
+
 transforms=dropTombstone
 transforms.dropTombstone.type=org.apache.kafka.connect.transforms.Filter
 transforms.dropTombstone.predicate=dropTombstone
@@ -39,7 +41,7 @@ The **Filter** SMT is configured to drop any record for which the predicate eval
 1. The `dropTombstone` predicate detects tombstone records (null values) in Kafka topics.
 2. The **Filter** SMT is configured to drop any record where the predicate evaluates to `true`, effectively filtering out tombstone records.
 
-![Filtering Tombstone Records in Kafka Connect](/images/tombstone-smt.jpg "Filtering Tombstone Records in Kafka Connect")
+![Filtering Tombstone Records in Kafka Connect](/images/tombstone-smt.png "Filtering Tombstone Records in Kafka Connect")
 
 This setup aligns with the Kafka Connect documentation on predicates and transformations, allowing you to handle tombstone records effectively in your data pipeline.
 
