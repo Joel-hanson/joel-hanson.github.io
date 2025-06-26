@@ -19,16 +19,16 @@ Ever wished you could talk to your Kafka cluster using natural language—or cal
 
 In this guide you’ll learn how to setup a MCP server to do the following:
 
-* 🔍 List Kafka topics
-* ➕ Create & delete topics
-* 📤 Produce messages
-* 🛠️ Troubleshoot issues via a free‑form prompt
+* List Kafka topics
+* Create & delete topics
+* Produce messages
+* Troubleshoot issues via a free‑form prompt
 
-🔗 **Try it out & contribute:** [GitHub Repo](https://github.com/Joel-hanson/kafka-mcp-server)
+**Try it out & contribute:** [GitHub Repo](https://github.com/Joel-hanson/kafka-mcp-server)
 
 ---
 
-## 🛠️ Project Setup
+## Project Setup
 
 ```bash
 git clone https://github.com/joel-hanson/kafka-mcp-server.git
@@ -51,7 +51,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📂 File Structure
+## File Structure
 
 ```file
 kafka-mcp-server/
@@ -72,7 +72,7 @@ kafka-mcp-server/
 
 ---
 
-## 🚀 Defining Your Tools
+## Defining Your Tools
 
 ### 1. Initialize & Connect
 
@@ -87,9 +87,9 @@ def kafka_initialize_connection(path: str) -> str:
     try:
         manager = KafkaManager.from_properties(path)
         ctx.request_context.lifespan_context.kafka_manager = manager
-        return "✅ Connected to Kafka cluster."
+        return "Connected to Kafka cluster."
     except Exception as e:
-        return f"❌ Connection failed: {e}"
+        return f"Connection failed: {e}"
 ```
 
 ### 2. List Topics (rich example)
@@ -173,23 +173,54 @@ def kafka_produce(topic: str, message: str) -> str:
 
 ---
 
-## 🔧 Running & Debugging
+## Quick Start
 
-* **Dev Mode with Inspector**
+### 1. Clone & Set Up
 
-  ```bash
-  mcp dev server.py
-  ```
+```bash
+git clone https://github.com/joel-hanson/kafka-mcp-server.git
+cd kafka-mcp-server
 
-  Opens the MCP Inspector UI—browse tools, read docstrings, send test prompts, view raw JSON.
+conda create -n kafka-mcp python=3.10 -y
+conda activate kafka-mcp
+pip install -r requirements.txt
+```
 
-* **Running the server**
+### 2. Start Kafka with Docker (Recommended)
 
-  ```bash
-  python server.py
-  ```
+Before running your MCP server, bring up a local Kafka cluster:
+
+```bash
+docker compose up -d
+```
+
+This starts a Kafka broker on `localhost:9092`. You can now use the `kafka.properties` file to connect.
+
+```properties
+bootstrap.servers=localhost:9092
+client.id=kafka-mcp-client
+```
+
+### 3. Running the MCP Server
+
+#### Option 1: Dev mode with Inspector (Recommended)
+
+```bash
+mcp dev server.py
+```
+
+This launches the server with the **MCP Inspector**, a GUI for exploring tools and prompts.
+
+#### Option 2: Headless
+
+```bash
+python server.py
+```
 
 Sprinkle `logging.debug(...)` in your tool functions to trace errors in real time.
+
+**Why use Docker Compose?**
+It gives you a reliable, reproducible Kafka environment for local development—no need to install Kafka manually.
 
 ---
 
@@ -237,7 +268,7 @@ Sprinkle `logging.debug(...)` in your tool functions to trace errors in real tim
 
 ---
 
-## 🔗 Integrating with Claude Desktop
+## Integrating with Claude Desktop
 
 **Configure** `claude_desktop_config.json`:
 
@@ -256,7 +287,7 @@ Now Claude will auto‑discover and surface your new Kafka tools.
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### 1. Listing available tools  
 
@@ -288,9 +319,7 @@ Now Claude will auto‑discover and surface your new Kafka tools.
 
 ---
 
----
-
-## 📚 Final Thoughts
+## Final Thoughts
 
 You’ve just transformed your Kafka cluster into a first‑class, LLM‑driven API—ideal for internal dev‑tools, rapid troubleshooting, or even exposing safe, controlled access to non‑Kafka experts. Next up:
 
