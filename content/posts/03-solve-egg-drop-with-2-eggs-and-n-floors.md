@@ -154,3 +154,7 @@ print("The breaking point is at or below floor:", result)
 - <https://leetcode.com/problems/egg-drop-with-2-eggs-and-n-floors/description/>
 - <https://www.youtube.com/watch?v=NGtt7GJ1uiM&t=1s&pp=ygUPdHdvIGVnZyBwcm9ibGVt>
 - <https://frontendmasters.com/courses/algorithms/>
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

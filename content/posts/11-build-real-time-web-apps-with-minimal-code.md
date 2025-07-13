@@ -19,10 +19,10 @@ SSE is a lightweight, browser-supported technology that allows a web page to rec
 
 ### Why SSE?
 
-- 🚀 **Simplicity**: Just a few lines of code
-- 📡 **One-way communication**: Perfect for live feeds, notifications, and real-time dashboards
-- 🌐 **Native browser support**: No additional libraries required
-- 💡 **Lightweight**: Less overhead compared to WebSockets
+- **Simplicity**: Just a few lines of code
+- **One-way communication**: Perfect for live feeds, notifications, and real-time dashboards
+- **Native browser support**: No additional libraries required
+- **Lightweight**: Less overhead compared to WebSockets
 
 ### A Practical Example: System Resource Monitor
 
@@ -69,8 +69,10 @@ Dive into the code, experiment, and discover how simple real-time web applicatio
 - Real-time updates don't need to be complicated
 - A few lines of code can create powerful, live applications
 
-**Happy Coding!** 🚀👩‍💻👨‍💻
+**Happy Coding!**
 
 ---
 
-*Pro Tip: SSE is perfect for scenarios like live feeds, stock tickers, system monitors, and more!*
+> *Pro Tip: SSE is perfect for scenarios like live feeds, stock tickers, system monitors, and more!*
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

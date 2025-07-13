@@ -244,3 +244,7 @@ This setup allows for a more standardized and manageable packaging and distribut
 In this blog post, we've walked through the process of creating a CSV reader in C, integrated with Python using the CPython API. The reader is equipped with robust error handling to handle various scenarios, making it a reliable tool for working with CSV files.
 
 Feel free to experiment with the code, and explore further improvements and optimizations based on your specific use cases. The complete source code is available on [GitHub](https://github.com/Joel-hanson/custom-csv-module).
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

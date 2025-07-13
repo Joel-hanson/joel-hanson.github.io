@@ -129,3 +129,7 @@ Note the important `print.null.value=true` parameter that ensures null values ar
 Creating tombstone records from the Kafka console producer is straightforward with the null marker feature. This powerful capability lets you easily manage data deletion in compacted topics directly from the command line, making development and operational tasks much simpler.
 
 Next time you need to clean up data in a compacted topic, remember this pattern—it's a clean, standard way to handle data removal in the Kafka ecosystem.
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

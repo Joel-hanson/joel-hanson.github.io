@@ -179,3 +179,7 @@ echo "The square of $Number is: $Square"
 ```bash
 ./square_calculator.sh -n 5
 ```
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

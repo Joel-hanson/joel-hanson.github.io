@@ -27,93 +27,123 @@ At its core, 'find' is a command-line utility designed to search for files and d
 Let's dive into some practical examples to illustrate the diverse functionality of 'find':
 
 1. **Basic File Search**:
+
    ```
    find /path/to/search -name "filename"
    ```
+
    This command searches for a file named "filename" within the specified directory (/path/to/search) and its subdirectories.
 
 2. **Search by File Type**:
+
    ```
    find /path/to/search -type f
    ```
+
    Restricts the search to only files, excluding directories and other types of files like symbolic links.
 
 3. **Search by File Size**:
+
    ```
    find /path/to/search -size +10M
    ```
+
    Finds files larger than 10 megabytes within the specified directory.
 
 4. **Combining Criteria**:
+
    ```
    find /path/to/search -name "*.txt" -size +1M
    ```
+
    Searches for text files larger than 1 megabyte.
 
 5. **Execute Commands on Found Files**:
+
    ```
    find /path/to/search -type f -exec chmod 644 {} \;
    ```
+
    Changes the permission of all files within the specified directory to read/write for the owner and read-only for others.
 
 6. **Search by Modification Time**:
+
    ```
    find /path/to/search -mtime -7
    ```
+
    Locates files modified within the last 7 days.
 
 7. **Search by Ownership**:
+
    ```
    find /path/to/search -user username
    ```
+
    Finds files owned by a specific user.
 
 8. **Search by Permissions**:
+
    ```
    find /path/to/search -perm 644
    ```
+
    Locates files with specific permissions set.
 
 9. **Search and Delete**:
+
    ```
    find /path/to/search -type f -name "*.tmp" -delete
    ```
+
    Deletes all files with a .tmp extension within the specified directory.
 
 10. **Search and Archive**:
+
     ```
     find /path/to/search -type f -name "*.log" -exec tar -czvf logs_archive.tar.gz {} +
     ```
+
     Archives all log files within the specified directory into a single compressed tarball.
 
 11. **Search and Count Files**:
+
     ```
     find /path/to/search -type f | wc -l
     ```
+
     Counts the number of files within the specified directory and its subdirectories.
 
 12. **Search for Empty Files or Directories**:
+
     ```
     find /path/to/search -empty
     ```
+
     Finds empty files or directories within the specified directory.
 
 13. **Search and Copy Files**:
+
     ```
     find /path/to/search -name "*.txt" -exec cp {} /destination/path \;
     ```
+
     Copies all text files within the specified directory to another location.
 
 14. **Search for Setuid/Setgid Files**:
+
     ```
     find /path/to/search -type f \( -perm -4000 -o -perm -2000 \)
     ```
+
     Locates files with the setuid or setgid bit set, which can pose security risks.
 
 15. **Search and Execute Commands Interactively**:
+
     ```
     find /path/to/search -type f -execdir vi {} \;
     ```
+
     Opens each file found by 'find' in the vi text editor for interactive editing.
 
 ## Tricks
@@ -127,6 +157,7 @@ find /path/to/search -type f -name "*.txt" -print0 | xargs -0 grep "search_strin
 ```
 
 Here's what this command does:
+
 - `find /path/to/search -type f -name "*.txt"`: Searches for all files with a ".txt" extension within the specified directory and its subdirectories.
 - `-print0`: Prints the file names with a null character at the end of each name. This ensures compatibility with filenames containing spaces or special characters.
 - `xargs -0 grep "search_string"`: Takes the list of file names produced by 'find' and passes them as arguments to the 'grep' command, which then searches for the specified string ("search_string") within each file.
@@ -142,6 +173,7 @@ find /path/to/search -type f -name "*.tmp" -delete
 ```
 
 Here's what this command does:
+
 - `find /path/to/search -type f -name "*.tmp"`: Searches for all files with a ".tmp" extension within the specified directory and its subdirectories.
 - `-delete`: Deletes each file found by the 'find' command.
 
@@ -193,7 +225,10 @@ Here are some useful aliases for the 'find' command:
 
 These aliases provide shortcuts for common 'find' command tasks, making it easier and quicker to perform file searches and manipulations in the terminal. Adjust them to suit your specific needs and preferences.
 
-## Conclusion:
+## Conclusion
 
 The 'find' command offers a plethora of options and predicates, allowing users to tailor their searches with precision. By mastering 'find', you unlock a powerful tool for navigating, searching, and managing files in Unix-based systems. Experimentation and practice are key to fully harnessing its capabilities, but once you do, you'll wonder how you ever managed without it. Happy searching!
 
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

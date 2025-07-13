@@ -108,3 +108,7 @@ This would make cross-posting **completely hands-off!**
 If you’re a **Markdown writer** who also publishes on Medium, this tool can **save you hours**. No more manual reformatting—just **write once, publish everywhere.**  
 
 🔗 **Try it out & contribute:** [GitHub Repo](https://github.com/Joel-hanson/markdown2medium)
+
+---
+
+_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joel-hanson.github.io/posts/)_

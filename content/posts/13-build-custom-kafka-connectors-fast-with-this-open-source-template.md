@@ -46,7 +46,7 @@ Instead of cloning and manually renaming everything, you can use the **GitHub Te
    - Update your `pom.xml` with any new dependencies
    - Customize Docker configs and connector configs in `/config`
 
-> 🧠 Tip: Don’t forget to replace package names (`com.example.kafka.connect`) with your own!
+> Tip: Don’t forget to replace package names (`com.example.kafka.connect`) with your own!
 
 ### Why Use This Template?
 
@@ -67,7 +67,7 @@ This template includes:
 - **Maven** for dependency management  
 - **GitHub Actions** for automated testing
 
-📁 **Directory Layout:**
+**Directory Layout:**
 
 ```text
 kafka-connector-template/
@@ -114,9 +114,9 @@ docker exec -it kafka kafka-console-consumer.sh \
   --topic example-source-topic
 ```
 
-### 🧩 Building Your Own Connector
+### Building Your Own Connector
 
-### 🔌 Implementing a Source Connector
+### Implementing a Source Connector
 
 A **source connector** pulls data from external systems into Kafka.
 
@@ -148,7 +148,7 @@ public class MySourceConnector extends SourceConnector {
 }
 ```
 
-### 📥 Implementing a Sink Connector
+### Implementing a Sink Connector
 
 A **sink connector** moves data from Kafka to an external system.
 
@@ -268,5 +268,18 @@ Want to improve the template or report a bug?
 
 - [Kafka Connect Documentation](https://kafka.apache.org/documentation/#connect)
 
-⭐ **Star the template** → [github.com/Joel-hanson/kafka-connector-template](https://github.com/Joel-hanson/kafka-connector-template)  
-🐞 **Submit issues** → Help improve this for the whole Kafka community!
+**Star the template** → [github.com/Joel-hanson/kafka-connector-template](https://github.com/Joel-hanson/kafka-connector-template)  
+
+---
+
+## What's Next? Level Up Your Testing Game
+
+> **Follow-up Reading:** I've written a comprehensive follow-up post on how to automate integration testing for Kafka connectors, which complements this template perfectly.
+>
+> **[Mastering Integration Testing for Kafka Connectors: A Complete Guide](https://joel-hanson.github.io/posts/mastering-integration-testing-for-kafka-connectors-a-complete-guide/)**
+>
+> Learn how to build robust test suites that catch bugs before they hit production!
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*
