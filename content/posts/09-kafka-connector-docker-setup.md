@@ -287,6 +287,8 @@ Remember to check the documentation of any custom connectors you add, as they ma
 
 In this tutorial, we've walked through the process of setting up Kafka and Kafka Connect using Docker and docker-compose.yml. We've also demonstrated how to configure file source and sink connectors. This setup provides a flexible foundation for building data pipelines with Kafka, allowing you to easily connect various data sources and sinks to your Kafka cluster.
 
+For a more comprehensive approach to Kafka connector development, including extensive integration testing with TestContainers, check out our [Kafka Connector Template](https://github.com/Joel-hanson/kafka-connector-template) which includes a complete testing framework based on proven patterns from production connectors.
+
 Remember to monitor your connectors and Kafka cluster for performance and adjust configurations as needed for your specific use case.
 
 ---

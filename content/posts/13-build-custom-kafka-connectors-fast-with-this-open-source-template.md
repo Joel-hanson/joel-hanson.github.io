@@ -54,8 +54,10 @@ Building a Kafka connector from scratch can take days or even weeks. This open-s
 
 ✅ Skip complex setup – Docker, Kafka (KRaft), and CI/CD are preconfigured  
 ✅ Focus on logic – Just implement your business-specific code  
-✅ Test confidently – Comes with ready-to-run test suites  
+✅ Test confidently – Comes with comprehensive integration tests using TestContainers  
 ✅ Go production – Includes Docker health checks, error handling patterns, and more
+
+The project includes extensive integration tests using TestContainers that verify end-to-end functionality with real Kafka infrastructure. These tests are based on the testing framework from the [Aiven JDBC Connector for Apache Kafka](https://github.com/Aiven-Open/jdbc-connector-for-apache-kafka), providing a proven foundation for reliable connector testing.
 
 ### Tech Stack & Project Structure
 
@@ -199,10 +201,18 @@ docker-compose up -d
 mvn test
 ```
 
+#### Run Integration Tests
+
+```bash
+mvn verify
+```
+
 The template includes:
 
 - Validation of connector configs
 - Sample source/sink connector tests
+- Comprehensive integration tests with TestContainers
+- End-to-end functionality verification with real Kafka clusters
 
 ### **Deploying the Connector via REST API**
 
