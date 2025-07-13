@@ -207,3 +207,7 @@ Congratulations! You've just built a RAG system that can:
 This system forms the foundation for creating intelligent chatbots, question-answering systems, and other AI applications that can tap into specific knowledge bases.
 
 Happy coding!
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

@@ -527,3 +527,7 @@ A few more handy aliases for special tasks:
 Git aliases can save you a ton of time and keystrokes, making your workflow smoother and more enjoyable. Try adding these to your `~/.gitconfig` and watch your productivity soar! 🌟
 
 Happy coding, and may your commits be clean and your merges conflict-free! 💻✨
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

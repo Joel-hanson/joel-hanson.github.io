@@ -120,3 +120,7 @@ In this blog post, we demonstrated how to set up a Kafka cluster without Zookeep
 Please refer to the official docker [page](https://hub.docker.com/r/apache/kafka) for more detailed information.
 
 Feel free to experiment with this setup and adjust the configuration for your specific use case!
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

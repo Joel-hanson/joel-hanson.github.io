@@ -317,4 +317,8 @@ By extending our initial real-time prediction system to include true online lear
 
 Remember that implementing online learning in production environments comes with its own set of challenges, including ensuring data quality, managing computational resources, and monitoring model performance. Always thoroughly test and validate your online learning system before deploying it in critical applications.
 
-As you continue to explore online machine learning, consider diving deeper into topics like concept drift, incremental learning algorithms, and techniques for efficiently managing and updating models in distributed systems.
+As you continue to explore online machine learning, consider diving deeper into topics like concept drift, incremental learning algorithms, and techniques for efficiently managing and updating models in distributed systems
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

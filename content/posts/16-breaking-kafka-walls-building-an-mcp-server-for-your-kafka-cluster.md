@@ -329,3 +329,8 @@ You’ve just transformed your Kafka cluster into a first‑class, LLM‑driven 
 * ACLs, security hardening, and multi‑tenant isolation
 
 Feel free to fork, extend, and contribute back at [https://github.com/Joel-hanson/kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server). Happy building!
+
+---
+
+*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*
+*For more on MCP and LLM integration, check out the [MCP documentation](https://modelcontextprotocol.github.io/python-sdk/)*
