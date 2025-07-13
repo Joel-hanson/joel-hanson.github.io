@@ -13,7 +13,7 @@ showtoc: true
 🔗 **GitHub Repository**: [github.com/Joel-hanson/kafka-connector-template](https://github.com/Joel-hanson/kafka-connector-template)  
 ⭐ **Star the repo** to stay updated!
 
-In the [first part of this series](https://joel-hanson.github.io/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), we explored how an open-source Kafka Connector Template accelerates connector development. Now, let’s tackle a critical next step: **writing integration tests** to ensure your connector works flawlessly in real-world scenarios. I recently enhanced the template with a testing framework ([see PR #1](https://github.com/Joel-hanson/kafka-connector-template/pull/1/files)), and here’s how you can leverage it.
+In the [first part of this series](https://joel-hanson.github.io/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), we explored how an open-source Kafka Connector Template accelerates connector development. Now, let's tackle a critical next step: **writing integration tests** to ensure your connector works flawlessly in real-world scenarios. I recently enhanced the template with a testing framework ([see PR #1](https://github.com/Joel-hanson/kafka-connector-template/pull/1/files)), and here's how you can leverage it.
 
 *Building on our [Kafka Connector Template](https://joel-hanson.github.io/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), this post dives deep into integration testing - the crucial but often overlooked aspect of connector development.*
 
@@ -22,6 +22,8 @@ In the [first part of this series](https://joel-hanson.github.io/posts/13-build-
 The mental model for integration testing in Kafka Connect is to validate the end-to-end functionality of your connectors. This means testing how your connector interacts with a real Kafka cluster, ensuring it can produce and consume messages, handle errors, and manage configurations correctly.
 
 The whole setup is designed to run integration tests against a real Kafka cluster using TestContainers, which provides a lightweight and isolated environment for testing. This allows you to focus on writing tests that validate your connector's functionality without worrying about the underlying infrastructure.
+
+**Testing Framework Foundation**: The integration testing framework in our template is based on the robust testing approach from the [Aiven JDBC Connector for Apache Kafka](https://github.com/Aiven-Open/jdbc-connector-for-apache-kafka). This proven foundation provides battle-tested patterns for Kafka Connect integration testing, including TestContainers setup, embedded Connect runtime, and comprehensive test utilities. I have adapted and enhanced these patterns to create a reusable testing framework that works with any custom connector.
 
 The integration test starts off with the AbstractIT.java class, which serves as the foundation for our integration tests and provides the necessary infrastructure for running tests against a real Kafka cluster. The ConnectRunner.java class is where the magic happens - it creates an embedded Kafka Connect runtime for testing. It also manages the lifecycle of connectors, allowing us to focus on writing tests without worrying about the underlying infrastructure.
 
