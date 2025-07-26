@@ -19,10 +19,10 @@ Ever wished you could talk to your Kafka cluster using natural language—or cal
 
 In this guide you’ll learn how to setup a MCP server to do the following:
 
-* List Kafka topics
-* Create & delete topics
-* Produce messages
-* Troubleshoot issues via a free‑form prompt
+- List Kafka topics
+- Create & delete topics
+- Produce messages
+- Troubleshoot issues via a free‑form prompt
 
 **Try it out & contribute:** [GitHub Repo](https://github.com/Joel-hanson/kafka-mcp-server)
 
@@ -44,10 +44,10 @@ pip install -r requirements.txt
 
 **Requirements:**
 
-* Python 3.10+
-* A running Kafka broker (e.g. `localhost:9092`; you can `docker compose up` a quick cluster)
-* MCP CLI tools (`mcp[cli]`) and `kafka-python`
-* Optional: Claude Desktop or any MCP‑compatible LLM client
+- Python 3.10+
+- A running Kafka broker (e.g. `localhost:9092`; you can `docker compose up` a quick cluster)
+- MCP CLI tools (`mcp[cli]`) and `kafka-python`
+- Optional: Claude Desktop or any MCP‑compatible LLM client
 
 ---
 
@@ -62,13 +62,14 @@ kafka-mcp-server/
 └── README.md
 ```
 
-* **`server.py`** – your main MCP server. Decorate functions with
+- **`server.py`** – your main MCP server. Decorate functions with
 
-  * `@mcp.tool()` for command‑style operations,
-  * `@mcp.resource()` for raw JSON endpoints,
-  * `@mcp.prompt()` for free‑form guidance.
-* **`kafka_utils.py`** – handles parsing `kafka.properties`, instantiates and caches your KafkaAdminClient/Producer/Consumer, and stores it on `lifespan_context.kafka_manager`.
-* – contains `KAFKA_TROUBLESHOOTING_GUIDE`, a templated Markdown guide you plug into your `@prompt()`.
+  - `@mcp.tool()` for command‑style operations,
+  - `@mcp.resource()` for raw JSON endpoints,
+  - `@mcp.prompt()` for free‑form guidance.
+
+- **`kafka_utils.py`** – handles parsing `kafka.properties`, instantiates and caches your KafkaAdminClient/Producer/Consumer, and stores it on `lifespan_context.kafka_manager`.
+- – contains `KAFKA_TROUBLESHOOTING_GUIDE`, a templated Markdown guide you plug into your `@prompt()`.
 
 ---
 
@@ -272,16 +273,16 @@ It gives you a reliable, reproducible Kafka environment for local development—
 
 **Configure** `claude_desktop_config.json`:
 
-   ```json
-   {
-     "mcpServers": {
-       "Kafka MCP Server": {
-         "command": "/opt/miniconda3/envs/kafka-mcp/bin/python",
-         "args": ["server.py"]
-       }
-     }
-   }
-   ```
+```json
+{
+  "mcpServers": {
+    "Kafka MCP Server": {
+      "command": "/opt/miniconda3/envs/kafka-mcp/bin/python",
+      "args": ["server.py"]
+    }
+  }
+}
+```
 
 Now Claude will auto‑discover and surface your new Kafka tools.
 
@@ -289,33 +290,33 @@ Now Claude will auto‑discover and surface your new Kafka tools.
 
 ## Screenshots
 
-### 1. Listing available tools  
+### 1. Listing available tools
 
-![Listing tools](/images/kafka-mcp-server/list_tools.png "Listing tools")
+![Listing tools](/images/16-kafka-mcp-server/list_tools.png "Listing tools")
 
-### 2. Connecting to the Kafka cluster  
+### 2. Connecting to the Kafka cluster
 
-![Connecting to kafka cluster](/images/kafka-mcp-server/initialize_connection.png "Connecting to Kafka cluster")
+![Connecting to kafka cluster](/images/16-kafka-mcp-server/initialize_connection.png "Connecting to Kafka cluster")
 
-### 3. Listing topics  
+### 3. Listing topics
 
-![Listing topics](/images/kafka-mcp-server/list_topics.png "Listing topics")
+![Listing topics](/images/16-kafka-mcp-server/list_topics.png "Listing topics")
 
-### 4. Deleting a topic  
+### 4. Deleting a topic
 
-![Deleting topics](/images/kafka-mcp-server/delete_topic.png "Deleting topics")
+![Deleting topics](/images/16-kafka-mcp-server/delete_topic.png "Deleting topics")
 
-### 5. Detailed topic information  
+### 5. Detailed topic information
 
-![Listing detailed topics information](/images/kafka-mcp-server/list_detailed_topic_info.png "Listing detailed topic info")
+![Listing detailed topics information](/images/16-kafka-mcp-server/list_detailed_topic_info.png "Listing detailed topic info")
 
-### 6. Producing messages  
+### 6. Producing messages
 
-![Producer messages](/images/kafka-mcp-server/produce_messages.png "Producing messages")
+![Producer messages](/images/16-kafka-mcp-server/produce_messages.png "Producing messages")
 
-### 7. Consuming messages via shell  
+### 7. Consuming messages via shell
 
-![Consumer messages via shell](/images/kafka-mcp-server/consume_messages_shell.png "Consuming messages via shell")
+![Consumer messages via shell](/images/16-kafka-mcp-server/consume_messages_shell.png "Consuming messages via shell")
 
 ---
 
@@ -323,14 +324,14 @@ Now Claude will auto‑discover and surface your new Kafka tools.
 
 You’ve just transformed your Kafka cluster into a first‑class, LLM‑driven API—ideal for internal dev‑tools, rapid troubleshooting, or even exposing safe, controlled access to non‑Kafka experts. Next up:
 
-* Schema Registry & Avro/JSON serialization
-* Consumer group and offset‑management tools
-* Cluster‑wide metrics & health checks
-* ACLs, security hardening, and multi‑tenant isolation
+- Schema Registry & Avro/JSON serialization
+- Consumer group and offset‑management tools
+- Cluster‑wide metrics & health checks
+- ACLs, security hardening, and multi‑tenant isolation
 
 Feel free to fork, extend, and contribute back at [https://github.com/Joel-hanson/kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server). Happy building!
 
 ---
 
-*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*
-*For more on MCP and LLM integration, check out the [MCP documentation](https://modelcontextprotocol.github.io/python-sdk/)*
+_For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)_
+_For more on MCP and LLM integration, check out the [MCP documentation](https://modelcontextprotocol.github.io/python-sdk/)_
