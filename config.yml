@@ -21,10 +21,10 @@ taxonomies:
 related:
   includeNewer: true
   indices:
-  # - name: categories
-  #   weight: 40
-  - name: tags
-    weight: 60
+    # - name: categories
+    #   weight: 40
+    - name: tags
+      weight: 60
   threshold: 90
   toLower: false
 
@@ -166,7 +166,7 @@ markup:
     style: srcery
 
 outputs:
-    home:
-        - HTML
-        - RSS
-        - JSON # is necessary
+  home:
+    - HTML
+    - RSS
+    - JSON  # is necessary
