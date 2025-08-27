@@ -2,11 +2,31 @@
 title: "SSE Kafka Connector: Stream Real-time Events into Kafka"
 date: 2025-08-27T21:15:47+05:30
 draft: false
-tags: ["Kafka", "SSE", "Connector", "Open Source", "Java"]
+tags:
+  [
+    "Kafka",
+    "SSE",
+    "Connector",
+    "Open Source",
+    "Java",
+    "Real-time Data",
+    "Event Streaming",
+  ]
 categories: ["Apache Kafka", "Data Streaming"]
 author: "Joel Hanson"
-showToc: true
-TocOpen: true
+description: "Learn how to stream Wikipedia changes, GitHub events, and financial data into Kafka using this open-source SSE Kafka Connector - no custom code required."
+keywords:
+  [
+    "Server-Sent Events",
+    "Kafka Connect",
+    "SSE Connector",
+    "Real-time data pipeline",
+    "Kafka streaming",
+    "Event-driven architecture",
+    "Wikipedia streaming",
+    "GitHub events",
+    "Open source connector",
+  ]
 ---
 
 ## The Problem: Getting Real-time Data into Kafka
