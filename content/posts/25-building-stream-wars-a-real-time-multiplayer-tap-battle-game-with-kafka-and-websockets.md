@@ -35,6 +35,9 @@ I started **Stream Wars** as a demo project to explain how **Kafka** works using
 
 Instead of having a producer script send fake JSON into a topic, every tap in the browser becomes a **real event** that flows through Kafka, Redis, and back to the UI in real time.
 
+![Stream Wars](/images/25-stream-wars/stream-wars.png)
+*Stream Wars - a simple game to explain Kafka*
+
 ## Why I Built It
 
 The goal was to show three things:
