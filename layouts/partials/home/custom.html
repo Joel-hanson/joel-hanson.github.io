@@ -39,6 +39,22 @@
   </div>
 {{ end }}
 
+{{ if .Site.Params.homepage.showRecent | default false }}
+  <section class="w-full">
+    <h2 class="terminal-section-title">~/posts</h2>
+    {{ if and .Site.Params.homepage.cardView (not .Site.Params.homepage.cardViewScreenWidth) | default false }}
+      {{ partial "recent-articles/cardview.html" . }}
+    {{ else }}
+      {{ partial "recent-articles/list.html" . }}
+    {{ end }}
+    {{ if .Site.Params.homepage.showMoreLink | default false }}
+      <div class="terminal-links mt-8" style="margin-bottom: 2.5rem;">
+        <a href="{{ (.Site.Params.homepage.showMoreLinkDest | default "/posts/") | relLangURL }}">[all posts →]</a>
+      </div>
+    {{ end }}
+  </section>
+{{ end }}
+
 {{ if $personalFeatured }}
   <h2 class="terminal-section-title">~/projects/personal</h2>
   <p class="project-group-blurb">Side apps and smaller tools.</p>
@@ -53,20 +69,4 @@
   <div class="terminal-links" style="margin-top: -0.25rem; margin-bottom: 2.5rem;">
     <a href="{{ "projects" | relLangURL }}">[all projects →]</a>
   </div>
-{{ end }}
-
-{{ if .Site.Params.homepage.showRecent | default false }}
-  <section class="w-full">
-    <h2 class="terminal-section-title">~/posts</h2>
-    {{ if and .Site.Params.homepage.cardView (not .Site.Params.homepage.cardViewScreenWidth) | default false }}
-      {{ partial "recent-articles/cardview.html" . }}
-    {{ else }}
-      {{ partial "recent-articles/list.html" . }}
-    {{ end }}
-    {{ if .Site.Params.homepage.showMoreLink | default false }}
-      <div class="terminal-links mt-8">
-        <a href="{{ (.Site.Params.homepage.showMoreLinkDest | default "/posts/") | relLangURL }}">[all posts →]</a>
-      </div>
-    {{ end }}
-  </section>
 {{ end }}

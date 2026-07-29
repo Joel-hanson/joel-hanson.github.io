@@ -307,11 +307,16 @@ article h1,
   letter-spacing: -0.02em;
 }
 
-/* —— Shorter card / hero images (width unchanged) —— */
+/* —— Card / hero images ——
+ * Don't pair aspect-ratio with max-height: when the card is wider than
+ * height×ratio, the box shrinks horizontally and leaves a gap on the right.
+ * Fixed height + object-cover keeps images full-bleed. */
 .thumbnail_card,
 .thumbnail_card_related {
-  aspect-ratio: var(--thumbnail-aspect-ratio, 2.4);
-  max-height: 140px;
+  width: 100%;
+  height: 140px;
+  aspect-ratio: auto;
+  max-height: none;
 }
 
 .thumbnail_card img,
