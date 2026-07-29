@@ -4,6 +4,7 @@ date: 2025-04-26
 draft: false
 featured: true
 weight: 5
+category: "personal"
 demoUrl: "https://markdown2medium.vercel.app/"
 summary: "Convert Hugo-friendly Markdown into Medium-ready posts with a live preview and one-click copy."
 tags: ["Side Project", "Markdown", "Medium", "Tooling"]

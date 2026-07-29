@@ -4,6 +4,7 @@ date: 2026-06-06
 draft: false
 featured: true
 weight: 4
+category: "platform"
 summary: "Shrink Kafka integer payloads with a compact encoding library for Java/Kafka apps."
 tags: ["Kafka", "Java", "Encoding"]
 ---

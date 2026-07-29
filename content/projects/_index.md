@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-description: "Open-source tools, demos, and side projects."
+description: "Platform and open-source work — plus a few personal side apps."
 cascade:
   showReadingTime: false
   showWordCount: false
@@ -8,5 +8,4 @@ cascade:
   showTaxonomies: true
 ---
 
-Side projects and open-source work — live apps, MCP servers, Kafka tooling, upstream contributions, and demos from the blog.
-
+Platform & open-source work (Kafka, MCP, connectors, demos) first; personal apps and lighter side tools below.

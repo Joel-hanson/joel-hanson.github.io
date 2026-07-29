@@ -13,9 +13,36 @@
     {{ $pages = .Pages }}
   {{ end }}
 
-  <div class="project-grid">
-    {{ range $pages }}
-      {{ partial "project-card.html" . }}
-    {{ end }}
-  </div>
+  {{ $platform := where $pages "Params.category" "platform" }}
+  {{ $personal := where $pages "Params.category" "personal" }}
+  {{ $other := where $pages "Params.category" nil }}
+
+  {{ if $platform }}
+    <h2 class="terminal-section-title">~/projects/platform</h2>
+    <p class="project-group-blurb">Kafka, MCP, connectors, streaming demos, and open-source tooling.</p>
+    <div class="project-grid">
+      {{ range $platform }}
+        {{ partial "project-card.html" . }}
+      {{ end }}
+    </div>
+  {{ end }}
+
+  {{ if $personal }}
+    <h2 class="terminal-section-title">~/projects/personal</h2>
+    <p class="project-group-blurb">Smaller apps and side tools — useful, personal, not the hiring brief.</p>
+    <div class="project-grid">
+      {{ range $personal }}
+        {{ partial "project-card.html" . }}
+      {{ end }}
+    </div>
+  {{ end }}
+
+  {{ if $other }}
+    <h2 class="terminal-section-title">~/projects</h2>
+    <div class="project-grid">
+      {{ range $other }}
+        {{ partial "project-card.html" . }}
+      {{ end }}
+    </div>
+  {{ end }}
 {{ end }}

@@ -4,6 +4,7 @@ date: 2025-09-15
 draft: false
 featured: false
 weight: 16
+category: "platform"
 summary: "Compare Celery-style async tasks in Django with Restate durable execution on the same workload."
 tags: ["Side Project", "Django", "Restate", "Celery"]
 ---

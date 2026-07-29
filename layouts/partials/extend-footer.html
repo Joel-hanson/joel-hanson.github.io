@@ -1,0 +1,10 @@
+{{/* Register the portfolio service worker (production builds only). */}}
+{{ if hugo.IsProduction }}
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("{{ "sw.js" | relURL }}").catch(function () {});
+    });
+  }
+</script>
+{{ end }}

@@ -4,6 +4,7 @@ date: 2024-12-07
 draft: false
 featured: false
 weight: 13
+category: "platform"
 summary: "Minimal Server-Sent Events demo — a live CPU/RAM dashboard with almost no client code."
 tags: ["Side Project", "SSE", "Python", "Demo"]
 ---

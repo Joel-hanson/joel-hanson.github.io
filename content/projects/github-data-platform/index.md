@@ -4,6 +4,7 @@ date: 2025-05-01
 draft: false
 featured: false
 weight: 13
+category: "platform"
 demoUrl: "https://joel-hanson.github.io/weather-api-project/"
 summary: "Turn GitHub Actions + Pages into a free scrape-and-serve data API — template and weather example."
 tags: ["Side Project", "GitHub Actions", "API", "Automation"]

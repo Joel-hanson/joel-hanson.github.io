@@ -156,6 +156,13 @@ article .prose,
   border-bottom: 1px solid rgb(var(--color-neutral-200));
 }
 
+.project-group-blurb {
+  margin: -0.75rem 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: rgb(var(--color-neutral-500));
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -257,6 +264,10 @@ article .prose,
 .dark .terminal-section-title {
   color: var(--archie-primary);
   border-bottom-color: rgb(var(--color-neutral-700));
+}
+
+.dark .project-group-blurb {
+  color: rgb(var(--color-neutral-400));
 }
 
 .dark .project-card {

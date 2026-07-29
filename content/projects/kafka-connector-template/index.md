@@ -4,6 +4,7 @@ date: 2025-04-14
 draft: false
 featured: true
 weight: 6
+category: "platform"
 summary: "Production-ready Kafka Connect template with Testcontainers integration tests."
 tags: ["Kafka Connect", "Java", "Testing"]
 ---

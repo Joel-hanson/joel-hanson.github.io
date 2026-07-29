@@ -5,7 +5,7 @@
   </p>
   <h1 class="terminal-brand">Joel Hanson</h1>
   <p class="terminal-role">
-    Software Engineer at IBM — event streams, Kafka, AI tooling, and open-source side projects.
+    Software Engineer at IBM Event Streams — Kafka, Kubernetes operators, and AI tooling.
     Sharing what I build and learn.
   </p>
   <div class="terminal-links">
@@ -14,6 +14,7 @@
     <a href="{{ "about" | relLangURL }}">[about]</a>
     <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer">[github]</a>
     <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer">[linkedin]</a>
+    <a href="https://joel-hanson.medium.com/" target="_blank" rel="noopener noreferrer">[medium]</a>
   </div>
 </section>
 
@@ -22,16 +23,33 @@
 {{ if not $featured }}
   {{ $featured = first 8 $projects }}
 {{ else }}
-  {{ $featured = first 12 (sort $featured "Weight" "asc") }}
+  {{ $featured = sort $featured "Weight" "asc" }}
 {{ end }}
 
-{{ if $featured }}
-  <h2 class="terminal-section-title">~/projects</h2>
+{{ $platformFeatured := where $featured "Params.category" "platform" }}
+{{ $personalFeatured := where $featured "Params.category" "personal" }}
+
+{{ if $platformFeatured }}
+  <h2 class="terminal-section-title">~/projects/platform</h2>
+  <p class="project-group-blurb">Kafka, MCP, connectors, and open-source tooling.</p>
   <div class="project-grid">
-    {{ range $featured }}
+    {{ range first 10 $platformFeatured }}
       {{ partial "project-card.html" . }}
     {{ end }}
   </div>
+{{ end }}
+
+{{ if $personalFeatured }}
+  <h2 class="terminal-section-title">~/projects/personal</h2>
+  <p class="project-group-blurb">Side apps and smaller tools.</p>
+  <div class="project-grid">
+    {{ range $personalFeatured }}
+      {{ partial "project-card.html" . }}
+    {{ end }}
+  </div>
+{{ end }}
+
+{{ if or $platformFeatured $personalFeatured }}
   <div class="terminal-links" style="margin-top: -0.25rem; margin-bottom: 2.5rem;">
     <a href="{{ "projects" | relLangURL }}">[all projects →]</a>
   </div>

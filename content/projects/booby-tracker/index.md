@@ -4,6 +4,7 @@ date: 2025-06-07
 draft: false
 featured: true
 weight: 10
+category: "personal"
 demoUrl: "https://joel-hanson.github.io/booby-tracker/"
 summary: "Home-screen PWA for nursing/feeding logs, built and shipped on GitHub Pages."
 tags: ["Side Project", "PWA", "Frontend", "GitHub Pages"]

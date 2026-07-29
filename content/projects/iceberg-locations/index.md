@@ -4,6 +4,7 @@ date: 2025-05-01
 draft: false
 featured: true
 weight: 7
+category: "personal"
 demoUrl: "https://joel-hanson.github.io/Iceberg-locations/output/iceberg_map.html"
 summary: "Real-time iceberg monitoring with NASA data, automated pipelines, and GitHub as a data platform."
 tags: ["Side Project", "Data", "NASA", "GitHub Actions", "Python"]
