@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <header class="mb-6">
+    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/projects</h1>
+    {{ with .Content }}
+      <div class="terminal-role" style="margin-bottom: 1.5rem;">
+        {{ . | plainify }}
+      </div>
+    {{ end }}
+  </header>
+
+  {{ $pages := .Pages.ByWeight }}
+  {{ if not $pages }}
+    {{ $pages = .Pages }}
+  {{ end }}
+
+  <div class="project-grid">
+    {{ range $pages }}
+      {{ partial "project-card.html" . }}
+    {{ end }}
+  </div>
+{{ end }}

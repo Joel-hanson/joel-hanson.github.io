@@ -1,0 +1,19 @@
+{{/* Hash-style taxonomy links for post cards — max 4, then +N */}}
+{{ $context := . }}
+{{ with $context }}
+  {{ if .Params.showTaxonomies | default (.Site.Params.article.showTaxonomies | default false) }}
+    {{ $tags := .GetTerms "tags" }}
+    {{ if $tags }}
+      {{ $limit := 4 }}
+      {{ $total := len $tags }}
+      <div class="article-card-tags">
+        {{ range first $limit $tags }}
+          <a class="article-card-tag" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>
+        {{ end }}
+        {{ if gt $total $limit }}
+          <span class="article-card-tag-more" aria-hidden="true">+{{ sub $total $limit }}</span>
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}

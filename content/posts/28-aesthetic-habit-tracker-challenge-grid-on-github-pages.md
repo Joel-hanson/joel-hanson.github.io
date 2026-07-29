@@ -15,12 +15,11 @@ categories:
   - Side Projects
 author: "Joel Hanson"
 description: "A clean, challenge-based habit tracker with local storage, printable exports, and free GitHub Pages hosting."
-cover:
-  image: "/images/28-habit-tracker/image.png"
-  alt: "Habit Tracker challenge grid showing Day 32 of 75 with completed workout days"
-  caption: "_The challenge grid — Day 32 of 75, with completed days filled in_"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [David Marcu](https://unsplash.com/@davidmarcu) on [Unsplash](https://unsplash.com/photos/78A2WqeiGmc)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 Most habit trackers want three things from you before you check a single box: an account, a subscription, and permission to ping you all day.

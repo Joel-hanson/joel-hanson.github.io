@@ -1,7 +1,12 @@
 ---
 title: "Configuring Kafka Connector with Docker: A Step-by-Step Guide"
 date: 2024-10-12T12:17:49+05:30
-draft: false 
+draft: false
+featureimage: "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Toomas Tartes](https://unsplash.com/@toomastartes) on [Unsplash](https://unsplash.com/photos/Yizrl9NZyM0)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 In this tutorial, we'll walk through the process of setting up a Kafka connector using Docker and docker-compose.yml. We'll focus on configuring a file connector, which is useful for reading data from files and writing data to files using Kafka.

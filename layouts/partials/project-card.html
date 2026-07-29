@@ -1,0 +1,23 @@
+{{/* Shared project tile — used on homepage and /projects/ */}}
+{{ $href := .RelPermalink }}
+{{ $external := false }}
+{{ with .Params.demoUrl }}
+  {{ $href = . }}
+  {{ $external = true }}
+{{ end }}
+{{ with .Params.externalUrl }}
+  {{ $href = . }}
+  {{ $external = true }}
+{{ end }}
+<a
+  class="project-card"
+  href="{{ $href }}"
+  {{ if $external }}target="_blank" rel="noopener noreferrer"{{ end }}>
+  <h3>{{ .Title }}</h3>
+  <p>{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
+  {{ with .Params.tags }}
+    <div class="tags" aria-hidden="true">
+      {{ range $i, $t := . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}
+    </div>
+  {{ end }}
+</a>

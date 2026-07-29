@@ -8,6 +8,11 @@ summary: "Integration testing is crucial for Kafka Connectors to ensure they wor
 tags: ["Kafka Connect", "kafka", "template"]
 categories: ["Kafka"]
 showtoc: true
+featureimage: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Tim Swaan](https://unsplash.com/@timswaan) on [Unsplash](https://unsplash.com/photos/eOpewngf68w)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 🔗 **GitHub Repository**: [github.com/Joel-hanson/kafka-connector-template](https://github.com/Joel-hanson/kafka-connector-template)  

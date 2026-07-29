@@ -1,0 +1,34 @@
+# -- Main Menu --
+
+[[main]]
+  name = "Projects"
+  pageRef = "projects"
+  weight = 10
+
+[[main]]
+  name = "Posts"
+  pageRef = "posts"
+  weight = 20
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 30
+
+[[main]]
+  pre = "github"
+  name = "GitHub"
+  url = "https://github.com/Joel-hanson"
+  weight = 40
+
+# -- Footer Menu --
+
+[[footer]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 10
+
+[[footer]]
+  name = "Search"
+  pageRef = "search"
+  weight = 20

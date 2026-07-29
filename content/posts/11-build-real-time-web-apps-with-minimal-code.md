@@ -5,6 +5,11 @@ ShowToc: true
 TocOpen: false
 summary: "In this technical deep-dive, we unravel the power of Server-Sent Events (SSE), a game-changing web technology that simplifies real-time communication. Developers often struggle with complex, resource-intensive methods for creating live updates, but SSE offers an elegant solution that's both lightweight and powerful."
 draft: false
+featureimage: "https://images.unsplash.com/photo-1784028719270-429da991448c?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Daniel Mirlea](https://unsplash.com/@danielmirlea) on [Unsplash](https://unsplash.com/photos/QSpdRw2mZXE)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 In this technical deep-dive, we unravel the power of Server-Sent Events (SSE), a game-changing web technology that simplifies real-time communication. Developers often struggle with complex, resource-intensive methods for creating live updates, but SSE offers an elegant solution that's both lightweight and powerful.

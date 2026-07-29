@@ -6,6 +6,11 @@ summary: "Apache Kafka is a powerful distributed event streaming platform, and *
 That’s where this **production-ready template** comes in—it removes the boilerplate and gives you everything you need to build, test, and deploy connectors with ease."
 tags: ["Kafka Connect", "kafka", "template"]
 categories: ["Kafka"]
+featureimage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Jeremy Bishop](https://unsplash.com/@jeremybishop) on [Unsplash](https://unsplash.com/photos/EwKXn5CapA4)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 🔗 **GitHub Repository**: [github.com/Joel-hanson/kafka-connector-template](https://github.com/Joel-hanson/kafka-connector-template)  

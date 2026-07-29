@@ -4,6 +4,11 @@ date: 2025-03-11T12:19:08+05:30
 description: "Learn how to properly configure Kafka Connect to drop tombstone records using the Filter transformation and predicates."
 tags: ["Kafka Connect", "SMT", "Filter", "Predicates"]
 categories: ["Kafka"]
+featureimage: "https://images.unsplash.com/photo-1527489377706-5bf97e608852?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Hendrik Cornelissen](https://unsplash.com/@the_bracketeer) on [Unsplash](https://unsplash.com/photos/-qrcOR33ErA)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 Kafka Connect provides a flexible way to process streaming data using Single Message Transforms (SMTs). If you need to filter out tombstone records (records with `null` values), you should use the generic **Filter** transformation along with the **RecordIsTombstone** predicate.

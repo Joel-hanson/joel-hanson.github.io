@@ -4,6 +4,11 @@ date: 2025-04-22T16:03:27+05:30
 summary: "A practical guide to creating tombstone records for Kafka compacted topics using the kafka-console-producer.sh command-line tool with the null marker feature"
 tags: ["Kafka", "Tombstone Records", "Log Compaction", "Kafka CLI", "Data Management"]
 categories: ["Kafka"]
+featureimage: "https://images.unsplash.com/photo-1770736957456-d552bc016472?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Alexandra](https://unsplash.com/@alexandra_p_d) on [Unsplash](https://unsplash.com/photos/IT4AS8SlZ8I)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 Tombstone records are a fundamental concept in Kafka, especially when working with compacted topics. These special records—consisting of a key and a null value—signal that a key should be removed during the compaction process. Let's explore how to create these tombstones using the Kafka console producer.

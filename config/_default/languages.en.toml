@@ -1,0 +1,27 @@
+disabled = false
+locale = "en"
+label = "English"
+weight = 1
+title = "Joel Hanson"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "Software Engineer at IBM — event streams, Kafka, AI tooling, and open-source side projects."
+  copyright = "&copy; Joel Hanson"
+
+  [params.author]
+    name = "Joel Hanson"
+    email = "joelhanson025@gmail.com"
+    image = "img/profile.jpg"
+    imageQuality = 96
+    headline = "Software Engineer · Event Streams · AI Tooling"
+    bio = "Building with Kafka, Flink, and MCP. Sharing what I learn."
+    links = [
+      { github = "https://github.com/Joel-hanson" },
+      { linkedin = "https://linkedin.com/in/joel-hanson/" },
+      { medium = "https://joel-hanson.medium.com/" },
+      { x-twitter = "https://twitter.com/joelhanson25" },
+    ]

@@ -1,36 +1,28 @@
 ---
 title: "About"
-url: "/about/"
-layout: "about"
-# description: "About Joel Hanson and his blog."
-ShowReadingTime: false
-ShowShareButtons: false
-ShowPostNavLinks: false
-ShowBreadCrumbs: false
-ShowCodeCopyButtons: false
-ShowWordCount: false
-ShowRssButtonInSectionTermList: false
-UseHugoToc: false
-disableSpecial1stPost: true
-disableScrollToTop: true
-comments: false
-hidemeta: true 
-hideSummary: true
-showtoc: false
+date: 2026-07-29
+draft: false
+showReadingTime: false
+showWordCount: false
+showTableOfContents: false
+showTaxonomies: false
+showPagination: false
+showEdit: false
 ---
 
-## About This Blog
+## About this site
 
-Welcome to my personal blog! Here, I share my experiences, insights, and knowledge in the field of technology, software development, and machine learning. Dive into my articles to explore the exciting world of coding, innovation, and continuous learning.
+I share notes on software engineering, streaming systems, and AI tooling — mostly Kafka, Flink, MCP, and the messy middle of shipping real systems.
 
-## About Me
+## About me
 
-I'm Joel Hanson, a seasoned software engineer with a passion for creating cutting-edge solutions. My journey in the tech industry has been marked by diverse experiences and a relentless pursuit of excellence. Let me give you a glimpse into my professional journey: [Resume](/files/Resume.pdf)
+I'm **Joel Hanson**, a software engineer at IBM focused on event streams and data platforms. Previously an AI engineer at impress.ai. I care about making event-driven and AI systems practical: from batch to streaming, from request/response to durable workflows.
+
+[Resume (PDF)](/files/Resume.pdf)
 
 ## Contact
 
-Feel free to reach out to me through the following channels:
-
-- **Email:** <joelhanson025[at]gmail.com>
-- **LinkedIn:** [Joel Hanson](https://linkedin.com/in/joel-hanson/)
-- **Portfolio:** [GitHub Portfolio](https://github.com/joel-hanson)
+- **Email:** joelhanson025 [at] gmail.com
+- **LinkedIn:** [joel-hanson](https://linkedin.com/in/joel-hanson/)
+- **GitHub:** [Joel-hanson](https://github.com/Joel-hanson)
+- **Medium:** [joel-hanson.medium.com](https://joel-hanson.medium.com/)

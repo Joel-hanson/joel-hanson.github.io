@@ -11,6 +11,11 @@ tags:
 categories:
   - developer-tools
   - writing-tips
+featureimage: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Robert Lukeman](https://unsplash.com/@robertlukeman) on [Unsplash](https://unsplash.com/photos/_RBbnujcCrY)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ---

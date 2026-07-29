@@ -12,6 +12,11 @@ tags:
 categories:
   - Kafka
   - Developer Tools
+featureimage: "https://images.unsplash.com/photo-1767671495571-234fa5a4769d?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Lianhao Qu](https://unsplash.com/@lianhao) on [Unsplash](https://unsplash.com/photos/nLwZhFPGKFk)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 If you produce millions of Kafka messages where the **value is just a number** — counters, IDs, timestamps, sequence numbers — you're almost certainly paying for **8 bytes per message** whether the value is `1` or `1_000_000_000`.

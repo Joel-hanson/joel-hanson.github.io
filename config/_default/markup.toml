@@ -1,0 +1,30 @@
+# -- Markup --
+# Required for Blowfish.
+
+[goldmark]
+  [goldmark.parser]
+    wrapStandAloneImageWithinParagraph = false
+
+    [goldmark.parser.attribute]
+      block = true
+
+  [goldmark.renderer]
+    unsafe = true
+
+  [goldmark.extensions]
+    [goldmark.extensions.passthrough]
+      enable = true
+      [goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)']]
+
+[highlight]
+  noClasses = false
+  lineNos = false
+  codeFences = true
+  guessSyntax = true
+  style = "srcery"
+
+[tableOfContents]
+  startLevel = 2
+  endLevel = 4

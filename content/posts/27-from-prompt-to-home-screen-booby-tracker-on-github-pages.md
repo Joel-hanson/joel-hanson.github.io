@@ -15,11 +15,11 @@ categories:
   - Side Projects
 author: "Joel Hanson"
 description: "How a one-tap nursing timer for my wife grew into a shared feeding log, and how to ship a small AI-assisted web app for free with GitHub Pages."
-cover:
-  alt: "Nursing Tracker app on a phone showing feed timing and stats"
-  caption: "_Nursing Tracker running as a home-screen web app_"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Luca Bravo](https://unsplash.com/@lucabravo) on [Unsplash](https://unsplash.com/photos/alS7ewQ41M8)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 My wife was having a hard time keeping track of when she last fed our child, how long each feed took, and how many feeds happened in the morning. She was used to writing it down in a notebook, but that meant finding a book and a pen, and those sometimes got forgotten.

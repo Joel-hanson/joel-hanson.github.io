@@ -29,6 +29,11 @@ keywords:
     "Python task processing",
     "Django best practices",
   ]
+featureimage: "https://images.unsplash.com/photo-1765871319901-0aaafe3f1a2a?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Roberto Shumski](https://unsplash.com/@robshumski) on [Unsplash](https://unsplash.com/photos/oYEGPZebzGw)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## The Celery Question

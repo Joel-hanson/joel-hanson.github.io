@@ -4,12 +4,11 @@ date: 2025-07-26T12:14:10+05:30
 categories: [Python, Data Science, Web Development, NASA APIs]
 tags: [geospatial, data-visualization, cli-tools, web-scraping, api-development]
 description: "How I built a comprehensive system to track massive Antarctic icebergs using NASA satellite data, complete with interactive maps, APIs, and movement animations."
-cover:
-  image: "/images/18-iceberg-locations/iceberg-tracker.png"
-  alt: "Antarctic iceberg tracking system visualization"
-  caption: "_Real-time iceberg monitoring dashboard showing Antarctic giants drifting through the Southern Ocean_"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Rohit Tandon](https://unsplash.com/@sepoys) on [Unsplash](https://unsplash.com/photos/9wg5jCEPBsw)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 _Ever wondered where those massive icebergs the size of cities are drifting? I built a system to track them in real-time using NASA satellite data._

@@ -8,12 +8,11 @@ math: true
 summary: "Mastering the egg drop involves a careful blend of strategy, mathematics, and optimization. From crafting a plan with two replicas to understanding the arithmetic behind the sum formula, the jewel thief's mission highlights the fascinating intersection of math and real-world problem-solving. As we unravel the complexities, we find that breaking a few eggs may require a dash of strategic brilliance and a pinch of mathematical finesse."
 tags: ["math-puzzle", "algorithm-optimization", "educational-content", "creative-problem-solving", "SEO-writing-tips", "python", "leetcode", "DSA", "Math", "Dynamic Programming"]
 categories: ["DSA"]
-cover:
-  image: "https://images.unsplash.com/photo-1703002917693-e51692232c81?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  alt: "Pomeranian working on an iPad"
-  caption: "Photo by [Sergio Zhukov](https://unsplash.com/@opohmelka) on [Unsplash](https://unsplash.com/photos/a-view-of-a-snowy-mountain-range-at-sunset-ae__8IOF0Cs)"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Samuel Ferrara](https://unsplash.com/@samferrara) on [Unsplash](https://unsplash.com/photos/1527pjxc6mc)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ### Introduction

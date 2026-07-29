@@ -29,6 +29,11 @@ keywords:
     "Event-driven architecture",
     "Kafka tutorial",
   ]
+featureimage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Kalen Emsley](https://unsplash.com/@kalenemsley) on [Unsplash](https://unsplash.com/photos/Bkci_8qcdvQ)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 I started **Stream Wars** as a demo project to explain how **Kafka** works using something more fun than log lines.

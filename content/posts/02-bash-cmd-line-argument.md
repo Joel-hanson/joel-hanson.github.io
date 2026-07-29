@@ -7,12 +7,11 @@ TocOpen: false
 summary: "Different ways to accept arguments in a Bash script"
 tags: ["BashScripting", "CommandLine", "bash", "script", "shell"]
 categories: ["scripting"]
-cover:
-  image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  alt: "Pomeranian working on an iPad"
-  caption: "Photo by [Cookie the Pom](https://unsplash.com/@cookiethepom) on [Unsplash](https://unsplash.com/photos/brown-and-white-long-coated-small-dog-wearing-eyeglasses-on-black-laptop-computer-gySMaocSdqs)"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Jay Mantri](https://unsplash.com/@jaymantri) on [Unsplash](https://unsplash.com/photos/TFyi0xOs4X0)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ### Introduction

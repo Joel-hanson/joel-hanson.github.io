@@ -39,6 +39,11 @@ keywords:
     "API management",
   ]
 draft: false
+featureimage: "https://images.unsplash.com/photo-1754560939545-c4235592f2f1?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Milin John](https://unsplash.com/@milinjohn) on [Unsplash](https://unsplash.com/photos/fFpfO1oXVsg)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## The Problem: Connecting AI Assistants to Your APIs

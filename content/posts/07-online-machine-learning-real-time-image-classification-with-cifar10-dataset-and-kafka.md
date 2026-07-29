@@ -5,6 +5,11 @@ draft: false
 ShowToc: true
 TocOpen: false
 summary: "This blog post explores online machine learning through a practical example using the CIFAR10 dataset and Apache Kafka."
+featureimage: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Daniel Leone](https://unsplash.com/@danielleone_) on [Unsplash](https://unsplash.com/photos/gG70f72KOq8)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 In this blog post, we'll explore the concept of online machine learning using a real-world example: classifying images from the CIFAR10 dataset in real-time using Apache Kafka for data streaming. We'll walk through the entire process, from training the initial model to setting up a streaming pipeline for continuous learning and prediction.

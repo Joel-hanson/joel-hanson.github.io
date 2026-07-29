@@ -10,12 +10,11 @@ tags: [    "git", "version-control", "workflow", "development", "productivity",
     "command-line", "aliases", "git-commands", "git-aliases", "coding", 
     "programming", "software-development", "github"]
 categories: ["git"]
-cover:
-  image: "https://images.unsplash.com/photo-1605531321045-59731b348442?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  alt: "Beauty of nature"
-  caption: "Photo by [Avin CP](https://unsplash.com/@avincp) on [Unsplash](https://unsplash.com/photos/green-trees-near-body-of-water-under-cloudy-sky-during-daytime-zaaXmaX9Sq4)"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Luca Bravo](https://unsplash.com/@lucabravo) on [Unsplash](https://unsplash.com/photos/ESkK_9TsHAo)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 Using git as a code versioning tool is a day-to-day activity for developers, and some of you may be practicing your git workflow through the command line. Preferably with a dark theme too, right?

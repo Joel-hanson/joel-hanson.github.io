@@ -1,0 +1,120 @@
+# -- Theme Options --
+# https://blowfish.page/docs/configuration/#theme-parameters
+
+colorScheme = "joel-terminal"
+defaultAppearance = "dark"
+autoSwitchAppearance = false
+
+enableA11y = false
+enableSearch = true
+enableCodeCopy = true
+enableStructuredBreadcrumbs = false
+
+replyByEmail = false
+
+mainSections = ["posts"]
+
+disableImageOptimization = false
+disableImageOptimizationMD = false
+disableTextInHeader = false
+
+hotlinkFeatureImage = true
+
+# Shorter card thumbnails (width unchanged, less height)
+thumbnailAspectRatio = "2.4"
+
+fingerprintAlgorithm = "sha512"
+
+[header]
+  layout = "basic"
+
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = false
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "custom"
+  showRecent = true
+  showRecentItems = 6
+  showMoreLink = true
+  showMoreLinkDest = "/posts/"
+  cardView = true
+  cardViewScreenWidth = false
+  layoutBackgroundBlur = false
+  disableHeroImageFilter = false
+
+[article]
+  showDate = true
+  showViews = false
+  showLikes = false
+  showDateOnlyInArticle = false
+  showDateUpdated = false
+  showAuthor = true
+  showHero = true
+  heroStyle = "background"
+  layoutBackgroundBlur = true
+  layoutBackgroundHeaderSpace = true
+  showBreadcrumbs = true
+  showDraftLabel = true
+  showEdit = true
+  editURL = "https://github.com/Joel-hanson/joel-hanson.github.io/blob/main/content"
+  editAppendPath = true
+  seriesOpened = false
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showTableOfContents = true
+  showRelatedContent = true
+  relatedContentLimit = 3
+  showTaxonomies = true
+  showCategories = false
+  showTags = true
+  showAuthorsBadges = false
+  showWordCount = true
+  sharingLinks = ["linkedin", "twitter", "reddit", "email"]
+  showZenMode = false
+
+[list]
+  showHero = false
+  layoutBackgroundBlur = true
+  layoutBackgroundHeaderSpace = true
+  showBreadcrumbs = false
+  showSummary = true
+  showViews = false
+  showLikes = false
+  showTableOfContents = false
+  showCards = false
+  orderByWeight = false
+  groupByYear = false
+  cardView = true
+  cardViewScreenWidth = false
+  constrainItemsWidth = false
+
+[sitemap]
+  excludedKinds = ["taxonomy", "term"]
+
+[taxonomy]
+  showTermCount = true
+  showHero = false
+  showBreadcrumbs = false
+  showViews = false
+  showLikes = false
+  showTableOfContents = false
+  cardView = false
+
+[term]
+  showHero = false
+  showBreadcrumbs = false
+  showViews = false
+  showLikes = false
+  showTableOfContents = true
+  groupByYear = false
+  cardView = false
+  cardViewScreenWidth = false
+
+[verification]
+  # google = ""

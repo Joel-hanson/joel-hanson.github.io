@@ -4,7 +4,11 @@ date: 2025-07-26T14:47:05+05:30
 categories: [DevOps, GitHub Actions, Web Scraping, APIs]
 tags: [github-actions, automation, data-scraping, free-hosting, api-development]
 description: "Learn how to use GitHub as a complete data platform for scraping, processing, and serving APIs - all for free. A complete guide with real-world examples."
-image: /assets/images/github-data-platform-hero.png
+featureimage: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [eberhard grossgasteiger](https://unsplash.com/@eberhardgrossgasteiger) on [Unsplash](https://unsplash.com/photos/NTYYL9Eb9y8)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 _What if I told you that you could build, host, and maintain data APIs completely free using just GitHub? Here's how I built a production-ready data platform without spending a penny on hosting._

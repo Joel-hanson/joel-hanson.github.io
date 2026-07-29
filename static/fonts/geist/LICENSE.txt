@@ -1,0 +1,3 @@
+Geist fonts (Sans, Mono, Pixel) by Vercel.
+Licensed under the SIL Open Font License, Version 1.1.
+https://github.com/vercel/geist-font

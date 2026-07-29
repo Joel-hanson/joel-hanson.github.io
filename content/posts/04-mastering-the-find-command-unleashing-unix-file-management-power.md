@@ -8,12 +8,11 @@ math: true
 summary: "Discover the unparalleled capabilities of the 'find' command in Unix systems. From basic file searches to advanced manipulations, mastering 'find' empowers users to efficiently navigate, search, and manage files. With practical examples and powerful techniques, this blog unveils the full potential of 'find', transforming your Unix experience into one of seamless productivity and control. Unlock the power of Unix file management with the mastery of the 'find' command."
 tags: ["Unix", "Command Line", "File Management", "Find Command", "System Administration", "Productivity", "Efficiency", "Linux", "Shell Scripting", "File Searching"]
 categories: ["UNIX"]
-cover:
-  image: "https://images.unsplash.com/photo-1637420704736-4374b91a8c12?q=80&w=2893&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  alt: "Spring life. Oil painting, original art. Fresh green mountains and hills. Rolling down to a freshwater lake. With a bulb farm on the nearest bankside. A verdant green forest of pine trees frames the scenery which is bright and welcoming. A beautiful natural landscape with lots of color and interest."
-  caption: "Photo by [Catherine Kay Greenup](https://unsplash.com/@springwellion) on [Unsplash](https://unsplash.com/photos/a-painting-of-a-field-with-flowers-and-a-mountain-in-the-background-Nu9dW754Tco)"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Sebastian Unrau](https://unsplash.com/@sebastian_unrau) on [Unsplash](https://unsplash.com/photos/xxA2lNIYIYQ)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 # Intro

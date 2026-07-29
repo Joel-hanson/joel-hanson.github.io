@@ -13,6 +13,11 @@ categories:
   - Developer Tools
   - Kafka
   - Machine Learning
+featureimage: "https://images.unsplash.com/photo-1726480192500-3ec015d823e9?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Katelyn G](https://unsplash.com/@katelyn_g) on [Unsplash](https://unsplash.com/photos/L4jXDAzSiFU)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 Ever wished you could talk to your Kafka cluster using natural language—or call it directly from Claude Desktop or any other LLM client? With [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol/python-sdk) and the FastMCP SDK, you can expose all your Kafka operations as discrete, promptable tools.

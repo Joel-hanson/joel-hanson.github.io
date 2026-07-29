@@ -3,6 +3,11 @@ title: "Part 1 – Introduction to Apache Flink: Real-Time Data Processing Made 
 date: 2025-06-21T15:36:38+05:30
 draft: true
 tocopen: true
+featureimage: "https://images.unsplash.com/photo-1762291834384-09118dda091d?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Last Oops](https://unsplash.com/@lastoops) on [Unsplash](https://unsplash.com/photos/Pk1MrGNquo8)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 Welcome to the first installment of our **hands-on Flink learning series**! Whether you're a beginner or an experienced developer, this guide will walk you through the fundamentals of Apache Flink, why it matters, and how to set up your environment for success. We’ll blend theory with **real-world examples**, using **Java**, **Python (PyFlink)**, and **SQL** to make concepts tangible.

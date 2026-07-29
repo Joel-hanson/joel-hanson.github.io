@@ -1,7 +1,12 @@
 ---
 title: "Setting Up a Kafka Cluster Without Zookeeper Using Docker"
 date: 2024-10-05T23:14:04+05:30
-draft: false 
+draft: false
+featureimage: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Benjamin Voros](https://unsplash.com/@vorosbenkep) on [Unsplash](https://unsplash.com/photos/phIFdC6lA4E)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ### Introduction

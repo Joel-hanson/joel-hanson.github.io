@@ -1,0 +1,54 @@
+{{/* Terminal-style custom homepage */}}
+<section class="terminal-hero w-full max-w-full">
+  <p class="terminal-prompt terminal-brand">
+    joel@ibm:~$ <span class="cmd">whoami</span><span class="cursor" aria-hidden="true"></span>
+  </p>
+  <h1 class="terminal-brand">Joel Hanson</h1>
+  <p class="terminal-role">
+    Software Engineer at IBM — event streams, Kafka, AI tooling, and open-source side projects.
+    Sharing what I build and learn.
+  </p>
+  <div class="terminal-links">
+    <a href="{{ "projects" | relLangURL }}">[projects]</a>
+    <a href="{{ "posts" | relLangURL }}">[posts]</a>
+    <a href="{{ "about" | relLangURL }}">[about]</a>
+    <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer">[github]</a>
+    <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer">[linkedin]</a>
+  </div>
+</section>
+
+{{ $projects := where .Site.RegularPages "Section" "projects" }}
+{{ $featured := where $projects "Params.featured" true }}
+{{ if not $featured }}
+  {{ $featured = first 8 $projects }}
+{{ else }}
+  {{ $featured = first 12 (sort $featured "Weight" "asc") }}
+{{ end }}
+
+{{ if $featured }}
+  <h2 class="terminal-section-title">~/projects</h2>
+  <div class="project-grid">
+    {{ range $featured }}
+      {{ partial "project-card.html" . }}
+    {{ end }}
+  </div>
+  <div class="terminal-links" style="margin-top: -0.25rem; margin-bottom: 2.5rem;">
+    <a href="{{ "projects" | relLangURL }}">[all projects →]</a>
+  </div>
+{{ end }}
+
+{{ if .Site.Params.homepage.showRecent | default false }}
+  <section class="w-full">
+    <h2 class="terminal-section-title">~/posts</h2>
+    {{ if and .Site.Params.homepage.cardView (not .Site.Params.homepage.cardViewScreenWidth) | default false }}
+      {{ partial "recent-articles/cardview.html" . }}
+    {{ else }}
+      {{ partial "recent-articles/list.html" . }}
+    {{ end }}
+    {{ if .Site.Params.homepage.showMoreLink | default false }}
+      <div class="terminal-links mt-8">
+        <a href="{{ (.Site.Params.homepage.showMoreLinkDest | default "/posts/") | relLangURL }}">[all posts →]</a>
+      </div>
+    {{ end }}
+  </section>
+{{ end }}

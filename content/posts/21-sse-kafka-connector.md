@@ -27,6 +27,11 @@ keywords:
     "GitHub events",
     "Open source connector",
   ]
+featureimage: "https://images.unsplash.com/photo-1722563152130-0b71c42f5bd7?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Peter Bryan](https://unsplash.com/@peterbbryan) on [Unsplash](https://unsplash.com/photos/7t6FlkNCjY0)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## The Problem: Getting Real-time Data into Kafka

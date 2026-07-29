@@ -1,0 +1,15 @@
+{{/* Compact meta for post cards: date · reading time only (tags render separately) */}}
+{{ $context := . }}
+{{ with $context }}
+  <div class="article-card-meta">
+    {{ if .Params.showDate | default (.Site.Params.article.showDate | default true) }}
+      <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">
+        {{- partial "functions/date.html" .Date -}}
+      </time>
+    {{ end }}
+    {{ if and (.Params.showReadingTime | default (.Site.Params.article.showReadingTime | default true)) (ne .ReadingTime 0) }}
+      <span class="article-card-meta__sep" aria-hidden="true">·</span>
+      <span>{{ .ReadingTime }} min</span>
+    {{ end }}
+  </div>
+{{ end }}

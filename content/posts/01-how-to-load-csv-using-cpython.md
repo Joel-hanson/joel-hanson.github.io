@@ -7,12 +7,11 @@ TocOpen: false
 summary: "CSV (Comma-Separated Values) files are a common format for storing tabular data. In this blog post, we'll explore the process of creating a simple CSV reader in C using CPython standard library."
 tags: ["python", "c", "csv", "coding"]
 categories: ["random-coding"]
-cover:
-  image: "https://images.unsplash.com/photo-1529078155058-5d716f45d604?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  alt: "A csv photo"
-  caption: "Photo by [Mika Baumeister](https://unsplash.com/@kommumikation) on [Unsplash](https://unsplash.com/photos/white-printing-paper-with-numbers-Wpnoqo2plFA)"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Sebastian Unrau](https://unsplash.com/@sebastian_unrau) on [Unsplash](https://unsplash.com/photos/sp-p7uuT0tqI)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## Introduction

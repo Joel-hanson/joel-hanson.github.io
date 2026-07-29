@@ -1,0 +1,715 @@
+/* Chrome: Geist Mono / Pixel · Content: Fira Code */
+
+@font-face {
+  font-family: GeistMono;
+  src: url("/fonts/geist/GeistMono-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: GeistMono;
+  src: url("/fonts/geist/GeistMono-Italic-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: GeistPixel;
+  src: url("/fonts/geist/GeistPixel-Square.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: FiraCode;
+  src: url("/fonts/fira/FiraCode-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* UI chrome defaults — Geist */
+:root {
+  --font-sans: GeistMono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: FiraCode, GeistMono, ui-monospace, monospace;
+  --default-font-family: var(--font-sans);
+  --default-mono-font-family: var(--font-mono);
+
+  /* Archie crimson */
+  --archie-primary: #dc143c;
+  --archie-primary-hover: #b91c3c;
+}
+
+html {
+  font-family: GeistMono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12pt;
+}
+
+body {
+  font-family: GeistMono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: -0.015em;
+}
+
+/* Reading content — Fira Code */
+article,
+article .prose,
+.prose,
+.prose p,
+.prose li,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose blockquote,
+.prose td,
+.prose th {
+  font-family: FiraCode, GeistMono, ui-monospace, monospace;
+}
+
+.prose code,
+.prose kbd,
+.prose samp,
+.prose pre,
+.prose pre code,
+.chroma {
+  font-family: FiraCode, GeistMono, ui-monospace, monospace;
+}
+
+/* Pixel accent for logo / hero brand */
+.font-pixel,
+.site-logo,
+.terminal-brand,
+.main-menu a {
+  font-family: GeistPixel, GeistMono, ui-monospace, monospace;
+  letter-spacing: 0.04em;
+}
+
+/* Terminal polish (Geist chrome) — light defaults, dark overrides */
+.terminal-hero {
+  text-align: left;
+  max-width: 48rem;
+  margin: 0 auto 3rem;
+  padding: 1.75rem 0 0.75rem;
+}
+
+.terminal-prompt {
+  color: var(--archie-primary);
+  font-size: 0.95rem;
+  margin-bottom: 0.9rem;
+}
+
+.terminal-prompt .cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 0.15ch;
+  background: var(--archie-primary);
+  vertical-align: text-bottom;
+  animation: terminal-blink 1.1s steps(1) infinite;
+}
+
+.terminal-prompt .cmd {
+  color: rgb(var(--color-neutral-700));
+}
+
+@keyframes terminal-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.terminal-brand {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: rgb(var(--color-neutral-900));
+  margin: 0 0 0.65rem;
+  line-height: 1.25;
+}
+
+.terminal-role {
+  color: rgb(var(--color-neutral-600));
+  font-size: 0.95rem;
+  margin: 0 0 1.5rem;
+  line-height: 1.65;
+}
+
+.terminal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 2.25rem;
+}
+
+.terminal-section-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--archie-primary);
+  margin: 2.75rem 0 1.25rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgb(var(--color-neutral-200));
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 2.75rem;
+  align-items: stretch;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.85rem 1rem 0.8rem;
+  border: 1px solid rgb(var(--color-neutral-200));
+  border-radius: 0.25rem;
+  text-decoration: none !important;
+  color: inherit !important;
+  background: rgb(var(--color-neutral-50) / 0.8);
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+}
+
+.project-card:hover,
+.project-card:focus {
+  border-color: var(--archie-primary) !important;
+  transform: translateY(-1px);
+  background: rgb(var(--color-neutral-50));
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+.project-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+  display: inline;
+  color: rgb(var(--color-neutral-800));
+  border-bottom: 3px solid var(--archie-primary);
+  line-height: 1.4;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.project-card:hover h3,
+.project-card:focus h3 {
+  background-color: var(--archie-primary-hover);
+  color: #ffffff !important;
+  border-bottom-color: var(--archie-primary-hover);
+  box-shadow:
+    0 0 0 2px rgb(var(--color-neutral-50)),
+    0 0 0 4px var(--archie-primary);
+}
+
+.project-card p {
+  font-size: 0.875rem;
+  margin: 0.1rem 0 0.45rem;
+  color: rgb(var(--color-neutral-600));
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.project-card .tags {
+  font-size: 0.7rem;
+  color: rgb(var(--color-neutral-500));
+  pointer-events: none;
+  letter-spacing: 0.02em;
+  margin-top: auto;
+  padding-top: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark .terminal-prompt {
+  color: var(--archie-primary);
+}
+
+.dark .terminal-prompt .cursor {
+  background: var(--archie-primary);
+}
+
+.dark .terminal-prompt .cmd {
+  color: rgb(var(--color-neutral-200));
+}
+
+.dark .terminal-brand {
+  color: rgb(var(--color-neutral-50));
+}
+
+.dark .terminal-role {
+  color: rgb(var(--color-neutral-400));
+}
+
+.dark .terminal-section-title {
+  color: var(--archie-primary);
+  border-bottom-color: rgb(var(--color-neutral-700));
+}
+
+.dark .project-card {
+  border-color: rgb(var(--color-neutral-700));
+  background: rgb(var(--color-neutral-900) / 0.5);
+}
+
+.dark .project-card:hover,
+.dark .project-card:focus {
+  border-color: var(--archie-primary) !important;
+  background: rgb(var(--color-neutral-900) / 0.85);
+}
+
+.dark .project-card h3 {
+  color: rgb(var(--color-neutral-50));
+}
+
+.dark .project-card:hover h3,
+.dark .project-card:focus h3 {
+  color: #ffffff !important;
+  box-shadow:
+    0 0 0 2px rgb(var(--color-neutral-900)),
+    0 0 0 4px var(--archie-primary);
+}
+
+.dark .project-card p {
+  color: rgb(var(--color-neutral-400));
+}
+
+.dark .project-card .tags {
+  color: rgb(var(--color-neutral-500));
+}
+
+article h1,
+.prose h1,
+.prose h2 {
+  letter-spacing: -0.02em;
+}
+
+/* —— Shorter card / hero images (width unchanged) —— */
+.thumbnail_card,
+.thumbnail_card_related {
+  aspect-ratio: var(--thumbnail-aspect-ratio, 2.4);
+  max-height: 140px;
+}
+
+.thumbnail_card img,
+.thumbnail_card_related img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.thumbnail {
+  min-height: 120px;
+  max-height: 140px;
+}
+
+.single_hero_round,
+.single_hero_background {
+  max-height: 28vh;
+}
+
+/* —— Archie links: underline default, filled hover —— */
+.terminal-links a,
+.prose a:not(.anchor):not(.no-archie),
+#TableOfContents a,
+.main-menu > a,
+.main-menu nav > a,
+.main-menu .nested-menu > div > a,
+.main-menu .menuhide a,
+footer nav a {
+  border-bottom: 3px solid var(--archie-primary);
+  color: inherit;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  box-shadow: none;
+  outline: none;
+}
+
+.terminal-links a:hover,
+.terminal-links a:focus,
+.prose a:not(.anchor):not(.no-archie):hover,
+.prose a:not(.anchor):not(.no-archie):focus,
+#TableOfContents a:hover,
+#TableOfContents a:focus,
+.main-menu > a:hover,
+.main-menu > a:focus,
+.main-menu nav > a:hover,
+.main-menu nav > a:focus,
+.main-menu .nested-menu > div > a:hover,
+.main-menu .nested-menu > div > a:focus,
+.main-menu .menuhide a:hover,
+.main-menu .menuhide a:focus,
+footer nav a:hover,
+footer nav a:focus {
+  background-color: var(--archie-primary-hover);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border-bottom-color: var(--archie-primary-hover);
+  box-shadow:
+    0 0 0 2px rgb(var(--color-neutral-50)),
+    0 0 0 4px var(--archie-primary);
+  outline: none;
+}
+
+.dark .terminal-links a:hover,
+.dark .terminal-links a:focus,
+.dark .prose a:not(.anchor):not(.no-archie):hover,
+.dark .prose a:not(.anchor):not(.no-archie):focus,
+.dark #TableOfContents a:hover,
+.dark #TableOfContents a:focus,
+.dark .main-menu > a:hover,
+.dark .main-menu > a:focus,
+.dark .main-menu nav > a:hover,
+.dark .main-menu nav > a:focus,
+.dark .main-menu .nested-menu > div > a:hover,
+.dark .main-menu .nested-menu > div > a:focus,
+.dark .main-menu .menuhide a:hover,
+.dark .main-menu .menuhide a:focus,
+.dark footer nav a:hover,
+.dark footer nav a:focus {
+  box-shadow:
+    0 0 0 2px rgb(var(--color-neutral-900)),
+    0 0 0 4px var(--archie-primary);
+}
+
+/*
+ * Blog tiles: same hover language as project cards (crimson border).
+ */
+.article-link--card,
+.article-link--related,
+.article-link--simple,
+.article-link--shortcode {
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+section.w-full.grid.gap-4 {
+  gap: 0.85rem;
+  align-items: stretch;
+}
+
+/* Equal-height tiles: stretch to row, body fills leftover space */
+.article-link--card,
+.article-link--related {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  align-self: stretch;
+}
+
+.article-link--card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0.4rem;
+  padding: 0.85rem 1rem 0.9rem;
+  min-height: 0;
+}
+
+/* Cap title to 2 lines so row height stays predictable */
+.article-link--card header {
+  min-height: 0;
+}
+
+.article-link--card:hover,
+.article-link--related:hover,
+.article-link--simple:has(header a:hover),
+.article-link--shortcode:has(header a:hover) {
+  border-color: var(--archie-primary) !important;
+  transform: translateY(-1px);
+}
+
+.dark .article-link--card:hover,
+.dark .article-link--related:hover,
+.dark .article-link--simple:has(header a:hover),
+.dark .article-link--shortcode:has(header a:hover) {
+  border-color: var(--archie-primary) !important;
+}
+
+.article-link--simple header a,
+.article-link--card header a,
+.article-link--shortcode header a,
+.article-link--related header a {
+  border-bottom: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: inherit;
+  text-decoration: none !important;
+}
+
+.article-link--simple header a::before,
+.article-link--card header a::before,
+.article-link--shortcode header a::before,
+.article-link--related header a::before {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Post titles = header link look: inherited text + crimson underline */
+.article-link--simple header a h2,
+.article-link--card header a h2,
+.article-link--shortcode header a h2,
+.article-link--related header a h2 {
+  display: inline;
+  border-bottom: 3px solid var(--archie-primary);
+  color: rgb(var(--color-neutral-800));
+  text-decoration: none !important;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 1.45;
+  font-size: 1.05rem;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.dark .article-link--simple header a h2,
+.dark .article-link--card header a h2,
+.dark .article-link--shortcode header a h2,
+.dark .article-link--related header a h2 {
+  color: rgb(var(--color-neutral-50));
+}
+
+/* Card titles: no Archie underline — it only paints the first wrapped line and looks broken.
+   Accent is the # prefix; hover still fills the title. */
+.article-link--card header a h2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  border-bottom: none;
+  line-height: 1.4;
+  -webkit-box-decoration-break: unset;
+  box-decoration-break: unset;
+}
+
+.article-link--simple header a:hover h2,
+.article-link--simple header a:focus h2,
+.article-link--card header a:hover h2,
+.article-link--card header a:focus h2,
+.article-link--shortcode header a:hover h2,
+.article-link--shortcode header a:focus h2,
+.article-link--related header a:hover h2,
+.article-link--related header a:focus h2 {
+  background-color: var(--archie-primary-hover) !important;
+  color: #ffffff !important;
+  border-bottom-color: var(--archie-primary-hover);
+  box-shadow:
+    0 0 0 2px rgb(var(--color-neutral-50)),
+    0 0 0 4px var(--archie-primary);
+}
+
+/* Card titles have no underline — keep hover fill without reintroducing a border */
+.article-link--card header a:hover h2,
+.article-link--card header a:focus h2 {
+  border-bottom-color: transparent;
+}
+
+.dark .article-link--simple header a:hover h2,
+.dark .article-link--simple header a:focus h2,
+.dark .article-link--card header a:hover h2,
+.dark .article-link--card header a:focus h2,
+.dark .article-link--shortcode header a:hover h2,
+.dark .article-link--shortcode header a:focus h2,
+.dark .article-link--related header a:hover h2,
+.dark .article-link--related header a:focus h2 {
+  color: #ffffff !important;
+  box-shadow:
+    0 0 0 2px rgb(var(--color-neutral-900)),
+    0 0 0 4px var(--archie-primary);
+}
+
+.article-link--simple header,
+.article-link--card header,
+.article-link--shortcode header,
+.article-link--related header {
+  margin-bottom: 0;
+}
+
+/* Compact card meta: one quiet line */
+.article-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.35rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: rgb(var(--color-neutral-500));
+}
+
+.article-card-meta__sep {
+  color: var(--archie-primary);
+  opacity: 0.7;
+}
+
+.dark .article-card-meta {
+  color: rgb(var(--color-neutral-400));
+}
+
+/* Tags: compact hash links, pinned to card foot */
+.article-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.55rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+  max-height: 1.5em;
+  overflow: hidden;
+}
+
+a.article-card-tag {
+  position: relative;
+  z-index: 1;
+  border: none !important;
+  border-bottom: none !important;
+  color: rgb(var(--color-neutral-500)) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+  border-radius: 0;
+  padding: 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  transition: color 0.15s ease;
+}
+
+a.article-card-tag:hover,
+a.article-card-tag:focus {
+  border: none !important;
+  color: var(--archie-primary) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.article-card-tag-more {
+  font-size: 0.7rem;
+  color: rgb(var(--color-neutral-400));
+  letter-spacing: 0.02em;
+}
+
+.dark a.article-card-tag {
+  border: none !important;
+  color: rgb(var(--color-neutral-500)) !important;
+}
+
+.dark a.article-card-tag:hover,
+.dark a.article-card-tag:focus {
+  border: none !important;
+  color: var(--archie-primary) !important;
+}
+
+.dark .article-card-tag-more {
+  color: rgb(var(--color-neutral-600));
+}
+
+.article-link__summary {
+  margin: 0 !important;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Markdown-ish # prefix on list titles */
+.article-link--simple header a h2::before,
+.article-link--card header a h2::before,
+.article-link--shortcode header a h2::before,
+.article-link--related header a h2::before {
+  content: "# ";
+  color: var(--archie-primary);
+}
+
+.dark .article-link--simple header a h2::before,
+.dark .article-link--card header a h2::before,
+.dark .article-link--shortcode header a h2::before,
+.dark .article-link--related header a h2::before {
+  color: var(--archie-primary);
+}
+
+.article-link--simple header a:hover h2::before,
+.article-link--simple header a:focus h2::before,
+.article-link--card header a:hover h2::before,
+.article-link--card header a:focus h2::before,
+.article-link--shortcode header a:hover h2::before,
+.article-link--shortcode header a:focus h2::before,
+.article-link--related header a:hover h2::before,
+.article-link--related header a:focus h2::before {
+  color: #ffffff !important;
+}
+
+/* Single-article taxonomy badges stay simple */
+article .flex.flex-row.flex-wrap.items-center {
+  gap: 0.5rem 0.6rem;
+  margin-top: 0.25rem;
+}
+
+a:has(> .cursor-pointer) {
+  border-bottom: none !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+  color: inherit !important;
+  margin: 0 !important;
+}
+
+a:has(> .cursor-pointer) > .cursor-pointer > span {
+  border: 1px solid rgb(var(--color-neutral-300)) !important;
+  color: rgb(var(--color-neutral-600)) !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  padding: 0.15rem 0.5rem !important;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+a:has(> .cursor-pointer):hover > .cursor-pointer > span,
+a:has(> .cursor-pointer):focus > .cursor-pointer > span {
+  border-color: var(--archie-primary) !important;
+  color: var(--archie-primary) !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+
+.dark a:has(> .cursor-pointer) > .cursor-pointer > span {
+  border-color: rgb(var(--color-neutral-600)) !important;
+  color: rgb(var(--color-neutral-400)) !important;
+}
+
+.dark a:has(> .cursor-pointer):hover > .cursor-pointer > span,
+.dark a:has(> .cursor-pointer):focus > .cursor-pointer > span {
+  border-color: var(--archie-primary) !important;
+  color: var(--archie-primary) !important;
+}
+
+/* Header nav breathing room */
+.main-menu nav {
+  gap: 1.35rem;
+}

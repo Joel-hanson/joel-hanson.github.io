@@ -7,12 +7,11 @@ TocOpen: false
 summary: "Learn how to implement a powerful Retrieval-Augmented Generation (RAG) system using PostgreSQL and pgvector. This comprehensive guide covers everything from setting up a custom PostgreSQL Docker image to creating a fully functional RAG query system with vector embeddings and language model inference."
 tags: ["PostgreSql", "PGVector", "RAG", "Vector Database", "AI", "NLP", "Docker", "GPT", "LLM"]
 categories: ["Database", "Artificial Intelligence", "Tutorial"]
-cover:
-  image: ""
-  alt: "Illustration of RAG system with PostgreSQL and pgvector"
-  caption: "RAG: Empowering AI with Knowledge Retrieval"
-  relative: true
-  responsiveImages: true
+featureimage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [v2osk](https://unsplash.com/@v2osk) on [Unsplash](https://unsplash.com/photos/1Z2niiBPg5A)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## Introduction

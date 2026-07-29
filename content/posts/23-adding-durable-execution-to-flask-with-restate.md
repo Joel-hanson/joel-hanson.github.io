@@ -29,6 +29,11 @@ keywords:
     "Flask best practices",
     "Service reliability",
   ]
+featureimage: "https://images.unsplash.com/photo-1750766515250-041d45e76021?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Zoshua Colah](https://unsplash.com/@zoshuacolah) on [Unsplash](https://unsplash.com/photos/SuG3v0A3T64)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## The Challenge of Reliable Background Operations

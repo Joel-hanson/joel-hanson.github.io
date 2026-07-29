@@ -29,6 +29,11 @@ keywords:
     "Django tutorial",
     "Python development",
   ]
+featureimage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2400&auto=format&fit=crop"
+featureimagecaption: "Photo by [Piotr Chrobot](https://unsplash.com/@p_chrobot) on [Unsplash](https://unsplash.com/photos/6oUs89LHGLo)"
+showHero: true
+heroStyle: "background"
+imagePosition: "center"
 ---
 
 ## The Problem: When APIs Meet AI Assistants
