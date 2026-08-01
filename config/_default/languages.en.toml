@@ -9,7 +9,7 @@ title = "Joel Hanson"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "Software Engineer at IBM Event Streams — Kafka, Kubernetes operators, and AI tooling."
+  description = "Software engineer at IBM Event Streams. Kafka, Kubernetes operators, and AI tooling."
   copyright = "&copy; Joel Hanson"
 
   [params.author]
@@ -18,7 +18,7 @@ title = "Joel Hanson"
     image = "img/profile.jpg"
     imageQuality = 96
     headline = "Software Engineer · Event Streams · AI Tooling"
-    bio = "Building with Kafka, MCP, and event-driven systems. Sharing what I learn."
+    bio = "I work on Kafka, MCP, and event-driven systems, and write about what I learn."
     links = [
       { github = "https://github.com/Joel-hanson" },
       { linkedin = "https://linkedin.com/in/joel-hanson/" },

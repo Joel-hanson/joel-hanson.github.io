@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-description: "Platform and open-source work — plus a few personal side apps."
+description: "Platform and open-source work, plus a few personal side apps."
 cascade:
   showReadingTime: false
   showWordCount: false
@@ -8,4 +8,4 @@ cascade:
   showTaxonomies: true
 ---
 
-Platform & open-source work (Kafka, MCP, connectors, demos) first; personal apps and lighter side tools below.
+Platform and open-source work first (Kafka, MCP, connectors, demos). Personal apps and lighter side tools below.

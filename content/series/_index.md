@@ -1,6 +1,6 @@
 ---
 title: "Series"
-description: "Guided reading paths through Kafka Connect, MCP, and related topics."
+description: "Reading paths through Kafka Connect, MCP, and related topics."
 ---
 
-Guided reading paths — start at part 01 and keep going.
+Reading paths. Start at part 01 and keep going.

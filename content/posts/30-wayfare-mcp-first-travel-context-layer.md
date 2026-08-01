@@ -5,7 +5,7 @@ draft: false
 ctaProjects:
   - "wayfare"
 ShowToc: true
-summary: "I keep losing trip research across ChatGPT, Claude, and Cursor. So I built Wayfare — a travel bucket list with savings tracking, plus MCP so every chatbot shares the same trip context."
+summary: "I keep losing trip research across ChatGPT, Claude, and Cursor. So I built Wayfare: a travel bucket list with savings tracking, plus MCP so connected chatbots can use the same trip context."
 tags:
   - Wayfare
   - MCP
@@ -17,7 +17,7 @@ categories:
   - Side Projects
   - Web Development
 author: "Joel Hanson"
-description: "How I built Wayfare, a travel bucket list and savings tracker with MCP, so ChatGPT, Claude, and Cursor all work off the same trip details."
+description: "How I built Wayfare, a travel bucket list and savings tracker with MCP, so connected chatbots can use the same trip details."
 featureimage: "img/posts/wayfare.png"
 showHero: true
 heroStyle: "basic"

@@ -1,6 +1,6 @@
 ---
 title: "Discoveries"
-description: "Fun and useful things I figured out along the way."
+description: "Useful things I figured out along the way."
 cascade:
   showReadingTime: false
   showWordCount: false
@@ -14,4 +14,4 @@ cascade:
   showZenMode: false
 ---
 
-Short finds — snippets, demos, and link-outs. Not full posts.
+Short finds: snippets, demos, and link-outs. Not full posts.
