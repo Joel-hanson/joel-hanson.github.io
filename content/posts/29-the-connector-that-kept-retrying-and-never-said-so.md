@@ -2,11 +2,30 @@
 title: "The Connector That Kept Retrying and Never Said So"
 date: 2026-07-30 10:00:00 +0530
 draft: false
-featureimage: https://images.unsplash.com/photo-1735959264898-3b5b53e20929?q=80&w=2400&auto=format&fit=crop
-featureimagecaption: Photo by [Ramseena H](https://unsplash.com/@ramseena_h) on [Unsplash](https://unsplash.com/photos/a-sunset-over-a-body-of-water-with-palm-trees-3nOphis2od8)
+featureCode: |
+  } catch (final RetriableException rte) {
+      if (firstFailureTime == null) {
+          firstFailureTime = System.nanoTime();
+      }
+
+      final long elapsedMs =
+          (System.nanoTime() - firstFailureTime) / 1_000_000L;
+      if (elapsedMs >= errorRetry) {
+          firstFailureTime = null;
+          throw new ConnectException(
+              "Retry timeout of " + errorRetry + "ms exceeded. Killing task.",
+              rte);
+      }
+
+      context.timeout(retryBackoffMs);
+      throw rte;
+  }
+featureCodeFile: "MQSinkTask.java"
+featureCodeLang: "java"
+featureCodeMaxLines: 12
 showHero: true
-heroStyle: background
-imagePosition: center
+heroStyle: "code"
+imagePosition: "center"
 ---
 
 A customer reported that their Kafka Connect MQ Sink connector looked completely healthy — no errors on the connector CR, no failed tasks — but no messages were reaching MQ. This had been going on for hours.
