@@ -20,6 +20,9 @@ disableTextInHeader = false
 
 hotlinkFeatureImage = true
 
+# Fallback Open Graph / Twitter preview when a page has no featureimage
+defaultSocialImage = "img/profile.jpg"
+
 # Shorter card thumbnails (width unchanged, less height)
 thumbnailAspectRatio = "2.4"
 

@@ -1,0 +1,58 @@
+{{/*
+  Resolve absolute URL for Open Graph / Twitter share images.
+
+  Priority:
+  1. Page-bundle resources named *featured* / *feature* / *cover* / *thumbnail*
+  2. Front matter featureimage (remote URL or assets/ path)
+  3. Site params defaultSocialImage
+
+  SVG is skipped — major platforms do not render SVG as preview images.
+*/}}
+{{ $url := "" }}
+
+{{ $pageImages := .Resources.ByType "image" }}
+{{ $bundleImage := "" }}
+{{ range slice "*featured*" "*feature*" "*cover*" "*thumbnail*" }}
+  {{ if not $bundleImage }}
+    {{ $bundleImage = $pageImages.GetMatch . }}
+  {{ end }}
+{{ end }}
+{{ with $bundleImage }}
+  {{ if ne .MediaType.SubType "svg" }}
+    {{ $url = .Permalink }}
+  {{ end }}
+{{ end }}
+
+{{ if not $url }}
+  {{ with .Params.featureimage }}
+    {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+      {{ if not (strings.Contains . ".svg") }}
+        {{ $url = . }}
+      {{ end }}
+    {{ else if not (strings.HasSuffix . ".svg") }}
+      {{ $img := $.Resources.GetMatch . }}
+      {{ if not $img }}
+        {{ $img = resources.Get . }}
+      {{ end }}
+      {{ with $img }}
+        {{ if ne .MediaType.SubType "svg" }}
+          {{ $url = .Permalink }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if not $url }}
+  {{ with .Site.Params.defaultSocialImage }}
+    {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+      {{ $url = . }}
+    {{ else }}
+      {{ with resources.Get . }}
+        {{ $url = .Permalink }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $url }}
