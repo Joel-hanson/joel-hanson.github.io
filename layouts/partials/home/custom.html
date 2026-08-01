@@ -8,15 +8,20 @@
     Software Engineer at IBM Event Streams — Kafka, Kubernetes operators, and AI tooling.
     Sharing what I build and learn.
   </p>
-  <div class="terminal-links">
-    <a href="{{ "projects" | relLangURL }}">[projects]</a>
-    <a href="{{ "discoveries" | relLangURL }}">[discoveries]</a>
-    <a href="{{ "posts" | relLangURL }}">[posts]</a>
-    <a href="{{ "series" | relLangURL }}">[series]</a>
-    <a href="{{ "about" | relLangURL }}">[about]</a>
-    <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer">[github]</a>
-    <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer">[linkedin]</a>
-    <a href="https://joel-hanson.medium.com/" target="_blank" rel="noopener noreferrer">[medium]</a>
+  <div class="terminal-links terminal-links--hero">
+    <span class="terminal-links__social" aria-label="Feeds and social">
+      <a href="{{ "index.xml" | relURL }}" aria-label="RSS" title="RSS">{{ partial "icon.html" "rss" }}</a>
+      <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">{{ partial "icon.html" "github" }}</a>
+      <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
+      <a href="https://joel-hanson.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium" title="Medium">{{ partial "icon.html" "medium" }}</a>
+    </span>
+    <nav class="terminal-links__pages" aria-label="Site">
+      <a href="{{ "projects" | relLangURL }}">[projects]</a>
+      <a href="{{ "discoveries" | relLangURL }}">[discoveries]</a>
+      <a href="{{ "posts" | relLangURL }}">[posts]</a>
+      <a href="{{ "series" | relLangURL }}">[series]</a>
+      <a href="{{ "about" | relLangURL }}">[about]</a>
+    </nav>
   </div>
 </section>
 

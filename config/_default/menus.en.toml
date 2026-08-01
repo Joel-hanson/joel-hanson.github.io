@@ -47,3 +47,8 @@
   name = "Search"
   pageRef = "search"
   weight = 20
+
+[[footer]]
+  name = "RSS"
+  url = "/index.xml"
+  weight = 30

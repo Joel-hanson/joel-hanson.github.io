@@ -85,6 +85,8 @@ article .prose,
 .font-pixel,
 .site-logo,
 .terminal-brand,
+.terminal-role,
+.terminal-links,
 .main-menu a {
   font-family: GeistPixel, GeistMono, ui-monospace, monospace;
   letter-spacing: 0.04em;
@@ -132,18 +134,82 @@ article .prose,
 }
 
 .terminal-role {
+  font-family: GeistPixel, GeistMono, ui-monospace, monospace;
+  letter-spacing: 0.04em;
   color: rgb(var(--color-neutral-600));
-  font-size: 0.95rem;
+  font-size: 1rem;
   margin: 0 0 1.5rem;
-  line-height: 1.65;
+  line-height: 1.9;
 }
 
 .terminal-links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.9rem 1.5rem;
+  font-family: GeistPixel, GeistMono, ui-monospace, monospace;
+  letter-spacing: 0.04em;
   font-size: 0.85rem;
   margin-bottom: 2.25rem;
+}
+
+.terminal-links--hero {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.terminal-links__pages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.5rem;
+}
+
+.terminal-links__social {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.85rem;
+}
+
+.terminal-links__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--color-neutral-600));
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.terminal-links__social a .icon {
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  vertical-align: middle;
+}
+
+.terminal-links__social a .icon svg {
+  display: block;
+  width: 1.35em;
+  height: 1.35em;
+}
+
+.terminal-links__social a:hover,
+.terminal-links__social a:focus {
+  color: var(--archie-primary);
+  outline: none;
+}
+
+.dark .terminal-links__social a {
+  color: rgb(var(--color-neutral-400));
+}
+
+.dark .terminal-links__social a:hover,
+.dark .terminal-links__social a:focus {
+  color: var(--archie-primary);
 }
 
 /* Article share: copy UTM links in terminal chrome */
@@ -405,7 +471,8 @@ article h1,
 }
 
 /* —— Archie links: underline default, filled hover —— */
-.terminal-links a,
+.terminal-links > a,
+.terminal-links__pages > a,
 .prose a:not(.anchor):not(.no-archie),
 #TableOfContents a,
 .main-menu > a,
@@ -427,13 +494,16 @@ footer nav a {
    Nav / footer keep the full Archie weight. */
 body[data-section="posts"] .prose a:not(.anchor):not(.no-archie),
 body[data-section="posts"] #TableOfContents a,
-body[data-section="posts"] .terminal-links a,
+body[data-section="posts"] .terminal-links > a,
+body[data-section="posts"] .terminal-links__pages > a,
 body[data-section="posts"] .series-reading-list__body a {
   border-bottom-width: 1px;
 }
 
-.terminal-links a:hover,
-.terminal-links a:focus,
+.terminal-links > a:hover,
+.terminal-links > a:focus,
+.terminal-links__pages > a:hover,
+.terminal-links__pages > a:focus,
 .prose a:not(.anchor):not(.no-archie):hover,
 .prose a:not(.anchor):not(.no-archie):focus,
 #TableOfContents a:hover,
@@ -458,8 +528,10 @@ footer nav a:focus {
   outline: none;
 }
 
-.dark .terminal-links a:hover,
-.dark .terminal-links a:focus,
+.dark .terminal-links > a:hover,
+.dark .terminal-links > a:focus,
+.dark .terminal-links__pages > a:hover,
+.dark .terminal-links__pages > a:focus,
 .dark .prose a:not(.anchor):not(.no-archie):hover,
 .dark .prose a:not(.anchor):not(.no-archie):focus,
 .dark #TableOfContents a:hover,
