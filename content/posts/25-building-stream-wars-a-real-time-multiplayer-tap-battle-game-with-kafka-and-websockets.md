@@ -1,7 +1,12 @@
 ---
 title: "Stream Wars: A Simple Game to Explain Kafka"
 date: 2025-12-19T12:00:00+05:30
+aliases:
+  - "/posts/building-stream-wars-a-real-time-multiplayer-tap-battle-game-with-kafka-and-websockets/"
+  - "/posts/stream-wars-a-simple-game-to-explain-kafka/"
 draft: false
+ctaProjects:
+  - "stream-wars"
 ShowToc: false
 summary: "I built Stream Wars as a tiny tap game to demo how Kafka works, by turning every tap in the browser into a real Kafka event you can inspect."
 tags:
@@ -29,10 +34,9 @@ keywords:
     "Event-driven architecture",
     "Kafka tutorial",
   ]
-featureimage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Kalen Emsley](https://unsplash.com/@kalenemsley) on [Unsplash](https://unsplash.com/photos/Bkci_8qcdvQ)"
+featureimage: "img/posts/stream-wars.png"
 showHero: true
-heroStyle: "background"
+heroStyle: "basic"
 imagePosition: "center"
 ---
 

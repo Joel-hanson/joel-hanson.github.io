@@ -7,6 +7,7 @@ weight: 11
 category: "platform"
 summary: "Kafka Connect source that turns Server-Sent Events streams into Kafka topics — used in Event Streams demos."
 tags: ["Kafka Connect", "SSE", "Java"]
+blogPost: "/posts/21-sse-kafka-connector/"
 ---
 
 **Problem:** Many systems push live updates over Server-Sent Events, but Kafka Connect needs a proper source to land that data on topics with Connect’s runtime, config, and failure handling.

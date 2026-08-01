@@ -1,5 +1,8 @@
 ---
 date: 2025-11-16T10:00:00+05:30
+aliases:
+  - "/posts/introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
+  - "/posts/introducing-contextlayer-transform-any-rest-api-into-an-mcp-server-in-minutes/"
 title: "Introducing ContextLayer: Transform Any REST API into an MCP Server in Minutes"
 description: "Discover ContextLayer - the bridge that transforms any REST API into a Model Context Protocol (MCP) server, enabling AI assistants like Claude to interact with your existing APIs without code modifications."
 tags:
@@ -21,7 +24,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
+canonical_url: "https://joel-hanson.github.io/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
 keywords:
   [
     "ContextLayer",
@@ -39,10 +42,13 @@ keywords:
     "API management",
   ]
 draft: false
-featureimage: "https://images.unsplash.com/photo-1754560939545-c4235592f2f1?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Milin John](https://unsplash.com/@milinjohn) on [Unsplash](https://unsplash.com/photos/fFpfO1oXVsg)"
+series: ["MCP"]
+series_order: 3
+ctaProjects:
+  - "contextlayer"
+featureimage: "img/posts/contextlayer-landing.png"
 showHero: true
-heroStyle: "background"
+heroStyle: "basic"
 imagePosition: "center"
 ---
 

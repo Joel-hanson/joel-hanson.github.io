@@ -1,6 +1,8 @@
 ---
 title: "Mastering the Egg Drop: A Math Heist Unveiled"
 date: 2023-12-29T11:20:41+05:30
+aliases:
+  - "/posts/solve-egg-drop-with-2-eggs-and-n-floors/"
 draft: false
 ShowToc: true
 TocOpen: false
@@ -8,8 +10,7 @@ math: true
 summary: "Mastering the egg drop involves a careful blend of strategy, mathematics, and optimization. From crafting a plan with two replicas to understanding the arithmetic behind the sum formula, the jewel thief's mission highlights the fascinating intersection of math and real-world problem-solving. As we unravel the complexities, we find that breaking a few eggs may require a dash of strategic brilliance and a pinch of mathematical finesse."
 tags: ["math-puzzle", "algorithm-optimization", "educational-content", "creative-problem-solving", "SEO-writing-tips", "python", "leetcode", "DSA", "Math", "Dynamic Programming"]
 categories: ["DSA"]
-featureimage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Samuel Ferrara](https://unsplash.com/@samferrara) on [Unsplash](https://unsplash.com/photos/1527pjxc6mc)"
+featureimage: "img/covers/triangles.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

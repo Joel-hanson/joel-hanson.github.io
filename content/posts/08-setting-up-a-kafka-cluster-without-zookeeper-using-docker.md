@@ -1,9 +1,17 @@
 ---
 title: "Setting Up a Kafka Cluster Without Zookeeper Using Docker"
 date: 2024-10-05T23:14:04+05:30
+aliases:
+  - "/posts/setting-up-a-kafka-cluster-without-zookeeper-using-docker/"
 draft: false
-featureimage: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Benjamin Voros](https://unsplash.com/@vorosbenkep) on [Unsplash](https://unsplash.com/photos/phIFdC6lA4E)"
+series: ["Kafka Connect"]
+series_order: 1
+ctaProjects:
+  - "kafka-connector-template"
+  - "sse-kafka-connector"
+pinned: true
+weight: 4
+featureimage: "img/covers/bricks.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
@@ -125,7 +133,4 @@ In this blog post, we demonstrated how to set up a Kafka cluster without Zookeep
 Please refer to the official docker [page](https://hub.docker.com/r/apache/kafka) for more detailed information.
 
 Feel free to experiment with this setup and adjust the configuration for your specific use case!
-
 ---
-
-*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

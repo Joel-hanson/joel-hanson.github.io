@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <header class="mb-6">
+    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/discoveries</h1>
+    <div class="terminal-links" style="margin-bottom: 1.5rem;">
+      <a href="{{ "discoveries" | relLangURL }}">[all discoveries →]</a>
+    </div>
+  </header>
+
+  <div class="discoveries-reel discoveries-reel--single">
+    {{ partial "discovery-card.html" . }}
+  </div>
+{{ end }}

@@ -1,0 +1,47 @@
+{{ define "main" }}
+  <header class="mb-6">
+    <p class="terminal-prompt" style="margin-bottom: 0.75rem;">
+      joel@ibm:~$ <span class="cmd">ls ~/series/{{ .Data.Term | urlize }}</span>
+    </p>
+    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">
+      ~/series/{{ .Data.Term | urlize }}
+    </h1>
+    <h2 class="terminal-brand" style="font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 0.75rem;">
+      {{ .Title }}
+    </h2>
+    {{ with .Content }}
+      <div class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</div>
+    {{ else }}
+      {{ with .Description }}
+        <p class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</p>
+      {{ end }}
+    {{ end }}
+    <div class="terminal-links" style="margin-bottom: 1.5rem;">
+      <a href="{{ "series" | relLangURL }}">[all series]</a>
+      <a href="{{ "posts" | relLangURL }}">[all posts]</a>
+    </div>
+  </header>
+
+  {{ $pages := sort .Pages "Params.series_order" }}
+  {{ if not $pages }}
+    {{ $pages = .Pages.ByDate }}
+  {{ end }}
+
+  <ol class="series-reading-list">
+    {{ range $pages }}
+      <li>
+        <span class="series-reading-list__num" aria-hidden="true">
+          {{ with .Params.series_order }}{{ printf "%02d" . }}{{ else }}--{{ end }}
+        </span>
+        <div class="series-reading-list__body">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ with .Params.summary }}
+            <p>{{ . }}</p>
+          {{ else }}
+            <p>{{ .Summary | plainify | truncate 160 }}</p>
+          {{ end }}
+        </div>
+      </li>
+    {{ end }}
+  </ol>
+{{ end }}

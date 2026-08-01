@@ -7,6 +7,7 @@ weight: 3
 category: "platform"
 summary: "Expose Kafka cluster operations as LLM-accessible tools via the Model Context Protocol."
 tags: ["Kafka", "MCP", "AI", "Python"]
+blogPost: "/posts/16-breaking-kafka-walls-building-an-mcp-server-for-your-kafka-cluster/"
 ---
 
 **Problem:** Operating Kafka (topics, consumers, produce/consume, cluster checks) usually means hopping between CLIs, consoles, and runbooks — awkward for AI-assisted ops.

@@ -1,0 +1,44 @@
+{{ define "main" }}
+  <section class="terminal-hero terminal-404 w-full max-w-full">
+    <p class="terminal-prompt terminal-brand">
+      joel@ibm:~$ <span class="cmd">open <span id="missing-path">…</span></span><span class="cursor" aria-hidden="true"></span>
+    </p>
+    <h1 class="terminal-brand">404 — path not found</h1>
+    <p class="terminal-role">
+      That URL isn’t on this machine. Try one of the posts below, or head home.
+    </p>
+    <div class="terminal-links">
+      <a href="{{ "/" | relLangURL }}">[home]</a>
+      <a href="{{ "posts" | relLangURL }}">[all posts]</a>
+      <a href="{{ "discoveries" | relLangURL }}">[discoveries]</a>
+      <a href="{{ "projects" | relLangURL }}">[projects]</a>
+      <a href="{{ "search" | relLangURL }}">[search]</a>
+    </div>
+  </section>
+
+  {{ $posts := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+  {{ $pinned := sort (where $posts "Params.pinned" true) "Weight" "asc" }}
+  {{ $unpinned := where $posts "Params.pinned" "ne" true }}
+  {{ $recentLimit := .Site.Params.homepage.showRecentItems | default 6 }}
+
+  {{ if $pinned }}
+    <h2 class="terminal-section-title">~/pinned</h2>
+    {{ partial "post-card-grid.html" $pinned }}
+  {{ end }}
+
+  {{ with first $recentLimit $unpinned }}
+    <h2 class="terminal-section-title">~/posts</h2>
+    {{ partial "post-card-grid.html" . }}
+  {{ end }}
+
+  <div class="terminal-links" style="margin-top: 1.5rem; margin-bottom: 2.5rem;">
+    <a href="{{ "posts" | relLangURL }}">[all posts →]</a>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.getElementById("missing-path");
+      if (el) el.textContent = location.pathname || "/";
+    })();
+  </script>
+{{ end }}

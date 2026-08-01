@@ -1,0 +1,38 @@
+{{/*
+  Renders a terminal-style code cover from page feature-code settings.
+
+  Context: dict
+    page     - page
+    variant  - "card" | "hero" (default card)
+    maxLines - optional override
+*/}}
+{{ $page := .page }}
+{{ $variant := .variant | default "card" }}
+{{ $feature := partial "functions/get-feature-code.html" $page }}
+{{ if not $feature.ok }}
+  {{ return }}
+{{ end }}
+
+{{ $maxLines := .maxLines | default ($page.Params.featureCodeMaxLines | default (cond (eq $variant "hero") 18 12)) }}
+{{ $allLines := split $feature.code "\n" }}
+{{ $truncated := gt (len $allLines) $maxLines }}
+{{ $lines := first $maxLines $allLines }}
+
+<div
+  class="code-cover code-cover--{{ $variant }}"
+  data-lang="{{ $feature.lang }}"
+  aria-hidden="true">
+  <div class="code-cover__chrome">
+    <span class="code-cover__dots" aria-hidden="true">
+      <i></i><i></i><i></i>
+    </span>
+    <span class="code-cover__file">{{ $feature.file }}</span>
+    <span class="code-cover__lang">{{ $feature.lang }}</span>
+  </div>
+  <pre class="code-cover__pre"><code>{{- range $i, $line := $lines -}}
+<span class="code-cover__line"><span class="code-cover__n">{{ add $i 1 }}</span><span class="code-cover__c">{{ $line }}</span></span>
+{{- end -}}
+{{- if $truncated -}}
+<span class="code-cover__line code-cover__line--more"><span class="code-cover__n">··</span><span class="code-cover__c">…</span></span>
+{{- end -}}</code></pre>
+</div>

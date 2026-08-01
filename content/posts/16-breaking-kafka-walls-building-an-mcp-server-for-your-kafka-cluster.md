@@ -1,6 +1,15 @@
 ---
 title: "Building an MCP Server for Your Kafka Cluster"
 date: 2025-06-07
+series: ["MCP"]
+series_order: 1
+ctaProjects:
+  - "kafka-mcp-server"
+pinned: true
+weight: 5
+aliases:
+  - "/posts/breaking-kafka-walls-building-an-mcp-server-for-your-kafka-cluster/"
+  - "/posts/building-an-mcp-server-for-your-kafka-cluster/"
 summary: "A step‑by‑step guide to using FastMCP and the MCP protocol to expose Kafka operations (topic management, produce/consume, troubleshooting) as LLM‑accessible tools."
 tags:
   - Kafka
@@ -13,10 +22,11 @@ categories:
   - Developer Tools
   - Kafka
   - Machine Learning
-featureimage: "https://images.unsplash.com/photo-1726480192500-3ec015d823e9?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Katelyn G](https://unsplash.com/@katelyn_g) on [Unsplash](https://unsplash.com/photos/L4jXDAzSiFU)"
+featureCodeHeading: "2. List Topics (rich example)"
+featureCodeFile: "list_topics.py"
+featureCodeMaxLines: 12
 showHero: true
-heroStyle: "background"
+heroStyle: "code"
 imagePosition: "center"
 ---
 

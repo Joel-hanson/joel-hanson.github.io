@@ -1,11 +1,15 @@
 ---
 title: "Turn GitHub into Your Free Data Platform: Building APIs with GitHub Actions"
 date: 2025-07-26T14:47:05+05:30
+ctaProjects:
+  - "github-data-platform"
+aliases:
+  - "/posts/turn-git-hub-into-your-free-data-platform-building-ap-is-with-git-hub-actions/"
+  - "/posts/turn-github-into-your-free-data-platform-building-apis-with-github-actions/"
 categories: [DevOps, GitHub Actions, Web Scraping, APIs]
 tags: [github-actions, automation, data-scraping, free-hosting, api-development]
 description: "Learn how to use GitHub as a complete data platform for scraping, processing, and serving APIs - all for free. A complete guide with real-world examples."
-featureimage: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [eberhard grossgasteiger](https://unsplash.com/@eberhardgrossgasteiger) on [Unsplash](https://unsplash.com/photos/NTYYL9Eb9y8)"
+featureimage: "img/covers/nodes.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

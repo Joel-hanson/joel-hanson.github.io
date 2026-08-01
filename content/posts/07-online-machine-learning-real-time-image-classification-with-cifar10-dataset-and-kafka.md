@@ -1,12 +1,13 @@
 ---
 title: "Online Machine Learning: Real-time Image Classification with CIFAR10 Dataset and Kafka"
 date: 2024-10-02T18:12:07+05:30
+aliases:
+  - "/posts/online-machine-learning-real-time-image-classification-with-cifar10-dataset-and-kafka/"
 draft: false
 ShowToc: true
 TocOpen: false
 summary: "This blog post explores online machine learning through a practical example using the CIFAR10 dataset and Apache Kafka."
-featureimage: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Daniel Leone](https://unsplash.com/@danielleone_) on [Unsplash](https://unsplash.com/photos/gG70f72KOq8)"
+featureimage: "img/covers/waves.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

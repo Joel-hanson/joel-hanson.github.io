@@ -1,0 +1,68 @@
+{{/*
+  Resolve a post's feature code cover.
+
+  Front matter (pick one source):
+    featureCodeHeading: "2. List Topics (rich example)"  # first fence under that heading
+    featureCode: |                                       # explicit override
+      ...
+
+  Optional:
+    featureCodeFile: "list_topics.py"   # titlebar label
+    featureCodeLang: "python"           # when using featureCode
+    featureCodeMaxLines: 14             # truncate (cards)
+
+  Returns dict: code, lang, file, ok
+*/}}
+{{ $page := . }}
+{{ $code := "" }}
+{{ $lang := $page.Params.featureCodeLang | default "" }}
+{{ $file := $page.Params.featureCodeFile | default "" }}
+{{ $ok := false }}
+
+{{ with $page.Params.featureCode }}
+  {{ $code = trim . "\n\r " }}
+  {{ if $code }}{{ $ok = true }}{{ end }}
+{{ else }}
+  {{ with $page.Params.featureCodeHeading }}
+    {{ $heading := trim . "\n\r " }}
+    {{ $raw := $page.RawContent }}
+    {{ $lines := split $raw "\n" }}
+    {{ $found := false }}
+    {{ $inFence := false }}
+    {{ $buf := slice }}
+    {{ $headingRE := printf `(?i)^#{1,6}\s+%s\s*$` (replaceRE `([.^$|?*+()\[\]{}\\])` `\$1` $heading) }}
+    {{ range $lines }}
+      {{ if and (not $found) (findRE $headingRE .) }}
+        {{ $found = true }}
+      {{ else if $found }}
+        {{ if not $inFence }}
+          {{ if hasPrefix . "```" }}
+            {{ $inFence = true }}
+            {{ if not $lang }}
+              {{ $lang = strings.TrimSpace (strings.TrimPrefix "```" .) }}
+            {{ end }}
+          {{ else if findRE `^#{1,6}\s+` . }}
+            {{/* Next heading before any fence — give up */}}
+            {{ break }}
+          {{ end }}
+        {{ else }}
+          {{ if hasPrefix . "```" }}
+            {{ break }}
+          {{ end }}
+          {{ $buf = $buf | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ if $buf }}
+      {{ $code = delimit $buf "\n" }}
+      {{ $ok = true }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if and $ok (not $lang) }}{{ $lang = "text" }}{{ end }}
+{{ if and $ok (not $file) }}
+  {{ $file = printf "snippet.%s" (cond (eq $lang "") "txt" $lang) }}
+{{ end }}
+
+{{ return (dict "ok" $ok "code" $code "lang" $lang "file" $file) }}

@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <header class="mb-6 discoveries-page-header">
+    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/discoveries</h1>
+    {{ with .Content }}
+      <div class="terminal-role" style="margin-bottom: 1.5rem;">
+        {{ . | plainify }}
+      </div>
+    {{ end }}
+  </header>
+
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ if $pages }}
+    <div class="discoveries-reel" id="discoveries-reel" tabindex="0" aria-label="Discoveries feed">
+      {{ range $pages }}
+        {{ partial "discovery-card.html" . }}
+      {{ end }}
+    </div>
+    <div class="discoveries-progress" id="discoveries-progress" aria-hidden="true"></div>
+  {{ else }}
+    <p class="terminal-role">No discoveries yet.</p>
+  {{ end }}
+
+  {{ $js := resources.Get "js/discoveries.js" }}
+  {{ if $js }}
+    {{ $js = $js | resources.Minify | resources.Fingerprint $.Site.Params.fingerprintAlgorithm }}
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+  {{ end }}
+{{ end }}

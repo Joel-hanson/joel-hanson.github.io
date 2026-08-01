@@ -8,6 +8,7 @@ category: "personal"
 demoUrl: "https://markdown2medium.vercel.app/"
 summary: "Convert Hugo-friendly Markdown into Medium-ready posts with a live preview and one-click copy."
 tags: ["Side Project", "Markdown", "Medium", "Tooling"]
+blogPost: "/posts/15-how-i-automated-my-markdown-publishing-on-medium-no-more-manual-work/"
 ---
 
 A small web tool for cross-posting: paste Markdown, get Medium-friendly HTML, preview, and copy.

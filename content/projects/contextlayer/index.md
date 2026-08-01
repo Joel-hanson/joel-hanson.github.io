@@ -8,6 +8,7 @@ category: "platform"
 demoUrl: "https://contextlayer.tech"
 summary: "Transform any REST API into an MCP server — connectors that make existing APIs usable by LLM tools."
 tags: ["MCP", "AI", "Python", "REST"]
+blogPost: "/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
 ---
 
 **Problem:** Most production APIs are REST. LLM assistants speak tools via MCP. Bridging them usually means hand-writing a server per API.

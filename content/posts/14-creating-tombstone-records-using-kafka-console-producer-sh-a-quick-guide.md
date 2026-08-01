@@ -1,11 +1,16 @@
 ---
 title: "Creating Tombstone Records Using kafka-console-producer.sh: A Quick Guide"
 date: 2025-04-22T16:03:27+05:30
+series: ["Kafka Connect"]
+series_order: 3
+ctaProjects:
+  - "kafka-connector-template"
+aliases:
+  - "/posts/creating-tombstone-records-using-kafka-console-producer-sh-a-quick-guide/"
 summary: "A practical guide to creating tombstone records for Kafka compacted topics using the kafka-console-producer.sh command-line tool with the null marker feature"
 tags: ["Kafka", "Tombstone Records", "Log Compaction", "Kafka CLI", "Data Management"]
 categories: ["Kafka"]
-featureimage: "https://images.unsplash.com/photo-1770736957456-d552bc016472?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Alexandra](https://unsplash.com/@alexandra_p_d) on [Unsplash](https://unsplash.com/photos/IT4AS8SlZ8I)"
+featureimage: "img/covers/slash.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
@@ -134,7 +139,4 @@ Note the important `print.null.value=true` parameter that ensures null values ar
 Creating tombstone records from the Kafka console producer is straightforward with the null marker feature. This powerful capability lets you easily manage data deletion in compacted topics directly from the command line, making development and operational tasks much simpler.
 
 Next time you need to clean up data in a compacted topic, remember this pattern—it's a clean, standard way to handle data removal in the Kafka ecosystem.
-
 ---
-
-*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

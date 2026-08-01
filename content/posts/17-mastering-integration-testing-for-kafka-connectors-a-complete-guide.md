@@ -1,6 +1,12 @@
 ---
 title: "Mastering Integration Testing for Kafka Connectors: A Complete Guide"
 date: 2025-07-13T21:40:00+05:30
+series: ["Kafka Connect"]
+series_order: 6
+ctaProjects:
+  - "kafka-connector-template"
+aliases:
+  - "/posts/17-mastering-integration-testing-for-kafka-connectors-a-complete-guide/"
 slug: mastering-integration-testing-for-kafka-connectors-a-complete-guide
 description: "Learn how to effectively test Kafka Connectors with integration tests, ensuring reliability and performance in production. This guide covers setup, testing strategies, and best practices."
 author: "Joel Hanson"
@@ -8,8 +14,7 @@ summary: "Integration testing is crucial for Kafka Connectors to ensure they wor
 tags: ["Kafka Connect", "kafka", "template"]
 categories: ["Kafka"]
 showtoc: true
-featureimage: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Tim Swaan](https://unsplash.com/@timswaan) on [Unsplash](https://unsplash.com/photos/eOpewngf68w)"
+featureimage: "img/covers/mosaic.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
@@ -92,7 +97,6 @@ public void testSourceConnectorBasicFunctionality() throws Exception {
     });
 }
 ```
-
 ---
 
 ## Understanding Integration Tests in the Kafka Connect Context
@@ -953,5 +957,3 @@ Integration testing for Kafka connectors is complex but essential. The framework
 Remember: Good integration tests are the difference between a connector that works in development and one that thrives in production. Invest the time upfront - your future self (and your operations team) will thank you.
 
 ---
-
-*For more Kafka Connect tips and open-source tools, follow the [blog series](https://joel-hanson.github.io/posts/) and star the [template repository](https://github.com/joel-hanson/kafka-connector-template).*

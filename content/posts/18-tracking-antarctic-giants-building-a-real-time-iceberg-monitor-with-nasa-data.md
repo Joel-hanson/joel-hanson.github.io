@@ -1,13 +1,16 @@
 ---
 title: "Tracking Antarctic Giants: Building a Real-Time Iceberg Monitor with NASA Data"
 date: 2025-07-26T12:14:10+05:30
+ctaProjects:
+  - "iceberg-locations"
+aliases:
+  - "/posts/tracking-antarctic-giants-building-a-real-time-iceberg-monitor-with-nasa-data/"
 categories: [Python, Data Science, Web Development, NASA APIs]
 tags: [geospatial, data-visualization, cli-tools, web-scraping, api-development]
 description: "How I built a comprehensive system to track massive Antarctic icebergs using NASA satellite data, complete with interactive maps, APIs, and movement animations."
-featureimage: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Rohit Tandon](https://unsplash.com/@sepoys) on [Unsplash](https://unsplash.com/photos/9wg5jCEPBsw)"
+featureimage: "img/posts/iceberg-tracker.png"
 showHero: true
-heroStyle: "background"
+heroStyle: "basic"
 imagePosition: "center"
 ---
 

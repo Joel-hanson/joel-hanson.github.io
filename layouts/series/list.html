@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <header class="mb-6">
+    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/series</h1>
+    {{ with .Content }}
+      <div class="terminal-role" style="margin-bottom: 1.5rem;">{{ . | plainify }}</div>
+    {{ end }}
+  </header>
+
+  <div class="series-hub-grid">
+    {{ range .Pages.ByTitle }}
+      <a class="series-hub-card" href="{{ .RelPermalink }}">
+        <h2>{{ .Title }}</h2>
+        <p>
+          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 140 }}{{ end }}
+        </p>
+        <span class="series-hub-card__meta">{{ len .Pages }} posts</span>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}

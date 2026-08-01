@@ -1,0 +1,56 @@
+{{/* Discovery find card — feed + reel + single */}}
+{{ $kind := .Params.discoveryType | default .Params.kind | default "snippet" }}
+{{ $compact := .Scratch.Get "discoveryCompact" | default false }}
+<article class="discovery-card" data-kind="{{ $kind }}" id="{{ .File.ContentBaseName }}" tabindex="-1">
+  <a class="discovery-card-hit" href="{{ .RelPermalink }}" aria-label="{{ .Title }}" tabindex="-1"></a>
+
+  <header class="discovery-card-header">
+    <span class="discovery-kind">[{{ $kind }}]</span>
+    <time class="discovery-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+  </header>
+
+  <h3 class="discovery-title">
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  </h3>
+
+  {{ with .Params.summary }}
+    <p class="discovery-summary">{{ . }}</p>
+  {{ end }}
+
+  {{ if eq $kind "media" }}
+    {{ with .Params.image }}
+      <figure class="discovery-media">
+        <img class="nozoom" src="{{ . | relURL }}" alt="" loading="lazy" decoding="async" />
+      </figure>
+    {{ end }}
+  {{ end }}
+
+  {{ if and (eq $kind "snippet") .Params.code }}
+    <div class="discovery-code" tabindex="-1">
+      <pre><code>{{ .Params.code }}</code></pre>
+    </div>
+  {{ end }}
+
+  {{ with .Content }}
+    <div class="discovery-body">{{ . }}</div>
+  {{ end }}
+
+  <footer class="discovery-card-footer">
+    {{ with .Params.tags }}
+      <div class="discovery-tags" aria-hidden="true">
+        {{ range $i, $t := . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}
+      </div>
+    {{ end }}
+    <div class="discovery-links terminal-links">
+      {{ with .Params.externalUrl }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer">[open →]</a>
+      {{ end }}
+      {{ with .Params.relatedPost }}
+        <a href="{{ . | relLangURL }}">[full post →]</a>
+      {{ end }}
+      {{ if not $compact }}
+        <a href="{{ .RelPermalink }}">[permalink]</a>
+      {{ end }}
+    </div>
+  </footer>
+</article>

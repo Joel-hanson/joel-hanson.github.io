@@ -1,10 +1,11 @@
 ---
 title: "Part 1 – Introduction to Apache Flink: Real-Time Data Processing Made Simple"
 date: 2025-06-21T15:36:38+05:30
+aliases:
+  - "/posts/part-1-introduction-to-apache-flink-real-time-data-processing-made-simple/"
 draft: true
 tocopen: true
-featureimage: "https://images.unsplash.com/photo-1762291834384-09118dda091d?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Last Oops](https://unsplash.com/@lastoops) on [Unsplash](https://unsplash.com/photos/Pk1MrGNquo8)"
+featureimage: "img/covers/waves.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

@@ -1,7 +1,15 @@
 ---
 title: "SSE Kafka Connector: Stream Real-time Events into Kafka"
 date: 2025-08-27T21:15:47+05:30
+aliases:
+  - "/posts/sse-kafka-connector/"
+  - "/posts/sse-kafka-connector-stream-real-time-events-into-kafka/"
+  - "/posts/sse-kafka-connector-stream-real-time-events-into-kafka-simply/"
 draft: false
+series: ["Kafka Connect"]
+series_order: 7
+ctaProjects:
+  - "sse-kafka-connector"
 tags:
   [
     "Kafka",
@@ -27,10 +35,9 @@ keywords:
     "GitHub events",
     "Open source connector",
   ]
-featureimage: "https://images.unsplash.com/photo-1722563152130-0b71c42f5bd7?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Peter Bryan](https://unsplash.com/@peterbbryan) on [Unsplash](https://unsplash.com/photos/7t6FlkNCjY0)"
+featureimage: "img/posts/sse-kafka-connector.png"
 showHero: true
-heroStyle: "background"
+heroStyle: "basic"
 imagePosition: "center"
 ---
 
@@ -134,5 +141,3 @@ Questions or ideas? Open an issue or contribute to the project. I'd love to hear
 - **Blog**: [https://joel-hanson.github.io/](/)
 - **GitHub**: [Joel-hanson](https://github.com/Joel-hanson)
 - **LinkedIn**: [Joel-hanson](https://www.linkedin.com/in/joel-hanson/)
-
-_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joel-hanson.github.io/posts/) and star the [repository](https://github.com/Joel-hanson/sse-kafka-connector)._

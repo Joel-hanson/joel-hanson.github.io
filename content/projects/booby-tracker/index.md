@@ -8,6 +8,7 @@ category: "personal"
 demoUrl: "https://joel-hanson.github.io/booby-tracker/"
 summary: "Home-screen PWA for nursing/feeding logs, built and shipped on GitHub Pages."
 tags: ["Side Project", "PWA", "Frontend", "GitHub Pages"]
+blogPost: "/posts/27-from-prompt-to-home-screen-booby-tracker-on-github-pages/"
 ---
 
 From prompt to home screen — a small PWA for nursing logs, published on GitHub Pages.

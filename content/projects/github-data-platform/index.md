@@ -8,6 +8,7 @@ category: "platform"
 demoUrl: "https://joel-hanson.github.io/weather-api-project/"
 summary: "Turn GitHub Actions + Pages into a free scrape-and-serve data API — template and weather example."
 tags: ["Side Project", "GitHub Actions", "API", "Automation"]
+blogPost: "/posts/19-turn-git-hub-into-your-free-data-platform-building-ap-is-with-git-hub-actions/"
 ---
 
 A pattern (and template) for hosting automated data APIs on GitHub: scrape on a schedule, commit JSON, serve via Pages or raw URLs.

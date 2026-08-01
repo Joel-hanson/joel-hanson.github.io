@@ -7,6 +7,7 @@ weight: 4
 category: "platform"
 summary: "Shrink Kafka integer payloads with a compact encoding library for Java/Kafka apps."
 tags: ["Kafka", "Java", "Encoding"]
+blogPost: "/posts/26-shrink-kafka-integer-payloads-with-bijou64/"
 ---
 
 Compact integer encoding for Kafka payloads — smaller messages without giving up clarity.

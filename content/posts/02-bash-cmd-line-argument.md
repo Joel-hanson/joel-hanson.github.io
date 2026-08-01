@@ -1,14 +1,15 @@
 ---
 title: "Crafting Command-Line Magic with Ease"
 date: 2023-12-24T11:23:15+05:30
+aliases:
+  - "/posts/bash-cmd-line-argument/"
 draft: false
 ShowToc: true
 TocOpen: false
 summary: "Different ways to accept arguments in a Bash script"
 tags: ["BashScripting", "CommandLine", "bash", "script", "shell"]
 categories: ["scripting"]
-featureimage: "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Jay Mantri](https://unsplash.com/@jaymantri) on [Unsplash](https://unsplash.com/photos/TFyi0xOs4X0)"
+featureimage: "img/covers/scanlines.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
@@ -98,7 +99,8 @@ read name
 echo "Hello, $name!"
 ```
 
-----
+-
+---
 
 ### 🚀 **Example:**
 

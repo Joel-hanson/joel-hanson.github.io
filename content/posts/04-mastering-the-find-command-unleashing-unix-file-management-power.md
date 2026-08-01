@@ -1,6 +1,8 @@
 ---
 title: "Mastering the Find Command: Unleashing Unix File Management Power"
 date: 2024-02-28T08:03:02Z
+aliases:
+  - "/posts/mastering-the-find-command-unleashing-unix-file-management-power/"
 draft: false
 ShowToc: true
 TocOpen: false
@@ -8,8 +10,7 @@ math: true
 summary: "Discover the unparalleled capabilities of the 'find' command in Unix systems. From basic file searches to advanced manipulations, mastering 'find' empowers users to efficiently navigate, search, and manage files. With practical examples and powerful techniques, this blog unveils the full potential of 'find', transforming your Unix experience into one of seamless productivity and control. Unlock the power of Unix file management with the mastery of the 'find' command."
 tags: ["Unix", "Command Line", "File Management", "Find Command", "System Administration", "Productivity", "Efficiency", "Linux", "Shell Scripting", "File Searching"]
 categories: ["UNIX"]
-featureimage: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Sebastian Unrau](https://unsplash.com/@sebastian_unrau) on [Unsplash](https://unsplash.com/photos/xxA2lNIYIYQ)"
+featureimage: "img/covers/hash.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

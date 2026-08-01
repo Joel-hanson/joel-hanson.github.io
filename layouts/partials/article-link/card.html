@@ -8,10 +8,12 @@
 {{ $page := .Page }}
 {{ $featured := "" }}
 {{ $featuredURL := "" }}
+{{ $featureCode := partial "functions/get-feature-code.html" $page }}
+{{ $useCodeCover := $featureCode.ok }}
 {{ $thumbnailAspectRatio := site.Params.thumbnailAspectRatio | default "1.5" }}
 {{ $thumbnailAspectRatio = replaceRE "[^0-9.]" "" $thumbnailAspectRatio }}
 {{ if eq $thumbnailAspectRatio "" }}{{ $thumbnailAspectRatio = "1.5" }}{{ end }}
-{{ if not .Params.hideFeatureImage }}
+{{ if and (not $useCodeCover) (not .Params.hideFeatureImage) }}
   {{ with $page }}
     {{ $p := . }}
     {{ with .Params.featureimage }}
@@ -59,17 +61,25 @@
 
 <article
   class="article-link--card relative min-w-full overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600">
-  {{ with $featuredURL }}
+  {{ if $useCodeCover }}
     <div
-      class="flex-none relative overflow-hidden thumbnail_card"
+      class="flex-none relative overflow-hidden thumbnail_card thumbnail_card--code"
       style="--thumbnail-aspect-ratio: {{ $thumbnailAspectRatio }}">
-      <img
-        src="{{ . }}"
-        role="presentation"
-        loading="lazy"
-        decoding="async"
-        class="not-prose absolute inset-0 w-full h-full object-cover" />
+      {{ partial "code-cover.html" (dict "page" $page "variant" "card") }}
     </div>
+  {{ else }}
+    {{ with $featuredURL }}
+      <div
+        class="flex-none relative overflow-hidden thumbnail_card"
+        style="--thumbnail-aspect-ratio: {{ $thumbnailAspectRatio }}">
+        <img
+          src="{{ . }}"
+          role="presentation"
+          loading="lazy"
+          decoding="async"
+          class="not-prose absolute inset-0 w-full h-full object-cover" />
+      </div>
+    {{ end }}
   {{ end }}
   {{ if and .Draft .Site.Params.article.showDraftLabel }}
     <span class="absolute top-0 right-0 m-2">

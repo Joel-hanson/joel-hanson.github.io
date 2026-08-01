@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img">
+  <rect width="100%" height="100%" fill="#0a0a0a"/>
+  <g fill="none" stroke-width="2">
+    <path d="M0 120 Q 150 80 300 120 T 600 120 T 900 120 T 1200 120" stroke="#dc143c" opacity="0.7"/><path d="M0 156 Q 150 116 300 156 T 600 156 T 900 156 T 1200 156" stroke="#262626" opacity="0.35"/><path d="M0 192 Q 150 152 300 192 T 600 192 T 900 192 T 1200 192" stroke="#262626" opacity="0.35"/><path d="M0 228 Q 150 188 300 228 T 600 228 T 900 228 T 1200 228" stroke="#dc143c" opacity="0.7"/><path d="M0 264 Q 150 224 300 264 T 600 264 T 900 264 T 1200 264" stroke="#262626" opacity="0.35"/><path d="M0 300 Q 150 260 300 300 T 600 300 T 900 300 T 1200 300" stroke="#262626" opacity="0.35"/><path d="M0 336 Q 150 296 300 336 T 600 336 T 900 336 T 1200 336" stroke="#dc143c" opacity="0.7"/><path d="M0 372 Q 150 332 300 372 T 600 372 T 900 372 T 1200 372" stroke="#262626" opacity="0.35"/><path d="M0 408 Q 150 368 300 408 T 600 408 T 900 408 T 1200 408" stroke="#262626" opacity="0.35"/><path d="M0 444 Q 150 404 300 444 T 600 444 T 900 444 T 1200 444" stroke="#dc143c" opacity="0.7"/><path d="M0 480 Q 150 440 300 480 T 600 480 T 900 480 T 1200 480" stroke="#262626" opacity="0.35"/><path d="M0 516 Q 150 476 300 516 T 600 516 T 900 516 T 1200 516" stroke="#262626" opacity="0.35"/><path d="M0 552 Q 150 512 300 552 T 600 552 T 900 552 T 1200 552" stroke="#dc143c" opacity="0.7"/>
+  </g>
+
+</svg>

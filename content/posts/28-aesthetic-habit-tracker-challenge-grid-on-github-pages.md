@@ -1,7 +1,11 @@
 ---
 title: "Aesthetic Habit Tracker: A Challenge Grid That Lives in Your Browser"
 date: 2026-06-07
+aliases:
+  - "/posts/aesthetic-habit-tracker-challenge-grid-on-github-pages/"
 draft: false
+ctaProjects:
+  - "habit-tracker"
 ShowToc: false
 summary: "Most habit apps want an account, a subscription, and a notification every hour. I built a minimalist challenge tracker that stores everything locally, exports to PDF, and ships free on GitHub Pages."
 tags:
@@ -15,10 +19,9 @@ categories:
   - Side Projects
 author: "Joel Hanson"
 description: "A clean, challenge-based habit tracker with local storage, printable exports, and free GitHub Pages hosting."
-featureimage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [David Marcu](https://unsplash.com/@davidmarcu) on [Unsplash](https://unsplash.com/photos/78A2WqeiGmc)"
+featureimage: "img/posts/habit-tracker.png"
 showHero: true
-heroStyle: "background"
+heroStyle: "basic"
 imagePosition: "center"
 ---
 

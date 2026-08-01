@@ -7,6 +7,7 @@ weight: 15
 category: "platform"
 summary: "Side-by-side Flask apps showing durable execution with Restate versus plain request handlers."
 tags: ["Side Project", "Flask", "Restate", "Python"]
+blogPost: "/posts/23-adding-durable-execution-to-flask-with-restate/"
 ---
 
 Companion examples for adding durable workflows to Flask — basic app vs Restate-backed version, both runnable with Docker Compose.

@@ -1,0 +1,65 @@
+{{/*
+  End-of-post conversion path: About + Projects + matched project pages.
+  Related projects: Params.ctaProjects (folder names) or auto-match via blogPost /
+  a /posts/... link in the project body.
+*/}}
+{{ if eq .Section "posts" }}
+  {{ $post := . }}
+  {{ $rel := $post.RelPermalink }}
+  {{ $projects := where site.RegularPages "Section" "projects" }}
+  {{ $related := slice }}
+
+  {{/* Explicit front matter: ctaProjects: ["kafka-mcp-server"] */}}
+  {{ with $post.Params.ctaProjects }}
+    {{ range . }}
+      {{ with site.GetPage (printf "/projects/%s" .) }}
+        {{ $related = $related | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Auto: project.Params.blogPost or body contains this post path */}}
+  {{ if not $related }}
+    {{ range $projects }}
+      {{ $match := false }}
+      {{ with .Params.blogPost }}
+        {{ if or (eq . $rel) (in $rel .) (in . $rel) }}
+          {{ $match = true }}
+        {{ end }}
+      {{ end }}
+      {{ if and (not $match) (in .RawContent $rel) }}
+        {{ $match = true }}
+      {{ end }}
+      {{/* Also match without leading/trailing slashes quirks */}}
+      {{ if and (not $match) (in .RawContent (strings.TrimSuffix "/" $rel)) }}
+        {{ $match = true }}
+      {{ end }}
+      {{ if $match }}
+        {{ $related = $related | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $seriesHub := false }}
+  {{ with $post.Params.series }}
+    {{ $seriesHub = site.GetPage (printf "/series/%s" (index . 0 | urlize)) }}
+  {{ end }}
+
+  <aside class="article-cta" aria-label="About and projects">
+    <p class="article-cta__label">~/continue</p>
+    <p class="article-cta__text">
+      I’m Joel — Software Engineer at IBM Event Streams (Kafka). If this was useful,
+      here’s where to go next.
+    </p>
+    <div class="article-cta__links terminal-links">
+      <a href="{{ "about" | relLangURL }}">[about me]</a>
+      <a href="{{ "projects" | relLangURL }}">[projects]</a>
+      {{ range $related }}
+        <a href="{{ .RelPermalink }}">[{{ .Title | lower }} →]</a>
+      {{ end }}
+      {{ with $seriesHub }}
+        <a href="{{ .RelPermalink }}">[{{ .Title | lower }} series →]</a>
+      {{ end }}
+    </div>
+  </aside>
+{{ end }}

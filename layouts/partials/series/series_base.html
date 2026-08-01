@@ -1,0 +1,45 @@
+{{/*
+  Series listing for the current article.
+  Prefer the term page's .Pages — more reliable than Taxonomies map keys.
+*/}}
+{{ if .Params.series }}
+  {{ $raw := index .Params.series 0 }}
+  {{ $seriesKey := $raw | urlize }}
+  {{ $term := site.GetPage (printf "/series/%s" $seriesKey) }}
+  {{ $title := $raw }}
+  {{ $pages := slice }}
+  {{ with $term }}
+    {{ $title = .Title }}
+    {{ $pages = sort .Pages "Params.series_order" }}
+  {{ end }}
+  {{ if not $pages }}
+    {{ with index site.Taxonomies.series $seriesKey }}
+      {{ $pages = sort . "Params.series_order" }}
+    {{ end }}
+  {{ end }}
+
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 -ms-5 ps-5 dark:bg-primary-800 dark:text-neutral-100">
+    {{ $title }} — part of a series
+  </summary>
+  {{ range $post := $pages }}
+    {{ if eq $post.Permalink $.Page.Permalink }}
+      <div
+        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+        Part {{ $post.Params.series_order }}: this article
+      </div>
+    {{ else }}
+      <div
+        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+        <a href="{{ $post.RelPermalink }}">
+          Part {{ $post.Params.series_order }}: {{ $post.Title }}
+        </a>
+      </div>
+    {{ end }}
+  {{ end }}
+  {{ with $term }}
+    <div class="py-2 -ms-5 ps-5 text-sm">
+      <a href="{{ .RelPermalink }}">View full series →</a>
+    </div>
+  {{ end }}
+{{ end }}

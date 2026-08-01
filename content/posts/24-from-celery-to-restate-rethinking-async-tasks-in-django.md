@@ -1,5 +1,9 @@
 ---
 date: 2025-11-16T17:00:00+05:30
+ctaProjects:
+  - "django-celery-restate"
+aliases:
+  - "/posts/from-celery-to-restate-rethinking-async-tasks-in-django/"
 title: "From Celery to Restate: Rethinking Async Tasks in Django"
 description: "Exploring the transition from Celery to Restate for async task processing in Django applications, with practical examples and real-world comparisons."
 tags:
@@ -17,7 +21,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/from-celery-to-restate-rethinking-async-tasks-in-django/"
+canonical_url: "https://joel-hanson.github.io/posts/24-from-celery-to-restate-rethinking-async-tasks-in-django/"
 keywords:
   [
     "Django Celery",
@@ -29,8 +33,7 @@ keywords:
     "Python task processing",
     "Django best practices",
   ]
-featureimage: "https://images.unsplash.com/photo-1765871319901-0aaafe3f1a2a?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Roberto Shumski](https://unsplash.com/@robshumski) on [Unsplash](https://unsplash.com/photos/oYEGPZebzGw)"
+featureimage: "img/covers/rings.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

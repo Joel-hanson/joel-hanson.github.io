@@ -1,0 +1,59 @@
+{{/* Prev / next within the current series + hub link. */}}
+{{ if .Params.series }}
+  {{ $raw := index .Params.series 0 }}
+  {{ $seriesKey := $raw | urlize }}
+  {{ $term := site.GetPage (printf "/series/%s" $seriesKey) }}
+  {{ $title := $raw }}
+  {{ $pages := slice }}
+  {{ with $term }}
+    {{ $title = .Title }}
+    {{ $pages = sort .Pages "Params.series_order" }}
+  {{ end }}
+  {{ if not $pages }}
+    {{ with index site.Taxonomies.series $seriesKey }}
+      {{ $pages = sort . "Params.series_order" }}
+    {{ end }}
+  {{ end }}
+
+  {{ $prev := false }}
+  {{ $next := false }}
+  {{ $found := false }}
+  {{ range $pages }}
+    {{ if $found }}
+      {{ if not $next }}{{ $next = . }}{{ end }}
+    {{ else if eq .Permalink $.Permalink }}
+      {{ $found = true }}
+    {{ else }}
+      {{ $prev = . }}
+    {{ end }}
+  {{ end }}
+
+  <nav class="series-nav" aria-label="Series navigation">
+    <p class="series-nav__label">~/series/{{ $seriesKey }}</p>
+    <div class="series-nav__links terminal-links">
+      {{ if $prev }}
+        <a href="{{ $prev.RelPermalink }}">[← part {{ $prev.Params.series_order }}]</a>
+      {{ else }}
+        <span class="series-nav__disabled">[← start]</span>
+      {{ end }}
+      {{ with $term }}
+        <a href="{{ .RelPermalink }}">[series hub]</a>
+      {{ end }}
+      {{ if $next }}
+        <a href="{{ $next.RelPermalink }}">[part {{ $next.Params.series_order }} →]</a>
+      {{ else }}
+        <span class="series-nav__disabled">[end →]</span>
+      {{ end }}
+    </div>
+    {{ if $next }}
+      <p class="series-nav__next">
+        Next: <a href="{{ $next.RelPermalink }}">{{ $next.Title }}</a>
+      </p>
+    {{ else }}
+      <p class="series-nav__next">
+        That’s the end of the {{ $title }} series.
+        {{ with $term }}<a href="{{ .RelPermalink }}">Back to the hub</a>.{{ end }}
+      </p>
+    {{ end }}
+  </nav>
+{{ end }}

@@ -1,0 +1,6 @@
+{{/* Homepage recent posts: newest unpinned only. Pinned live under ~/pinned. */}}
+{{ $limit := .Site.Params.homepage.showRecentItems | default 5 }}
+{{ $posts := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+{{ $unpinned := where $posts "Params.pinned" "ne" true }}
+
+{{ partial "post-card-grid.html" (first $limit $unpinned) }}

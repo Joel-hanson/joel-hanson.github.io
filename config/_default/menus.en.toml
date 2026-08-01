@@ -6,9 +6,19 @@
   weight = 10
 
 [[main]]
+  name = "Discoveries"
+  pageRef = "discoveries"
+  weight = 15
+
+[[main]]
   name = "Posts"
   pageRef = "posts"
   weight = 20
+
+[[main]]
+  name = "Series"
+  pageRef = "series"
+  weight = 25
 
 [[main]]
   name = "About"
@@ -27,6 +37,11 @@
   name = "Tags"
   pageRef = "tags"
   weight = 10
+
+[[footer]]
+  name = "Series"
+  pageRef = "series"
+  weight = 15
 
 [[footer]]
   name = "Search"

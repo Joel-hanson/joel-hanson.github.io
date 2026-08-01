@@ -1,6 +1,9 @@
 ---
 title: "Git Aliases to Supercharge Your Workflow"
 date: 2024-03-21
+aliases:
+  - "/posts/useful-git-aliases-for-a-productive-workflow/"
+  - "/posts/git-aliases-to-supercharge-your-workflow/"
 draft: false
 ShowToc: true
 TocOpen: false
@@ -10,8 +13,7 @@ tags: [    "git", "version-control", "workflow", "development", "productivity",
     "command-line", "aliases", "git-commands", "git-aliases", "coding", 
     "programming", "software-development", "github"]
 categories: ["git"]
-featureimage: "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Luca Bravo](https://unsplash.com/@lucabravo) on [Unsplash](https://unsplash.com/photos/ESkK_9TsHAo)"
+featureimage: "img/covers/chevron.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

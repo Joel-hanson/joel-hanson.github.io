@@ -1,0 +1,931 @@
+# ----------------------------------------
+# Reports snapshot
+# Account: PORTFOLIO
+# Property: Website
+# ----------------------------------------
+#  
+# Start date: 20250101
+# End date: 20251231
+Nth week,Active users
+0000,13
+0001,22
+0002,18
+0003,30
+0004,30
+0005,42
+0006,41
+0007,15
+0008,39
+0009,57
+0010,61
+0011,73
+0012,25
+0013,27
+0014,28
+0015,26
+0016,23
+0017,14
+0018,19
+0019,19
+0020,26
+0021,30
+0022,30
+0023,33
+0024,37
+0025,61
+0026,42
+0027,36
+0028,45
+0029,54
+0030,47
+0031,56
+0032,105
+0033,64
+0034,98
+0035,49
+0036,67
+0037,36
+0038,53
+0039,56
+0040,79
+0041,110
+0042,228
+0043,186
+0044,183
+0045,173
+0046,180
+0047,267
+0048,176
+0049,169
+0050,122
+0051,83
+0052,54
+
+# Start date: 20250101
+# End date: 20251231
+Nth week,New users
+0000,13
+0001,19
+0002,18
+0003,27
+0004,29
+0005,41
+0006,38
+0007,14
+0008,38
+0009,57
+0010,59
+0011,70
+0012,22
+0013,26
+0014,26
+0015,23
+0016,20
+0017,13
+0018,19
+0019,18
+0020,25
+0021,29
+0022,26
+0023,29
+0024,36
+0025,55
+0026,41
+0027,34
+0028,39
+0029,48
+0030,44
+0031,50
+0032,104
+0033,62
+0034,88
+0035,41
+0036,55
+0037,33
+0038,50
+0039,51
+0040,70
+0041,104
+0042,219
+0043,182
+0044,179
+0045,161
+0046,174
+0047,256
+0048,159
+0049,162
+0050,116
+0051,82
+0052,53
+
+# Start date: 20250101
+# End date: 20251231
+Nth week,Average engagement time per active user
+0000,65.76923076923077
+0001,25.727272727272727
+0002,53.72222222222222
+0003,18.366666666666667
+0004,16.266666666666666
+0005,44.833333333333336
+0006,24.853658536585368
+0007,44.53333333333333
+0008,11.538461538461538
+0009,26.80701754385965
+0010,7.459016393442623
+0011,5.876712328767123
+0012,19.56
+0013,13.88888888888889
+0014,18.285714285714285
+0015,57.53846153846154
+0016,37.78260869565217
+0017,80.57142857142857
+0018,66.3157894736842
+0019,58.578947368421055
+0020,57.73076923076923
+0021,39.4
+0022,34.03333333333333
+0023,33.121212121212125
+0024,39.972972972972975
+0025,53.36065573770492
+0026,33.45238095238095
+0027,65.88888888888889
+0028,49.48888888888889
+0029,28.75925925925926
+0030,37.340425531914896
+0031,71.03571428571429
+0032,30.02857142857143
+0033,59.703125
+0034,34.16326530612245
+0035,57.36734693877551
+0036,31.955223880597014
+0037,42.5
+0038,45.490566037735846
+0039,48.875
+0040,42.063291139240505
+0041,14.845454545454546
+0042,13.552631578947368
+0043,13.602150537634408
+0044,17.557377049180328
+0045,12.028901734104046
+0046,20.877777777777776
+0047,6.659176029962547
+0048,20.829545454545453
+0049,34.76923076923077
+0050,23.09016393442623
+0051,10.63855421686747
+0052,9.333333333333334
+
+# Start date: 20250101
+# End date: 20251231
+Nth week,Total revenue
+0000,0
+0001,0
+0002,0
+0003,0
+0004,0
+0005,0
+0006,0
+0007,0
+0008,0
+0009,0
+0010,0
+0011,0
+0012,0
+0013,0
+0014,0
+0015,0
+0016,0
+0017,0
+0018,0
+0019,0
+0020,0
+0021,0
+0022,0
+0023,0
+0024,0
+0025,0
+0026,0
+0027,0
+0028,0
+0029,0
+0030,0
+0031,0
+0032,0
+0033,0
+0034,0
+0035,0
+0036,0
+0037,0
+0038,0
+0039,0
+0040,0
+0041,0
+0042,0
+0043,0
+0044,0
+0045,0
+0046,0
+0047,0
+0048,0
+0049,0
+0050,0
+0051,0
+0052,0
+
+# Where do your new users come from?
+# Start date: 20250101
+# End date: 20251231
+First user primary channel group (Default Channel Group),New users
+Direct,2218
+Organic Search,818
+Referral,384
+Unassigned,20
+Organic Social,7
+
+#  
+# Start date: 20250101
+# End date: 20251231
+Session primary channel group (Default Channel Group),Sessions
+Direct,2451
+Organic Search,1312
+Referral,820
+Unassigned,65
+Organic Social,24
+
+#  
+# Start date: 20250101
+# End date: 20251231
+Country ID,Active users
+AE,2
+AL,2
+AM,1
+AR,8
+AT,4
+AU,24
+AZ,10
+BA,1
+BD,2
+BE,6
+BG,4
+BH,1
+BN,1
+BO,1
+BR,36
+BY,8
+CA,35
+CH,18
+CI,1
+CL,5
+CN,1513
+CO,5
+CU,1
+CY,1
+CZ,10
+DE,90
+DJ,1
+DK,3
+DZ,3
+EE,1
+EG,5
+ES,42
+FI,5
+FR,65
+GB,73
+GE,2
+GH,2
+GR,6
+GT,2
+HK,18
+HR,1
+HU,8
+ID,15
+IE,13
+IL,6
+IN,230
+IR,11
+IT,17
+JO,1
+JP,21
+KE,1
+KG,3
+KH,2
+KR,6
+KW,1
+KZ,4
+LK,2
+LT,2
+LU,1
+LV,3
+MA,2
+MD,1
+MK,2
+MM,2
+MO,2
+MX,25
+MY,12
+NG,4
+NL,42
+NO,4
+NP,1
+NZ,3
+PE,3
+PG,1
+PH,2
+PK,9
+PL,31
+PR,1
+PT,7
+PY,1
+RO,4
+RS,2
+RU,99
+SA,4
+SE,17
+SG,864
+SI,1
+SN,1
+SV,1
+TH,9
+TJ,1
+TN,8
+TR,20
+TW,5
+TZ,2
+UA,9
+UG,2
+US,714
+UY,1
+UZ,3
+VN,29
+ZA,13
+ZW,2
+
+# Start date: 20250101
+# End date: 20251231
+Country,Active users
+CN,1513
+SG,864
+US,714
+IN,230
+RU,99
+DE,90
+GB,73
+
+# How are active users trending?
+# Start date: 20250101
+# End date: 20251231
+Nth day,30 days,7 days,1 day
+0000,101,14,1
+0001,104,14,3
+0002,108,21,7
+0003,104,23,2
+0004,103,22,2
+0005,96,18,1
+0006,101,21,7
+0007,98,24,5
+0008,100,27,6
+0009,96,23,1
+0010,92,22,1
+0011,89,20,0
+0012,93,24,5
+0013,94,19,1
+0014,95,16,2
+0015,95,12,2
+0016,98,16,5
+0017,83,18,3
+0018,79,21,3
+0019,81,19,4
+0020,85,23,6
+0021,86,29,7
+0022,89,30,3
+0023,85,27,2
+0024,88,30,6
+0025,91,31,3
+0026,93,29,3
+0027,96,29,6
+0028,96,27,4
+0029,100,30,6
+0030,106,35,7
+0031,104,30,1
+0032,101,29,2
+0033,107,34,8
+0034,111,34,6
+0035,113,34,4
+0036,117,38,10
+0037,120,38,8
+0038,119,42,6
+0039,121,43,3
+0040,127,43,9
+0041,130,41,5
+0042,142,54,18
+0043,143,47,2
+0044,144,42,2
+0045,146,41,4
+0046,142,39,1
+0047,141,34,3
+0048,141,32,2
+0049,142,18,4
+0050,137,17,1
+0051,132,16,1
+0052,132,15,3
+0053,132,16,2
+0054,135,22,9
+0055,135,24,4
+0056,134,22,2
+0057,132,25,5
+0058,146,42,18
+0059,140,39,0
+0060,139,42,5
+0061,148,43,10
+0062,150,44,5
+0063,153,53,11
+0064,153,53,5
+0065,164,50,15
+0066,162,57,7
+0067,163,60,8
+0068,162,55,4
+0069,170,62,13
+0070,186,74,23
+0071,184,70,1
+0072,176,65,10
+0073,176,61,3
+0074,186,65,12
+0075,227,108,46
+0076,230,99,4
+0077,230,80,4
+0078,229,80,1
+0079,228,73,3
+0080,230,73,4
+0081,230,62,1
+0082,229,19,3
+0083,228,16,1
+0084,226,20,8
+0085,229,25,6
+0086,231,26,4
+0087,228,25,2
+0088,213,27,3
+0089,215,26,2
+0090,221,36,11
+0091,214,30,2
+0092,212,27,3
+0093,207,27,4
+0094,204,27,2
+0095,192,26,2
+0096,186,25,1
+0097,182,18,4
+0098,185,21,5
+0099,181,28,10
+0100,160,26,2
+0101,163,28,4
+0102,156,29,3
+0103,157,32,4
+0104,149,31,5
+0105,112,35,10
+0106,111,30,3
+0107,110,30,4
+0108,109,26,0
+0109,108,25,2
+0110,109,26,4
+0111,109,24,3
+0112,109,16,4
+0113,109,15,1
+0114,103,15,3
+0115,105,23,10
+0116,102,22,1
+0117,104,22,5
+0118,101,21,0
+0119,103,23,4
+0120,93,23,1
+0121,92,21,2
+0122,92,14,2
+0123,89,14,1
+0124,94,16,7
+0125,95,19,3
+0126,94,15,0
+0127,95,20,5
+0128,90,18,0
+0129,85,19,3
+0130,84,19,1
+0131,82,14,2
+0132,83,15,4
+0133,82,18,3
+0134,84,18,5
+0135,78,22,4
+0136,76,19,0
+0137,76,21,3
+0138,77,20,1
+0139,78,19,3
+0140,79,21,6
+0141,79,18,2
+0142,83,20,6
+0143,88,26,6
+0144,85,23,0
+0145,79,25,3
+0146,85,30,8
+0147,88,32,9
+0148,93,35,5
+0149,92,33,5
+0150,95,30,3
+0151,95,31,1
+0152,97,33,4
+0153,100,30,4
+0154,98,28,6
+0155,100,28,5
+0156,103,26,3
+0157,105,30,8
+0158,108,32,5
+0159,108,31,3
+0160,112,32,6
+0161,115,32,6
+0162,112,30,1
+0163,118,36,9
+0164,117,33,5
+0165,116,31,3
+0166,122,34,6
+0167,127,37,8
+0168,135,40,9
+0169,140,46,7
+0170,135,39,1
+0171,136,37,3
+0172,134,38,5
+0173,134,39,7
+0174,142,40,10
+0175,144,36,5
+0176,167,59,32
+0177,164,63,7
+0178,160,61,1
+0179,156,59,1
+0180,158,57,5
+0181,163,54,6
+0182,168,57,9
+0183,180,44,18
+0184,178,41,3
+0185,177,42,3
+0186,177,45,4
+0187,181,49,10
+0188,182,51,6
+0189,185,49,7
+0190,185,35,5
+0191,183,37,4
+0192,184,36,2
+0193,180,38,6
+0194,181,34,6
+0195,185,36,7
+0196,186,37,8
+0197,185,42,11
+0198,183,44,6
+0199,179,45,3
+0200,188,50,10
+0201,188,47,3
+0202,192,47,8
+0203,193,47,8
+0204,188,42,4
+0205,188,42,7
+0206,174,54,16
+0207,170,46,2
+0208,171,45,3
+0209,176,44,7
+0210,188,53,18
+0211,194,59,10
+0212,190,59,6
+0213,177,47,3
+0214,177,50,4
+0215,185,59,12
+0216,194,65,12
+0217,193,56,10
+0218,193,52,7
+0219,196,56,12
+0220,195,56,4
+0221,195,57,4
+0222,194,46,1
+0223,199,42,8
+0224,203,42,9
+0225,251,91,54
+0226,256,93,13
+0227,264,105,16
+0228,262,105,6
+0229,271,116,12
+0230,275,122,15
+0231,285,125,12
+0232,287,81,9
+0233,285,74,6
+0234,286,64,5
+0235,282,61,3
+0236,291,74,25
+0237,307,76,19
+0238,319,81,18
+0239,324,84,12
+0240,320,93,14
+0241,319,98,10
+0242,317,97,4
+0243,318,80,7
+0244,322,69,8
+0245,322,64,13
+0246,318,60,8
+0247,317,53,6
+0248,317,49,5
+0249,308,47,2
+0250,314,50,11
+0251,314,46,4
+0252,322,45,11
+0253,323,47,11
+0254,331,61,21
+0255,289,67,10
+0256,281,68,3
+0257,273,65,8
+0258,274,68,8
+0259,266,61,8
+0260,255,55,6
+0261,252,46,9
+0262,243,36,1
+0263,240,36,2
+0264,244,39,10
+0265,248,40,8
+0266,238,44,10
+0267,233,51,14
+0268,223,51,8
+0269,215,53,4
+0270,204,53,3
+0271,204,53,10
+0272,211,57,11
+0273,216,57,11
+0274,216,51,9
+0275,220,57,13
+0276,214,56,3
+0277,214,58,5
+0278,218,56,9
+0279,228,62,15
+0280,231,66,16
+0281,242,73,16
+0282,240,71,10
+0283,240,79,11
+0284,226,78,4
+0285,223,77,7
+0286,234,77,15
+0287,240,77,14
+0288,255,81,20
+0289,272,95,26
+0290,292,110,26
+0291,317,138,33
+0292,350,164,37
+0293,380,183,34
+0294,405,207,36
+0295,433,225,39
+0296,456,230,33
+0297,465,228,23
+0298,482,220,24
+0299,511,216,32
+0300,545,220,36
+0301,573,224,38
+0302,592,213,28
+0303,599,197,17
+0304,603,186,12
+0305,614,185,23
+0306,636,178,26
+0307,665,176,36
+0308,682,163,24
+0309,694,161,26
+0310,714,179,34
+0311,715,183,17
+0312,735,191,30
+0313,755,199,33
+0314,771,183,21
+0315,793,188,31
+0316,803,187,25
+0317,810,172,18
+0318,811,173,19
+0319,807,164,21
+0320,811,162,29
+0321,806,169,27
+0322,794,163,25
+0323,786,163,26
+0324,776,171,26
+0325,768,180,28
+0326,767,190,32
+0327,787,204,44
+0328,794,208,31
+0329,818,240,56
+0330,811,246,31
+0331,815,261,41
+0332,819,267,33
+0333,819,250,15
+0334,824,223,18
+0335,832,222,30
+0336,838,198,31
+0337,837,201,35
+0338,845,192,32
+0339,836,176,16
+0340,825,182,21
+0341,831,188,25
+0342,827,184,26
+0343,823,180,28
+0344,832,174,29
+0345,823,164,23
+0346,819,169,21
+0347,814,160,12
+0348,812,153,17
+0349,811,147,21
+0350,807,146,25
+0351,794,134,16
+0352,787,126,19
+0353,779,122,18
+0354,766,122,12
+0355,753,119,14
+0356,734,112,13
+0357,705,103,16
+0358,690,106,17
+0359,642,96,8
+0360,616,83,5
+0361,582,78,7
+0362,563,78,14
+0363,561,78,14
+0364,565,83,21
+
+# How well do you retain your users?
+# Start date: 20260614
+# End date: 20260725
+Date,Week 0,Week 1,Week 2,Week 3,Week 4,Week 5
+Jun 14 - Jun 20,73,2,1
+Jun 21 - Jun 27,71,0,0
+Jun 28 - Jul 4,75,0,1
+Jul 5 - Jul 11,61,0,0
+Jul 12 - Jul 18,64,0,-1
+Jul 19 - Jul 25,105,-1,-1
+
+#  
+# Start date: 20250101
+# End date: 20251231
+Page title and screen class,Views
+Joel Hanson,977
+Configuring Kafka Connector with Docker: A Step-by-Step Guide | Joel Hanson,633
+Supercharging Your AI: Setting Up RAG with PostgreSQL and pgvector | Joel Hanson,528
+Convert Your Django DRF Project to MCP in 5 Minutes | Joel Hanson,422
+Setting Up a Kafka Cluster Without Zookeeper Using Docker | Joel Hanson,355
+Building an MCP Server for Your Kafka Cluster | Joel Hanson,249
+How I Automated My Markdown Publishing on Medium (No More Manual Work!) | Joel Hanson,232
+Mastering Integration Testing for Kafka Connectors: A Complete Guide | Joel Hanson,210
+Build Custom Kafka Connectors Fast with This Open-Source Template | Joel Hanson,152
+Posts | Joel Hanson,143
+Creating Tombstone Records Using kafka-console-producer.sh: A Quick Guide | Joel Hanson,137
+404 Page not found | Joel Hanson,129
+Turn GitHub into Your Free Data Platform: Building APIs with GitHub Actions | Joel Hanson,99
+Tracking Antarctic Giants: Building a Real-Time Iceberg Monitor with NASA Data | Joel Hanson,90
+SSE Kafka Connector: Stream Real-time Events into Kafka | Joel Hanson,88
+Git Aliases to Supercharge Your Workflow | Joel Hanson,75
+Filtering Tombstone Records in Kafka Connect | Joel Hanson,69
+Server-Sent Events: Build Real-Time Web Apps with Minimal Code | Joel Hanson,62
+Mastering the Find Command: Unleashing Unix File Management Power | Joel Hanson,56
+Introducing ContextLayer: Transform Any REST API into an MCP Server in Minutes | Joel Hanson,49
+About | Joel Hanson,44
+Part 1 – Introduction to Apache Flink: Real-Time Data Processing Made Simple | Joel Hanson,39
+Search | Joel Hanson,28
+Tags | Joel Hanson,20
+Adding Durable Execution to Flask Applications with Restate | Joel Hanson,19
+Online Machine Learning: Real-time Image Classification with CIFAR10 Dataset and Kafka | Joel Hanson,18
+Math | Joel Hanson,17
+Github-Actions | Joel Hanson,13
+DevOps | Joel Hanson,12
+Stream Wars: A Simple Game to Explain Kafka | Joel Hanson,12
+Template | Joel Hanson,12
+MCP | Joel Hanson,11
+System Administration | Joel Hanson,11
+Git | Joel Hanson,10
+Real-Time Data | Joel Hanson,10
+Shell | Joel Hanson,10
+Building a CSV Reader in C with Python Integration | Joel Hanson,9
+Hugo | Joel Hanson,9
+PGVector | Joel Hanson,9
+Web-Scraping | Joel Hanson,9
+Api-Development | Joel Hanson,6
+Breaking Kafka Walls: Building an MCP Server for Your Kafka Cluster | Joel Hanson,6
+Cli-Tools | Joel Hanson,6
+Efficiency | Joel Hanson,6
+Geospatial | Joel Hanson,6
+Kafka CLI | Joel Hanson,6
+LLM | Joel Hanson,6
+SMT | Joel Hanson,6
+Bash | Joel Hanson,5
+C | Joel Hanson,5
+Crafting Command-Line Magic with Ease | Joel Hanson,5
+Creative-Problem-Solving | Joel Hanson,5
+From Celery to Restate: Rethinking Async Tasks in Django | Joel Hanson,5
+Git-Aliases | Joel Hanson,5
+Git-Commands | Joel Hanson,5
+Github | Joel Hanson,5
+Mastering the Egg Drop: A Math Heist Unveiled | Joel Hanson,5
+Software-Development | Joel Hanson,5
+📘 Part 1 – Introduction to Apache Flink: Real-Time Data Processing Made Simple | Joel Hanson,5
+BashScripting | Joel Hanson,4
+DSA | Joel Hanson,4
+FastMCP | Joel Hanson,4
+Kafka | Joel Hanson,4
+Leetcode | Joel Hanson,4
+My First Post | Joel Hanson,4
+Predicates | Joel Hanson,4
+SEO-Writing-Tips | Joel Hanson,4
+SSE | Joel Hanson,4
+Automation | Joel Hanson,3
+Coding | Joel Hanson,3
+Command-Line | Joel Hanson,3
+Data-Visualization | Joel Hanson,3
+Free-Hosting | Joel Hanson,3
+Kafka Connect | Joel Hanson,3
+Python | Joel Hanson,3
+Tutorial | Joel Hanson,3
+AI | Joel Hanson,2
+API | Joel Hanson,2
+Algorithm-Optimization | Joel Hanson,2
+Aliases | Joel Hanson,2
+CommandLine | Joel Hanson,2
+Connector | Joel Hanson,2
+Content-Creation | Joel Hanson,2
+Development | Joel Hanson,2
+Dynamic Programming | Joel Hanson,2
+Event Streaming | Joel Hanson,2
+Find Command | Joel Hanson,2
+Markdown | Joel Hanson,2
+Microservices | Joel Hanson,2
+Open Source | Joel Hanson,2
+Productivity | Joel Hanson,2
+Script | Joel Hanson,2
+Shell Scripting | Joel Hanson,2
+Tombstone Records | Joel Hanson,2
+Vector Database | Joel Hanson,2
+Version-Control | Joel Hanson,2
+Workflow | Joel Hanson,2
+API Integration | Joel Hanson,1
+Async Tasks | Joel Hanson,1
+Backend | Joel Hanson,1
+Blogging | Joel Hanson,1
+Celery | Joel Hanson,1
+Claude | Joel Hanson,1
+ContextLayer | Joel Hanson,1
+Creating Tombstone Records Using Kafka Console Producer Sh a Quick Guide | Joel Hanson,1
+Csv | Joel Hanson,1
+Data Management | Joel Hanson,1
+Data-Scraping | Joel Hanson,1
+Deduplication for Kafka Using Flink | Joel Hanson,1
+Django | Joel Hanson,1
+Docker | Joel Hanson,1
+Durable Execution | Joel Hanson,1
+Educational-Content | Joel Hanson,1
+File Management | Joel Hanson,1
+File Searching | Joel Hanson,1
+Filter | Joel Hanson,1
+Flask | Joel Hanson,1
+GPT | Joel Hanson,1
+Java | Joel Hanson,1
+Linux | Joel Hanson,1
+Log Compaction | Joel Hanson,1
+Math-Puzzle | Joel Hanson,1
+Medium | Joel Hanson,1
+Model Context Protocol | Joel Hanson,1
+NLP | Joel Hanson,1
+Next.js | Joel Hanson,1
+Not-Important | Joel Hanson,1
+PostgreSql | Joel Hanson,1
+Programming | Joel Hanson,1
+RAG | Joel Hanson,1
+REST API | Joel Hanson,1
+REST Framework | Joel Hanson,1
+Restate | Joel Hanson,1
+SSE Kafka Connector: Stream Real-time Events into Kafka (Simply) | Joel Hanson,1
+Unix | Joel Hanson,1
+leetcode | Joel Hanson,1
+programming | Joel Hanson,1
+
+#  
+# Start date: 20250101
+# End date: 20251231
+Event name,Event count
+page_view,5322
+session_start,4637
+first_visit,3447
+scroll,2802
+user_engagement,2213
+click,276
+file_download,7
+view_search_results,2
+
+# What are your top performing key events?
+# Start date: 20250101
+# End date: 20251231
+Event name,Key events
+
+
+# Where does your average 120d value come from?
+# Start date: 20250101
+# End date: 20251231
+First user primary channel group (Default Channel Group),Average 120d value
+
+
+#  
+# Start date: 20250101
+# End date: 20251231
+Item name,Items purchased
+
+
+# How does activity on your platforms compare?
+# Start date: 20250101
+# End date: 20251231
+Platform,Key events

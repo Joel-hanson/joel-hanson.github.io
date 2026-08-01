@@ -7,6 +7,7 @@ weight: 13
 category: "platform"
 summary: "Minimal Server-Sent Events demo — a live CPU/RAM dashboard with almost no client code."
 tags: ["Side Project", "SSE", "Python", "Demo"]
+blogPost: "/posts/11-build-real-time-web-apps-with-minimal-code/"
 ---
 
 A Flask demo that streams system metrics over SSE so the browser updates in real time without polling.

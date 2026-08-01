@@ -1,6 +1,10 @@
 ---
 title: "How I Automated My Markdown Publishing on Medium (No More Manual Work!)"
 date: 2025-04-26T18:30:13+05:30
+ctaProjects:
+  - "markdown2medium"
+aliases:
+  - "/posts/how-i-automated-my-markdown-publishing-on-medium-no-more-manual-work/"
 summary: "Tired of manually reformatting Markdown for Medium? Discover my open-source tool that converts Hugo-friendly Markdown into perfectly formatted Medium posts instantly."
 tags:
   - markdown
@@ -11,13 +15,10 @@ tags:
 categories:
   - developer-tools
   - writing-tips
-featureimage: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Robert Lukeman](https://unsplash.com/@robertlukeman) on [Unsplash](https://unsplash.com/photos/_RBbnujcCrY)"
+featureimage: "img/covers/scanlines.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
----
-
 ---
 
 ## [🚀 Launch Markdown2Medium Converter](https://markdown2medium.vercel.app)

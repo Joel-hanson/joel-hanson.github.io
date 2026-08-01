@@ -1,0 +1,102 @@
+{{/* Always show About/projects CTA on posts; then optional share icons. */}}
+{{ partial "article-cta.html" . }}
+
+{{/* Sharing row + copy helpers with UTM-tagged permalinks. */}}
+{{ with .Params.sharingLinks | default (.Site.Params.article.sharingLinks | default false) }}
+  {{ $page := $ }}
+  {{ $campaign := path.Base (strings.TrimSuffix "/" $page.RelPermalink) }}
+  {{ $links := hugo.Data.sharing }}
+
+  {{ $utmLinkedin := printf "%s?utm_source=linkedin&utm_medium=social&utm_campaign=%s" $page.Permalink $campaign }}
+  {{ $utmMedium := printf "%s?utm_source=medium&utm_medium=referral&utm_campaign=%s" $page.Permalink $campaign }}
+  {{ $utmTwitter := printf "%s?utm_source=twitter&utm_medium=social&utm_campaign=%s" $page.Permalink $campaign }}
+  {{ $utmReddit := printf "%s?utm_source=reddit&utm_medium=social&utm_campaign=%s" $page.Permalink $campaign }}
+
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl share-icons">
+    {{ range . }}
+      {{ $network := . }}
+      {{ with index $links $network }}
+        {{ $shareURL := $page.Permalink }}
+        {{ if eq $network "linkedin" }}{{ $shareURL = $utmLinkedin }}{{ end }}
+        {{ if eq $network "twitter" }}{{ $shareURL = $utmTwitter }}{{ end }}
+        {{ if eq $network "reddit" }}{{ $shareURL = $utmReddit }}{{ end }}
+        <a
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="{{ printf .url $shareURL $page.Title | safeURL }}"
+          title="{{ i18n .title }}"
+          aria-label="{{ i18n .title }}">
+          {{ partial "icon.html" .icon }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </section>
+
+  <div class="share-utm terminal-links" data-share-utm>
+    <button
+      type="button"
+      class="share-utm__btn"
+      data-copy-url="{{ $utmLinkedin }}"
+      data-label="[copy linkedin link]"
+      data-copied="[copied linkedin ✓]">
+      [copy linkedin link]
+    </button>
+    <button
+      type="button"
+      class="share-utm__btn"
+      data-copy-url="{{ $utmMedium }}"
+      data-label="[copy medium link]"
+      data-copied="[copied medium ✓]">
+      [copy medium link]
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.currentScript && document.currentScript.previousElementSibling;
+      if (!root || !root.hasAttribute("data-share-utm")) {
+        root = document.querySelector("[data-share-utm]");
+      }
+      if (!root) return;
+
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand("copy") ? resolve() : reject();
+          } catch (e) {
+            reject(e);
+          } finally {
+            document.body.removeChild(ta);
+          }
+        });
+      }
+
+      root.querySelectorAll("[data-copy-url]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var url = btn.getAttribute("data-copy-url");
+          var label = btn.getAttribute("data-label") || btn.textContent;
+          var done = btn.getAttribute("data-copied") || "[copied ✓]";
+          copyText(url).then(function () {
+            btn.textContent = done;
+            btn.classList.add("is-copied");
+            window.setTimeout(function () {
+              btn.textContent = label;
+              btn.classList.remove("is-copied");
+            }, 1800);
+          });
+        });
+      });
+    })();
+  </script>
+{{ end }}

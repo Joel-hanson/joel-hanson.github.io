@@ -1,5 +1,10 @@
 ---
 date: 2025-11-16T16:00:00+05:30
+ctaProjects:
+  - "flask-restate"
+aliases:
+  - "/posts/adding-durable-execution-to-flask-with-restate/"
+  - "/posts/adding-durable-execution-to-flask-applications-with-restate/"
 title: "Adding Durable Execution to Flask Applications with Restate"
 description: "Learn how to enhance your Flask applications with Restate for reliable, fault-tolerant operations without changing your core application logic."
 tags:
@@ -17,7 +22,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/adding-durable-execution-to-flask-with-restate/"
+canonical_url: "https://joel-hanson.github.io/posts/23-adding-durable-execution-to-flask-with-restate/"
 keywords:
   [
     "Flask Restate",
@@ -29,8 +34,7 @@ keywords:
     "Flask best practices",
     "Service reliability",
   ]
-featureimage: "https://images.unsplash.com/photo-1750766515250-041d45e76021?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Zoshua Colah](https://unsplash.com/@zoshuacolah) on [Unsplash](https://unsplash.com/photos/SuG3v0A3T64)"
+featureimage: "img/covers/rings.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

@@ -1,5 +1,13 @@
 ---
 date: 2025-08-03T15:20:06+05:30
+series: ["MCP"]
+series_order: 2
+ctaProjects:
+  - "django-drf-mcp"
+pinned: true
+weight: 3
+aliases:
+  - "/posts/convert-your-django-drf-project-to-mcp-in-5-minutes/"
 title: "Convert Your Django DRF Project to MCP in 5 Minutes"
 description: "Transform your existing Django REST Framework APIs into Model Context Protocol (MCP) tools that AI assistants like Claude can use - with zero configuration required."
 tags:
@@ -17,7 +25,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/convert-your-django-drf-project-to-mcp-in-5-minutes/"
+canonical_url: "https://joel-hanson.github.io/posts/20-convert-your-django-drf-project-to-mcp-in-5-minutes/"
 keywords:
   [
     "Django REST Framework",
@@ -29,8 +37,7 @@ keywords:
     "Django tutorial",
     "Python development",
   ]
-featureimage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Piotr Chrobot](https://unsplash.com/@p_chrobot) on [Unsplash](https://unsplash.com/photos/6oUs89LHGLo)"
+featureimage: "img/covers/nodes.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

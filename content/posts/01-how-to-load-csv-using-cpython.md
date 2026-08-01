@@ -1,14 +1,15 @@
 ---
 title: "Building a CSV Reader in C with Python Integration"
 date: 2023-12-19T20:08:08+05:30
+aliases:
+  - "/posts/how-to-load-csv-using-cpython/"
 draft: false
 ShowToc: true
 TocOpen: false
 summary: "CSV (Comma-Separated Values) files are a common format for storing tabular data. In this blog post, we'll explore the process of creating a simple CSV reader in C using CPython standard library."
 tags: ["python", "c", "csv", "coding"]
 categories: ["random-coding"]
-featureimage: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Sebastian Unrau](https://unsplash.com/@sebastian_unrau) on [Unsplash](https://unsplash.com/photos/sp-p7uuT0tqI)"
+featureimage: "img/covers/binary.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

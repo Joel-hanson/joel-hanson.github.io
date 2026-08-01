@@ -1,7 +1,11 @@
 ---
 title: "From Prompt to Home Screen: Shipping Nursing Tracker with GitHub Pages"
 date: 2026-06-07
+aliases:
+  - "/posts/from-prompt-to-home-screen-booby-tracker-on-github-pages/"
 draft: false
+ctaProjects:
+  - "booby-tracker"
 ShowToc: false
 summary: "My wife was losing track of feeds, so I built a one-tap nursing timer that grew into a pumping log, and shipped it for free on GitHub Pages with no database and no app store."
 tags:
@@ -15,10 +19,9 @@ categories:
   - Side Projects
 author: "Joel Hanson"
 description: "How a one-tap nursing timer for my wife grew into a shared feeding log, and how to ship a small AI-assisted web app for free with GitHub Pages."
-featureimage: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Luca Bravo](https://unsplash.com/@lucabravo) on [Unsplash](https://unsplash.com/photos/alS7ewQ41M8)"
+featureimage: "img/posts/nursing-tracker.png"
 showHero: true
-heroStyle: "background"
+heroStyle: "basic"
 imagePosition: "center"
 ---
 

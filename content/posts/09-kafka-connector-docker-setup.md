@@ -1,9 +1,17 @@
 ---
 title: "Configuring Kafka Connector with Docker: A Step-by-Step Guide"
 date: 2024-10-12T12:17:49+05:30
+aliases:
+  - "/posts/kafka-connector-docker-setup/"
+  - "/posts/configuring-kafka-connector-with-docker-a-step-by-step-guide/"
 draft: false
-featureimage: "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Toomas Tartes](https://unsplash.com/@toomastartes) on [Unsplash](https://unsplash.com/photos/Yizrl9NZyM0)"
+series: ["Kafka Connect"]
+series_order: 2
+ctaProjects:
+  - "kafka-connector-template"
+pinned: true
+weight: 1
+featureimage: "img/covers/circuit.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
@@ -295,7 +303,4 @@ In this tutorial, we've walked through the process of setting up Kafka and Kafka
 For a more comprehensive approach to Kafka connector development, including extensive integration testing with TestContainers, check out our [Kafka Connector Template](https://github.com/Joel-hanson/kafka-connector-template) which includes a complete testing framework based on proven patterns from production connectors.
 
 Remember to monitor your connectors and Kafka cluster for performance and adjust configurations as needed for your specific use case.
-
 ---
-
-*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

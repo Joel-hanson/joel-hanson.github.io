@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img">
+  <rect width="100%" height="100%" fill="#0a0a0a"/>
+  <g fill="none" stroke="#404040" stroke-width="1.5">
+    <path d="M200 180L400 220L560 140L780 260L980 180"/>
+    <path d="M180 420L360 360L520 480L740 400L960 460"/>
+    <path d="M400 220L360 360M560 140L520 480M780 260L740 400"/>
+  </g>
+  <g fill="#262626">
+    <circle cx="200" cy="180" r="8"/><circle cx="400" cy="220" r="8"/>
+    <circle cx="560" cy="140" r="8"/><circle cx="780" cy="260" r="8"/>
+    <circle cx="980" cy="180" r="8"/><circle cx="180" cy="420" r="8"/>
+    <circle cx="360" cy="360" r="8"/><circle cx="520" cy="480" r="8"/>
+    <circle cx="740" cy="400" r="8"/><circle cx="960" cy="460" r="8"/>
+  </g>
+  <circle cx="560" cy="140" r="10" fill="#dc143c"/>
+  <circle cx="740" cy="400" r="6" fill="#22d3ee"/>
+
+</svg>

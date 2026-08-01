@@ -1,14 +1,19 @@
 ---
 title: "Supercharging Your AI: Setting Up RAG with PostgreSQL and pgvector"
 date: 2024-09-30T21:28:28+05:30
+aliases:
+  - "/posts/setting-up-rag-with-postgre-sql-and-pgvector/"
+  - "/posts/supercharging-your-ai-setting-up-rag-with-postgresql-and-pgvector/"
+  - "/posts/supercharging-your-ai-setting-up-rag-with-postgre-sql-and-pgvector/"
 draft: false
+pinned: true
+weight: 2
 ShowToc: true
 TocOpen: false
 summary: "Learn how to implement a powerful Retrieval-Augmented Generation (RAG) system using PostgreSQL and pgvector. This comprehensive guide covers everything from setting up a custom PostgreSQL Docker image to creating a fully functional RAG query system with vector embeddings and language model inference."
 tags: ["PostgreSql", "PGVector", "RAG", "Vector Database", "AI", "NLP", "Docker", "GPT", "LLM"]
 categories: ["Database", "Artificial Intelligence", "Tutorial"]
-featureimage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [v2osk](https://unsplash.com/@v2osk) on [Unsplash](https://unsplash.com/photos/1Z2niiBPg5A)"
+featureimage: "img/covers/dots.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

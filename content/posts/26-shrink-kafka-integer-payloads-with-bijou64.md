@@ -2,6 +2,10 @@
 # What If Your Kafka Producers Sent Half the Data Over the Network?
 title: "Send Half the Bytes Over the Network: Cut Kafka Integer Payloads with Bijou64"
 date: 2026-06-06
+ctaProjects:
+  - "bijou64"
+aliases:
+  - "/posts/shrink-kafka-integer-payloads-with-bijou64/"
 summary: "Every Kafka record with a Long value you produce sends 8 bytes over the wire, even when the value is 42. Bijou64 encodes integers in 1–3 bytes with drop-in serializers, cutting network transfer and replication traffic on integer-heavy topics by up to 50% or more."
 tags:
   - Kafka
@@ -12,8 +16,7 @@ tags:
 categories:
   - Kafka
   - Developer Tools
-featureimage: "https://images.unsplash.com/photo-1767671495571-234fa5a4769d?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Lianhao Qu](https://unsplash.com/@lianhao) on [Unsplash](https://unsplash.com/photos/nLwZhFPGKFk)"
+featureimage: "img/covers/bars.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"

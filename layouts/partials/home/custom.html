@@ -10,13 +10,66 @@
   </p>
   <div class="terminal-links">
     <a href="{{ "projects" | relLangURL }}">[projects]</a>
+    <a href="{{ "discoveries" | relLangURL }}">[discoveries]</a>
     <a href="{{ "posts" | relLangURL }}">[posts]</a>
+    <a href="{{ "series" | relLangURL }}">[series]</a>
     <a href="{{ "about" | relLangURL }}">[about]</a>
     <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer">[github]</a>
     <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer">[linkedin]</a>
     <a href="https://joel-hanson.medium.com/" target="_blank" rel="noopener noreferrer">[medium]</a>
   </div>
 </section>
+
+{{ $posts := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+{{ $pinned := sort (where $posts "Params.pinned" true) "Weight" "asc" }}
+
+{{ if $pinned }}
+  <section class="w-full">
+    <h2 class="terminal-section-title">~/pinned</h2>
+    {{ partial "post-card-grid.html" $pinned }}
+  </section>
+{{ end }}
+
+{{ if .Site.Params.homepage.showRecent | default false }}
+  <section class="w-full">
+    <h2 class="terminal-section-title">~/posts</h2>
+    {{ if and .Site.Params.homepage.cardView (not .Site.Params.homepage.cardViewScreenWidth) | default false }}
+      {{ partial "recent-articles/cardview.html" . }}
+    {{ else }}
+      {{ partial "recent-articles/list.html" . }}
+    {{ end }}
+    {{ if .Site.Params.homepage.showMoreLink | default false }}
+      <div class="terminal-links mt-8" style="margin-bottom: 2.5rem;">
+        <a href="{{ (.Site.Params.homepage.showMoreLinkDest | default "/posts/") | relLangURL }}">[all posts →]</a>
+      </div>
+    {{ end }}
+  </section>
+{{ end }}
+
+{{ $seriesPage := site.GetPage "/series" }}
+{{ with $seriesPage }}
+  {{ $terms := .Pages }}
+  {{ if $terms }}
+    <section class="w-full">
+      <h2 class="terminal-section-title">~/series</h2>
+      <p class="project-group-blurb">Guided reading paths — Kafka Connect and MCP.</p>
+      <div class="series-hub-grid">
+        {{ range $terms.ByTitle }}
+          <a class="series-hub-card" href="{{ .RelPermalink }}">
+            <h3>{{ .Title }}</h3>
+            <p>
+              {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}
+            </p>
+            <span class="series-hub-card__meta">{{ len .Pages }} posts</span>
+          </a>
+        {{ end }}
+      </div>
+      <div class="terminal-links" style="margin-bottom: 2.5rem;">
+        <a href="{{ .RelPermalink }}">[all series →]</a>
+      </div>
+    </section>
+  {{ end }}
+{{ end }}
 
 {{ $projects := where .Site.RegularPages "Section" "projects" }}
 {{ $featured := where $projects "Params.featured" true }}
@@ -39,22 +92,6 @@
   </div>
 {{ end }}
 
-{{ if .Site.Params.homepage.showRecent | default false }}
-  <section class="w-full">
-    <h2 class="terminal-section-title">~/posts</h2>
-    {{ if and .Site.Params.homepage.cardView (not .Site.Params.homepage.cardViewScreenWidth) | default false }}
-      {{ partial "recent-articles/cardview.html" . }}
-    {{ else }}
-      {{ partial "recent-articles/list.html" . }}
-    {{ end }}
-    {{ if .Site.Params.homepage.showMoreLink | default false }}
-      <div class="terminal-links mt-8" style="margin-bottom: 2.5rem;">
-        <a href="{{ (.Site.Params.homepage.showMoreLinkDest | default "/posts/") | relLangURL }}">[all posts →]</a>
-      </div>
-    {{ end }}
-  </section>
-{{ end }}
-
 {{ if $personalFeatured }}
   <h2 class="terminal-section-title">~/projects/personal</h2>
   <p class="project-group-blurb">Side apps and smaller tools.</p>
@@ -69,4 +106,23 @@
   <div class="terminal-links" style="margin-top: -0.25rem; margin-bottom: 2.5rem;">
     <a href="{{ "projects" | relLangURL }}">[all projects →]</a>
   </div>
+{{ end }}
+
+{{ $discoveries := where .Site.RegularPages "Section" "discoveries" }}
+{{ $discoveries = $discoveries.ByDate.Reverse }}
+{{ with first 3 $discoveries }}
+  <section class="w-full">
+    <h2 class="terminal-section-title">~/discoveries</h2>
+    <p class="project-group-blurb">Short finds — snippets, demos, and link-outs.</p>
+    <div class="discoveries-reel discoveries-reel--preview">
+      {{ range . }}
+        {{ .Scratch.Set "discoveryCompact" true }}
+        {{ partial "discovery-card.html" . }}
+        {{ .Scratch.Delete "discoveryCompact" }}
+      {{ end }}
+    </div>
+    <div class="terminal-links" style="margin-bottom: 2.5rem;">
+      <a href="{{ "discoveries" | relLangURL }}">[all discoveries →]</a>
+    </div>
+  </section>
 {{ end }}

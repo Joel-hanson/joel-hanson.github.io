@@ -1,13 +1,18 @@
 ---
 title: "Build Custom Kafka Connectors Fast with This Open-Source Template"
 date: 2025-04-14T16:19:42+05:30
+series: ["Kafka Connect"]
+series_order: 5
+ctaProjects:
+  - "kafka-connector-template"
+aliases:
+  - "/posts/build-custom-kafka-connectors-fast-with-this-open-source-template/"
 summary: "Apache Kafka is a powerful distributed event streaming platform, and **Kafka Connect** makes it easy to integrate Kafka with external systems. While many pre-built connectors exist, real-world applications often need **custom connectors** tailored for proprietary systems, custom logic, or advanced error handling.
 
 That’s where this **production-ready template** comes in—it removes the boilerplate and gives you everything you need to build, test, and deploy connectors with ease."
 tags: ["Kafka Connect", "kafka", "template"]
 categories: ["Kafka"]
-featureimage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?q=80&w=2400&auto=format&fit=crop"
-featureimagecaption: "Photo by [Jeremy Bishop](https://unsplash.com/@jeremybishop) on [Unsplash](https://unsplash.com/photos/EwKXn5CapA4)"
+featureimage: "img/covers/circuit.svg"
 showHero: true
 heroStyle: "background"
 imagePosition: "center"
@@ -296,5 +301,3 @@ Want to improve the template or report a bug?
 > Learn how to build robust test suites that catch bugs before they hit production!
 
 ---
-
-*For more Kafka Connect tips and open-source tools, follow the [blog series](/posts/)*

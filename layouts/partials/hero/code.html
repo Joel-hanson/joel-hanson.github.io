@@ -1,0 +1,10 @@
+{{/* Hero: auto code cover from featureCodeHeading / featureCode */}}
+{{ $feature := partial "functions/get-feature-code.html" . }}
+{{ if $feature.ok }}
+  <div class="code-cover-hero">
+    {{ partial "code-cover.html" (dict "page" . "variant" "hero") }}
+  </div>
+{{ else }}
+  {{/* Fall back to basic image hero if code could not be resolved */}}
+  {{ partial "hero/basic.html" . }}
+{{ end }}
