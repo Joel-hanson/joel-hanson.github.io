@@ -1,0 +1,31 @@
+{{ define "main" }}
+  <header class="mb-6">
+    <p class="terminal-prompt" style="margin-bottom: 0.75rem;">
+      joel@ibm:~$ <span class="cmd">ls ~/posts</span>
+    </p>
+    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/posts</h1>
+    {{ with .Content }}
+      <div class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</div>
+    {{ else }}
+      {{ with .Description }}
+        <p class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</p>
+      {{ end }}
+    {{ end }}
+  </header>
+
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ if gt (len $pages) 0 }}
+    {{ range ($pages.GroupByDate "2006") }}
+      <section class="post-link-year">
+        <h2 class="terminal-section-title" style="margin-top: 1.75rem;">{{ .Key }}</h2>
+        {{ partial "post-link-list.html" .Pages }}
+      </section>
+    {{ end }}
+  {{ else }}
+    <section class="mt-6 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>{{ i18n "list.no_articles" | emojify }}</em>
+      </p>
+    </section>
+  {{ end }}
+{{ end }}

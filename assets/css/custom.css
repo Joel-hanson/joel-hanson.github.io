@@ -1,4 +1,20 @@
-/* Chrome: Geist Mono / Pixel · Content: Fira Code */
+/* Chrome: Geist Mono / Pixel · Reading: Geist · Code: Fira Code */
+
+@font-face {
+  font-family: Geist;
+  src: url("/fonts/geist/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Geist;
+  src: url("/fonts/geist/Geist-Italic-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: GeistMono;
@@ -36,6 +52,7 @@
 :root {
   --font-sans: GeistMono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-mono: FiraCode, GeistMono, ui-monospace, monospace;
+  --font-reading: Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --default-font-family: var(--font-sans);
   --default-mono-font-family: var(--font-mono);
 
@@ -54,7 +71,18 @@ body {
   letter-spacing: -0.015em;
 }
 
-/* Reading content — Fira Code */
+/* Safari desktop: `h-screen` on a column-flex body clips content instead of scrolling. */
+body.h-screen {
+  height: auto;
+  min-height: 100vh;
+}
+
+body > .relative.flex.flex-col.grow,
+#main-content {
+  min-width: 0;
+}
+
+/* Reading content — Geist (proportional) */
 article,
 article .prose,
 .prose,
@@ -69,7 +97,39 @@ article .prose,
 .prose blockquote,
 .prose td,
 .prose th {
-  font-family: FiraCode, GeistMono, ui-monospace, monospace;
+  font-family: var(--font-reading);
+}
+
+/* body sets -0.015em to tighten the mono chrome; Geist is already tight */
+article,
+.prose {
+  letter-spacing: normal;
+}
+
+/* Tailwind's max-w-prose is 65ch, and `ch` is the width of "0". In GeistMono
+ * that landed at 65 characters, but Geist's "0" is 1.42x its average glyph,
+ * so the same 65ch renders ~92 characters — past the ~75 readability ceiling.
+ * Cap running text at 48ch (~68 characters) but keep the column itself at the
+ * old 624px so code blocks and media don't lose horizontal room. */
+#single_header,
+.article-content,
+article > footer.max-w-prose {
+  max-width: 39rem;
+}
+
+#single_header > :not(.thumbnail_card),
+.article-content > p,
+.article-content > ul,
+.article-content > ol,
+.article-content > dl,
+.article-content > blockquote,
+.article-content > h1,
+.article-content > h2,
+.article-content > h3,
+.article-content > h4,
+.article-content > h5,
+.article-content > h6 {
+  max-width: 48ch;
 }
 
 .prose code,
@@ -220,6 +280,7 @@ article .prose,
 }
 
 .share-utm__btn {
+  -webkit-appearance: none;
   appearance: none;
   background: transparent;
   border: 0;
@@ -299,7 +360,7 @@ article .prose,
   border-radius: 0.25rem;
   text-decoration: none !important;
   color: inherit !important;
-  background: rgb(var(--color-neutral-50) / 0.8);
+  background: rgba(var(--color-neutral-50), 0.8);
   outline: none !important;
   box-shadow: none !important;
   transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
@@ -391,13 +452,13 @@ article .prose,
 
 .dark .project-card {
   border-color: rgb(var(--color-neutral-700));
-  background: rgb(var(--color-neutral-900) / 0.5);
+  background: rgba(var(--color-neutral-900), 0.5);
 }
 
 .dark .project-card:hover,
 .dark .project-card:focus {
   border-color: var(--archie-primary) !important;
-  background: rgb(var(--color-neutral-900) / 0.85);
+  background: rgba(var(--color-neutral-900), 0.85);
 }
 
 .dark .project-card h3 {
@@ -564,6 +625,7 @@ footer nav a:focus {
 section.w-full.grid.gap-4 {
   gap: 0.85rem;
   align-items: stretch;
+  min-width: 0;
 }
 
 /* Equal-height tiles: stretch to row, body fills leftover space */
@@ -573,6 +635,9 @@ section.w-full.grid.gap-4 {
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
   align-self: stretch;
 }
 
@@ -906,7 +971,7 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   padding: 1rem 1.1rem 0.95rem;
   border: 1px solid rgb(var(--color-neutral-200));
   border-radius: 0.25rem;
-  background: rgb(var(--color-neutral-50) / 0.8);
+  background: rgba(var(--color-neutral-50), 0.8);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   outline: none;
@@ -1063,7 +1128,7 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .dark .discovery-card {
   border-color: rgb(var(--color-neutral-700));
-  background: rgb(var(--color-neutral-900) / 0.5);
+  background: rgba(var(--color-neutral-900), 0.5);
 }
 
 .dark .discovery-date,
@@ -1354,7 +1419,7 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   --code-cover-muted: #6b7280;
   --code-cover-n: #4b5563;
   --code-cover-chrome: #12171f;
-  --code-cover-border: rgb(var(--color-neutral-700) / 0.55);
+  --code-cover-border: rgba(var(--color-neutral-700), 0.55);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -1475,6 +1540,7 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 }
 
 .code-cover--card .code-cover__pre {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
 }
 
@@ -1513,5 +1579,115 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   .code-cover--hero {
     min-height: 14rem;
     max-height: 22rem;
+  }
+}
+
+/* Compact post link list (homepage + /posts) */
+.post-link-list {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+}
+
+.post-link-list > li {
+  margin: 0;
+  padding: 0;
+}
+
+.post-link-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  gap: 0.55rem 1rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgb(var(--color-neutral-200));
+  text-decoration: none !important;
+  color: inherit;
+  font-family: GeistPixel, GeistMono, ui-monospace, monospace;
+  letter-spacing: 0.03em;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dark .post-link-row {
+  border-bottom-color: rgb(var(--color-neutral-700));
+}
+
+.post-link-row__date {
+  font-size: 0.8rem;
+  color: rgb(var(--color-neutral-500));
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.post-link-row__title {
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.45;
+  color: rgb(var(--color-neutral-900));
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.post-link-row__ext {
+  margin-left: 0.35rem;
+  font-size: 0.75rem;
+  color: rgb(var(--color-neutral-400));
+}
+
+.post-link-row__meta {
+  font-size: 0.78rem;
+  color: rgb(var(--color-neutral-500));
+  white-space: nowrap;
+}
+
+.dark .post-link-row__date,
+.dark .post-link-row__meta {
+  color: rgb(var(--color-neutral-400));
+}
+
+.dark .post-link-row__title {
+  color: rgb(var(--color-neutral-100));
+}
+
+.post-link-row:hover,
+.post-link-row:focus-visible {
+  outline: none;
+}
+
+.post-link-row:hover .post-link-row__title,
+.post-link-row:focus-visible .post-link-row__title {
+  border-bottom-color: var(--archie-primary);
+  color: var(--archie-primary);
+}
+
+.post-link-row:hover .post-link-row__date,
+.post-link-row:focus-visible .post-link-row__date,
+.post-link-row:hover .post-link-row__meta,
+.post-link-row:focus-visible .post-link-row__meta {
+  color: var(--archie-primary);
+}
+
+.post-link-year .post-link-list {
+  margin-bottom: 0.5rem;
+}
+
+.post-link-year .terminal-section-title {
+  margin-bottom: 0.35rem;
+}
+
+@media (max-width: 640px) {
+  .post-link-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.2rem 0.75rem;
+    padding: 0.85rem 0;
+  }
+
+  .post-link-row__date {
+    grid-column: 1 / -1;
+    font-size: 0.75rem;
+  }
+
+  .post-link-row__title {
+    font-size: 0.92rem;
   }
 }

@@ -2,6 +2,20 @@
 title: "The Connector That Kept Retrying and Never Said So"
 date: 2026-07-30 10:00:00 +0530
 draft: false
+series: ["Kafka Connect"]
+series_order: 8
+summary: "A Kafka Connect MQ Sink looked healthy while messages never reached MQ — RetriableException loops in put() sit outside errors.retry.timeout. How we added mq.retry.timeout.ms so silent retries become visible failures."
+description: "Why Kafka Connect errors.retry.timeout does not cover connector put() retries, and how mq.retry.timeout.ms on the IBM MQ Sink turns endless RetriableException loops into real task failures."
+tags:
+  - Kafka Connect
+  - MQ
+  - Troubleshooting
+  - Retries
+  - Java
+categories:
+  - Kafka
+  - Debugging
+author: "Joel Hanson"
 featureCode: |
   } catch (final RetriableException rte) {
       if (firstFailureTime == null) {
@@ -26,6 +40,7 @@ featureCodeMaxLines: 12
 showHero: true
 heroStyle: "code"
 imagePosition: "center"
+featureimage: "img/covers/29-the-connector-that-kept-retrying-and-never-said-so.svg"
 ---
 
 A customer reported that their Kafka Connect MQ Sink connector looked completely healthy — no errors on the connector CR, no failed tasks — but no messages were reaching MQ. This had been going on for hours.
@@ -74,19 +89,15 @@ We added a new connector-level property, `mq.retry.timeout.ms`, that tracks the 
 | `mq.retry.timeout.ms` | `long` | `300000` | Max time to keep retrying after the first failure. `-1` disables the limit (previous behavior). |
 | `mq.retry.backoff.ms` | `long` | `60000` | Existing setting — delay between retry attempts. |
 
-The logic: on the first `RetriableException`, the task records a start time. Each subsequent failure checks the elapsed time against `mq.retry.timeout.ms`. Once it's exceeded, the task throws a `ConnectException` instead of retrying again — which kills the task and surfaces it as a real, visible failure instead of a silent loop.
+The logic: on the first `RetriableException`, the task records a start time. Each subsequent failure checks the elapsed time against `mq.retry.timeout.ms`. Once that window is exceeded, the task throws a `ConnectException` instead of retrying again. That kills the task and surfaces it as a failure you can actually see, instead of a silent loop.
 
 Shipped here: [ibm-messaging/kafka-connect-mq-sink#85](https://github.com/ibm-messaging/kafka-connect-mq-sink/pull/85)
 
 ### Takeaway
 
-A connector reporting "healthy" only means the task hasn't crashed — it says nothing about whether it's making progress. If a sink connector can throw `RetriableException` from `put()`, the connector needs to own its own retry ceiling; the framework's `errors.*` configs won't do it for you.
+A connector reporting "healthy" only means the task hasn't crashed. It says nothing about whether it's making progress. If a sink connector can throw `RetriableException` from `put()`, the connector needs to own its own retry ceiling. The framework's `errors.*` configs won't do it for you.
 
 ### Further reading
 
 - [Error/Retry Configuration in Kafka Connect](https://atchison.dev/error-retry-configuration-in-kafka-connect/)
 - [Delayed retry mechanism in sink connector — Confluent Community Forum](https://forum.confluent.io/t/delayed-retry-mechanism-in-sink-connector/9191)
-
----
-
-*For more Kafka Connect internals and debugging notes, follow the [blog series](https://github.com/Joel-hanson/joel-hanson.github.io/blob/main/posts)*

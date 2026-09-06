@@ -1,0 +1,29 @@
+{{/* Compact terminal-style post row. Context: page. */}}
+{{ $page := . }}
+<a
+  class="post-link-row"
+  {{ with $page.Params.externalUrl }}
+    href="{{ . }}" target="_blank" rel="external"
+  {{ else }}
+    href="{{ $page.RelPermalink }}"
+  {{ end }}
+>
+  {{ if $page.Params.showDate | default (site.Params.article.showDate | default true) }}
+    <time class="post-link-row__date" datetime="{{ $page.Date | time.Format "2006-01-02T15:04:05-07:00" }}">
+      {{- $page.Date | time.Format "2 Jan 2006" -}}
+    </time>
+  {{ else }}
+    <span class="post-link-row__date" aria-hidden="true"></span>
+  {{ end }}
+  <span class="post-link-row__title">
+    {{- $page.Title | emojify -}}
+    {{- if $page.Params.externalUrl }}
+      <span class="post-link-row__ext" aria-hidden="true">↗</span>
+    {{- end -}}
+  </span>
+  {{ if and ($page.Params.showReadingTime | default (site.Params.article.showReadingTime | default true)) (ne $page.ReadingTime 0) }}
+    <span class="post-link-row__meta">{{ $page.ReadingTime }} min</span>
+  {{ else }}
+    <span class="post-link-row__meta" aria-hidden="true"></span>
+  {{ end }}
+</a>

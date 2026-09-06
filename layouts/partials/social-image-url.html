@@ -7,6 +7,7 @@
   3. Site params defaultSocialImage
 
   SVG is skipped — major platforms do not render SVG as preview images.
+  For an SVG featureimage a sibling PNG (same name) is used when one exists.
 */}}
 {{ $url := "" }}
 
@@ -29,10 +30,14 @@
       {{ if not (strings.Contains . ".svg") }}
         {{ $url = . }}
       {{ end }}
-    {{ else if not (strings.HasSuffix . ".svg") }}
-      {{ $img := $.Resources.GetMatch . }}
+    {{ else }}
+      {{ $candidate := . }}
+      {{ if strings.HasSuffix $candidate ".svg" }}
+        {{ $candidate = printf "%s.png" (strings.TrimSuffix ".svg" $candidate) }}
+      {{ end }}
+      {{ $img := $.Resources.GetMatch $candidate }}
       {{ if not $img }}
-        {{ $img = resources.Get . }}
+        {{ $img = resources.Get $candidate }}
       {{ end }}
       {{ with $img }}
         {{ if ne .MediaType.SubType "svg" }}

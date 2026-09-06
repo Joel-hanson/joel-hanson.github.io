@@ -2,6 +2,8 @@
 title: "Wayfare: I Plan Trips More Than I Take Them"
 date: 2026-08-01
 draft: false
+series: ["MCP"]
+series_order: 4
 ctaProjects:
   - "wayfare"
 ShowToc: true
@@ -13,11 +15,13 @@ tags:
   - Side Project
   - Next.js
   - AI
+  - OAuth
 categories:
   - Side Projects
   - Web Development
+  - Developer Tools
 author: "Joel Hanson"
-description: "How I built Wayfare, a travel bucket list and savings tracker with MCP, so connected chatbots can use the same trip details."
+description: "How I built Wayfare, a travel bucket list and savings tracker with MCP and OAuth, so ChatGPT, Claude, and Cursor share the same trip context."
 featureimage: "img/posts/wayfare.png"
 showHero: true
 heroStyle: "basic"
@@ -32,9 +36,9 @@ The chats are useful. They just don't share memory. Switch bots and I have to ex
 
 I could put notes in Notion. I could track money in a spreadsheet. There are note-taking MCPs and other tools that could cover parts of this. None of that fixed the bouncing-between-bots problem for me. I also wanted to learn how OAuth works for MCP, and how to deploy a real MCP server instead of only a local demo. So I built Wayfare as a travel tool and as a way to figure that out.
 
-**App:** [wayfareai.vercel.app](https://wayfareai.vercel.app/)  
-**MCP endpoint:** `https://wayfareai.vercel.app/api/mcp/`  
-(Account → **Copy MCP URL** in the app, then connect it in Claude / Cursor / ChatGPT — see below)
+App: [wayfareai.vercel.app](https://wayfareai.vercel.app/)  
+MCP endpoint: `https://wayfareai.vercel.app/api/mcp/`  
+(Account → Copy MCP URL in the app, then connect it in Claude / Cursor / ChatGPT — see below)
 
 I've bought enough domains over the years that I'm trying not to keep buying more. So for now Wayfare is on a free `.vercel.app` URL. I looked up a proper domain after I built it. It's expensive unless someone wants to sponsor one. If people find this useful, I plan to open-source it later.
 
@@ -44,12 +48,7 @@ Screenshots use a demo account with fake destinations (Iceland, Portugal, Vietna
 
 ## What I actually needed
 
-Most travel apps are about booking. I wanted something for the planning stage:
-
-- Destinations on a globe, not buried in old chat threads
-- Cost estimates that know how many people are going and what kind of trip it is
-- A travel fund so I can see how close my savings are
-- Those same details available in whatever chatbot I'm using that day
+Most travel apps are about booking. I wanted something for the planning stage: destinations on a globe instead of buried in old chat threads, cost estimates that know how many people are going and what kind of trip it is, a travel fund so I can see how close my savings are, and those same details available in whatever chatbot I'm using that day.
 
 Wayfare stores the trips as real data and exposes them over [MCP](https://modelcontextprotocol.io). The web app holds the data. The chatbots read and write through it.
 
@@ -65,7 +64,7 @@ _Same thing on a phone_
 
 ### Trips
 
-Each trip has a name, country, target year, priority, party (adults / children / seniors), and style (`budget` / `mid` / `comfort`). Costs split into flights, stay, food, activities, and other. Wayfare adds a **10% buffer** on top so the total isn't too optimistic.
+Each trip has a name, country, target year, priority, party (adults / children / seniors), and style (`budget` / `mid` / `comfort`). Costs split into flights, stay, food, activities, and other. Wayfare adds a 10% buffer on top so the total isn't too optimistic.
 
 ![Trips page with Reykjavik open in the editor](/images/30-wayfare/trips.png)
 _Bucket list on the left, edit panel on the right_
@@ -83,14 +82,14 @@ You can also log actual expenses (visa, flights, hotel) against a trip. Those do
 
 ### MCP
 
-This is why I built it. Wayfare runs a hosted MCP server with OAuth, which is the production bit I wanted to learn. You connect once, sign in, and the tools only see your trips and fund. After that, Cursor / Claude / ChatGPT can list trips, estimate costs, compare funding, write notes, log expenses, update savings, and so on.
+This is the part I cared about learning. Wayfare runs a hosted MCP server with OAuth. You connect once, sign in, and the tools only see your trips and fund. After that, Cursor / Claude / ChatGPT can list trips, estimate costs, compare funding, write notes, log expenses, update savings, and so on.
 
 Get the URL from the account menu:
 
 ![Account menu with Copy MCP URL](/images/30-wayfare/mcp-link.png)
 _Account → Copy MCP URL_
 
-**MCP server endpoint:**
+MCP server endpoint:
 
 ```text
 https://wayfareai.vercel.app/api/mcp/
@@ -107,8 +106,8 @@ This already helped me once. I was applying for a visa and needed a cover letter
 The UIs for this stuff change a lot, so I'm not writing a step-by-step that goes stale next month. Short version:
 
 1. Sign in to [Wayfare](https://wayfareai.vercel.app/)
-2. **Account → Copy MCP URL** (production is `https://wayfareai.vercel.app/api/mcp/` — keep the trailing slash)
-3. Add that URL in whatever chatbot you're using, using **their** docs for remote MCP / connectors / plugins
+2. Account → Copy MCP URL (production is `https://wayfareai.vercel.app/api/mcp/` — keep the trailing slash)
+3. Add that URL in whatever chatbot you're using, using their docs for remote MCP / connectors / plugins
 4. Finish the Wayfare OAuth login when the browser opens
 
 What it looks like on my side after connecting:
@@ -123,12 +122,12 @@ _Claude plugin with `/trip-planning`. I uploaded/installed this through Claude's
 
 | Client | What to do | Official docs |
 |--------|------------|---------------|
-| **Claude** (app / web / desktop) | Add a custom connector with the Wayfare MCP URL. For `/trip-planning`, install/upload the Wayfare plugin however Claude currently supports plugins. | [Custom connectors (remote MCP)](https://support.anthropic.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) · [Using connectors](https://support.anthropic.com/en/articles/11176164-pre-built-web-connectors-using-remote-mcp) |
-| **ChatGPT** | Add Wayfare as an app/connector (Developer Mode). Prefer the production HTTPS URL. | [Connect from ChatGPT](https://developers.openai.com/apps-sdk/deploy/connect-chatgpt) · [MCP in the OpenAI docs](https://developers.openai.com/api/docs/mcp) |
-| **Cursor** | Add a remote MCP server with the Wayfare URL. | [Cursor MCP](https://cursor.com/docs/mcp) |
-| **Claude Code** | Install the Wayfare plugin, or add the remote MCP URL. | [Claude Code MCP](https://docs.anthropic.com/en/docs/claude-code/mcp) · [Plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) · [Discover plugins](https://docs.anthropic.com/en/docs/claude-code/discover-plugins) |
-| **Claude Desktop** | Same remote MCP URL via connectors / Desktop MCP config, depending on your build. | [Custom connectors](https://support.anthropic.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) |
-| **VS Code / Copilot** | Add as a remote HTTP MCP server if your build supports OAuth. | [VS Code MCP servers](https://code.visualstudio.com/docs/agent-customization/mcp-servers) · [Copilot + MCP](https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide/extend-copilot-chat-with-mcp) |
+| Claude (app / web / desktop) | Add a custom connector with the Wayfare MCP URL. For `/trip-planning`, install/upload the Wayfare plugin however Claude currently supports plugins. | [Custom connectors (remote MCP)](https://support.anthropic.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) · [Using connectors](https://support.anthropic.com/en/articles/11176164-pre-built-web-connectors-using-remote-mcp) |
+| ChatGPT | Add Wayfare as an app/connector (Developer Mode). Prefer the production HTTPS URL. | [Connect from ChatGPT](https://developers.openai.com/apps-sdk/deploy/connect-chatgpt) · [MCP in the OpenAI docs](https://developers.openai.com/api/docs/mcp) |
+| Cursor | Add a remote MCP server with the Wayfare URL. | [Cursor MCP](https://cursor.com/docs/mcp) |
+| Claude Code | Install the Wayfare plugin, or add the remote MCP URL. | [Claude Code MCP](https://docs.anthropic.com/en/docs/claude-code/mcp) · [Plugins](https://docs.anthropic.com/en/docs/claude-code/plugins) · [Discover plugins](https://docs.anthropic.com/en/docs/claude-code/discover-plugins) |
+| Claude Desktop | Same remote MCP URL via connectors / Desktop MCP config, depending on your build. | [Custom connectors](https://support.anthropic.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) |
+| VS Code / Copilot | Add as a remote HTTP MCP server if your build supports OAuth. | [VS Code MCP servers](https://code.visualstudio.com/docs/agent-customization/mcp-servers) · [Copilot + MCP](https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide/extend-copilot-chat-with-mcp) |
 
 If a client only supports local `command` MCP (stdio) and won't take a URL, use Claude, ChatGPT, or Cursor instead.
 
@@ -155,7 +154,7 @@ The web app works fine on its own as a bucket list and fund tracker. With MCP co
 
 ## Links
 
-- **App:** [wayfareai.vercel.app](https://wayfareai.vercel.app/)
-- **MCP endpoint:** `https://wayfareai.vercel.app/api/mcp/`
-- **Related:** [ContextLayer](/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)
-- **Projects:** [Wayfare](/projects/wayfare/)
+- App: [wayfareai.vercel.app](https://wayfareai.vercel.app/)
+- MCP endpoint: `https://wayfareai.vercel.app/api/mcp/`
+- Related: [ContextLayer](/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)
+- Projects: [Wayfare](/projects/wayfare/)

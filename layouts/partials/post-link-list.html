@@ -1,0 +1,6 @@
+{{/* Renders pages as a compact post link list. Context: page collection. */}}
+<ul class="post-link-list">
+  {{ range . }}
+    <li>{{ partial "post-link-row.html" . }}</li>
+  {{ end }}
+</ul>
