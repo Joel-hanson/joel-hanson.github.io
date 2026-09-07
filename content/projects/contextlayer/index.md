@@ -7,6 +7,7 @@ weight: 2
 category: "platform"
 demoUrl: "https://contextlayer.tech"
 summary: "Transform any REST API into an MCP server — connectors that make existing APIs usable by LLM tools."
+outcome: "Open-source MCP bridge · REST → tools in minutes"
 tags: ["MCP", "AI", "Python", "REST"]
 blogPost: "/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
 ---

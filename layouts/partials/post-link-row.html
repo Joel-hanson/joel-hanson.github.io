@@ -1,8 +1,10 @@
-{{/* Compact terminal-style post row. Context: page. */}}
+{{/* PlanetScale-style post entry: title + [read time], date, summary → */}}
 {{ $page := . }}
 {{ $desc := $page.Description }}
 {{ if not $desc }}{{ $desc = $page.Params.summary }}{{ end }}
 {{ if not $desc }}{{ $desc = $page.Summary | plainify }}{{ end }}
+{{ $showReadingTime := and ($page.Params.showReadingTime | default (site.Params.article.showReadingTime | default true)) (ne $page.ReadingTime 0) }}
+
 <a
   class="post-link-row"
   {{ with $page.Params.externalUrl }}
@@ -11,27 +13,28 @@
     href="{{ $page.RelPermalink }}"
   {{ end }}
 >
-  {{ if $page.Params.showDate | default (site.Params.article.showDate | default true) }}
-    <time class="post-link-row__date" datetime="{{ $page.Date | time.Format "2006-01-02T15:04:05-07:00" }}">
-      {{- $page.Date | time.Format "2 Jan 2006" -}}
-    </time>
-  {{ else }}
-    <span class="post-link-row__date" aria-hidden="true"></span>
-  {{ end }}
-  <span class="post-link-row__body">
+  <span class="post-link-row__headline">
     <span class="post-link-row__title">
       {{- $page.Title | emojify -}}
       {{- if $page.Params.externalUrl }}
         <span class="post-link-row__ext" aria-hidden="true">↗</span>
       {{- end -}}
     </span>
-    {{ with $desc }}
-      <span class="post-link-row__desc">{{ . | plainify | truncate 160 }}</span>
+    {{ if $showReadingTime }}
+      <span class="post-link-row__read">[{{ $page.ReadingTime }} min]</span>
     {{ end }}
   </span>
-  {{ if and ($page.Params.showReadingTime | default (site.Params.article.showReadingTime | default true)) (ne $page.ReadingTime 0) }}
-    <span class="post-link-row__meta">{{ $page.ReadingTime }} min</span>
-  {{ else }}
-    <span class="post-link-row__meta" aria-hidden="true"></span>
+
+  {{ if $page.Params.showDate | default (site.Params.article.showDate | default true) }}
+    <time class="post-link-row__date" datetime="{{ $page.Date | time.Format "2006-01-02T15:04:05-07:00" }}">
+      {{- $page.Date | time.Format "January 2, 2006" -}}
+    </time>
+  {{ end }}
+
+  {{ with $desc }}
+    <span class="post-link-row__desc">
+      {{ . | plainify | truncate 180 }}
+      <span class="post-link-row__arrow" aria-hidden="true">→</span>
+    </span>
   {{ end }}
 </a>

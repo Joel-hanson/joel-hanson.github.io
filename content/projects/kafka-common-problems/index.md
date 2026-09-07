@@ -6,6 +6,7 @@ featured: true
 weight: 4
 category: "platform"
 summary: "Operational playbooks for common Kafka production issues — symptoms, diagnosis steps, and fixes you can walk with a customer."
+outcome: "Production playbooks · symptoms → diagnosis → fix"
 tags: ["Kafka", "Troubleshooting", "Operations"]
 blogPost: "/posts/31-when-one-kafka-partition-takes-all-the-heat/"
 ---

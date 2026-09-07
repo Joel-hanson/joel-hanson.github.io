@@ -1,4 +1,5 @@
 {{ define "main" }}
+<div class="page-container">
   <header class="mb-6">
     <p class="terminal-prompt" style="margin-bottom: 0.75rem;">
       joel@ibm:~$ <span class="cmd">ls ~/series/{{ .Data.Term | urlize }}</span>
@@ -44,4 +45,5 @@
       </li>
     {{ end }}
   </ol>
+</div>
 {{ end }}

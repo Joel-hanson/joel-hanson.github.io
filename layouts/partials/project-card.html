@@ -29,6 +29,9 @@
   </div>
   <div class="project-card__body">
     <h3>{{ .Title }}</h3>
+    {{ with .Params.outcome }}
+      <p class="project-card__outcome">{{ . }}</p>
+    {{ end }}
     <p>{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
     {{ with .Params.tags }}
       <div class="tags" aria-hidden="true">

@@ -9,7 +9,7 @@ title = "Joel Hanson"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "Software engineer at IBM Event Streams. Kafka, Kubernetes operators, and AI tooling."
+  description = "Software engineer with 8+ years on backend and distributed systems. IBM Event Streams: Kafka Connect, schema registry, Kubernetes operators."
   copyright = "&copy; Joel Hanson"
 
   [params.author]
@@ -17,8 +17,8 @@ title = "Joel Hanson"
     email = "joelhanson025@gmail.com"
     image = "img/profile.jpg"
     imageQuality = 96
-    headline = "Software Engineer · Event Streams · AI Tooling"
-    bio = "I work on Kafka, MCP, and event-driven systems, and write about what I learn."
+    headline = "Software Engineer · Backend & Distributed Systems"
+    bio = "Eight-plus years on production systems. At IBM Event Streams I work on Kafka Connect, schema registry migrations, and Kubernetes operators, and write about the failure modes that show up after deploy."
     links = [
       { github = "https://github.com/Joel-hanson" },
       { linkedin = "https://linkedin.com/in/joel-hanson/" },

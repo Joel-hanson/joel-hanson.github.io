@@ -6,6 +6,7 @@ featured: true
 weight: 3
 category: "platform"
 summary: "Expose Kafka cluster operations as LLM-accessible tools via the Model Context Protocol."
+outcome: "Kafka ops as LLM tools · topics, consumers, produce"
 tags: ["Kafka", "MCP", "AI", "Python"]
 blogPost: "/posts/16-breaking-kafka-walls-building-an-mcp-server-for-your-kafka-cluster/"
 ---

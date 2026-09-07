@@ -18,7 +18,7 @@ tags:
   - OAuth
 categories:
   - Side Projects
-  - Web Development
+  - Side Project
   - Developer Tools
 author: "Joel Hanson"
 description: "How I built Wayfare, a travel bucket list and savings tracker with MCP and OAuth, so ChatGPT, Claude, and Cursor share the same trip context."

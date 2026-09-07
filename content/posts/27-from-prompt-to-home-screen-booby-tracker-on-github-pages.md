@@ -12,10 +12,10 @@ tags:
   - GitHub Pages
   - PWA
   - Side Project
-  - Web Development
+  - Side Project
   - AI
 categories:
-  - Web Development
+  - Side Project
   - Side Projects
 author: "Joel Hanson"
 description: "How a one-tap nursing timer for my wife grew into a shared feeding log, and how to ship a small AI-assisted web app for free with GitHub Pages."

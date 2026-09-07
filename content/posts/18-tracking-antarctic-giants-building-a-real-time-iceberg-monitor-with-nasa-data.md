@@ -5,7 +5,7 @@ ctaProjects:
   - "iceberg-locations"
 aliases:
   - "/posts/tracking-antarctic-giants-building-a-real-time-iceberg-monitor-with-nasa-data/"
-categories: [Python, Data Science, Web Development, NASA APIs]
+categories: [Python, Data Science, Side Project, NASA APIs]
 tags: [geospatial, data-visualization, cli-tools, web-scraping, api-development]
 description: "How I built a comprehensive system to track massive Antarctic icebergs using NASA satellite data, complete with interactive maps, APIs, and movement animations."
 featureimage: "img/posts/iceberg-tracker.png"

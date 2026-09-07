@@ -6,6 +6,7 @@ featured: true
 weight: 11
 category: "platform"
 summary: "Kafka Connect source that turns Server-Sent Events streams into Kafka topics — used in Event Streams demos."
+outcome: "Used in Event Streams demos · SSE → Kafka topics"
 tags: ["Kafka Connect", "SSE", "Java"]
 blogPost: "/posts/21-sse-kafka-connector/"
 ---

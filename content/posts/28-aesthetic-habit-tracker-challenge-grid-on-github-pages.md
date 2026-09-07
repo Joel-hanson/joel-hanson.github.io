@@ -15,7 +15,7 @@ tags:
   - Next.js
   - Side Project
 categories:
-  - Web Development
+  - Side Project
   - Side Projects
 author: "Joel Hanson"
 description: "A clean, challenge-based habit tracker with local storage, printable exports, and free GitHub Pages hosting."

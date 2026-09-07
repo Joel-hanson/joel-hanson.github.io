@@ -4,6 +4,7 @@
 colorScheme = "joel-terminal"
 defaultAppearance = "dark"
 autoSwitchAppearance = false
+showAppearanceSwitcher = true
 
 enableA11y = false
 enableSearch = true
@@ -41,7 +42,7 @@ fingerprintAlgorithm = "sha512"
 [homepage]
   layout = "custom"
   showRecent = true
-  showRecentItems = 10
+  showRecentItems = 5
   showMoreLink = true
   showMoreLinkDest = "/posts/"
   cardView = false

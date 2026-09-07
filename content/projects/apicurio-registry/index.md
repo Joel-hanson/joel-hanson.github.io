@@ -5,7 +5,8 @@ draft: false
 featured: true
 weight: 1
 category: "platform"
-summary: "Led Apicurio Registry V2→V3 for Event Streams; upstream HTTP MCP + OAuth forwarding is an open PR under review."
+summary: "Schema registry migration and upstream MCP work for IBM Event Streams."
+outcome: "V2→V3 · zero downtime · Event Streams v12.1 critical path"
 tags: ["Schema Registry", "Kubernetes", "Java", "Open Source", "MCP"]
 ---
 
