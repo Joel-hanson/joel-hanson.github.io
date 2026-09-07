@@ -1,9 +1,13 @@
 {{ define "main" }}
 <div class="page-container">
-  <header class="mb-6">
-    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/series</h1>
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
     {{ with .Content }}
-      <div class="terminal-role" style="margin-bottom: 1.5rem;">{{ . | plainify }}</div>
+      <p class="page-lede">{{ . | plainify }}</p>
+    {{ else }}
+      {{ with .Description }}
+        <p class="page-lede">{{ . }}</p>
+      {{ end }}
     {{ end }}
   </header>
 

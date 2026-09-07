@@ -1,10 +1,12 @@
 {{ define "main" }}
-  <header class="mb-6 discoveries-page-header page-container">
-    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/discoveries</h1>
+  <header class="page-header discoveries-page-header page-container">
+    <h1 class="page-title">{{ .Title }}</h1>
     {{ with .Content }}
-      <div class="terminal-role" style="margin-bottom: 1.5rem;">
-        {{ . | plainify }}
-      </div>
+      <p class="page-lede">{{ . | plainify }}</p>
+    {{ else }}
+      {{ with .Description }}
+        <p class="page-lede">{{ . }}</p>
+      {{ end }}
     {{ end }}
   </header>
 
@@ -17,7 +19,7 @@
     </div>
     <div class="discoveries-progress" id="discoveries-progress" aria-hidden="true"></div>
   {{ else }}
-    <p class="terminal-role">No discoveries yet.</p>
+    <p class="page-lede">No discoveries yet.</p>
   {{ end }}
 
   {{ $js := resources.Get "js/discoveries.js" }}

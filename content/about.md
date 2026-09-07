@@ -12,7 +12,7 @@ sharingLinks: false
 ---
 
 **Open to global and remote roles.**  
-[Resume (PDF)](/files/Resume%20-%20Joel%20Hanson.pdf) · hello [at] joelhanson.com · [LinkedIn](https://linkedin.com/in/joel-hanson/) · [GitHub](https://github.com/Joel-hanson)
+hello [at] joelhanson.com · [Resume (PDF)](/files/Resume%20-%20Joel%20Hanson.pdf) · [LinkedIn](https://linkedin.com/in/joel-hanson/) · [GitHub](https://github.com/Joel-hanson)
 
 ## About me
 
@@ -59,9 +59,10 @@ Kafka · Kafka Connect · Kubernetes operators · Python · Java · Go · MCP ·
 
 [Credly profile](https://www.credly.com/users/joelhanson)
 
-## Contact
+## Contact {#reach}
 
-- **Email:** hello [at] joelhanson.com
+- **Email:** <a class="email-link" href="#" data-email="aGVsbG9Aam9lbGhhbnNvbi5jb20=">hello [at] joelhanson.com</a>
+- **Resume:** [Resume (PDF)](/files/Resume%20-%20Joel%20Hanson.pdf)
 - **LinkedIn:** [joel-hanson](https://linkedin.com/in/joel-hanson/)
 - **GitHub:** [Joel-hanson](https://github.com/Joel-hanson)
 - **Medium:** [joel-hanson.medium.com](https://joel-hanson.medium.com/)

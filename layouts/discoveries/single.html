@@ -1,9 +1,8 @@
 {{ define "main" }}
-  <header class="mb-6">
-    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/discoveries</h1>
-    <div class="terminal-links" style="margin-bottom: 1.5rem;">
-      <a href="{{ "discoveries" | relLangURL }}">[all discoveries →]</a>
-    </div>
+  <header class="page-header">
+    <nav class="page-nav" aria-label="Discoveries">
+      <a href="{{ "discoveries" | relLangURL }}">All discoveries</a>
+    </nav>
   </header>
 
   <div class="discoveries-reel discoveries-reel--single">

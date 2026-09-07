@@ -1,15 +1,12 @@
 {{ define "main" }}
 <div class="page-container">
-  <header class="mb-6">
-    <p class="terminal-prompt" style="margin-bottom: 0.75rem;">
-      joel@ibm:~$ <span class="cmd">ls ~/posts</span>
-    </p>
-    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/posts</h1>
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
     {{ with .Content }}
-      <div class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</div>
+      <p class="page-lede">{{ . | plainify }}</p>
     {{ else }}
       {{ with .Description }}
-        <p class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</p>
+        <p class="page-lede">{{ . }}</p>
       {{ end }}
     {{ end }}
   </header>

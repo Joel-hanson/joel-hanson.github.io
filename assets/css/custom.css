@@ -63,12 +63,16 @@
   --bg-elevated: #eeeeee;
   --text-primary: #171717;
   --text-secondary: #404040;
-  --text-muted: #737373;
+  /* Dark enough for 4.5:1 on card surfaces (#f5f5f5), not just white. */
+  --text-muted: #5c5c5c;
   --border: #e5e5e5;
   --border-hover: #a3a3a3;
 
-  /* Single accent — crimson */
+  /* Single accent — crimson. --accent-text is for foreground type;
+     --accent stays on fills so white labels still clear 4.5:1. */
   --accent: #dc143c;
+  --accent-text: #dc143c;
+  --accent-text-hover: #b91030;
   --accent-hover: #b91030;
 }
 
@@ -82,6 +86,9 @@ html.dark {
   --border: #262626;
   --border-hover: #404040;
   --accent: #dc143c;
+  /* Brighter than the fill so small type clears 4.5:1 on black and chrome bars. */
+  --accent-text: #f25c5c;
+  --accent-text-hover: #ff8a8a;
   --accent-hover: #ef4444;
 }
 
@@ -163,6 +170,13 @@ body > .relative.flex.flex-col.grow,
 .prose pre code,
 .chroma {
   font-family: var(--font-code);
+}
+
+/* GitHub-light chroma paints unknown tokens as maroon error badges.
+   File trees and other plain shells then show as red blocks in light mode. */
+html:not(.dark) .chroma .err {
+  color: var(--text-primary);
+  background-color: transparent;
 }
 
 /* body sets -0.015em to tighten the mono chrome; Geist is already tight */
@@ -354,6 +368,49 @@ article > section.flex {
   color: var(--text-primary);
 }
 
+.about-collect {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 0 0 1.75rem;
+}
+
+.prose .about-collect a.btn-primary,
+.article-content .about-collect a.btn-primary {
+  color: #fff !important;
+  background: var(--accent);
+  border-bottom: none;
+  text-decoration: none;
+}
+
+.prose .about-collect a.btn-primary:hover,
+.prose .about-collect a.btn-primary:focus,
+.article-content .about-collect a.btn-primary:hover,
+.article-content .about-collect a.btn-primary:focus {
+  color: #fff !important;
+  background: var(--accent-hover);
+  border-bottom: none;
+}
+
+.prose .about-collect a.btn-secondary,
+.article-content .about-collect a.btn-secondary {
+  color: var(--text-secondary) !important;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+}
+
+.prose .about-collect a.btn-secondary:hover,
+.prose .about-collect a.btn-secondary:focus,
+.article-content .about-collect a.btn-secondary:hover,
+.article-content .about-collect a.btn-secondary:focus {
+  color: var(--text-primary) !important;
+  border-color: var(--text-secondary);
+  border-bottom-color: var(--text-secondary);
+}
+
 .terminal-hero__social {
   display: flex;
   gap: 1.25rem;
@@ -365,7 +422,7 @@ article > section.flex {
 }
 
 .terminal-hero__social a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .terminal-hero__social .icon,
@@ -399,6 +456,49 @@ article > section.flex {
   border-bottom: 1px solid var(--border);
 }
 
+.page-header {
+  margin: 0 0 2.25rem;
+}
+
+.page-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  line-height: 1.15;
+}
+
+.page-lede {
+  margin: 0;
+  max-width: 38rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.page-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin: 1rem 0 0;
+}
+
+.page-header .page-nav:first-child {
+  margin-top: 0;
+}
+
+.page-nav a {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.page-nav a:hover,
+.page-nav a:focus-visible {
+  color: var(--accent);
+}
+
 .section-more {
   display: inline-block;
   margin-top: 1.25rem;
@@ -409,7 +509,7 @@ article > section.flex {
 }
 
 .section-more:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* Dark mode */
@@ -471,7 +571,7 @@ article > section.flex {
 }
 
 .discovery-preview:hover .discovery-preview__arrow {
-  color: var(--accent);
+  color: var(--accent-text);
   transform: translateX(3px);
 }
 
@@ -568,8 +668,8 @@ article > section.flex {
 .terminal-cta--quiet:hover,
 .terminal-cta--quiet:focus {
   background: transparent !important;
-  color: var(--accent) !important;
-  border-bottom-color: var(--accent) !important;
+  color: var(--accent-text) !important;
+  border-bottom-color: var(--accent-text) !important;
   box-shadow: none !important;
 }
 
@@ -642,7 +742,7 @@ article > section.flex {
 
 .terminal-links__social a:hover,
 .terminal-links__social a:focus {
-  color: var(--accent);
+  color: var(--accent-text);
   outline: none;
 }
 
@@ -652,7 +752,7 @@ article > section.flex {
 
 .dark .terminal-links__social a:hover,
 .dark .terminal-links__social a:focus {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* Article share: copy UTM links in terminal chrome */
@@ -697,7 +797,7 @@ article > section.flex {
 }
 
 .share-utm__btn.is-copied {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .terminal-section-title {
@@ -809,7 +909,7 @@ article > section.flex {
 
 .project-card:hover h3,
 .project-card:focus h3 {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .project-card__outcome {
@@ -927,7 +1027,8 @@ article > section.flex {
 
 .project-cover__lang {
   margin-left: auto;
-  color: var(--accent);
+  /* Cover chrome is always dark, even in light mode. */
+  color: #f25c5c;
   text-transform: lowercase;
   letter-spacing: 0.04em;
 }
@@ -955,7 +1056,7 @@ article > section.flex {
 }
 
 .project-cover__prompt {
-  color: var(--accent);
+  color: #f25c5c;
 }
 
 .project-cover__cmd {
@@ -992,7 +1093,7 @@ article > section.flex {
 }
 
 .dark .terminal-prompt {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .dark .terminal-prompt .cursor {
@@ -1068,6 +1169,13 @@ article h1,
   max-height: 28vh;
 }
 
+/* Cover sits in the column — not a wallpaper behind it */
+article > .overflow-hidden:has(> img) {
+  margin: 1.25rem 0 0.5rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--border);
+}
+
 /* Screenshot heroes: give product UI room without wallpaper crop */
 .single_hero_basic {
   background: var(--bg-deep);
@@ -1080,7 +1188,7 @@ article h1,
 /* Prose links: always visible (accent + underline) */
 .prose a:not(.anchor):not(.no-archie),
 .article-content a:not(.anchor):not(.no-archie) {
-  color: var(--accent) !important;
+  color: var(--accent-text) !important;
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   transition: color 0.15s ease, border-color 0.15s ease;
@@ -1090,8 +1198,8 @@ article h1,
 .prose a:not(.anchor):not(.no-archie):focus,
 .article-content a:not(.anchor):not(.no-archie):hover,
 .article-content a:not(.anchor):not(.no-archie):focus {
-  color: var(--accent-hover) !important;
-  border-bottom-color: var(--accent-hover);
+  color: var(--accent-text-hover) !important;
+  border-bottom-color: var(--accent-text-hover);
 }
 
 /* Nav links: no underline, color change on hover */
@@ -1108,7 +1216,20 @@ footer nav a {
 .main-menu nav > a:hover,
 .main-menu .nested-menu > div > a:hover,
 footer nav a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
+}
+
+/* Footer gray from the theme (dark:text-neutral-400) is ~4.2:1 on black. */
+#site-footer nav,
+#site-footer p,
+#site-footer a {
+  color: var(--text-muted);
+}
+
+#site-footer nav a:hover,
+#site-footer a:hover,
+#site-footer a:focus-visible {
+  color: var(--accent-text);
 }
 
 /* TOC links */
@@ -1119,7 +1240,7 @@ footer nav a:hover {
 }
 
 #TableOfContents a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .dark #TableOfContents a {
@@ -1173,7 +1294,7 @@ section.w-full.grid.gap-4 {
 .article-link--related:hover,
 .article-link--simple:has(header a:hover),
 .article-link--shortcode:has(header a:hover) {
-  border-color: var(--accent) !important;
+  border-color: var(--accent-text) !important;
   transform: translateY(-1px);
 }
 
@@ -1181,7 +1302,7 @@ section.w-full.grid.gap-4 {
 .dark .article-link--related:hover,
 .dark .article-link--simple:has(header a:hover),
 .dark .article-link--shortcode:has(header a:hover) {
-  border-color: var(--accent) !important;
+  border-color: var(--accent-text) !important;
 }
 
 .article-link--simple header a,
@@ -1255,8 +1376,8 @@ section.w-full.grid.gap-4 {
 .article-link--shortcode header a:focus h2,
 .article-link--related header a:hover h2,
 .article-link--related header a:focus h2 {
-  color: var(--accent) !important;
-  border-bottom-color: var(--accent);
+  color: var(--accent-text) !important;
+  border-bottom-color: var(--accent-text);
   background: transparent !important;
   box-shadow: none;
 }
@@ -1275,7 +1396,7 @@ section.w-full.grid.gap-4 {
 .dark .article-link--shortcode header a:focus h2,
 .dark .article-link--related header a:hover h2,
 .dark .article-link--related header a:focus h2 {
-  color: var(--accent) !important;
+  color: var(--accent-text) !important;
   background: transparent !important;
   box-shadow: none;
 }
@@ -1299,7 +1420,7 @@ section.w-full.grid.gap-4 {
 }
 
 .article-card-meta__sep {
-  color: var(--accent);
+  color: var(--accent-text);
   opacity: 0.7;
 }
 
@@ -1340,7 +1461,7 @@ a.article-card-tag {
 a.article-card-tag:hover,
 a.article-card-tag:focus {
   border: none !important;
-  color: var(--accent) !important;
+  color: var(--accent-text) !important;
   background: transparent !important;
   box-shadow: none !important;
   text-decoration: none !important;
@@ -1360,7 +1481,7 @@ a.article-card-tag:focus {
 .dark a.article-card-tag:hover,
 .dark a.article-card-tag:focus {
   border: none !important;
-  color: var(--accent) !important;
+  color: var(--accent-text) !important;
 }
 
 .dark .article-card-tag-more {
@@ -1383,14 +1504,14 @@ a.article-card-tag:focus {
 .article-link--shortcode header a h2::before,
 .article-link--related header a h2::before {
   content: "# ";
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .dark .article-link--simple header a h2::before,
 .dark .article-link--card header a h2::before,
 .dark .article-link--shortcode header a h2::before,
 .dark .article-link--related header a h2::before {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .article-link--simple header a:hover h2::before,
@@ -1401,7 +1522,7 @@ a.article-card-tag:focus {
 .article-link--shortcode header a:focus h2::before,
 .article-link--related header a:hover h2::before,
 .article-link--related header a:focus h2::before {
-  color: var(--accent) !important;
+  color: var(--accent-text) !important;
 }
 
 /* Single-article taxonomy badges stay simple */
@@ -1434,8 +1555,8 @@ a:has(> .cursor-pointer) > .cursor-pointer > span {
 
 a:has(> .cursor-pointer):hover > .cursor-pointer > span,
 a:has(> .cursor-pointer):focus > .cursor-pointer > span {
-  border-color: var(--accent) !important;
-  color: var(--accent) !important;
+  border-color: var(--accent-text) !important;
+  color: var(--accent-text) !important;
   background: transparent !important;
   text-decoration: none !important;
 }
@@ -1447,8 +1568,8 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .dark a:has(> .cursor-pointer):hover > .cursor-pointer > span,
 .dark a:has(> .cursor-pointer):focus > .cursor-pointer > span {
-  border-color: var(--accent) !important;
-  color: var(--accent) !important;
+  border-color: var(--accent-text) !important;
+  color: var(--accent-text) !important;
 }
 
 /* Header nav breathing room */
@@ -1491,7 +1612,7 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .discovery-card:focus,
 .discovery-card.is-active {
-  border-color: var(--accent);
+  border-color: var(--accent-text);
 }
 
 .discovery-card-hit {
@@ -1552,8 +1673,8 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .discovery-title a:hover,
 .discovery-title a:focus {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--accent-text);
+  border-bottom-color: var(--accent-text);
   background: transparent;
 }
 
@@ -1993,7 +2114,8 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .code-cover__lang {
   margin-left: auto;
-  color: var(--accent);
+  /* Cover chrome is always dark, even in light mode. */
+  color: #f25c5c;
   text-transform: lowercase;
   letter-spacing: 0.04em;
 }
@@ -2153,7 +2275,7 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   font-size: 0.92rem;
   font-weight: 500;
   white-space: nowrap;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .post-link-row__date {
@@ -2200,8 +2322,8 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .post-link-row:hover .post-link-row__title,
 .post-link-row:focus-visible .post-link-row__title {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
+  color: var(--accent-text);
+  text-decoration-color: var(--accent-text);
 }
 
 .post-link-row:hover .post-link-row__arrow,

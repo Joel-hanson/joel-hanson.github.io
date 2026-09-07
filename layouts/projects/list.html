@@ -1,11 +1,13 @@
 {{ define "main" }}
 <div class="page-container">
-  <header class="mb-6">
-    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">~/projects</h1>
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
     {{ with .Content }}
-      <div class="terminal-role" style="margin-bottom: 1.5rem;">
-        {{ . | plainify }}
-      </div>
+      <p class="page-lede">{{ . | plainify }}</p>
+    {{ else }}
+      {{ with .Description }}
+        <p class="page-lede">{{ . }}</p>
+      {{ end }}
     {{ end }}
   </header>
 
@@ -19,7 +21,7 @@
   {{ $other := where $pages "Params.category" nil }}
 
   {{ if $platform }}
-    <h2 class="terminal-section-title">~/projects/platform</h2>
+    <h2 class="terminal-section-title">Platform</h2>
     <p class="project-group-blurb">Kafka, MCP, connectors, streaming demos, and open-source tooling.</p>
     <div class="project-grid">
       {{ range $platform }}
@@ -29,7 +31,7 @@
   {{ end }}
 
   {{ if $personal }}
-    <h2 class="terminal-section-title">~/projects/personal</h2>
+    <h2 class="terminal-section-title">Personal</h2>
     <p class="project-group-blurb">Smaller apps and side tools — useful, personal, not the hiring brief.</p>
     <div class="project-grid">
       {{ range $personal }}
@@ -39,7 +41,7 @@
   {{ end }}
 
   {{ if $other }}
-    <h2 class="terminal-section-title">~/projects</h2>
+    <h2 class="terminal-section-title">Other</h2>
     <div class="project-grid">
       {{ range $other }}
         {{ partial "project-card.html" . }}

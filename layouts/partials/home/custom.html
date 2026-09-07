@@ -1,8 +1,5 @@
-{{/* Minimal terminal homepage — quiet confidence, one accent */}}
+{{/* Quiet homepage — name, then the work */}}
 <section class="terminal-hero">
-  <p class="terminal-prompt">
-    <span class="prompt-path">joel@ibm:~$</span> whoami<span class="cursor" aria-hidden="true"></span>
-  </p>
   <h1 class="terminal-brand">Joel Hanson</h1>
   <p class="terminal-role">
     Software engineer with 8+ years on backend and distributed systems.<br>
@@ -12,8 +9,7 @@
   </p>
   <p class="terminal-status">Open to global and remote roles.</p>
   <div class="terminal-hero__actions">
-    <a class="btn-primary" href="{{ "files/Resume - Joel Hanson.pdf" | relURL }}" download>Resume</a>
-    <a class="btn-secondary" href="mailto:hello@joelhanson.com">Email</a>
+    <a class="btn-primary" href="{{ "about" | relLangURL }}#contact">About</a>
   </div>
   <div class="terminal-hero__social">
     <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{{ partial "icon.html" "github" }}</a>

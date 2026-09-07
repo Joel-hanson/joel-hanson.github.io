@@ -46,19 +46,19 @@
   {{ end }}
 
   <aside class="article-cta" aria-label="About and projects">
-    <p class="article-cta__label">~/continue</p>
+    <p class="article-cta__label">Continue</p>
     <p class="article-cta__text">
       I’m Joel — Software Engineer at IBM Event Streams (Kafka). If this was useful,
       here’s where to go next.
     </p>
     <div class="article-cta__links terminal-links">
-      <a href="{{ "about" | relLangURL }}">[about me]</a>
-      <a href="{{ "projects" | relLangURL }}">[projects]</a>
+      <a href="{{ "about" | relLangURL }}">About</a>
+      <a href="{{ "projects" | relLangURL }}">Projects</a>
       {{ range $related }}
-        <a href="{{ .RelPermalink }}">[{{ .Title | lower }} →]</a>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
       {{ end }}
       {{ with $seriesHub }}
-        <a href="{{ .RelPermalink }}">[{{ .Title | lower }} series →]</a>
+        <a href="{{ .RelPermalink }}">{{ .Title }} series</a>
       {{ end }}
     </div>
   </aside>

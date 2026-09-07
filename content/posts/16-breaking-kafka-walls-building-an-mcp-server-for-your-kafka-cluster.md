@@ -68,7 +68,7 @@ pip install -r requirements.txt
 
 ## File Structure
 
-```file
+```text
 kafka-mcp-server/
 ├── server.py             # FastMCP entrypoint: registers @tool, @resource, @prompt
 ├── kafka_utils.py        # Connection loader & reusable KafkaManager

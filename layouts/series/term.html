@@ -1,26 +1,18 @@
 {{ define "main" }}
 <div class="page-container">
-  <header class="mb-6">
-    <p class="terminal-prompt" style="margin-bottom: 0.75rem;">
-      joel@ibm:~$ <span class="cmd">ls ~/series/{{ .Data.Term | urlize }}</span>
-    </p>
-    <h1 class="terminal-section-title" style="margin-top: 0; font-size: 0.95rem;">
-      ~/series/{{ .Data.Term | urlize }}
-    </h1>
-    <h2 class="terminal-brand" style="font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 0.75rem;">
-      {{ .Title }}
-    </h2>
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
     {{ with .Content }}
-      <div class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</div>
+      <p class="page-lede">{{ . | plainify }}</p>
     {{ else }}
       {{ with .Description }}
-        <p class="terminal-role" style="margin-bottom: 1.5rem;">{{ . }}</p>
+        <p class="page-lede">{{ . }}</p>
       {{ end }}
     {{ end }}
-    <div class="terminal-links" style="margin-bottom: 1.5rem;">
-      <a href="{{ "series" | relLangURL }}">[all series]</a>
-      <a href="{{ "posts" | relLangURL }}">[all posts]</a>
-    </div>
+    <nav class="page-nav" aria-label="Series">
+      <a href="{{ "series" | relLangURL }}">All series</a>
+      <a href="{{ "posts" | relLangURL }}">All posts</a>
+    </nav>
   </header>
 
   {{ $pages := sort .Pages "Params.series_order" }}
