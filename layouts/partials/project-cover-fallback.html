@@ -1,0 +1,33 @@
+{{/*
+  Terminal-style project cover when no screenshot/code cover exists.
+  Looks like a mini README open in a shell — on-brand with the site.
+  Context: project page.
+*/}}
+{{ $slug := .File.ContentBaseName }}
+{{ $path := printf "~/projects/%s" $slug }}
+{{ $lang := "sh" }}
+{{ with .Params.tags }}
+  {{ range . }}
+    {{ $t := lower . }}
+    {{ if in (slice "python" "java" "javascript" "typescript" "go" "rust" "next.js") $t }}
+      {{ $lang = $t }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $summary := .Params.summary | default (.Summary | plainify) | plainify | truncate 90 }}
+{{ $accent := mod (add (len $slug) (len .Title)) 4 }}
+
+<div class="project-cover project-cover--accent-{{ $accent }}" aria-hidden="true">
+  <div class="project-cover__chrome">
+    <span class="project-cover__dots"><i></i><i></i><i></i></span>
+    <span class="project-cover__file">{{ $path }}</span>
+    <span class="project-cover__lang">{{ $lang }}</span>
+  </div>
+  <pre class="project-cover__pre"><code><span class="project-cover__prompt">joel@ibm:{{ $path }}$</span> <span class="project-cover__cmd">cat README.md</span>
+<span class="project-cover__h1"># {{ .Title }}</span>
+<span class="project-cover__body">{{ $summary }}</span>
+{{- with .Params.tags }}
+<span class="project-cover__tags">{{ range $i, $t := first 4 . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}</span>
+{{- end }}
+<span class="project-cover__prompt">joel@ibm:{{ $path }}$</span> <span class="project-cover__cmd project-cover__cursor">_</span></code></pre>
+</div>

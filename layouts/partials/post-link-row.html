@@ -1,5 +1,8 @@
 {{/* Compact terminal-style post row. Context: page. */}}
 {{ $page := . }}
+{{ $desc := $page.Description }}
+{{ if not $desc }}{{ $desc = $page.Params.summary }}{{ end }}
+{{ if not $desc }}{{ $desc = $page.Summary | plainify }}{{ end }}
 <a
   class="post-link-row"
   {{ with $page.Params.externalUrl }}
@@ -15,11 +18,16 @@
   {{ else }}
     <span class="post-link-row__date" aria-hidden="true"></span>
   {{ end }}
-  <span class="post-link-row__title">
-    {{- $page.Title | emojify -}}
-    {{- if $page.Params.externalUrl }}
-      <span class="post-link-row__ext" aria-hidden="true">↗</span>
-    {{- end -}}
+  <span class="post-link-row__body">
+    <span class="post-link-row__title">
+      {{- $page.Title | emojify -}}
+      {{- if $page.Params.externalUrl }}
+        <span class="post-link-row__ext" aria-hidden="true">↗</span>
+      {{- end -}}
+    </span>
+    {{ with $desc }}
+      <span class="post-link-row__desc">{{ . | plainify | truncate 160 }}</span>
+    {{ end }}
   </span>
   {{ if and ($page.Params.showReadingTime | default (site.Params.article.showReadingTime | default true)) (ne $page.ReadingTime 0) }}
     <span class="post-link-row__meta">{{ $page.ReadingTime }} min</span>

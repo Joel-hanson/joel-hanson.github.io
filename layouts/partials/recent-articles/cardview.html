@@ -1,7 +1,5 @@
-{{/* Homepage recent posts: compact list. Pinned live under ~/pinned as cards. */}}
+{{/* Homepage recent posts: compact list. Includes pinned while ~/pinned is hidden. */}}
 {{ $limit := .Site.Params.homepage.showRecentItems | default 5 }}
-{{ $posts := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-{{ $unpinned := (where $posts "Params.pinned" "ne" true).ByDate.Reverse }}
+{{ $posts := (where .Site.RegularPages "Type" "in" .Site.Params.mainSections).ByDate.Reverse }}
 
-{{ partial "post-link-list.html" (first $limit $unpinned) }}
-
+{{ partial "post-link-list.html" (first $limit $posts) }}

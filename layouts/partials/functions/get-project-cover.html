@@ -1,0 +1,90 @@
+{{/*
+  Resolve a project card cover.
+
+  Priority:
+    1. Project featureimage / page-bundle cover image
+    2. Project featureCode
+    3. Linked blogPost featureimage / code cover
+    4. Auto terminal fallback (always available)
+
+  Returns dict:
+    kind  - "image" | "code" | "terminal"
+    url   - image URL when kind=image
+    page  - page used for code-cover when kind=code
+*/}}
+{{ $page := . }}
+{{ $kind := "terminal" }}
+{{ $url := "" }}
+{{ $codePage := $page }}
+
+{{ $imgURL := "" }}
+{{ with $page.Params.featureimage }}
+  {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+    {{ $imgURL = . }}
+  {{ else }}
+    {{ $img := $page.Resources.GetMatch . }}
+    {{ if not $img }}{{ $img = resources.Get . }}{{ end }}
+    {{ with $img }}{{ $imgURL = .RelPermalink }}{{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if not $imgURL }}
+  {{ $images := $page.Resources.ByType "image" }}
+  {{ range slice "*featured*" "*feature*" "*cover*" "*thumbnail*" }}
+    {{ if not $imgURL }}
+      {{ with $images.GetMatch . }}
+        {{ $imgURL = .RelPermalink }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if $imgURL }}
+  {{ $kind = "image" }}
+  {{ $url = $imgURL }}
+{{ else }}
+  {{ $featureCode := partial "functions/get-feature-code.html" $page }}
+  {{ if $featureCode.ok }}
+    {{ $kind = "code" }}
+    {{ $codePage = $page }}
+  {{ else }}
+    {{ with $page.Params.blogPost }}
+      {{ $blog := site.GetPage . }}
+      {{ with $blog }}
+        {{ $blogPage := . }}
+        {{ $blogImg := "" }}
+        {{ with $blogPage.Params.featureimage }}
+          {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+            {{ $blogImg = . }}
+          {{ else }}
+            {{ $img := $blogPage.Resources.GetMatch . }}
+            {{ if not $img }}{{ $img = resources.Get . }}{{ end }}
+            {{ with $img }}{{ $blogImg = .RelPermalink }}{{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if not $blogImg }}
+          {{ $images := $blogPage.Resources.ByType "image" }}
+          {{ range slice "*featured*" "*feature*" "*cover*" "*thumbnail*" }}
+            {{ if not $blogImg }}
+              {{ with $images.GetMatch . }}
+                {{ $blogImg = .RelPermalink }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if $blogImg }}
+          {{ $kind = "image" }}
+          {{ $url = $blogImg }}
+        {{ else }}
+          {{ $blogCode := partial "functions/get-feature-code.html" $blogPage }}
+          {{ if $blogCode.ok }}
+            {{ $kind = "code" }}
+            {{ $codePage = $blogPage }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return (dict "kind" $kind "url" $url "page" $codePage) }}

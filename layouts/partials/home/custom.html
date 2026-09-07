@@ -25,6 +25,7 @@
   </div>
 </section>
 
+{{/* Pinned section hidden for now
 {{ $posts := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
 {{ $pinned := sort (where $posts "Params.pinned" true) "Weight" "asc" }}
 
@@ -34,6 +35,7 @@
     {{ partial "post-card-grid.html" $pinned }}
   </section>
 {{ end }}
+*/}}
 
 {{ if .Site.Params.homepage.showRecent | default false }}
   <section class="w-full">

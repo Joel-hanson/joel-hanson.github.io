@@ -9,15 +9,31 @@
   {{ $href = . }}
   {{ $external = true }}
 {{ end }}
+{{ $cover := partial "functions/get-project-cover.html" . }}
 <a
   class="project-card"
   href="{{ $href }}"
   {{ if $external }}target="_blank" rel="noopener noreferrer"{{ end }}>
-  <h3>{{ .Title }}</h3>
-  <p>{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
-  {{ with .Params.tags }}
-    <div class="tags" aria-hidden="true">
-      {{ range $i, $t := . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}
-    </div>
-  {{ end }}
+  <div class="project-card__media{{ if eq $cover.kind "image" }}{{ else }} project-card__media--generated{{ end }}">
+    {{ if eq $cover.kind "image" }}
+      <img
+        src="{{ $cover.url }}"
+        alt=""
+        loading="lazy"
+        decoding="async" />
+    {{ else if eq $cover.kind "code" }}
+      {{ partial "code-cover.html" (dict "page" $cover.page "variant" "card" "maxLines" 8) }}
+    {{ else }}
+      {{ partial "project-cover-fallback.html" . }}
+    {{ end }}
+  </div>
+  <div class="project-card__body">
+    <h3>{{ .Title }}</h3>
+    <p>{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
+    {{ with .Params.tags }}
+      <div class="tags" aria-hidden="true">
+        {{ range $i, $t := . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}
+      </div>
+    {{ end }}
+  </div>
 </a>
