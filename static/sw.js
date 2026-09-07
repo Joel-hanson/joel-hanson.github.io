@@ -1,6 +1,6 @@
 /* Joel Hanson portfolio — service worker
  *
- * Scoped carefully for a GitHub Pages user site (joel-hanson.github.io):
+ * Scoped carefully for a GitHub Pages user site (joelhanson.com):
  * only handles this portfolio's routes. Other repo pages under the same
  * origin are left to the network untouched.
  */

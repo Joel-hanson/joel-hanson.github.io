@@ -24,7 +24,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
+canonical_url: "https://joelhanson.com/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
 keywords:
   [
     "ContextLayer",
@@ -375,7 +375,7 @@ ContextLayer provides a simple, visual, code-free way to bridge REST APIs and Mo
 
 - **Website**: [contextlayer.tech](https://contextlayer.tech)
 - **GitHub**: [Joel-hanson/contextlayer](https://github.com/Joel-hanson/contextlayer)
-- **Blog**: [joel-hanson.github.io](/)
+- **Blog**: [joelhanson.com](/)
 - **LinkedIn**: [Joel-hanson](https://www.linkedin.com/in/joel-hanson/)
 
 _Found ContextLayer useful? Star the [repository](https://github.com/Joel-hanson/contextlayer) and share it with your team. Together, we're making AI assistant integration accessible to everyone._

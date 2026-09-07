@@ -117,4 +117,4 @@ If you’re a **Markdown writer** who also publishes on Medium, this tool can **
 
 ---
 
-_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joel-hanson.github.io/posts/)_
+_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joelhanson.com/posts/)_

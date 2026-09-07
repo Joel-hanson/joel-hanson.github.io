@@ -23,9 +23,9 @@ imagePosition: "center"
 🔗 **GitHub Repository**: [github.com/Joel-hanson/kafka-connector-template](https://github.com/Joel-hanson/kafka-connector-template)  
 ⭐ **Star the repo** to stay updated!
 
-In the [first part of this series](https://joel-hanson.github.io/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), we explored how an open-source Kafka Connector Template accelerates connector development. Now, let's tackle a critical next step: **writing integration tests** to ensure your connector works flawlessly in real-world scenarios. I recently enhanced the template with a testing framework ([see PR #1](https://github.com/Joel-hanson/kafka-connector-template/pull/1/files)), and here's how you can leverage it.
+In the [first part of this series](https://joelhanson.com/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), we explored how an open-source Kafka Connector Template accelerates connector development. Now, let's tackle a critical next step: **writing integration tests** to ensure your connector works flawlessly in real-world scenarios. I recently enhanced the template with a testing framework ([see PR #1](https://github.com/Joel-hanson/kafka-connector-template/pull/1/files)), and here's how you can leverage it.
 
-*Building on our [Kafka Connector Template](https://joel-hanson.github.io/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), this post dives deep into integration testing - the crucial but often overlooked aspect of connector development.*
+*Building on our [Kafka Connector Template](https://joelhanson.com/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/), this post dives deep into integration testing - the crucial but often overlooked aspect of connector development.*
 
 ## Why Integration Tests Are Critical for Kafka Connectors
 

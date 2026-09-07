@@ -25,7 +25,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/20-convert-your-django-drf-project-to-mcp-in-5-minutes/"
+canonical_url: "https://joelhanson.com/posts/20-convert-your-django-drf-project-to-mcp-in-5-minutes/"
 keywords:
   [
     "Django REST Framework",
@@ -818,7 +818,7 @@ _Ready to give your Django project AI superpowers? [Download the MCP view](https
 
 ## Stay Connected
 
-- **Blog**: [https://joel-hanson.github.io/](/)
+- **Blog**: [https://joelhanson.com/](/)
 - **GitHub**: [Joel-hanson](https://github.com/Joel-hanson)
 - **LinkedIn**: [Joel-hanson](https://www.linkedin.com/in/joel-hanson/)
 

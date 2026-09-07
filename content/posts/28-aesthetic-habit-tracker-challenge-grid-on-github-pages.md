@@ -31,7 +31,7 @@ I wanted the opposite, a grid I could open, tap, and close. No login, no sync dr
 
 That became **Aesthetic Habit Tracker**: a challenge-based grid with a black-and-white, monospace look, local-only storage, and exports good enough to print or post. It's a simple, minimalistic habit tracker that lives in your browser.
 
-**Try it:** [joel-hanson.github.io/habit-tracker](https://joel-hanson.github.io/habit-tracker/)  
+**Try it:** [joelhanson.com/habit-tracker](https://joelhanson.com/habit-tracker/)  
 **Source:** [github.com/Joel-hanson/habit-tracker](https://github.com/Joel-hanson/habit-tracker)
 
 ---
@@ -76,7 +76,7 @@ _On mobile — challenge settings up top, habits below; swipe to check days, lon
 I recently wrote about shipping a side project to GitHub Pages with plain HTML and JavaScript ([Nursing Tracker](/posts/27-from-prompt-to-home-screen-booby-tracker-on-github-pages/)). This app takes the same **free subpath hosting** idea but uses **Next.js static export**:
 
 ```text
-https://joel-hanson.github.io/habit-tracker/
+https://joelhanson.com/habit-tracker/
 ```
 
 The build sets `output: 'export'`, a `basePath` matching the repo name, and deploys via GitHub Actions on every push to `main`. One wrinkle worth noting: PWA service workers are **disabled on GitHub Pages** for this repo so a cached worker doesn't interfere with other project sites under the same profile domain. Full PWA install works when you deploy elsewhere (e.g. Vercel).
@@ -105,7 +105,7 @@ No accounts. No upsell. Just circles that fill in when you did the work.
 
 ## Links
 
-- **Live app:** [joel-hanson.github.io/habit-tracker](https://joel-hanson.github.io/habit-tracker/)
+- **Live app:** [joelhanson.com/habit-tracker](https://joelhanson.com/habit-tracker/)
 - **GitHub repo:** [github.com/Joel-hanson/habit-tracker](https://github.com/Joel-hanson/habit-tracker)
 - **Related:** [From Prompt to Home Screen: Nursing Tracker on GitHub Pages](/posts/27-from-prompt-to-home-screen-booby-tracker-on-github-pages/)
 

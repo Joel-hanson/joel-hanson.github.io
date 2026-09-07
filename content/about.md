@@ -61,7 +61,7 @@ Earlier: full-stack web and CRM work at Travidux and Mobishala.
 
 ## Contact
 
-- **Email:** joelhanson025 [at] gmail.com
+- **Email:** hello [at] joelhanson.com
 - **LinkedIn:** [joel-hanson](https://linkedin.com/in/joel-hanson/)
 - **GitHub:** [Joel-hanson](https://github.com/Joel-hanson)
 - **Medium:** [joel-hanson.medium.com](https://joel-hanson.medium.com/)

@@ -138,6 +138,6 @@ Questions or ideas? Open an issue or contribute to the project. I'd love to hear
 
 ## Stay Connected
 
-- **Blog**: [https://joel-hanson.github.io/](/)
+- **Blog**: [https://joelhanson.com/](/)
 - **GitHub**: [Joel-hanson](https://github.com/Joel-hanson)
 - **LinkedIn**: [Joel-hanson](https://www.linkedin.com/in/joel-hanson/)

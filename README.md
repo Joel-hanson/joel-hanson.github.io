@@ -2,7 +2,7 @@
 
 Software Engineer · IBM Event Streams · Kafka · Kubernetes operators · AI tooling
 
-[Portfolio](https://joel-hanson.github.io) · [GitHub](https://github.com/Joel-hanson) · [LinkedIn](https://www.linkedin.com/in/joel-hanson) · [Medium](https://joel-hanson.medium.com/)
+[Portfolio](https://joelhanson.com) · [GitHub](https://github.com/Joel-hanson) · [LinkedIn](https://www.linkedin.com/in/joel-hanson) · [Medium](https://joel-hanson.medium.com/)
 
 ---
 
@@ -33,17 +33,17 @@ I'm a Software Engineer at IBM on **Event Streams** (Apache Kafka on Kubernetes/
 - **[ContextLayer](https://contextlayer.tech/)** — Turn REST APIs into MCP servers
 - **[kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server)** — Kafka ops as MCP tools
 - **[sse-kafka-connector](https://github.com/Joel-hanson/sse-kafka-connector)** — SSE → Kafka Connect (used in Event Streams demos)
-- **[Apicurio Registry](https://joel-hanson.github.io/projects/apicurio-registry/)** — V2→V3 migration lead; upstream MCP HTTP PR in progress
+- **[Apicurio Registry](https://joelhanson.com/projects/apicurio-registry/)** — V2→V3 migration lead; upstream MCP HTTP PR in progress
 
 ---
 
 ## Latest writing
 
-- [Building an MCP Server for Your Kafka Cluster](https://joel-hanson.github.io/posts/16-breaking-kafka-walls-building-an-mcp-server-for-your-kafka-cluster/)
-- [Introducing ContextLayer](https://joel-hanson.github.io/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)
-- [SSE Kafka Connector](https://joel-hanson.github.io/posts/21-sse-kafka-connector/)
+- [Building an MCP Server for Your Kafka Cluster](https://joelhanson.com/posts/16-breaking-kafka-walls-building-an-mcp-server-for-your-kafka-cluster/)
+- [Introducing ContextLayer](https://joelhanson.com/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)
+- [SSE Kafka Connector](https://joelhanson.com/posts/21-sse-kafka-connector/)
 
-More on the [blog](https://joel-hanson.github.io/posts/) and [Medium](https://joel-hanson.medium.com/).
+More on the [blog](https://joelhanson.com/posts/) and [Medium](https://joel-hanson.medium.com/).
 
 ---
 

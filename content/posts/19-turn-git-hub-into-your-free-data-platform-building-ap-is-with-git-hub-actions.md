@@ -668,7 +668,7 @@ This approach was inspired by real-world experience building the Antarctic Icebe
 ### **Original Project**
 
 - **Antarctic Iceberg Tracker**: [https://github.com/Joel-hanson/Iceberg-locations](https://github.com/Joel-hanson/Iceberg-locations)
-- **Live Demo**: [https://joel-hanson.github.io/Iceberg-locations/](https://joel-hanson.github.io/Iceberg-locations/)
+- **Live Demo**: [https://joelhanson.com/Iceberg-locations/](https://joelhanson.com/Iceberg-locations/)
 
 ### **Template Repositories**
 
@@ -689,4 +689,4 @@ I've created complete working examples that demonstrate this approach:
 
 _Ready to transform GitHub into your personal data platform? Fork the template, customize for your data source, and launch your free API in minutes. The power of enterprise-grade data infrastructure is just a git push away._
 
-_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joel-hanson.github.io/posts/) and star the [repository](https://github.com/Joel-hanson/github-data-platform-template), [weather API project](https://github.com/Joel-hanson/weather-api-project), and [Iceberg Tracker](https://github.com/Joel-hanson/Iceberg-locations)._
+_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joelhanson.com/posts/) and star the [repository](https://github.com/Joel-hanson/github-data-platform-template), [weather API project](https://github.com/Joel-hanson/weather-api-project), and [Iceberg Tracker](https://github.com/Joel-hanson/Iceberg-locations)._

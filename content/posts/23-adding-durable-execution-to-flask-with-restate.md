@@ -22,7 +22,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/23-adding-durable-execution-to-flask-with-restate/"
+canonical_url: "https://joelhanson.com/posts/23-adding-durable-execution-to-flask-with-restate/"
 keywords:
   [
     "Flask Restate",

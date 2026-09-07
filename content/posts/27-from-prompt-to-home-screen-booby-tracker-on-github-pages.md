@@ -31,7 +31,7 @@ A phone was always within reach. So I thought: why not build something so simple
 
 That became **Nursing Tracker**, a lightweight browser app with no database, no server, and no app store. Just a repo, GitHub Pages, and the ability to add it to the home screen.
 
-**Try it:** [joel-hanson.github.io/booby-tracker](https://joel-hanson.github.io/booby-tracker/)  
+**Try it:** [joelhanson.com/booby-tracker](https://joelhanson.com/booby-tracker/)  
 **Source:** [github.com/Joel-hanson/booby-tracker](https://github.com/Joel-hanson/booby-tracker) *(repo name is an inside joke; the app shows up as “Nursing” on your home screen)*
 
 ---
@@ -84,7 +84,7 @@ The app is hosted as a **GitHub Pages project site** under my personal profile:
 |              |                                                                                              |
 | ------------ | -------------------------------------------------------------------------------------------- |
 | **App name** | Nursing Tracker                                                                              |
-| **Live URL** | [https://joel-hanson.github.io/booby-tracker/](https://joel-hanson.github.io/booby-tracker/) |
+| **Live URL** | [https://joelhanson.com/booby-tracker/](https://joelhanson.com/booby-tracker/) |
 | **Repo**     | [Joel-hanson/booby-tracker](https://github.com/Joel-hanson/booby-tracker)                    |
 | **Hosting**  | GitHub Pages (free)                                                                          |
 | **Stack**    | Static HTML, CSS, and JavaScript                                                             |
@@ -181,7 +181,7 @@ Nothing dramatic, the point was speed and privacy. The app grew feature by featu
 
 ## Links
 
-- **Nursing Tracker (live app):** [joel-hanson.github.io/booby-tracker](https://joel-hanson.github.io/booby-tracker/)
+- **Nursing Tracker (live app):** [joelhanson.com/booby-tracker](https://joelhanson.com/booby-tracker/)
 - **GitHub repo:** [github.com/Joel-hanson/booby-tracker](https://github.com/Joel-hanson/booby-tracker)
 - **GitHub Pages docs:** [docs.github.com/pages](https://docs.github.com/en/pages)
 

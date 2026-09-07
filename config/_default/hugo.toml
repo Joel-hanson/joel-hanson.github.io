@@ -2,7 +2,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish"
-baseURL = "https://joel-hanson.github.io/"
+baseURL = "https://joelhanson.com/"
 defaultContentLanguage = "en"
 
 enableRobotsTXT = true

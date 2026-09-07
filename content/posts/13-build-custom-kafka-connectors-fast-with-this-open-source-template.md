@@ -296,7 +296,7 @@ Want to improve the template or report a bug?
 
 > **Follow-up Reading:** I've written a comprehensive follow-up post on how to automate integration testing for Kafka connectors, which complements this template perfectly.
 >
-> **[Mastering Integration Testing for Kafka Connectors: A Complete Guide](https://joel-hanson.github.io/posts/mastering-integration-testing-for-kafka-connectors-a-complete-guide/)**
+> **[Mastering Integration Testing for Kafka Connectors: A Complete Guide](https://joelhanson.com/posts/mastering-integration-testing-for-kafka-connectors-a-complete-guide/)**
 >
 > Learn how to build robust test suites that catch bugs before they hit production!
 

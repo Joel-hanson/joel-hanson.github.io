@@ -21,7 +21,7 @@ tags:
   ]
 category: "Development"
 author: "Joel Hanson"
-canonical_url: "https://joel-hanson.github.io/posts/24-from-celery-to-restate-rethinking-async-tasks-in-django/"
+canonical_url: "https://joelhanson.com/posts/24-from-celery-to-restate-rethinking-async-tasks-in-django/"
 keywords:
   [
     "Django Celery",

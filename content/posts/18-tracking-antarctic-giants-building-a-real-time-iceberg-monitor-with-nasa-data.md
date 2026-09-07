@@ -162,7 +162,7 @@ This automation transforms a manual data collection task into a reliable, self-m
 
 ### **Try the Live Demo**
 
-Visit the interactive map: [View Iceberg Locations](https://joel-hanson.github.io/Iceberg-locations/output/iceberg_map.html)
+Visit the interactive map: [View Iceberg Locations](https://joelhanson.com/Iceberg-locations/output/iceberg_map.html)
 
 ### **Use the API**
 
@@ -215,4 +215,4 @@ This project is built for educational and research purposes. All data is sourced
 
 _Interested in tracking Earth's giants? Fork the repo, contribute improvements, or just explore the fascinating world of Antarctic icebergs through the interactive map!_
 
-_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joel-hanson.github.io/posts/) and star the [repository](https://github.com/Joel-hanson/Iceberg-locations)._
+_For more Kafka Connect tips and open-source tools, follow the [blog series](https://joelhanson.com/posts/) and star the [repository](https://github.com/Joel-hanson/Iceberg-locations)._

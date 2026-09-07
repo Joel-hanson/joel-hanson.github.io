@@ -6,7 +6,7 @@ discoveryType: media
 summary: "A local-only challenge grid — tap a day, export PDF, ship on GitHub Pages."
 tags: ["Side Project", "PWA"]
 image: "/images/28-habit-tracker/image.png"
-externalUrl: "https://joel-hanson.github.io/habit-tracker/"
+externalUrl: "https://joelhanson.com/habit-tracker/"
 relatedPost: "/posts/28-aesthetic-habit-tracker-challenge-grid-on-github-pages/"
 ---
 
