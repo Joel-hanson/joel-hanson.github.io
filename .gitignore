@@ -6,3 +6,6 @@ public/*
 *.env
 
 hbt
+
+video/**/node_modules
+video/**/out

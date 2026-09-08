@@ -1,0 +1,19 @@
+{
+  "name": "hot-partition-video",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render HotPartitionBefore ../../static/videos/hot-partition-before.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p && remotion render HotPartitionAfter ../../static/videos/hot-partition-after.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p",
+    "still": "remotion still HotPartitionBefore ../../static/videos/hot-partition-before.jpg --frame=420 && remotion still HotPartitionAfter ../../static/videos/hot-partition-after.jpg --frame=320"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.372",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.372"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.8.2"
+  }
+}

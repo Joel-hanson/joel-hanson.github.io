@@ -1,0 +1,19 @@
+{
+  "name": "bijou64-video",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Bijou64Before ../../static/videos/bijou64-before.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p && remotion render Bijou64After ../../static/videos/bijou64-after.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p && remotion render Bijou64Network ../../static/videos/bijou64-network.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p",
+    "still": "remotion still Bijou64Before ../../static/videos/bijou64-before.jpg --frame=420 && remotion still Bijou64After ../../static/videos/bijou64-after.jpg --frame=400 && remotion still Bijou64Network ../../static/videos/bijou64-network.jpg --frame=560"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.372",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.372"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.8.2"
+  }
+}

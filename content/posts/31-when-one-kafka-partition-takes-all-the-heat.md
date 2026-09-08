@@ -24,6 +24,8 @@ imagePosition: "center"
 featureimage: "img/covers/31-when-one-kafka-partition-takes-all-the-heat.svg"
 ---
 
+{{< video src="/videos/hot-partition-before.mp4" poster="/videos/hot-partition-before.jpg" autoplay="true" muted="true" loop="true" caption="Before. Extra consumers attach to the quiet partitions." >}}
+
 You scale the consumer group from 3 to 12 and lag barely moves. One partition is millions of offsets behind; the others sit idle. The broker that leads that partition is chewing disk and network while its peers look fine.
 
 That is a hot partition. Most of the produce traffic hashed onto one slice of the topic — or stuck there because of a bad key. Extra consumers do not help. Kafka assigns partitions, not a fair share of the work.
@@ -63,6 +65,8 @@ When a few entities are inherently hot, isolate or salt them. Isolation means a 
 A custom partitioner is rare. Use it only when business rules need explicit placement, and put the same partitioner on every producer of that topic. Mixed partitioners make things worse. Most teams never need this if the key is right.
 
 Replica reassignment can move heat off an overloaded broker for a while. It does not fix the key. Treat it as buying time.
+
+{{< video src="/videos/hot-partition-after.mp4" poster="/videos/hot-partition-after.jpg" autoplay="true" muted="true" loop="true" caption="After. Unique order ids. New traffic spreads." >}}
 
 ### How you know it worked
 

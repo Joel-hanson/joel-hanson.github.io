@@ -22,6 +22,8 @@ heroStyle: "background"
 imagePosition: "center"
 ---
 
+{{< video src="/videos/bijou64-network.mp4" poster="/videos/bijou64-network.jpg" autoplay="true" muted="true" loop="true" caption="A sensor. Same four readings. Less on the wire." >}}
+
 If you produce millions of Kafka messages where the **value is just a number** — counters, IDs, timestamps, sequence numbers — you're almost certainly paying for **8 bytes per message** whether the value is `1` or `1_000_000_000`.
 
 Kafka's built-in `LongSerializer` is simple and correct. But simple also means fixed-width: every `long` becomes 8 bytes on the wire and on disk. On high-volume, integer-heavy topics, that adds up fast in **broker storage**, **replication traffic**, and **egress costs**.
@@ -60,6 +62,8 @@ Think about topics like:
 - Timestamp-like values where most records cluster in a range
 
 For these workloads, **most values are small**. Bijou64 encodes them in 1–3 bytes instead of 8.
+
+{{< video src="/videos/bijou64-before.mp4" poster="/videos/bijou64-before.jpg" autoplay="true" muted="true" loop="true" caption="Before. LongSerializer. Every integer is 8 bytes." >}}
 
 ### What you gain
 
@@ -213,6 +217,8 @@ For encode/decode-only numbers:
 ```
 
 ---
+
+{{< video src="/videos/bijou64-after.mp4" poster="/videos/bijou64-after.jpg" autoplay="true" muted="true" loop="true" caption="After. Bijou64. Small numbers stay small." >}}
 
 ## A Mental Model
 
