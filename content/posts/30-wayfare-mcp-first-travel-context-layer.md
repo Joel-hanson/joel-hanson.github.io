@@ -1,5 +1,5 @@
 ---
-title: "Wayfare: I Plan Trips More Than I Take Them"
+title: "I Built an MCP Travel Planner That Gives ChatGPT, Claude & Cursor Shared Context"
 date: 2026-08-01
 draft: false
 series: ["MCP"]
