@@ -21,7 +21,7 @@ heroStyle: "background"
 imagePosition: "center"
 ---
 
-## [🚀 Launch Markdown2Medium Converter](https://markdown2medium.vercel.app)
+## [🚀 Launch Markdown2Medium Converter](https://markdown2medium.joelhanson.com)
 
 ---
 
@@ -61,7 +61,7 @@ No more manual tweaks!
 
 #### **Try It Yourself**  
 
-> **_<https://markdown2medium.vercel.app/>_**
+> **_<https://markdown2medium.joelhanson.com/>_**
 
 You can find the tool here: [GitHub Repo](https://github.com/Joel-hanson/markdown2medium)
 

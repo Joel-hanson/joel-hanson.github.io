@@ -6,7 +6,7 @@ discoveryType: media
 summary: "Travel bucket list and savings tracker. Same trip data in Claude, Cursor, and ChatGPT, per user via OAuth."
 tags: ["Side Project", "MCP", "Travel"]
 image: "/images/30-wayfare/home.png"
-externalUrl: "https://wayfareai.vercel.app/"
+externalUrl: "https://wayfare.joelhanson.com/"
 relatedPost: "/posts/30-wayfare-mcp-first-travel-context-layer/"
 ---
 

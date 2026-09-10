@@ -36,11 +36,11 @@ The chats are useful. They just don't share memory. Switch bots and I have to ex
 
 I could put notes in Notion. I could track money in a spreadsheet. There are note-taking MCPs and other tools that could cover parts of this. None of that fixed the bouncing-between-bots problem for me. I also wanted to learn how OAuth works for MCP, and how to deploy a real MCP server instead of only a local demo. So I built Wayfare as a travel tool and as a way to figure that out.
 
-App: [wayfareai.vercel.app](https://wayfareai.vercel.app/)  
-MCP endpoint: `https://wayfareai.vercel.app/api/mcp/`  
+App: [wayfare.joelhanson.com](https://wayfare.joelhanson.com/)  
+MCP endpoint: `https://wayfare.joelhanson.com/api/mcp/`  
 (Account → Copy MCP URL in the app, then connect it in Claude / Cursor / ChatGPT — see below)
 
-I've bought enough domains over the years that I'm trying not to keep buying more. So for now Wayfare is on a free `.vercel.app` URL. I looked up a proper domain after I built it. It's expensive unless someone wants to sponsor one. If people find this useful, I plan to open-source it later.
+I've bought enough domains over the years that I'm trying not to keep buying more. Wayfare lives on a subdomain of this site (`wayfare.joelhanson.com`) instead of a separate TLD. If people find this useful, I plan to open-source it later.
 
 Screenshots use a demo account with fake destinations (Iceland, Portugal, Vietnam, Morocco, New Zealand) so I'm not dumping my real trip details here.
 
@@ -92,7 +92,7 @@ _Account → Copy MCP URL_
 MCP server endpoint:
 
 ```text
-https://wayfareai.vercel.app/api/mcp/
+https://wayfare.joelhanson.com/api/mcp/
 ```
 
 Keep the trailing slash. That's the URL you paste into Claude / Cursor / ChatGPT / etc.
@@ -105,8 +105,8 @@ This already helped me once. I was applying for a visa and needed a cover letter
 
 The UIs for this stuff change a lot, so I'm not writing a step-by-step that goes stale next month. Short version:
 
-1. Sign in to [Wayfare](https://wayfareai.vercel.app/)
-2. Account → Copy MCP URL (production is `https://wayfareai.vercel.app/api/mcp/` — keep the trailing slash)
+1. Sign in to [Wayfare](https://wayfare.joelhanson.com/)
+2. Account → Copy MCP URL (production is `https://wayfare.joelhanson.com/api/mcp/` — keep the trailing slash)
 3. Add that URL in whatever chatbot you're using, using their docs for remote MCP / connectors / plugins
 4. Finish the Wayfare OAuth login when the browser opens
 
@@ -142,7 +142,7 @@ If a client only supports local `command` MCP (stdio) and won't take a URL, use 
 
 ## Try it
 
-1. Sign in at [wayfareai.vercel.app](https://wayfareai.vercel.app/)
+1. Sign in at [wayfare.joelhanson.com](https://wayfare.joelhanson.com/)
 2. Add a place you've been thinking about
 3. Rough out costs (yourself or with an agent)
 4. Copy the MCP URL and connect one of the clients [above](#connecting-claude-chatgpt-cursor-etc)
@@ -154,7 +154,7 @@ The web app works fine on its own as a bucket list and fund tracker. With MCP co
 
 ## Links
 
-- App: [wayfareai.vercel.app](https://wayfareai.vercel.app/)
-- MCP endpoint: `https://wayfareai.vercel.app/api/mcp/`
+- App: [wayfare.joelhanson.com](https://wayfare.joelhanson.com/)
+- MCP endpoint: `https://wayfare.joelhanson.com/api/mcp/`
 - Related: [ContextLayer](/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)
 - Projects: [Wayfare](/projects/wayfare/)

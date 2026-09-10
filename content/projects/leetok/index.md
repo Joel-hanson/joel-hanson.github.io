@@ -8,6 +8,7 @@ category: "personal"
 demoUrl: "https://joelhanson.com/leetok/"
 summary: "Mobile-first swipe feed for interview problems and free learning resources."
 tags: ["Side Project", "PWA", "Frontend", "GitHub Pages", "LeetCode"]
+featureimage: "img/posts/leetok.png"
 ---
 
 Swipe through curated problem lists, save favorites, and jump to free resources — all stored locally in your browser.

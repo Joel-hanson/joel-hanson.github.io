@@ -7,6 +7,7 @@ weight: 6
 category: "platform"
 summary: "Production-ready Kafka Connect template with Testcontainers integration tests."
 tags: ["Kafka Connect", "Java", "Testing"]
+featureimage: "img/posts/kafka-connector-template.png"
 blogPost: "/posts/13-build-custom-kafka-connectors-fast-with-this-open-source-template/"
 ---
 

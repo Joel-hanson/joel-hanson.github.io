@@ -7,6 +7,7 @@ weight: 8
 category: "platform"
 summary: "A real-time multiplayer tap battle that turns every click into a Kafka event you can inspect."
 tags: ["Kafka", "WebSockets", "Demo", "JavaScript"]
+featureimage: "img/posts/stream-wars.png"
 blogPost: "/posts/25-building-stream-wars-a-real-time-multiplayer-tap-battle-game-with-kafka-and-websockets/"
 ---
 

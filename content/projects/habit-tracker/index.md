@@ -8,6 +8,7 @@ category: "personal"
 demoUrl: "https://joelhanson.com/habit-tracker/"
 summary: "Aesthetic challenge-grid habit tracker hosted on GitHub Pages."
 tags: ["Side Project", "Frontend", "GitHub Pages"]
+featureimage: "img/posts/habit-tracker.png"
 blogPost: "/posts/28-aesthetic-habit-tracker-challenge-grid-on-github-pages/"
 ---
 

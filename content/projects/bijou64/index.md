@@ -8,6 +8,7 @@ category: "platform"
 summary: "Shrink Kafka integer payloads with a compact encoding library for Java/Kafka apps."
 outcome: "1–3 byte ints on the wire · drop-in Kafka serializers"
 tags: ["Kafka", "Java", "Encoding"]
+featureimage: "img/posts/bijou64.png"
 blogPost: "/posts/26-shrink-kafka-integer-payloads-with-bijou64/"
 ---
 

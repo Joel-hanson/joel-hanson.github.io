@@ -8,6 +8,7 @@ category: "platform"
 summary: "Schema registry migration and upstream MCP work for IBM Event Streams."
 outcome: "V2→V3 · zero downtime · Event Streams v12.1 critical path"
 tags: ["Schema Registry", "Kubernetes", "Java", "Open Source", "MCP"]
+featureimage: "img/posts/apicurio-registry.png"
 ---
 
 [Apicurio Registry](https://github.com/Apicurio/apicurio-registry) is the API and schema registry used across event-driven systems — including IBM Event Streams.

@@ -5,10 +5,11 @@ draft: false
 featured: true
 weight: 2
 category: "platform"
-demoUrl: "https://contextlayer.tech"
+demoUrl: "https://contextlayer.joelhanson.com"
 summary: "Transform any REST API into an MCP server — connectors that make existing APIs usable by LLM tools."
 outcome: "Open-source MCP bridge · REST → tools in minutes"
 tags: ["MCP", "AI", "Python", "REST"]
+featureimage: "img/posts/contextlayer-landing.png"
 blogPost: "/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/"
 ---
 
@@ -18,4 +19,4 @@ blogPost: "/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp
 
 **Why it matters:** Used in live MCP education sessions and demos; lowers the cost of giving agents real system access without rewriting backends.
 
-**Links:** [Live site](https://contextlayer.tech) · [GitHub](https://github.com/Joel-hanson/contextlayer) · [Blog post](/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)
+**Links:** [Live site](https://contextlayer.joelhanson.com) · [GitHub](https://github.com/Joel-hanson/contextlayer) · [Blog post](/posts/22-introducing-contextlayer-transform-any-rest-api-into-an-mcp-server/)

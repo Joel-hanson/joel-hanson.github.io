@@ -7,6 +7,7 @@ weight: 12
 category: "platform"
 summary: "Turn an existing Django REST Framework project into MCP tools for AI assistants in minutes."
 tags: ["Side Project", "Django", "MCP", "Python"]
+featureimage: "img/posts/django-drf-mcp.png"
 blogPost: "/posts/20-convert-your-django-drf-project-to-mcp-in-5-minutes/"
 ---
 

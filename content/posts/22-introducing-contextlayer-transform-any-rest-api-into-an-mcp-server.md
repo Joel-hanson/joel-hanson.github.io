@@ -64,7 +64,7 @@ You shouldn't need to write custom code for every API integration. You shouldn't
 
 ## What is ContextLayer?
 
-[ContextLayer](https://contextlayer.tech) is an open-source platform that transforms **any REST API into a Model Context Protocol (MCP) server** through a visual, web-based interface. No coding required. No API modifications needed. No MCP protocol knowledge necessary.
+[ContextLayer](https://contextlayer.joelhanson.com) is an open-source platform that transforms **any REST API into a Model Context Protocol (MCP) server** through a visual, web-based interface. No coding required. No API modifications needed. No MCP protocol knowledge necessary.
 
 Think of ContextLayer as a universal translator between REST APIs and AI assistants:
 
@@ -191,7 +191,7 @@ To connect to Claude Desktop, copy the MCP server URL and add it to your Claude 
   "mcpServers": {
     "your-api-name": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://contextlayer.tech/mcp/your-bridge-id"]
+      "args": ["-y", "mcp-remote", "https://contextlayer.joelhanson.com/mcp/your-bridge-id"]
     }
   }
 }
@@ -262,7 +262,7 @@ Integrate Stripe, Shopify, or other business-critical APIs:
 
 ### Option 1: Use the Hosted Version
 
-1. **Visit** [contextlayer.tech](https://contextlayer.tech)
+1. **Visit** [contextlayer.joelhanson.com](https://contextlayer.joelhanson.com)
 2. **Sign up** with Google (free account)
 3. **Create** your first MCP Server bridge through the visual dashboard
 4. **Configure** your API endpoints and authentication
@@ -344,7 +344,7 @@ Whether you're:
 
 ContextLayer provides a simple, visual, code-free way to bridge REST APIs and Model Context Protocol.
 
-**Try it today**: [contextlayer.tech](https://contextlayer.tech)
+**Try it today**: [contextlayer.joelhanson.com](https://contextlayer.joelhanson.com)
 
 **Self-host it**: [github.com/Joel-hanson/contextlayer](https://github.com/Joel-hanson/contextlayer)
 
@@ -373,7 +373,7 @@ ContextLayer provides a simple, visual, code-free way to bridge REST APIs and Mo
 
 ## Stay Connected
 
-- **Website**: [contextlayer.tech](https://contextlayer.tech)
+- **Website**: [contextlayer.joelhanson.com](https://contextlayer.joelhanson.com)
 - **GitHub**: [Joel-hanson/contextlayer](https://github.com/Joel-hanson/contextlayer)
 - **Blog**: [joelhanson.com](/)
 - **LinkedIn**: [Joel-hanson](https://www.linkedin.com/in/joel-hanson/)

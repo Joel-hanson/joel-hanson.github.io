@@ -7,6 +7,7 @@ weight: 13
 category: "platform"
 summary: "Minimal Server-Sent Events demo — a live CPU/RAM dashboard with almost no client code."
 tags: ["Side Project", "SSE", "Python", "Demo"]
+featureimage: "img/posts/sse-stream.png"
 blogPost: "/posts/11-build-real-time-web-apps-with-minimal-code/"
 ---
 

@@ -7,6 +7,7 @@ weight: 16
 category: "platform"
 summary: "Compare Celery-style async tasks in Django with Restate durable execution on the same workload."
 tags: ["Side Project", "Django", "Restate", "Celery"]
+featureimage: "img/posts/django-celery-restate.png"
 blogPost: "/posts/24-from-celery-to-restate-rethinking-async-tasks-in-django/"
 ---
 

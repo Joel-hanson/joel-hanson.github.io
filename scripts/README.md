@@ -37,3 +37,15 @@ The style is picked from the page's title, tags and categories — Kafka topics
 lean towards `nodes`, performance towards `bars`, debugging towards `slash`, and
 so on. Pass `--style` when the guess is wrong. Other flags: `--no-png`,
 `--no-frontmatter`.
+
+## `capture-project-screenshots.mjs`
+
+Takes live-app screenshots when a project has a UI, otherwise the GitHub repo
+page, and writes PNGs to `assets/img/posts/`. Needs local Chrome and
+`puppeteer-core`.
+
+```bash
+npm install --prefix /tmp/project-shots puppeteer-core
+cp scripts/capture-project-screenshots.mjs /tmp/project-shots/capture.mjs
+cd /tmp/project-shots && node capture.mjs
+```

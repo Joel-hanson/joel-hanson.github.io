@@ -30,10 +30,14 @@ I'm a Software Engineer at IBM on **Event Streams** (Apache Kafka on Kubernetes/
 
 ## Selected projects
 
-- **[ContextLayer](https://contextlayer.tech/)** — Turn REST APIs into MCP servers
+- **[ContextLayer](https://contextlayer.joelhanson.com/)** — Turn REST APIs into MCP servers
 - **[kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server)** — Kafka ops as MCP tools
 - **[sse-kafka-connector](https://github.com/Joel-hanson/sse-kafka-connector)** — SSE → Kafka Connect (used in Event Streams demos)
 - **[Apicurio Registry](https://joelhanson.com/projects/apicurio-registry/)** — V2→V3 migration lead; upstream MCP HTTP PR in progress
+
+## Side projects
+
+- **[Foldmark](https://foldmark.joelhanson.com/)** — Printable bookmark maker. Pick a shape, download a PDF, fold. ([writeup](https://joelhanson.com/projects/foldmark/) · [GitHub](https://github.com/Joel-hanson/foldmark))
 
 ---
 
