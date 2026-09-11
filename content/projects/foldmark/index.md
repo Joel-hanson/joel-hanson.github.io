@@ -25,14 +25,14 @@ I wanted a bookmark I could print at home — not a craft project and not an acc
 - **Corner pocket** — cut a square, fold twice, slide it over the page corner.
 
 ![Foldmark accordion fold maker](/images/foldmark/accordion.png)
-_Accordion fold with the Printer ink palette — print, fan-fold, read._
+_Accordion fold with the Quiet ink look — print, fan-fold, read._
 
 ![Foldmark corner pocket](/images/foldmark/corner.png)
-_Corner pocket — a single square that becomes a triangular page-corner bookmark._
+_Corner pocket with Maple note — cut a square, fold twice, slide it over the page corner._
 
 ## What else
 
-Five palettes (including a dark Night press), patterns or your own image, A4 / Letter / A5 / Legal, color or black & white, and a shareable design link in the URL. PDF generation is all client-side with `pdf-lib` — nothing is uploaded.
+Five palettes (including a dark Night press), cover motifs from the Foldmark logo set, patterns or your own image, A4 / Letter / A5 / Legal, color or black & white, and a shareable design link in the URL. PDF generation is all client-side with `pdf-lib` — nothing is uploaded.
 
 ![Foldmark Night press palette](/images/foldmark/night.png)
 _Night press — dark paper, light ink, still the same print-and-fold flow._

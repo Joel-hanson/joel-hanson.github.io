@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" role="img" aria-labelledby="title desc">
+  <title id="title">Foldmark logo</title>
+  <desc id="desc">Two dark folded bands with an orange triangular fold accent.</desc>
+  <g shape-rendering="geometricPrecision">
+    <!-- Upper folded band -->
+    <path fill="#20252B" d="M50 78 L169 27 L169 61 L50 113 Z"/>
+    <!-- Lower folded band -->
+    <path fill="#20252B" d="M50 126 L135 89 L135 123 L50 161 Z"/>
+    <!-- Orange fold accent -->
+    <path fill="#FF5A36" d="M50 177 L94 156 L94 203 Z"/>
+  </g>
+</svg>
