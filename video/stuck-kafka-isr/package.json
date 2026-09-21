@@ -1,0 +1,19 @@
+{
+  "name": "stuck-kafka-isr-video",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render StuckKafkaIsr ../../static/videos/stuck-kafka-isr.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p && remotion render StuckKafkaIsrFailure ../../static/videos/stuck-kafka-isr-failure.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p",
+    "still": "remotion still StuckKafkaIsr ../../static/videos/stuck-kafka-isr.jpg --frame=780 && remotion still StuckKafkaIsrFailure ../../static/videos/stuck-kafka-isr-failure.jpg --frame=560"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.372",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.372"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.8.2"
+  }
+}
