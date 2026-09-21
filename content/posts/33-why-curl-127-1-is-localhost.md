@@ -20,13 +20,13 @@ imagePosition: "center"
 featureimage: "img/posts/abbreviated-ipv4-curl.jpg"
 ---
 
-I typed `curl 127.1` while debugging an application and it still talked to localhost. Same machine as `curl 127.0.0.1`. That was weird enough to chase.
+I typed `curl 127.1` while debugging something and it still hit localhost. That seemed wrong, so I chased it.
 
-On macOS (and other BSD-descended systems) that string is not going through DNS as a hostname. Once the parser sees a `.`, it treats the input as an IPv4 address and runs the old `inet_aton()` rules. Those rules still allow abbreviated forms.
+On macOS (and other BSD-ish systems) that string is not going through DNS. Once the parser sees a `.`, it treats the input as an IPv4 address and runs the old `inet_aton()` rules. Those rules still allow short forms.
 
 ## What "abbreviated" means
 
-A dotted IPv4 string can have 1, 2, 3, or 4 parts. The last part absorbs whatever bits are left in the 32-bit address:
+A dotted IPv4 string can have 1, 2, 3, or 4 parts. The last part eats whatever bits are left in the 32-bit address:
 
 | Form | Bit layout | Example input | Expands to |
 |---|---|---|---|
@@ -43,9 +43,9 @@ So for `127.1`:
 8 bits  24-bit host number
 ```
 
-`127` is the first octet. `1` fills the remaining 24 bits as `0.0.1`. Together that is `127.0.0.1`.
+`127` is the first octet. `1` fills the remaining 24 bits as `0.0.1`. Put together: `127.0.0.1`.
 
-`127.0.1` is the three-part version: last piece is 16 bits, still `127.0.0.1`.
+`127.0.1` is the three-part version. The last piece is 16 bits, and you still get `127.0.0.1`.
 
 ## Seeing it in curl
 
@@ -63,7 +63,7 @@ All five print `127.0.0.1`:
 
 ![Five curl invocations with abbreviated, hex, decimal, and octal forms of localhost, each printing remote_ip 127.0.0.1](/images/33-abbreviated-ipv4/curl-abbreviated-ipv4.jpg "curl remote_ip for 127.1, 0x7F.1, 0x7F000001, 2130706433, and 0177.1")
 
-Five spellings of the same 32-bit value:
+Same 32-bit value, written five ways:
 
 | Input | How it is read |
 |---|---|
@@ -73,19 +73,19 @@ Five spellings of the same 32-bit value:
 | `2130706433` | Same value in decimal (`0x7F000001`) |
 | `0177.1` | Octal first octet (`0177` = 127), decimal host |
 
-Leading `0` means octal. Leading `0x` means hex. Same base rules C has used for decades; `inet_aton()` copies them.
+A leading `0` means octal. A leading `0x` means hex. Same base rules C has used forever; `inet_aton()` just copies them.
 
 ## Where the behavior lives
 
-I started from `<arpa/inet.h>`, then followed `inet_aton()` into the libc that ships on macOS. Apple's tree still carries the FreeBSD implementation:
+I started from `<arpa/inet.h>`, then followed `inet_aton()` into the libc that ships on macOS. Apple's tree still has the FreeBSD implementation:
 
 [apple-oss-distributions/Libc `net/FreeBSD/inet_addr.c`](https://github.com/apple-oss-distributions/Libc/blob/main/net/FreeBSD/inet_addr.c)
 
-After the parser has collected the dotted parts, the interesting bit is the `switch` on how many parts you gave it:
+After the parser has the dotted parts, the useful bit is the `switch` on how many parts you gave it:
 
 ![Switch on part count in inet_aton: case 2 is a.b as 8.24 bits, case 3 is a.b.c as 8.8.16, case 4 is a.b.c.d as 8.8.8.8](/images/33-abbreviated-ipv4/inet-aton-switch.png "inet_aton switch on number of address parts")
 
-For two parts (`127.1`), that is literally:
+For two parts (`127.1`), that is:
 
 ```c
 case 2: /* a.b -- 8.24 bits */
@@ -95,13 +95,13 @@ case 2: /* a.b -- 8.24 bits */
     break;
 ```
 
-`parts[0]` is `127`, shifted into the top byte. `val` still holds `1`. OR them, convert to network byte order, and you have `127.0.0.1`.
+`parts[0]` is `127`, shifted into the top byte. `val` still holds `1`. OR them, convert to network byte order, and you get `127.0.0.1`.
 
-Three- and four-part forms do the same with 16-bit and 8-bit final pieces. One-part form means the whole address is already in `val`, which is why bare `2130706433` and `0x7F000001` work with no dots at all.
+Three- and four-part forms do the same thing with a 16-bit or 8-bit final piece. One-part form means the whole address is already in `val`, which is why bare `2130706433` and `0x7F000001` work with no dots.
 
 ## Verify it with a tiny C program
 
-curl is a convenient demo. The parser is easier to see alone:
+curl is a handy demo. The parser is easier to see on its own:
 
 ```c
 #include <stdio.h>
@@ -150,22 +150,20 @@ On macOS:
 8.24           -> 8.0.0.24
 ```
 
-`inet_ntoa()` only prints the canonical dotted-quad. The expansion already happened inside `inet_aton()`.
+`inet_ntoa()` only prints the normal dotted-quad. The expansion already happened inside `inet_aton()`.
 
 ## Why it bites
 
-Usually this is a curiosity. Sometimes it is a footgun.
+Most of the time this is just a weird fact. Sometimes it breaks security checks.
 
-Allowlists that string-match `host == "127.0.0.1"` or `startswith("127.")` miss `127.1`, `0x7f.1`, and `2130706433`. If you need "is this loopback?", parse to an address and test the address. Do not pattern-match the original string.
+Allowlists that string-match `host == "127.0.0.1"` or `startswith("127.")` miss `127.1`, `0x7f.1`, and `2130706433`. If you need "is this loopback?", parse to an address and test that. Do not pattern-match the original string.
 
-Strict parsers and `inet_pton()` reject many of these forms. Loose parsers and BSD `inet_aton()` accept them. The same URL can look invalid in one layer and connect in another.
+Strict parsers and `inet_pton()` reject a lot of these forms. Loose parsers and BSD `inet_aton()` accept them. So the same URL can look invalid in one layer and connect in another.
 
-The comments in that file still describe classful layouts (`a.b` as 8.24). The internet moved on. The compatibility path did not.
+The comments in that file still talk about classful layouts (`a.b` as 8.24). The internet moved on. This compatibility path did not.
 
-I would not put `127.1` in a config on purpose. When a tool quietly accepts it, you are looking at libc history, not magic.
+I would not put `127.1` in a config on purpose. If a tool quietly accepts it, that is old libc behavior, not magic.
 
-## Takeaway
-
-`curl 127.1` works because the IPv4 parser never required four decimal octets. Abbreviated dotted forms, hex, octal, and a bare 32-bit integer are legal inputs to `inet_aton()`. On Apple/FreeBSD libc, `a.b` is still the first octet plus a 24-bit host number.
+`curl 127.1` works because the IPv4 parser never required four decimal octets. Short dotted forms, hex, octal, and a bare 32-bit integer are all legal inputs to `inet_aton()`. On Apple/FreeBSD libc, `a.b` is still the first octet plus a 24-bit host number.
 
 Full implementation: [`inet_addr.c` in Apple's Libc](https://github.com/apple-oss-distributions/Libc/blob/main/net/FreeBSD/inet_addr.c).

@@ -1618,7 +1618,8 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 .discovery-card-hit {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  /* Behind card content so nested links can receive clicks (stretched-link pattern). */
+  z-index: 0;
   border: 0 !important;
   box-shadow: none !important;
   background: transparent !important;
@@ -1627,15 +1628,13 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
 
 .discovery-card > *:not(.discovery-card-hit) {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
 .discovery-card a:not(.discovery-card-hit),
 .discovery-card button {
   pointer-events: auto;
-  position: relative;
-  z-index: 2;
 }
 
 .discovery-card-header {

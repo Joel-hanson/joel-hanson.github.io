@@ -1,8 +1,14 @@
 {{/* Discovery find card — feed + reel + single */}}
 {{ $kind := .Params.discoveryType | default .Params.kind | default "snippet" }}
 {{ $compact := .Scratch.Get "discoveryCompact" | default false }}
+{{ $hitURL := .RelPermalink }}
+{{ $hitLabel := .Title }}
+{{ with .Params.relatedPost }}
+  {{ $hitURL = . | relLangURL }}
+  {{ $hitLabel = printf "%s — full post" $.Title }}
+{{ end }}
 <article class="discovery-card" data-kind="{{ $kind }}" id="{{ .File.ContentBaseName }}" tabindex="-1">
-  <a class="discovery-card-hit" href="{{ .RelPermalink }}" aria-label="{{ .Title }}" tabindex="-1"></a>
+  <a class="discovery-card-hit" href="{{ $hitURL }}" aria-label="{{ $hitLabel }}" tabindex="-1"></a>
 
   <header class="discovery-card-header">
     <span class="discovery-kind">[{{ $kind }}]</span>
@@ -10,7 +16,7 @@
   </header>
 
   <h3 class="discovery-title">
-    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <a href="{{ $hitURL }}">{{ .Title }}</a>
   </h3>
 
   {{ with .Params.summary }}
