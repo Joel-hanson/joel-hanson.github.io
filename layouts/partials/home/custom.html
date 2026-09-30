@@ -45,8 +45,8 @@
 {{ if $projects }}
   <section class="home-section">
     <h2 class="section-label">Projects</h2>
-    <div class="project-grid project-grid--compact">
-      {{ range $projects }}
+    <div class="project-grid project-grid--compact project-grid--home">
+      {{ range first 12 $projects }}
         {{ partial "project-card.html" (dict "page" . "variant" "compact") }}
       {{ end }}
     </div>
