@@ -328,6 +328,15 @@ article > section.flex {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
+.solari:focus {
+  outline: none;
+}
+
+.solari--snake:focus {
+  outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  outline-offset: 3px;
+}
+
 .solari__grid {
   display: grid;
   grid-template-columns: repeat(var(--solari-cols), 1.1em);
@@ -396,19 +405,17 @@ article > section.flex {
   opacity: 1;
 }
 
-.solari-cell--egg.is-egg-pulse {
-  animation: solari-egg-pulse 0.9s ease;
-}
-
 @keyframes solari-egg-pulse {
   0%,
   100% {
-    box-shadow: inset 0 0 0 1px var(--border);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, var(--border)),
+      0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
   }
   45% {
     box-shadow:
-      inset 0 0 0 1px color-mix(in srgb, var(--accent) 55%, var(--border)),
-      0 0 8px color-mix(in srgb, var(--accent) 22%, transparent);
+      inset 0 0 0 1px color-mix(in srgb, var(--accent) 75%, var(--border)),
+      0 0 10px color-mix(in srgb, var(--accent) 30%, transparent);
   }
 }
 
@@ -462,10 +469,29 @@ article > section.flex {
   background: color-mix(in srgb, var(--accent) 8%, var(--solari-face));
 }
 
+.solari-cell--egg {
+  color: var(--accent-text);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, var(--border)),
+    0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+  cursor: pointer;
+}
+
+.solari-cell--egg .solari-cell__half {
+  background: color-mix(in srgb, var(--accent) 10%, var(--solari-face));
+}
+
+.solari-cell--egg:hover,
 .solari-cell--egg.is-egg-hint {
+  color: var(--accent-text);
+  transform: translateY(-1px) scale(1.06);
   box-shadow:
     inset 0 0 0 1px color-mix(in srgb, var(--accent) 70%, var(--border)),
     0 0 10px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.solari-cell--egg.is-egg-pulse {
+  animation: solari-egg-pulse 0.9s ease;
 }
 
 .solari-cell.is-snake .solari-cell__half,

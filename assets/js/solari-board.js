@@ -25,19 +25,20 @@
   var phraseIndex = 0;
   var cycleTimer = 0;
   var mode = "board"; // board | snake
-  var eggRow = 6;
-  var eggCol = 11;
+  var eggRow = ROWS - 1;
+  var eggCol = COLS - 1;
   var eggHoverTimer = 0;
+  var EGG_CHAR = "S";
+  var startingSnake = false;
 
   var hintTimer = 0;
   var eggPulseTimer = 0;
   var hintIndex = 0;
   var hints = [
-    "click · hover · there’s more",
+    "click · hover · try the S tile",
+    "S starts snake · arrows to play",
     "double-click flips a line",
-    "one quiet cell starts a game",
-    "arrows ready if you find it",
-    "type snake — if you know",
+    "esc exits snake",
   ];
   var statusLocked = false;
 
@@ -49,9 +50,44 @@
   var score = 0;
   var snakeTimer = 0;
   var snakeAlive = false;
+  var rollGeneration = 0;
+  var shuffleTimeout = 0;
 
   function idx(r, c) {
     return r * COLS + c;
+  }
+
+  function stopAllRolls() {
+    rollGeneration += 1;
+    for (var i = 0; i < cells.length; i++) {
+      cells[i]._rolling = false;
+      cells[i]._rollTarget = null;
+      cells[i]._forceLap = false;
+      cells[i]._stepsLeft = 0;
+      cells[i].classList.remove("is-flipping");
+    }
+  }
+
+  function isEggCell(cell) {
+    return !!(cell && cell.classList.contains("solari-cell--egg"));
+  }
+
+  function paintEgg(cell, flip) {
+    if (!cell) return;
+    cell.classList.add("solari-cell--egg");
+    cell.setAttribute("data-egg", "snake");
+    cell.setAttribute("aria-label", "Start snake");
+    cell.removeAttribute("aria-hidden");
+    cell.title = "Play snake";
+    if (flip && !reduceMotion.matches && mode === "board") {
+      rollTo(cell, EGG_CHAR, 0, false);
+    } else {
+      applyGlyph(cell, EGG_CHAR);
+    }
+  }
+
+  function eggCell() {
+    return cells[idx(eggRow, eggCol)] || null;
   }
 
   function createCell(r, c) {
@@ -67,21 +103,24 @@
     if (r === eggRow && c === eggCol) {
       cell.classList.add("solari-cell--egg");
       cell.setAttribute("data-egg", "snake");
-      cell.title = "";
+      cell.setAttribute("aria-label", "Start snake");
+      cell.removeAttribute("aria-hidden");
+      cell.title = "Play snake";
+      cell.setAttribute("data-char", EGG_CHAR);
     }
 
     var top = document.createElement("span");
     top.className = "solari-cell__half solari-cell__half--top";
     var topGlyph = document.createElement("span");
     topGlyph.className = "solari-cell__glyph";
-    topGlyph.textContent = "\u00a0";
+    topGlyph.textContent = r === eggRow && c === eggCol ? EGG_CHAR : "\u00a0";
     top.appendChild(topGlyph);
 
     var bottom = document.createElement("span");
     bottom.className = "solari-cell__half solari-cell__half--bottom";
     var bottomGlyph = document.createElement("span");
     bottomGlyph.className = "solari-cell__glyph";
-    bottomGlyph.textContent = "\u00a0";
+    bottomGlyph.textContent = r === eggRow && c === eggCol ? EGG_CHAR : "\u00a0";
     bottom.appendChild(bottomGlyph);
 
     cell.appendChild(top);
@@ -103,8 +142,12 @@
     return i < 0 ? 0 : i;
   }
 
-  function flipOnce(cell, nextCh) {
+  function flipOnce(cell, nextCh, gen) {
     return new Promise(function (resolve) {
+      if (mode === "snake" || (typeof gen === "number" && gen !== rollGeneration)) {
+        resolve();
+        return;
+      }
       if (reduceMotion.matches) {
         applyGlyph(cell, nextCh);
         resolve();
@@ -114,6 +157,11 @@
       void cell.offsetWidth;
       cell.classList.add("is-flipping");
       window.setTimeout(function () {
+        if (mode === "snake" || (typeof gen === "number" && gen !== rollGeneration)) {
+          cell.classList.remove("is-flipping");
+          resolve();
+          return;
+        }
         applyGlyph(cell, nextCh);
       }, 48);
       window.setTimeout(function () {
@@ -124,11 +172,11 @@
   }
 
   // Airport-style: every cell rolls forward; unchanged cells take a full lap
-  function rollTo(cell, target, delay, forceAll) {
+  function rollTo(cell, target, delay, forceAll, maxSteps) {
+    var gen = rollGeneration;
     return new Promise(function (resolve) {
       window.setTimeout(function () {
-        if (mode === "snake") {
-          applyGlyph(cell, target);
+        if (mode === "snake" || gen !== rollGeneration) {
           resolve();
           return;
         }
@@ -136,6 +184,7 @@
         cell._rollTarget = target;
         cell._forceLap = !!forceAll;
         cell._stepsLeft = -1;
+        cell._maxSteps = typeof maxSteps === "number" ? maxSteps : -1;
 
         if (cell._rolling) {
           resolve();
@@ -148,11 +197,22 @@
           var fromIdx = charsetIndex(current);
           var toIdx = charsetIndex(goal);
           var dist = (toIdx - fromIdx + CHARSET.length) % CHARSET.length;
-          if (dist === 0 && forceLap) return CHARSET.length;
+          if (dist === 0 && forceLap) dist = CHARSET.length;
+          if (cell._maxSteps > 0 && dist > cell._maxSteps) {
+            // Short shuffle: jump near the target within maxSteps
+            return cell._maxSteps;
+          }
           return dist;
         }
 
         function step() {
+          if (mode === "snake" || gen !== rollGeneration) {
+            cell._rolling = false;
+            cell.classList.remove("is-flipping");
+            resolve();
+            return;
+          }
+
           var goal = cell._rollTarget;
           var current = cell.getAttribute("data-char") || " ";
 
@@ -160,6 +220,7 @@
             cell._stepsLeft = planSteps(current, goal, cell._forceLap);
             cell._forceLap = false;
             if (cell._stepsLeft === 0) {
+              applyGlyph(cell, goal);
               cell._rolling = false;
               cell._rollTarget = null;
               resolve();
@@ -176,10 +237,17 @@
           }
 
           var nextIdx = (charsetIndex(current) + 1) % CHARSET.length;
-          var nextCh = CHARSET.charAt(nextIdx);
+          var nextCh =
+            cell._stepsLeft === 1 ? goal : CHARSET.charAt(nextIdx);
           cell._stepsLeft -= 1;
 
-          flipOnce(cell, nextCh).then(function () {
+          flipOnce(cell, nextCh, gen).then(function () {
+            if (mode === "snake" || gen !== rollGeneration) {
+              cell._rolling = false;
+              cell.classList.remove("is-flipping");
+              resolve();
+              return;
+            }
             var pause = cell._stepsLeft > 16 ? 0 : cell._stepsLeft > 8 ? 4 : 10;
             window.setTimeout(step, pause);
           });
@@ -191,6 +259,10 @@
   }
 
   function setCellChar(cell, ch, flip) {
+    if (isEggCell(cell) && mode === "board") {
+      paintEgg(cell, false);
+      return;
+    }
     if (flip) {
       var r = parseInt(cell.getAttribute("data-row"), 10) || 0;
       var c = parseInt(cell.getAttribute("data-col"), 10) || 0;
@@ -229,8 +301,15 @@
       }
     }
 
+    // Keep the snake tile constant
+    targets[idx(eggRow, eggCol)] = EGG_CHAR;
+
     for (i = 0; i < cells.length; i++) {
       cells[i].classList.remove("is-snake", "is-snake-head", "is-food");
+      if (isEggCell(cells[i])) {
+        paintEgg(cells[i], false);
+        continue;
+      }
       setCellChar(cells[i], targets[i], flip);
     }
   }
@@ -238,6 +317,10 @@
   function paintBlank(flip) {
     for (var i = 0; i < cells.length; i++) {
       cells[i].classList.remove("is-snake", "is-snake-head", "is-food");
+      if (isEggCell(cells[i]) && mode === "board") {
+        paintEgg(cells[i], false);
+        continue;
+      }
       setCellChar(cells[i], " ", flip);
     }
   }
@@ -397,23 +480,27 @@
 
   function stopSnake(message) {
     snakeAlive = false;
+    startingSnake = false;
     window.clearInterval(snakeTimer);
     snakeTimer = 0;
     mode = "board";
-    root.classList.remove("solari--snake", "solari--egg");
+    root.classList.remove("solari--snake");
     clearMarks();
+    paintEgg(eggCell(), false);
     if (message) {
       paintPhrases([message, "SCORE " + score, "NICE TRY THO"], true);
-      setStatus("game over · the quiet cell is still there", true, true);
+      setStatus("game over · click S to play again", true, true);
       window.setTimeout(function () {
         if (mode !== "board") return;
         paintPhrases(phrases[phraseIndex], true);
+        paintEgg(eggCell(), false);
         setStatus("", false);
         scheduleHints();
         scheduleEggPulse();
       }, 2600);
     } else {
       paintPhrases(phrases[phraseIndex], true);
+      paintEgg(eggCell(), false);
       setStatus("", false);
       scheduleHints();
       scheduleEggPulse();
@@ -454,8 +541,62 @@
     renderSnake();
   }
 
+  function shuffleThenStartSnake() {
+    if (mode === "snake" || startingSnake) return;
+    startingSnake = true;
+    window.clearInterval(cycleTimer);
+    window.clearInterval(hintTimer);
+    window.clearInterval(eggPulseTimer);
+    window.clearTimeout(shuffleTimeout);
+    stopAllRolls();
+    setStatus("shuffling · get ready", true, true);
+
+    var pending = 0;
+    var finished = false;
+    var shuffleGen = rollGeneration;
+
+    function finish() {
+      if (finished) return;
+      if (mode === "snake") return;
+      if (shuffleGen !== rollGeneration && !startingSnake) return;
+      finished = true;
+      window.clearTimeout(shuffleTimeout);
+      shuffleTimeout = 0;
+      startSnake();
+    }
+
+    for (var i = 0; i < cells.length; i++) {
+      var cell = cells[i];
+      if (isEggCell(cell)) {
+        applyGlyph(cell, EGG_CHAR);
+        continue;
+      }
+      pending += 1;
+      var r = parseInt(cell.getAttribute("data-row"), 10) || 0;
+      var c = parseInt(cell.getAttribute("data-col"), 10) || 0;
+      var stagger = c * 8 + r * 6;
+      var target = CHARSET.charAt(1 + Math.floor(Math.random() * 26));
+      // Short shuffle burst — not a full alphabet lap
+      rollTo(cell, target, stagger, false, 8).then(function () {
+        pending -= 1;
+        if (pending <= 0) finish();
+      });
+    }
+
+    if (pending === 0) {
+      finish();
+      return;
+    }
+
+    shuffleTimeout = window.setTimeout(finish, reduceMotion.matches ? 120 : 900);
+  }
+
   function startSnake() {
     if (mode === "snake") return;
+    startingSnake = false;
+    window.clearTimeout(shuffleTimeout);
+    shuffleTimeout = 0;
+    stopAllRolls();
     mode = "snake";
     snakeAlive = true;
     window.clearInterval(hintTimer);
@@ -472,8 +613,13 @@
       { x: midX - 2, y: midY },
     ];
     food = randomEmpty();
-    window.clearInterval(cycleTimer);
     root.classList.add("solari--snake", "solari--egg");
+    root.setAttribute("tabindex", "0");
+    try {
+      root.focus({ preventScroll: true });
+    } catch (err) {
+      root.focus();
+    }
     renderSnake();
     window.clearInterval(snakeTimer);
     snakeTimer = window.setInterval(tickSnake, reduceMotion.matches ? 180 : 130);
@@ -512,13 +658,18 @@
     var cell = e.target.closest(".solari-cell");
     if (!cell || !root.contains(cell)) return;
     e.preventDefault();
+    e.stopPropagation();
 
-    if (cell.getAttribute("data-egg") === "snake") {
-      startSnake();
+    // Snake tile always wins, even mid-roll — shuffle then play
+    if (isEggCell(cell) || cell.getAttribute("data-egg") === "snake") {
+      shuffleThenStartSnake();
       return;
     }
 
-    if (mode === "snake") return;
+    if (mode === "snake" || startingSnake) return;
+
+    // Ignore clicks while the board is mid-cascade (except egg above)
+    if (cell._rolling) return;
 
     if (e.detail >= 2) {
       phraseIndex = (phraseIndex + 1) % phrases.length;
@@ -527,53 +678,56 @@
     }
 
     var current = cell.getAttribute("data-char") || " ";
-    rollTo(cell, nextCharsetChar(current), 0);
+    rollTo(cell, nextCharsetChar(current), 0, false);
   }
 
   function onKeydown(e) {
     var key = e.key;
-    if (mode === "snake") {
-      var map = {
-        ArrowUp: { x: 0, y: -1 },
-        ArrowDown: { x: 0, y: 1 },
-        ArrowLeft: { x: -1, y: 0 },
-        ArrowRight: { x: 1, y: 0 },
-        w: { x: 0, y: -1 },
-        s: { x: 0, y: 1 },
-        a: { x: -1, y: 0 },
-        d: { x: 1, y: 0 },
-        W: { x: 0, y: -1 },
-        S: { x: 0, y: 1 },
-        A: { x: -1, y: 0 },
-        D: { x: 1, y: 0 },
-      };
-      if (key === "Escape") {
-        e.preventDefault();
-        stopSnake("");
-        return;
-      }
-      if (map[key]) {
-        e.preventDefault();
-        var nd = map[key];
-        // no instant reverse
-        if (nd.x + dir.x === 0 && nd.y + dir.y === 0) return;
-        nextDir = nd;
-      }
-      return;
-    }
 
-    // board-mode secret typed word
-    if (key && key.length === 1) {
+    // Allow starting snake from keyboard even while board is rolling
+    if (mode !== "snake" && key && key.length === 1) {
       root._keyBuf = ((root._keyBuf || "") + key.toLowerCase()).slice(-8);
       if (root._keyBuf.indexOf("snake") !== -1) {
         root._keyBuf = "";
-        startSnake();
+        e.preventDefault();
+        shuffleThenStartSnake();
+        return;
       }
+    }
+
+    if (mode !== "snake") return;
+
+    var map = {
+      ArrowUp: { x: 0, y: -1 },
+      ArrowDown: { x: 0, y: 1 },
+      ArrowLeft: { x: -1, y: 0 },
+      ArrowRight: { x: 1, y: 0 },
+      w: { x: 0, y: -1 },
+      s: { x: 0, y: 1 },
+      a: { x: -1, y: 0 },
+      d: { x: 1, y: 0 },
+      W: { x: 0, y: -1 },
+      S: { x: 0, y: 1 },
+      A: { x: -1, y: 0 },
+      D: { x: 1, y: 0 },
+    };
+    if (key === "Escape") {
+      e.preventDefault();
+      stopSnake("");
+      return;
+    }
+    if (map[key]) {
+      e.preventDefault();
+      var nd = map[key];
+      // no instant reverse
+      if (nd.x + dir.x === 0 && nd.y + dir.y === 0) return;
+      nextDir = nd;
     }
   }
 
   buildGrid();
   paintPhrases(phrases[0], false);
+  paintEgg(eggCell(), false);
   scheduleCycle();
   scheduleHints();
   scheduleEggPulse();
