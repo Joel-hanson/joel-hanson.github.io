@@ -3,7 +3,7 @@ title: "Habit Tracker"
 date: 2025-06-07
 draft: false
 featured: true
-weight: 9
+weight: 16
 category: "personal"
 demoUrl: "https://joelhanson.com/habit-tracker/"
 summary: "Aesthetic challenge-grid habit tracker hosted on GitHub Pages."

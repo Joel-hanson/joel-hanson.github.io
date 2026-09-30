@@ -3,7 +3,7 @@ title: "leetok"
 date: 2026-08-17
 draft: false
 featured: true
-weight: 8
+weight: 15
 category: "personal"
 demoUrl: "https://joelhanson.com/leetok/"
 summary: "Mobile-first swipe feed for interview problems and free learning resources."

@@ -3,7 +3,7 @@ title: "Wayfare"
 date: 2026-08-01
 draft: false
 featured: true
-weight: 7
+weight: 14
 category: "personal"
 demoUrl: "https://wayfare.joelhanson.com/"
 summary: "Travel bucket list and savings tracker with MCP. Same trip context in ChatGPT, Claude, and Cursor."

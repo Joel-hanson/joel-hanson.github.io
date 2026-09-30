@@ -50,8 +50,18 @@ const shots = [
   },
   {
     name: "bijou64.png",
-    url: "https://github.com/Joel-hanson/bijou64",
+    url: "https://github.com/Joel-hanson/bijou",
     github: true,
+  },
+  {
+    name: "whereismycommit.png",
+    url: "https://joelhanson.com/whereismycommit/",
+    width: 1440,
+    height: 900,
+  },
+  {
+    name: "memstream.png",
+    url: "https://raw.githubusercontent.com/Joel-hanson/memstream/main/docs/memstream-landing-page.png",
   },
   {
     name: "kafka-connector-template.png",

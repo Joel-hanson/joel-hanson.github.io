@@ -3,7 +3,7 @@ title: "Nursing Tracker"
 date: 2025-06-07
 draft: false
 featured: true
-weight: 10
+weight: 18
 category: "personal"
 demoUrl: "https://joelhanson.com/booby-tracker/"
 summary: "Home-screen PWA for nursing/feeding logs, built and shipped on GitHub Pages."

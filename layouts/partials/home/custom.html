@@ -1,41 +1,53 @@
 {{/* Quiet homepage — name, then the work */}}
 <section class="terminal-hero">
-  <h1 class="terminal-brand">Joel Hanson</h1>
-  <p class="terminal-role">
-    Software engineer with 8+ years on backend and distributed systems.<br>
-    At IBM Event Streams I work on Kafka Connect, schema registry migrations,
-    and Kubernetes operators: delivery guarantees, reconnects, and the failure
-    modes that show up after deploy.
-  </p>
-  <p class="terminal-status">Open to global and remote roles.</p>
-  <div class="terminal-hero__actions">
-    <a class="btn-primary" href="{{ "about" | relLangURL }}#contact">About</a>
-  </div>
-  <div class="terminal-hero__social">
-    <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{{ partial "icon.html" "github" }}</a>
-    <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
-    <a href="https://joel-hanson.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium">{{ partial "icon.html" "medium" }}</a>
-    <a href="{{ "index.xml" | relURL }}" aria-label="RSS">{{ partial "icon.html" "rss" }}</a>
+  <div class="terminal-hero__layout">
+    <div class="terminal-hero__copy">
+      <h1 class="terminal-brand">Joel Hanson</h1>
+      <p class="terminal-role">
+        Software engineer with 8+ years on backend and distributed systems.<br>
+        At IBM Event Streams I work on Kafka Connect, schema registry migrations,
+        and Kubernetes operators: delivery guarantees, reconnects, and the failure
+        modes that show up after deploy.
+      </p>
+      <!-- <p class="terminal-status">Open to global and remote roles.</p> -->
+      <div class="terminal-hero__actions">
+        <a class="btn-primary" href="{{ "about" | relLangURL }}#contact">About</a>
+      </div>
+      <div class="terminal-hero__social">
+        <a href="https://github.com/Joel-hanson" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{{ partial "icon.html" "github" }}</a>
+        <a href="https://linkedin.com/in/joel-hanson/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
+        <a href="https://joel-hanson.medium.com/" target="_blank" rel="noopener noreferrer" aria-label="Medium">{{ partial "icon.html" "medium" }}</a>
+        <a href="{{ "index.xml" | relURL }}" aria-label="RSS">{{ partial "icon.html" "rss" }}</a>
+      </div>
+    </div>
+
+    <aside
+      id="solari-board"
+      class="solari"
+      aria-label="Interactive split-flap board"
+      title="Click tiles · find the quiet cell"
+    >
+      <div class="solari__grid" data-solari-grid></div>
+      <p class="solari__status" data-solari-status>click · hover · there’s more</p>
+    </aside>
   </div>
 </section>
 
-{{ $projects := where .Site.RegularPages "Section" "projects" }}
-{{ $featured := where $projects "Params.featured" true }}
-{{ if not $featured }}
-  {{ $featured = first 8 $projects }}
-{{ else }}
-  {{ $featured = sort $featured "Weight" "asc" }}
+{{ $js := resources.Get "js/solari-board.js" }}
+{{ if $js }}
+  {{ $js = $js | resources.Minify | resources.Fingerprint .Site.Params.fingerprintAlgorithm }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}
 
-{{ $platformFeatured := where $featured "Params.category" "platform" }}
-{{ $personalFeatured := where $featured "Params.category" "personal" }}
+{{ $projects := where .Site.RegularPages "Section" "projects" }}
+{{ $projects = $projects.ByWeight }}
 
-{{ if $platformFeatured }}
+{{ if $projects }}
   <section class="home-section">
-    <h2 class="section-label">Selected Work</h2>
-    <div class="project-grid">
-      {{ range first 4 $platformFeatured }}
-        {{ partial "project-card.html" . }}
+    <h2 class="section-label">Projects</h2>
+    <div class="project-grid project-grid--compact">
+      {{ range $projects }}
+        {{ partial "project-card.html" (dict "page" . "variant" "compact") }}
       {{ end }}
     </div>
     <a class="section-more" href="{{ "projects" | relLangURL }}">All projects →</a>
@@ -69,17 +81,6 @@
       </div>
     </section>
   {{ end }}
-{{ end }}
-
-{{ if $personalFeatured }}
-  <section class="home-section">
-    <h2 class="section-label">Side Projects</h2>
-    <div class="project-grid">
-      {{ range first 3 $personalFeatured }}
-        {{ partial "project-card.html" . }}
-      {{ end }}
-    </div>
-  </section>
 {{ end }}
 
 {{ $discoveries := where .Site.RegularPages "Section" "discoveries" }}

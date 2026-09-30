@@ -1,19 +1,18 @@
-{{/* Shared project tile — used on homepage and /projects/ */}}
-{{ $href := .RelPermalink }}
-{{ $external := false }}
-{{ with .Params.demoUrl }}
-  {{ $href = . }}
-  {{ $external = true }}
+{{/* Shared project tile — used on homepage and /projects/
+     Prefer dict: { page, variant: "compact" }. Plain page still works. */}}
+{{ $page := . }}
+{{ $variant := "" }}
+{{ if reflect.IsMap . }}
+  {{ $page = .page }}
+  {{ $variant = .variant | default "" }}
 {{ end }}
-{{ with .Params.externalUrl }}
-  {{ $href = . }}
-  {{ $external = true }}
-{{ end }}
-{{ $cover := partial "functions/get-project-cover.html" . }}
+{{ $compact := eq $variant "compact" }}
+{{/* Always open the project writeup; live demos stay linked from the page body. */}}
+{{ $href := $page.RelPermalink }}
+{{ $cover := partial "functions/get-project-cover.html" $page }}
 <a
-  class="project-card"
-  href="{{ $href }}"
-  {{ if $external }}target="_blank" rel="noopener noreferrer"{{ end }}>
+  class="project-card{{ if $compact }} project-card--compact{{ end }}"
+  href="{{ $href }}">
   <div class="project-card__media{{ if eq $cover.kind "image" }}{{ else }} project-card__media--generated{{ end }}">
     {{ if eq $cover.kind "image" }}
       <img
@@ -22,21 +21,27 @@
         loading="lazy"
         decoding="async" />
     {{ else if eq $cover.kind "code" }}
-      {{ partial "code-cover.html" (dict "page" $cover.page "variant" "card" "maxLines" 8) }}
+      {{ partial "code-cover.html" (dict "page" $cover.page "variant" "card" "maxLines" (cond $compact 4 8)) }}
     {{ else }}
-      {{ partial "project-cover-fallback.html" . }}
+      {{ partial "project-cover-fallback.html" $page }}
     {{ end }}
   </div>
   <div class="project-card__body">
-    <h3>{{ .Title }}</h3>
-    {{ with .Params.outcome }}
+    <h3>{{ $page.Title }}</h3>
+    {{ with $page.Params.outcome }}
       <p class="project-card__outcome">{{ . }}</p>
     {{ end }}
-    <p>{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 120 }}{{ end }}</p>
-    {{ with .Params.tags }}
-      <div class="tags" aria-hidden="true">
-        {{ range $i, $t := . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}
-      </div>
+    {{ if not $compact }}
+      <p>{{ with $page.Params.summary }}{{ . }}{{ else }}{{ $page.Summary | plainify | truncate 120 }}{{ end }}</p>
+      {{ with $page.Params.tags }}
+        <div class="tags" aria-hidden="true">
+          {{ range $i, $t := . }}{{ if $i }} · {{ end }}{{ $t }}{{ end }}
+        </div>
+      {{ end }}
+    {{ else }}
+      {{ with $page.Params.summary }}
+        <p>{{ . | truncate 72 }}</p>
+      {{ end }}
     {{ end }}
   </div>
 </a>

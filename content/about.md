@@ -51,7 +51,7 @@ Earlier: full-stack web and CRM work at Travidux and Mobishala.
 - [Apicurio Registry](/projects/apicurio-registry/): V2→V3 migration lead for Event Streams; upstream HTTP MCP + OAuth PR in progress
 - [ibm-messaging](https://github.com/ibm-messaging): maintainer-level work on MQ Kafka source/sink, XML converter, kafka-java-vertx-starter
 - [Aiven JDBC connector](https://github.com/Aiven-Open/jdbc-connector-for-apache-kafka): contributions outside the IBM ecosystem
-- Personal OSS: [ContextLayer](https://github.com/Joel-hanson/contextlayer), [kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server), [sse-kafka-connector](https://github.com/Joel-hanson/sse-kafka-connector)
+- Personal OSS: [ContextLayer](https://github.com/Joel-hanson/contextlayer), [kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server), [sse-kafka-connector](https://github.com/Joel-hanson/sse-kafka-connector), [Memstream](https://github.com/Joel-hanson/memstream), [Bijou](https://github.com/Joel-hanson/bijou), [Where Is My Commit](https://github.com/Joel-hanson/whereismycommit)
 
 ## Skills
 

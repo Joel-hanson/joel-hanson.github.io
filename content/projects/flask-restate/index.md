@@ -3,7 +3,7 @@ title: "Flask + Restate"
 date: 2025-09-01
 draft: false
 featured: false
-weight: 15
+weight: 21
 category: "platform"
 summary: "Side-by-side Flask apps showing durable execution with Restate versus plain request handlers."
 tags: ["Side Project", "Flask", "Restate", "Python"]

@@ -3,7 +3,7 @@ title: "SSE Kafka Connector"
 date: 2025-04-01
 draft: false
 featured: true
-weight: 11
+weight: 4
 category: "platform"
 summary: "Kafka Connect source that turns Server-Sent Events streams into Kafka topics — used in Event Streams demos."
 outcome: "Used in Event Streams demos · SSE → Kafka topics"

@@ -3,7 +3,7 @@ title: "Django DRF → MCP"
 date: 2025-08-03
 draft: false
 featured: true
-weight: 12
+weight: 9
 category: "platform"
 summary: "Turn an existing Django REST Framework project into MCP tools for AI assistants in minutes."
 tags: ["Side Project", "Django", "MCP", "Python"]

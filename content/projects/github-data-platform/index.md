@@ -3,7 +3,7 @@ title: "GitHub Data Platform"
 date: 2025-05-01
 draft: false
 featured: false
-weight: 13
+weight: 20
 category: "platform"
 demoUrl: "https://joelhanson.com/weather-api-project/"
 summary: "Turn GitHub Actions + Pages into a free scrape-and-serve data API — template and weather example."

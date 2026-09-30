@@ -3,7 +3,7 @@ title: "Foldmark"
 date: 2026-09-05
 draft: false
 featured: true
-weight: 4
+weight: 13
 category: "personal"
 summary: "Printable bookmark maker. Pick a shape, type a line, download a PDF, fold."
 tags: ["Side Project", "Next.js", "PDF", "Frontend"]

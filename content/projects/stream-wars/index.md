@@ -3,7 +3,7 @@ title: "Stream Wars"
 date: 2025-06-01
 draft: false
 featured: true
-weight: 8
+weight: 10
 category: "platform"
 summary: "A real-time multiplayer tap battle that turns every click into a Kafka event you can inspect."
 tags: ["Kafka", "WebSockets", "Demo", "JavaScript"]

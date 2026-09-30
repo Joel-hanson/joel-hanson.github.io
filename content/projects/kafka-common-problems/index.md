@@ -3,7 +3,7 @@ title: "Kafka Common Problems"
 date: 2026-08-02
 draft: false
 featured: true
-weight: 4
+weight: 6
 category: "platform"
 summary: "Operational playbooks for common Kafka production issues — symptoms, diagnosis steps, and fixes you can walk with a customer."
 outcome: "Production playbooks · symptoms → diagnosis → fix"
