@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Salary Split</title>
+<style>
+  @font-face {
+    font-family: GeistMono;
+    src: url("/fonts/geist/GeistMono-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --font-mono: GeistMono, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bg-deep: #ffffff;
+    --bg-surface: #f5f5f5;
+    --text-primary: #171717;
+    --text-secondary: #404040;
+    --text-muted: #5c5c5c;
+    --border: #e5e5e5;
+    --accent: #dc143c;
+  }
+
+  html.dark {
+    --bg-deep: #0a0a0a;
+    --bg-surface: #111111;
+    --text-primary: #fafafa;
+    --text-secondary: #d4d4d4;
+    --text-muted: #a3a3a3;
+    --border: #262626;
+    --accent: #dc143c;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    line-height: 1.6;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    padding: max(2rem, env(safe-area-inset-top)) 1.25rem max(2.5rem, env(safe-area-inset-bottom));
+  }
+
+  main {
+    width: min(560px, 100%);
+    margin: 0 auto;
+  }
+
+  .terminal-prompt {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0 0 1.25rem;
+  }
+
+  .terminal-prompt .cmd { color: var(--text-secondary); }
+
+  .terminal-prompt .cursor {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.1em;
+    margin-left: 0.15ch;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .terminal-brand {
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.75rem;
+    line-height: 1.05;
+  }
+
+  .terminal-role {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0 0 2rem;
+    max-width: 46ch;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  label.salary { display: block; margin-bottom: 0.85rem; }
+
+  .salary-field {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+  }
+
+  .salary-field:focus-within { border-color: var(--accent); }
+
+  .salary-field .currency {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  #salary {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 100%;
+    min-width: 0;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #salary::placeholder { color: var(--text-muted); opacity: 0.45; }
+
+  .remember {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin: 0 0 1.75rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .remember input {
+    margin-top: 0.2rem;
+    accent-color: var(--accent);
+  }
+
+  .transfer {
+    display: none;
+    margin-bottom: 1.25rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .transfer.is-visible { display: block; }
+
+  .transfer-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 0.35rem;
+  }
+
+  .transfer-amount {
+    margin: 0;
+    font-size: clamp(1.6rem, 5vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+    line-height: 1.15;
+  }
+
+  .transfer-hint {
+    margin: 0.45rem 0 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .transfer.is-warn .transfer-amount { color: var(--accent); }
+
+  .soft-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    margin-top: 0.35rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .soft-total strong {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .section-label--spaced {
+    margin-top: 2rem;
+  }
+
+  .dreams {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dream {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem 1rem;
+    padding: 0.95rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .dream:last-child { border-bottom: 1px solid var(--border); }
+
+  .dream-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  .dream-meta {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .dream-amount {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .dream-eta {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    text-align: right;
+  }
+
+  .bar {
+    display: flex;
+    height: 6px;
+    overflow: hidden;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    margin-bottom: 0.25rem;
+  }
+
+  .bar span {
+    display: block;
+    height: 100%;
+    transform-origin: left center;
+    animation: grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes grow {
+    from { transform: scaleX(0); opacity: 0.35; }
+    to { transform: scaleX(1); opacity: 1; }
+  }
+
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .row {
+    border-top: 1px solid var(--border);
+    animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .row:last-child,
+  .row:last-child .children { border-bottom: 1px solid var(--border); }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .row-main {
+    display: grid;
+    grid-template-columns: 0.7rem 1fr auto;
+    gap: 0.85rem;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    letter-spacing: inherit;
+  }
+
+  button.row-main {
+    cursor: pointer;
+  }
+
+  button.row-main:hover .name {
+    color: var(--accent);
+  }
+
+  button.row-main:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: 0.45em;
+  }
+
+  .name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .meta {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+
+  .amount {
+    font-size: 1rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .chev {
+    display: inline-block;
+    width: 1.2ch;
+    color: var(--text-muted);
+    transition: transform 0.15s ease;
+  }
+
+  .row.is-open .chev { transform: rotate(90deg); }
+
+  .children {
+    padding: 0 0 0.35rem;
+  }
+
+  .child {
+    display: grid;
+    grid-template-columns: 0.7rem 1fr auto;
+    gap: 0.85rem;
+    align-items: baseline;
+    padding: 0.45rem 0 0.45rem 1.15rem;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+  }
+
+  .child .dot {
+    width: 0.28rem;
+    height: 0.28rem;
+    margin-top: 0.55em;
+    background: var(--border);
+  }
+
+  .child .amount {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .footnote {
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .terminal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .terminal-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+
+  .terminal-links a:hover { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar span, .row, .terminal-prompt .cursor, .chev { animation: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <p class="terminal-prompt">
+      joel@ibm:~$ <span class="cmd">open /salary-split</span><span class="cursor" aria-hidden="true"></span>
+    </p>
+    <h1 class="terminal-brand">Salary Split</h1>
+    <p class="terminal-role">Known monthly costs stay fixed. Click a bucket to see the breakdown. What’s left is split by percentage.</p>
+
+    <label class="salary" for="salary">
+      <div class="section-label">Monthly salary</div>
+      <div class="salary-field">
+        <span class="currency" aria-hidden="true">₹</span>
+        <input id="salary" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Monthly salary in rupees">
+      </div>
+    </label>
+
+    <label class="remember" for="remember">
+      <input id="remember" type="checkbox">
+      <span>Remember salary in this browser (localStorage)</span>
+    </label>
+
+    <div class="transfer" id="transfer">
+      <p class="transfer-label" id="transfer-label">Move to other account</p>
+      <p class="transfer-amount" id="transfer-amount">—</p>
+      <p class="transfer-hint" id="transfer-hint">Salary minus fixed monthly costs. Suggested split below.</p>
+    </div>
+
+    <div class="section-label">Allocation</div>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+    <ul class="list" id="list"></ul>
+    <div class="soft-total" id="soft-total" hidden>
+      <span>Remainder total</span>
+      <strong id="soft-total-amount">—</strong>
+    </div>
+
+    <div class="section-label section-label--spaced">Dreams</div>
+    <ul class="dreams" id="dreams"></ul>
+
+    <p class="footnote">Fixed lines are hardcoded for now. Soft buckets fund the dreams above — ETAs assume you stick to that split.</p>
+    <div class="terminal-links">
+      <a href="/">[home]</a>
+      <a href="/discoveries/">[discoveries]</a>
+    </div>
+  </main>
+
+<script>
+(function () {
+  "use strict";
+
+  try {
+    var appearance = localStorage.getItem("appearance");
+    document.documentElement.classList.toggle("dark", appearance !== "light");
+  } catch (e) {
+    document.documentElement.classList.add("dark");
+  }
+
+  /*
+   * Hybrid plan:
+   * 1. Sum every fixed line (investment, mom, maid, bills…).
+   * 2. Remainder = salary − fixed.
+   * 3. Soft buckets take a % of that remainder.
+   *
+   * Children are detail only — parent amount is the source of truth.
+   */
+  var PLAN = [
+    {
+      id: "investment",
+      name: "Investment",
+      mode: "fixed",
+      colorDark: "#dc143c",
+      colorLight: "#dc143c",
+      open: true,
+      children: [
+        { name: "Mutual funds", amount: 20000 },
+        { name: "Equity", amount: 12000 },
+        { name: "Kuries", amount: 6000 }
+      ]
+    },
+    {
+      id: "expenses",
+      name: "Expenses",
+      mode: "fixed",
+      colorDark: "#fafafa",
+      colorLight: "#171717",
+      open: true,
+      children: [
+        { name: "Send to mom", amount: 10000 },
+        { name: "Housemaid", amount: 15000 },
+        { name: "Term insurance (₹4 Cr)", amount: 4100 },
+        { name: "Internet", amount: 770 },
+        { name: "Electricity", amount: 250 }
+      ]
+    },
+    {
+      id: "entertainment",
+      name: "Entertainment",
+      mode: "fixed",
+      colorDark: "#d4d4d4",
+      colorLight: "#404040",
+      open: false,
+      children: [
+        { name: "Spotify", amount: 200 }
+      ]
+    },
+    {
+      id: "fd",
+      name: "FD / Savings",
+      mode: "percent",
+      pct: 40,
+      colorDark: "#a3a3a3",
+      colorLight: "#525252"
+    },
+    {
+      id: "trips",
+      name: "Future trips",
+      mode: "percent",
+      pct: 20,
+      colorDark: "#737373",
+      colorLight: "#737373",
+      open: true,
+      // Rough mid-range budgets in INR — edit anytime.
+      // with: family | alone | open (not decided)
+      goals: [
+        { name: "Patagonia", amount: 400000, with: "open" },
+        { name: "Europe road trip", amount: 500000, with: "family" },
+        { name: "Japan", amount: 350000, with: "family" },
+        { name: "Iceland road trip", amount: 400000, with: "family" },
+        { name: "Hiking Italy Alps", amount: 250000, with: "open" },
+        { name: "Nepal — ABC hike", amount: 100000, with: "alone" },
+        { name: "Georgia", amount: 200000, with: "family" },
+        { name: "China", amount: 300000, with: "family" },
+        { name: "South Africa", amount: 350000, with: "family" },
+        { name: "New Zealand road trip", amount: 350000, with: "open" },
+        { name: "Australia (Sydney & Melbourne)", amount: 350000, with: "open" },
+        {
+          name: "USA — NYC, Niagara, Washington, Yellowstone",
+          amount: 450000,
+          with: "open",
+          horizon: "10-year US visa"
+        }
+      ]
+    },
+    {
+      id: "targets",
+      name: "Targets",
+      mode: "percent",
+      pct: 15,
+      colorDark: "#525252",
+      colorLight: "#a3a3a3",
+      open: true,
+      goals: [
+        {
+          name: "House",
+          amount: 20000000,
+          horizon: "long-term · max",
+          // Practical near-term save target: ~20% down payment
+          milestone: { name: "Down payment (~20%)", amount: 4000000 }
+        }
+      ]
+    },
+    {
+      id: "buying",
+      name: "Buying things",
+      mode: "percent",
+      pct: 15,
+      colorDark: "#404040",
+      colorLight: "#d4d4d4",
+      open: true,
+      goals: [
+        { name: "PC build", amount: 200000, horizon: "short-term" }
+      ]
+    },
+    {
+      id: "buffer",
+      name: "Buffer / other",
+      mode: "percent",
+      pct: 10,
+      colorDark: "#262626",
+      colorLight: "#e5e5e5"
+    }
+  ];
+
+  var STORAGE_KEY = "salary-split:v1";
+  var REMEMBER_KEY = "salary-split:remember";
+  var OPEN_KEY = "salary-split:open";
+
+  var salaryEl = document.getElementById("salary");
+  var rememberEl = document.getElementById("remember");
+  var transferEl = document.getElementById("transfer");
+  var transferLabelEl = document.getElementById("transfer-label");
+  var transferAmountEl = document.getElementById("transfer-amount");
+  var transferHintEl = document.getElementById("transfer-hint");
+  var softTotalEl = document.getElementById("soft-total");
+  var softTotalAmountEl = document.getElementById("soft-total-amount");
+  var dreamsEl = document.getElementById("dreams");
+  var barEl = document.getElementById("bar");
+  var listEl = document.getElementById("list");
+
+  var openState = {};
+  PLAN.forEach(function (bucket) {
+    if (bucket.children || bucket.goals) openState[bucket.id] = !!bucket.open;
+  });
+
+  try {
+    var savedOpen = JSON.parse(localStorage.getItem(OPEN_KEY) || "null");
+    if (savedOpen && typeof savedOpen === "object") {
+      Object.keys(savedOpen).forEach(function (id) {
+        if (id in openState) openState[id] = !!savedOpen[id];
+      });
+    }
+  } catch (e) { /* ignore */ }
+
+  function isDark() {
+    return document.documentElement.classList.contains("dark");
+  }
+
+  function colorOf(bucket) {
+    return isDark() ? bucket.colorDark : bucket.colorLight;
+  }
+
+  function fixedAmount(bucket) {
+    if (bucket.mode !== "fixed") return 0;
+    if (bucket.children && bucket.children.length) {
+      return bucket.children.reduce(function (sum, child) {
+        return sum + child.amount;
+      }, 0);
+    }
+    return bucket.amount || 0;
+  }
+
+  function fixedTotal() {
+    return PLAN.reduce(function (sum, bucket) {
+      return sum + fixedAmount(bucket);
+    }, 0);
+  }
+
+  function parseSalary(raw) {
+    var digits = String(raw || "").replace(/[^\d]/g, "");
+    if (!digits) return 0;
+    return parseInt(digits, 10) || 0;
+  }
+
+  function formatInr(n) {
+    return new Intl.NumberFormat("en-IN", {
+      maximumFractionDigits: 0
+    }).format(Math.round(n));
+  }
+
+  function rupee(n) {
+    return "₹" + formatInr(n);
+  }
+
+  function formatInput(n) {
+    return n ? formatInr(n) : "";
+  }
+
+  function persistSalary(salary) {
+    try {
+      if (rememberEl.checked && salary > 0) {
+        localStorage.setItem(REMEMBER_KEY, "1");
+        localStorage.setItem(STORAGE_KEY, String(salary));
+      } else {
+        localStorage.setItem(REMEMBER_KEY, "0");
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function persistOpen() {
+    try {
+      localStorage.setItem(OPEN_KEY, JSON.stringify(openState));
+    } catch (e) { /* ignore */ }
+  }
+
+  function bucketAmount(bucket, remainder) {
+    if (bucket.mode === "fixed") return fixedAmount(bucket);
+    return Math.max(remainder, 0) * (bucket.pct / 100);
+  }
+
+  function metaFor(bucket, amount, salary, remainder) {
+    if (bucket.mode === "fixed") {
+      var share = salary > 0 ? Math.round((amount / salary) * 1000) / 10 : 0;
+      return "fixed" + (salary ? " · " + share + "% of salary" : "");
+    }
+    var base = bucket.pct + "% of remainder" +
+      (salary > 0 && remainder > 0
+        ? " · " + (Math.round((amount / salary) * 1000) / 10) + "% of salary"
+        : "");
+    if (bucket.goals && bucket.goals.length) {
+      base += " · funds " + bucket.goals.map(function (g) { return g.name; }).join(", ");
+    }
+    return base;
+  }
+
+  function formatEta(months) {
+    if (!isFinite(months) || months <= 0) return "—";
+    if (months < 1) return "< 1 mo";
+    var m = Math.ceil(months);
+    if (m < 18) return "~" + m + " mo";
+    var years = m / 12;
+    if (years < 10) return "~" + (Math.round(years * 10) / 10) + " yr";
+    return "~" + Math.round(years) + " yr";
+  }
+
+  function renderDreams(flexBase, amountById) {
+    dreamsEl.innerHTML = "";
+    PLAN.forEach(function (bucket) {
+      if (!bucket.goals || !bucket.goals.length) return;
+      var monthly = amountById[bucket.id] || 0;
+
+      // Travel wishlist: one dream card + per-trip detail lives under the bucket.
+      if (bucket.id === "trips") {
+        var travelTotal = bucket.goals.reduce(function (sum, g) {
+          return sum + g.amount;
+        }, 0);
+        var li = document.createElement("li");
+        li.className = "dream";
+        li.innerHTML =
+          '<div><div class="dream-name"></div><span class="dream-meta"></span></div>' +
+          '<div><div class="dream-amount"></div><span class="dream-eta"></span></div>';
+        li.querySelector(".dream-name").textContent = "Travel wishlist";
+        var familyCount = bucket.goals.filter(function (g) {
+          return g.with === "family";
+        }).length;
+        var aloneCount = bucket.goals.filter(function (g) {
+          return g.with === "alone";
+        }).length;
+        li.querySelector(".dream-meta").textContent =
+          bucket.goals.length + " trips · " + familyCount + " family · " +
+          aloneCount + " alone · via " + bucket.name +
+          " (" + bucket.pct + "% of remainder) · expand Future trips for the list";
+        li.querySelector(".dream-amount").textContent = rupee(travelTotal);
+        li.querySelector(".dream-eta").textContent =
+          monthly > 0
+            ? formatEta(travelTotal / monthly) + " if funding all · or ~1 trip / " +
+              formatEta(travelTotal / bucket.goals.length / monthly)
+            : "enter salary for ETA";
+        dreamsEl.appendChild(li);
+        return;
+      }
+
+      bucket.goals.forEach(function (goal) {
+        var dream = document.createElement("li");
+        dream.className = "dream";
+
+        var focus = goal.milestone || goal;
+        var etaMonths = monthly > 0 ? focus.amount / monthly : Infinity;
+        var fullEta = monthly > 0 ? goal.amount / monthly : Infinity;
+
+        var meta = goal.horizon + " · via " + bucket.name + " (" + bucket.pct + "% of remainder)";
+        if (goal.milestone) {
+          meta += " · full " + rupee(goal.amount) + " usually needs a home loan; ETA below is for " +
+            goal.milestone.name.toLowerCase();
+        }
+
+        dream.innerHTML =
+          '<div><div class="dream-name"></div><span class="dream-meta"></span></div>' +
+          '<div><div class="dream-amount"></div><span class="dream-eta"></span></div>';
+        dream.querySelector(".dream-name").textContent = goal.name;
+        dream.querySelector(".dream-meta").textContent = meta;
+        dream.querySelector(".dream-amount").textContent =
+          goal.milestone
+            ? rupee(goal.milestone.amount) + " / " + rupee(goal.amount)
+            : rupee(goal.amount);
+        dream.querySelector(".dream-eta").textContent =
+          monthly > 0
+            ? (goal.milestone
+                ? formatEta(etaMonths) + " to down payment · " + formatEta(fullEta) + " cash"
+                : formatEta(etaMonths) + " at current pace")
+            : "enter salary for ETA";
+        dreamsEl.appendChild(dream);
+      });
+    });
+  }
+
+  function render(salary) {
+    var committed = fixedTotal();
+    var remainder = salary - committed;
+    var flexBase = Math.max(remainder, 0);
+
+    listEl.innerHTML = "";
+    barEl.innerHTML = "";
+
+    if (!salary) {
+      transferEl.classList.remove("is-visible", "is-warn");
+      softTotalEl.hidden = true;
+    } else if (remainder < 0) {
+      transferEl.classList.add("is-visible", "is-warn");
+      transferLabelEl.textContent = "Shortfall vs fixed costs";
+      transferAmountEl.textContent = "−" + rupee(Math.abs(remainder));
+      transferHintEl.textContent =
+        "Fixed costs (" + rupee(committed) + ") are higher than this salary.";
+      softTotalEl.hidden = true;
+    } else {
+      transferEl.classList.add("is-visible");
+      transferEl.classList.remove("is-warn");
+      transferLabelEl.textContent = "Move to other account";
+      transferAmountEl.textContent = rupee(remainder);
+      transferHintEl.textContent =
+        "Salary " + rupee(salary) + " − fixed " + rupee(committed) +
+        ". Suggested split of this remainder is below.";
+      softTotalEl.hidden = false;
+      softTotalAmountEl.textContent = rupee(remainder);
+    }
+
+    var resolved = PLAN.map(function (bucket) {
+      var amount = bucketAmount(bucket, flexBase);
+      return { bucket: bucket, amount: amount };
+    });
+
+    var amountById = {};
+    resolved.forEach(function (item) {
+      amountById[item.bucket.id] = item.amount;
+    });
+    renderDreams(flexBase, amountById);
+
+    if (salary > 0) {
+      resolved.forEach(function (item, i) {
+        var width = Math.max((item.amount / salary) * 100, 0);
+        if (width <= 0) return;
+        var seg = document.createElement("span");
+        seg.style.width = width + "%";
+        seg.style.background = colorOf(item.bucket);
+        seg.style.animationDelay = (i * 35) + "ms";
+        barEl.appendChild(seg);
+      });
+    }
+
+    resolved.forEach(function (item, i) {
+      var bucket = item.bucket;
+      var amount = item.amount;
+      var detailItems = bucket.children || bucket.goals || null;
+      var hasKids = !!(detailItems && detailItems.length);
+      var open = hasKids && !!openState[bucket.id];
+
+      var li = document.createElement("li");
+      li.className = "row" + (open ? " is-open" : "");
+      li.style.animationDelay = (50 + i * 40) + "ms";
+
+      var main = document.createElement(hasKids ? "button" : "div");
+      main.className = "row-main";
+      if (hasKids) {
+        main.type = "button";
+        main.setAttribute("aria-expanded", open ? "true" : "false");
+        main.addEventListener("click", function () {
+          openState[bucket.id] = !openState[bucket.id];
+          persistOpen();
+          render(parseSalary(salaryEl.value));
+        });
+      }
+
+      main.innerHTML =
+        '<span class="dot"></span>' +
+        '<div><div class="name"></div><span class="meta"></span></div>' +
+        '<div class="amount"></div>';
+
+      main.querySelector(".dot").style.background = colorOf(bucket);
+
+      var nameEl = main.querySelector(".name");
+      if (hasKids) {
+        var chev = document.createElement("span");
+        chev.className = "chev";
+        chev.setAttribute("aria-hidden", "true");
+        chev.textContent = "▸";
+        nameEl.appendChild(chev);
+        nameEl.appendChild(document.createTextNode(" " + bucket.name));
+      } else {
+        nameEl.textContent = bucket.name;
+      }
+
+      main.querySelector(".meta").textContent = metaFor(bucket, amount, salary, remainder);
+      main.querySelector(".amount").textContent = rupee(amount);
+      li.appendChild(main);
+
+      if (hasKids) {
+        var kids = document.createElement("div");
+        kids.className = "children";
+        if (!open) kids.hidden = true;
+        detailItems.forEach(function (child) {
+          var row = document.createElement("div");
+          row.className = "child";
+          row.innerHTML =
+            '<span class="dot"></span><div class="name"></div><div class="amount"></div>';
+          var label = child.name;
+          if (child.with) label += " · " + child.with;
+          if (child.horizon) label += " · " + child.horizon;
+          if (child.milestone) label += " · aim " + rupee(child.milestone.amount) + " down";
+          row.querySelector(".name").textContent = label;
+          row.querySelector(".amount").textContent = rupee(child.amount);
+          kids.appendChild(row);
+        });
+        li.appendChild(kids);
+      }
+
+      listEl.appendChild(li);
+    });
+  }
+
+  function syncFromInput() {
+    var salary = parseSalary(salaryEl.value);
+    var caretAtEnd = salaryEl.selectionStart === salaryEl.value.length;
+    salaryEl.value = formatInput(salary);
+    if (caretAtEnd) {
+      var len = salaryEl.value.length;
+      salaryEl.setSelectionRange(len, len);
+    }
+    persistSalary(salary);
+    render(salary);
+  }
+
+  salaryEl.addEventListener("input", syncFromInput);
+  rememberEl.addEventListener("change", function () {
+    persistSalary(parseSalary(salaryEl.value));
+  });
+
+  var saved = 0;
+  var remember = false;
+  try {
+    remember = localStorage.getItem(REMEMBER_KEY) === "1";
+    if (remember) saved = parseSalary(localStorage.getItem(STORAGE_KEY));
+  } catch (e) { /* ignore */ }
+
+  rememberEl.checked = remember;
+  if (saved) salaryEl.value = formatInput(saved);
+  render(saved);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Type Heat</title>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --ink: #3a1620;
+    --muted: #9a7f86;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: #ffffff;
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  textarea {
+    width: min(720px, 100%);
+    height: 45vh;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: var(--ink);
+    font: 22px/1.6 Georgia, "Iowan Old Style", serif;
+  }
+  textarea::placeholder { color: var(--muted); }
+  .meter {
+    width: min(720px, 100%);
+    height: 4px;
+    background: rgba(58, 22, 32, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .meter > div { height: 100%; width: 0; background: var(--ink); }
+  .readout { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <textarea id="box" autofocus placeholder="Start typing. Faster makes it warmer."></textarea>
+  <div class="meter"><div id="bar"></div></div>
+  <div class="readout"><span id="wpm">0</span> words per minute</div>
+
+<script>
+  // Heat: 0 (white) to 1 (rich pink-red)
+  var heat = 0;
+  var times = [];           // recent keystroke timestamps
+  var WINDOW = 2000;        // ms window used to measure speed
+  var MAX_CPS = 9;          // characters per second that counts as full heat
+  var RISE = 0.12;          // how quickly it warms toward the target (per frame)
+  var FALL = 0.004;         // how slowly it cools (per frame)
+
+  var box = document.getElementById('box');
+  var bar = document.getElementById('bar');
+  var wpmEl = document.getElementById('wpm');
+
+  box.addEventListener('input', function () {
+    times.push(performance.now());
+  });
+
+  function mix(a, b, t) { return Math.round(a + (b - a) * t); }
+
+  function paint(h) {
+    // white -> soft pink -> warm red
+    var r, g, b;
+    if (h < 0.5) {
+      var t = h / 0.5;
+      r = mix(255, 255, t); g = mix(255, 182, t); b = mix(255, 200, t);
+    } else {
+      var t2 = (h - 0.5) / 0.5;
+      r = mix(255, 232, t2); g = mix(182, 62, t2); b = mix(200, 82, t2);
+    }
+    document.body.style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
+    var dark = h > 0.65;
+    document.body.style.setProperty('--ink', dark ? '#fff5f6' : '#3a1620');
+    document.body.style.setProperty('--muted', dark ? 'rgba(255,245,246,0.7)' : '#9a7f86');
+    bar.style.background = dark ? '#fff5f6' : '#3a1620';
+    bar.style.width = (h * 100) + '%';
+  }
+
+  function tick() {
+    var now = performance.now();
+    while (times.length && now - times[0] > WINDOW) times.shift();
+
+    var cps = times.length / (WINDOW / 1000);
+    var target = Math.min(cps / MAX_CPS, 1);
+
+    if (target > heat) heat += (target - heat) * RISE;   // warm up quickly
+    else heat = Math.max(heat - FALL, 0);                // cool down slowly
+
+    wpmEl.textContent = Math.round(cps * 60 / 5);
+    paint(heat);
+    requestAnimationFrame(tick);
+  }
+  tick();
+</script>
+</body>
+</html>
