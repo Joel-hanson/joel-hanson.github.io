@@ -455,7 +455,6 @@
     <p class="footnote">Fixed lines are hardcoded for now. Soft buckets fund the dreams above — ETAs assume you stick to that split.</p>
     <div class="terminal-links">
       <a href="/">[home]</a>
-      <a href="/discoveries/">[discoveries]</a>
     </div>
   </main>
 
@@ -472,9 +471,9 @@
 
   /*
    * Hybrid plan:
-   * 1. Sum every fixed line (investment, mom, maid, bills…).
+   * 1. Sum every fixed line (investment, expenses, RD…).
    * 2. Remainder = salary − fixed.
-   * 3. Soft buckets take a % of that remainder.
+   * 3. Soft buckets take a % of that remainder (must sum to 100).
    *
    * Children are detail only — parent amount is the source of truth.
    */
@@ -502,9 +501,22 @@
       children: [
         { name: "Send to mom", amount: 10000 },
         { name: "Housemaid", amount: 15000 },
+        { name: "Living float (transport, food, child, health)", amount: 15000 },
+        { name: "Donation — Child Help Foundation", amount: 5000 },
         { name: "Term insurance (₹4 Cr)", amount: 4100 },
         { name: "Internet", amount: 770 },
         { name: "Electricity", amount: 250 }
+      ]
+    },
+    {
+      id: "fd",
+      name: "Recurring deposit",
+      mode: "fixed",
+      colorDark: "#a3a3a3",
+      colorLight: "#525252",
+      open: false,
+      children: [
+        { name: "RD / FD (monthly)", amount: 22000 }
       ]
     },
     {
@@ -519,18 +531,29 @@
       ]
     },
     {
-      id: "fd",
-      name: "FD / Savings",
-      mode: "percent",
-      pct: 40,
-      colorDark: "#a3a3a3",
-      colorLight: "#525252"
+      id: "targets",
+      name: "House fund",
+      mode: "fixed",
+      colorDark: "#525252",
+      colorLight: "#a3a3a3",
+      open: true,
+      children: [
+        { name: "Recurring transfer (house / down payment)", amount: 12420 }
+      ],
+      goals: [
+        {
+          name: "House",
+          amount: 20000000,
+          horizon: "long-term · max",
+          milestone: { name: "Down payment (~20%)", amount: 4000000 }
+        }
+      ]
     },
     {
       id: "trips",
       name: "Future trips",
       mode: "percent",
-      pct: 20,
+      pct: 46.67,
       colorDark: "#737373",
       colorLight: "#737373",
       open: true,
@@ -557,28 +580,10 @@
       ]
     },
     {
-      id: "targets",
-      name: "Targets",
-      mode: "percent",
-      pct: 15,
-      colorDark: "#525252",
-      colorLight: "#a3a3a3",
-      open: true,
-      goals: [
-        {
-          name: "House",
-          amount: 20000000,
-          horizon: "long-term · max",
-          // Practical near-term save target: ~20% down payment
-          milestone: { name: "Down payment (~20%)", amount: 4000000 }
-        }
-      ]
-    },
-    {
       id: "buying",
       name: "Buying things",
       mode: "percent",
-      pct: 15,
+      pct: 33.33,
       colorDark: "#404040",
       colorLight: "#d4d4d4",
       open: true,
@@ -588,9 +593,9 @@
     },
     {
       id: "buffer",
-      name: "Buffer / other",
+      name: "Buffer / cash float",
       mode: "percent",
-      pct: 10,
+      pct: 20,
       colorDark: "#262626",
       colorLight: "#e5e5e5"
     }

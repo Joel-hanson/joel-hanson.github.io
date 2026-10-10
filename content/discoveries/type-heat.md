@@ -9,3 +9,5 @@ externalUrl: "/type-heat/"
 ---
 
 Plain HTML and a short script — characters per second drive a white → pink → red heat meter, plus a live WPM readout.
+
+Want the same heat on [Monkeytype](https://monkeytype.com)? Install [Tampermonkey](https://www.tampermonkey.net/), then open [`/type-heat/monkeytype.user.js`](/type-heat/monkeytype.user.js).

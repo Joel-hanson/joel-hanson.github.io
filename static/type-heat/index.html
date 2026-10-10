@@ -46,12 +46,24 @@
   }
   .meter > div { height: 100%; width: 0; background: var(--ink); }
   .readout { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+  .install {
+    color: var(--muted);
+    font-size: 14px;
+    text-align: center;
+    max-width: min(720px, 100%);
+  }
+  .install a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 </style>
 </head>
 <body>
   <textarea id="box" autofocus placeholder="Start typing. Faster makes it warmer."></textarea>
   <div class="meter"><div id="bar"></div></div>
   <div class="readout"><span id="wpm">0</span> words per minute</div>
+  <p class="install">On Monkeytype: install <a href="https://www.tampermonkey.net/" rel="noopener">Tampermonkey</a>, then open <a href="./monkeytype.user.js">type-heat/monkeytype.user.js</a>.</p>
 
 <script>
   // Heat: 0 (white) to 1 (rich pink-red)
