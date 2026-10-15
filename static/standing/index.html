@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>Standing — desk posture tracker for macOS</title>
+    <meta
+      name="description"
+      content="Quiet menu bar app for Mac that watches your desk posture and nudges you when you’ve sat too long."
+    />
+    <link rel="canonical" href="https://joelhanson.com/standing/" />
+    <base href="/standing/" />
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6SPMXG29J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-L6SPMXG29J");
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-deep: #0a0a0a;
+        --bg-surface: #111111;
+        --bg-elevated: #1a1a1a;
+        --text: #fafafa;
+        --text-secondary: #d4d4d4;
+        --muted: #a3a3a3;
+        --line: #262626;
+        --primary: #dc143c;
+        --primary-hover: #b91432;
+        --arrow: #f8718a;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg-deep);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100svh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1080px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 1.25rem 0 3rem;
+      }
+
+      /* Shared text column — hero, loop, why, footer */
+      .content {
+        max-width: 720px;
+        margin-inline: auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.35rem 0 2.5rem;
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+      }
+
+      .nav a:hover {
+        color: var(--primary);
+      }
+
+      .nav-brand {
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+      }
+
+      .hero {
+        padding-bottom: 2.5rem;
+        text-align: center;
+        animation: fade-up 0.7s var(--ease) both;
+      }
+
+      .brand {
+        font-size: clamp(2.4rem, 7vw, 3.25rem);
+        font-weight: 650;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        margin-bottom: 0.85rem;
+      }
+
+      .lede {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        max-width: 38ch;
+        margin-inline: auto;
+        margin-bottom: 0.65rem;
+      }
+
+      .tagline {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.7rem;
+        margin-bottom: 0.85rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.6rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 0.4rem;
+        font: inherit;
+        font-weight: 560;
+        font-size: 0.95rem;
+        border: 1px solid transparent;
+        transition: background 0.15s ease, border-color 0.15s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-hover);
+      }
+
+      .btn-ghost {
+        background: var(--bg-elevated);
+        border-color: var(--line);
+        color: var(--text);
+      }
+
+      .btn-ghost:hover {
+        border-color: #404040;
+      }
+
+      .btn:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 3px;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .meta a {
+        color: var(--text-secondary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .meta a:hover {
+        color: var(--primary);
+      }
+
+      .hero-secondary {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 1.35rem;
+        margin-top: 0.15rem;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .hero-secondary a:hover {
+        color: var(--primary);
+      }
+
+      /* —— Loop: sit → check → nudge —— */
+      .loop {
+        margin: 0 auto 3rem;
+        text-align: center;
+        animation: fade-up 0.75s var(--ease) both;
+      }
+
+      .loop h2 {
+        font-size: 1.75rem;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.55rem;
+      }
+
+      .loop-lede {
+        color: var(--muted);
+        font-size: 0.98rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .loop-steps {
+        list-style: none;
+        display: grid;
+        gap: 1.15rem;
+        text-align: center;
+        counter-reset: loop;
+      }
+
+      @media (min-width: 640px) {
+        .loop-steps {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.25rem;
+          text-align: left;
+        }
+      }
+
+      .loop-steps li {
+        padding: 0.15rem 0;
+        counter-increment: loop;
+      }
+
+      .loop-steps strong {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.25rem;
+        color: var(--text);
+      }
+
+      .loop-steps strong::before {
+        content: counter(loop) ". ";
+        color: var(--arrow);
+      }
+
+      .loop-steps span {
+        display: block;
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      /* —— Tour: screenshot + curved dashed arrows —— */
+      .how {
+        margin: 1rem 0 3.5rem;
+      }
+
+      .how > h2 {
+        font-size: 1.75rem;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+        text-align: center;
+        margin-bottom: 0.45rem;
+      }
+
+      .how-lede {
+        color: var(--muted);
+        font-size: 0.98rem;
+        text-align: center;
+        max-width: 42ch;
+        margin: 0 auto 2.25rem;
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: minmax(10rem, 1fr) auto minmax(10rem, 1fr);
+        column-gap: 0.5rem;
+        align-items: stretch;
+        margin-bottom: 4rem;
+        animation: fade-up 0.8s var(--ease) both;
+      }
+
+      .board:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .board-shot {
+        grid-column: 2;
+        grid-row: 1;
+        width: min(400px, 46vw);
+        border-radius: 0.75rem;
+        border: 1px solid var(--line);
+        background: var(--bg-surface);
+        overflow: hidden;
+      }
+
+      .board-settings .board-shot,
+      .board-activity .board-shot {
+        width: min(280px, 36vw);
+      }
+
+      .board-shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .board-side {
+        grid-row: 1;
+        position: relative;
+      }
+
+      .board-side-left {
+        grid-column: 1;
+      }
+
+      .board-side-right {
+        grid-column: 3;
+      }
+
+      .note {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: var(--y, 0%);
+        transform: translateY(-20%);
+        max-width: 11.5rem;
+        color: var(--text);
+      }
+
+      .board-side-left .note {
+        left: auto;
+        right: 0;
+        text-align: right;
+        padding-right: 3.1rem;
+      }
+
+      .board-side-right .note {
+        left: 0;
+        right: auto;
+        text-align: left;
+        padding-left: 3.1rem;
+      }
+
+      .note strong {
+        display: block;
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.25;
+        margin-bottom: 0.2rem;
+        color: var(--arrow);
+      }
+
+      .note span {
+        display: block;
+        font-size: 0.82rem;
+        line-height: 1.4;
+        color: var(--muted);
+      }
+
+      .note span a {
+        color: var(--text-secondary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .note span a:hover {
+        color: var(--primary);
+      }
+
+      /* Curved dashed arrow between label and screenshot */
+      .note .arrow {
+        position: absolute;
+        top: 0;
+        width: 2.85rem;
+        height: 2rem;
+        color: var(--arrow);
+        overflow: visible;
+        pointer-events: none;
+      }
+
+      .board-side-left .note .arrow {
+        right: 0;
+      }
+
+      .board-side-right .note .arrow {
+        left: 0;
+      }
+
+      .note .arrow path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-dasharray: 4 3.5;
+      }
+
+      .note .arrow polygon {
+        fill: currentColor;
+      }
+
+      .notes-stack {
+        display: none;
+        grid-column: 1 / -1;
+        list-style: none;
+        margin-top: 1.15rem;
+        gap: 0.85rem;
+        text-align: left;
+      }
+
+      .notes-stack li strong {
+        display: block;
+        color: var(--arrow);
+        font-size: 0.92rem;
+        margin-bottom: 0.15rem;
+      }
+
+      .notes-stack li span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      /* Quiet help note — below product story, not a setup funnel */
+      .install {
+        margin: 2.5rem auto 2rem;
+        padding: 1.15rem 1.25rem 1.25rem;
+        border-top: 1px solid var(--line);
+        text-align: left;
+        max-width: 520px;
+      }
+
+      .install h2 {
+        font-size: 0.95rem;
+        font-weight: 560;
+        letter-spacing: -0.01em;
+        color: var(--text-secondary);
+        margin-bottom: 0.35rem;
+      }
+
+      .install-lede {
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-bottom: 0.85rem;
+      }
+
+      .install-steps {
+        list-style: none;
+        display: grid;
+        gap: 0.55rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.45;
+      }
+
+      .install-steps li {
+        padding-left: 1.1rem;
+        position: relative;
+      }
+
+      .install-steps li::before {
+        content: "·";
+        position: absolute;
+        left: 0;
+        color: var(--muted);
+      }
+
+      .install-steps strong {
+        font-weight: 560;
+        color: var(--text-secondary);
+      }
+
+      .install-note {
+        margin-top: 0.75rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.45;
+        opacity: 0.9;
+      }
+
+      .why h2 {
+        font-size: 1.75rem;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.35rem;
+        text-align: center;
+      }
+
+      .features {
+        list-style: none;
+        display: grid;
+        gap: 1.35rem 2rem;
+        text-align: left;
+      }
+
+      @media (min-width: 640px) {
+        .features {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .features h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .features p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      footer {
+        margin: 3.5rem auto 0;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.88rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.75rem 1.5rem;
+      }
+
+      footer a:hover {
+        color: var(--primary);
+      }
+
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(0.6rem);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 820px) {
+        .board {
+          grid-template-columns: 1fr;
+          justify-items: center;
+        }
+
+        .board-side {
+          display: none;
+        }
+
+        .board-shot,
+        .board-settings .board-shot,
+        .board-activity .board-shot {
+          grid-column: 1;
+          width: min(100%, 400px);
+        }
+
+        .notes-stack {
+          display: grid;
+          justify-self: stretch;
+          width: min(100%, 400px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav">
+        <a class="nav-brand" href="#">Standing</a>
+        <div class="nav-links">
+          <a href="#download">Download</a>
+          <a href="#how">How</a>
+          <a href="https://buymeacoffee.com/joelhanson" target="_blank" rel="noopener noreferrer">Support</a>
+        </div>
+      </nav>
+
+      <header class="hero content">
+        <h1 class="brand">Standing</h1>
+        <p class="lede">
+          A quiet macOS menu bar app that watches your desk posture and nudges you when you’ve sat too long.
+        </p>
+        <p class="tagline">Webcam checks sit vs stand. No timer guessing.</p>
+        <div class="cta">
+          <a
+            class="btn btn-primary"
+            id="download"
+            href="https://github.com/Joel-hanson/standing/releases/latest"
+          >
+            Download for Mac
+          </a>
+        </div>
+        <p class="meta">Free forever · Optional <a id="support" href="https://buymeacoffee.com/joelhanson" target="_blank" rel="noopener noreferrer">support</a></p>
+        <p class="hero-secondary">
+          <a href="#open">If Mac blocks first open</a>
+          <a href="https://github.com/Joel-hanson/standing">View on GitHub</a>
+        </p>
+      </header>
+
+      <section class="loop content" id="how" aria-labelledby="loop-title">
+        <h2 id="loop-title">How it works</h2>
+        <p class="loop-lede">Three steps. That is the whole product.</p>
+        <ol class="loop-steps">
+          <li>
+            <strong>You sit at your desk</strong>
+            <span>Standing lives in the menu bar and watches the webcam only when it needs a check.</span>
+          </li>
+          <li>
+            <strong>It notices posture</strong>
+            <span>Vision AI looks at a small frame and decides sitting or standing — not a timer.</span>
+          </li>
+          <li>
+            <strong>You get a gentle nudge</strong>
+            <span>If one posture lasts too long, macOS notifies you. Stand, sit, or pause for a meeting.</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="how" aria-labelledby="how-title">
+        <h2 id="how-title">Inside the app</h2>
+        <p class="how-lede">Menu, activity, and settings — what you’ll see day to day.</p>
+
+        <!-- Menu: alternate sides so labels never stack on top of each other -->
+        <figure class="board board-menu">
+          <div class="board-side board-side-left">
+            <p class="note" style="--y: 8%">
+              <strong>Status</strong>
+              <span>Sitting, standing, or paused — at a glance.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M2 22 C 16 22, 28 8, 42 10" />
+                <polygon points="42,10 33,6 35,16" />
+              </svg>
+            </p>
+            <p class="note" style="--y: 55%">
+              <strong>Suggestions &amp; settings</strong>
+              <span>Toggle nudges or open Settings.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M2 10 C 16 10, 28 20, 42 18" />
+                <polygon points="42,18 33,12 35,24" />
+              </svg>
+            </p>
+          </div>
+
+          <div class="board-shot">
+            <img
+              src="screenshots/menu.png"
+              width="668"
+              height="478"
+              alt="Standing menu — status, today’s stand time, and tracking controls"
+            />
+          </div>
+
+          <div class="board-side board-side-right">
+            <p class="note" style="--y: 16%">
+              <strong>Today at a glance</strong>
+              <span>Stand-ups and sit vs stand time.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M46 22 C 32 22, 20 10, 6 12" />
+                <polygon points="6,12 15,6 13,18" />
+              </svg>
+            </p>
+            <p class="note" style="--y: 38%">
+              <strong>Pause / resume</strong>
+              <span>Stop AI checks for meetings without quitting.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M46 10 C 32 10, 20 18, 6 16" />
+                <polygon points="6,16 15,10 13,22" />
+              </svg>
+            </p>
+          </div>
+
+          <ol class="notes-stack">
+            <li>
+              <strong>Status</strong>
+              <span>Sitting, standing, or paused — at a glance.</span>
+            </li>
+            <li>
+              <strong>Today at a glance</strong>
+              <span>Stand-ups and sit vs stand time.</span>
+            </li>
+            <li>
+              <strong>Pause / resume</strong>
+              <span>Stop AI checks for meetings without quitting.</span>
+            </li>
+            <li>
+              <strong>Suggestions &amp; settings</strong>
+              <span>Toggle nudges or open Settings.</span>
+            </li>
+          </ol>
+        </figure>
+
+        <!-- Activity -->
+        <figure class="board board-activity">
+          <div class="board-side board-side-left">
+            <p class="note" style="--y: 12%">
+              <strong>Today’s summary</strong>
+              <span>Status, stand-ups, and sit vs stand time.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M2 20 C 16 20, 28 10, 42 12" />
+                <polygon points="42,12 33,6 35,18" />
+              </svg>
+            </p>
+            <p class="note" style="--y: 62%">
+              <strong>Recent days</strong>
+              <span>Scroll the week’s stand-ups and totals.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M2 12 C 16 12, 28 20, 42 18" />
+                <polygon points="42,18 33,12 35,24" />
+              </svg>
+            </p>
+          </div>
+
+          <div class="board-shot">
+            <img
+              src="screenshots/activity.png"
+              width="797"
+              height="1024"
+              alt="Standing Activity — today’s summary, weekly stand/sit chart, and recent days"
+            />
+          </div>
+
+          <div class="board-side board-side-right">
+            <p class="note" style="--y: 36%">
+              <strong>Week at a glance</strong>
+              <span>Standing vs sitting minutes for the last 7 days.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M46 16 C 32 10, 20 12, 6 16" />
+                <polygon points="6,16 15,10 13,22" />
+              </svg>
+            </p>
+          </div>
+
+          <ol class="notes-stack">
+            <li>
+              <strong>Today’s summary</strong>
+              <span>Status, stand-ups, and sit vs stand time.</span>
+            </li>
+            <li>
+              <strong>Week at a glance</strong>
+              <span>Standing vs sitting minutes for the last 7 days.</span>
+            </li>
+            <li>
+              <strong>Recent days</strong>
+              <span>Scroll the week’s stand-ups and totals.</span>
+            </li>
+          </ol>
+        </figure>
+
+        <!-- Settings -->
+        <figure class="board board-settings">
+          <div class="board-side board-side-left">
+            <p class="note" style="--y: 21%">
+              <strong>Your AI API key</strong>
+              <span>From <a href="https://console.typesafe.ai">console.typesafe.ai</a> — stored in Keychain.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M2 20 C 16 20, 28 10, 42 12" />
+                <polygon points="42,12 33,6 35,18" />
+              </svg>
+            </p>
+            <p class="note" style="--y: 88%">
+              <strong>Calibrate once</strong>
+              <span>Snap sitting &amp; standing references for AI.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M2 10 C 16 10, 28 18, 42 16" />
+                <polygon points="42,16 33,10 35,22" />
+              </svg>
+            </p>
+          </div>
+
+          <div class="board-shot">
+            <img
+              src="screenshots/settings.png"
+              width="826"
+              height="934"
+              alt="Standing Settings — AI API key, standing reminders, and calibration"
+            />
+          </div>
+
+          <div class="board-side board-side-right">
+            <p class="note" style="--y: 68%">
+              <strong>Standing thresholds</strong>
+              <span>Remind after sitting or standing too long.</span>
+              <svg class="arrow" viewBox="0 0 48 32" aria-hidden="true">
+                <path d="M46 14 C 32 10, 20 14, 6 18" />
+                <polygon points="6,18 15,10 13,24" />
+              </svg>
+            </p>
+          </div>
+
+          <ol class="notes-stack">
+            <li>
+              <strong>Your AI API key</strong>
+              <span>From <a href="https://console.typesafe.ai">console.typesafe.ai</a> — stored in Keychain.</span>
+            </li>
+            <li>
+              <strong>Standing thresholds</strong>
+              <span>Remind after sitting or standing too long.</span>
+            </li>
+            <li>
+              <strong>Calibrate once</strong>
+              <span>Snap sitting &amp; standing references for AI.</span>
+            </li>
+          </ol>
+        </figure>
+      </section>
+
+      <section class="why content" id="why">
+        <h2>Why Standing</h2>
+        <ul class="features">
+          <li>
+            <h3>AI posture checks</h3>
+            <p>Uses vision AI on your webcam to tell sitting from standing — not timers or guesswork.</p>
+          </li>
+          <li>
+            <h3>Quiet menu bar</h3>
+            <p>A small icon and streak time near the clock. Open the menu when you want a glance.</p>
+          </li>
+          <li>
+            <h3>Checks only when needed</h3>
+            <p>
+              AI runs on motion or a slow heartbeat — never on every webcam frame.
+              No motion, same posture — it waits instead of re-asking.
+            </p>
+          </li>
+          <li>
+            <h3>Gentle standing nudges</h3>
+            <p>macOS notifications after you’ve sat or stood too long, plus simple posture tips.</p>
+          </li>
+          <li>
+            <h3>Your key, your camera</h3>
+            <p>
+              Bring your own API key from
+              <a href="https://console.typesafe.ai">console.typesafe.ai</a>
+              (saved in Keychain). Frames are checked when needed, not streamed all day.
+            </p>
+          </li>
+          <li>
+            <h3>Calibrate once</h3>
+            <p>Snap sitting and standing references so AI checks match how you actually work.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="install content" id="open" aria-labelledby="open-title">
+        <h2 id="open-title">If Mac won’t open it the first time</h2>
+        <p class="install-lede">
+          Apple may show an unverified-developer warning — Standing isn’t notarized yet.
+          One-time only; after that it opens normally.
+        </p>
+        <ul class="install-steps">
+          <li>
+            Drag Standing from the DMG into <strong>Applications</strong>.
+          </li>
+          <li>
+            Control-click Standing → <strong>Open</strong>, then confirm
+            <strong>Open</strong> again (a normal double-click won’t unlock it once).
+          </li>
+          <li>
+            Or in <strong>System Settings → Privacy &amp; Security</strong>, choose
+            <strong>Open Anyway</strong> next to the Standing message.
+          </li>
+        </ul>
+        <p class="install-note">
+          Camera and notification prompts are separate — allow those when macOS asks.
+        </p>
+      </section>
+
+      <footer class="content">
+        <p>Standing · desk posture for Mac · a <a href="https://joelhanson.com">Joel Hanson</a> project</p>
+        <p>
+          <a href="#download">Download</a>
+          ·
+          <a href="#open">First-open tip</a>
+          ·
+          <a href="https://buymeacoffee.com/joelhanson" target="_blank" rel="noopener noreferrer">Support</a>
+          ·
+          <a href="#how">How</a>
+          ·
+          <a href="https://github.com/Joel-hanson/standing">GitHub</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
