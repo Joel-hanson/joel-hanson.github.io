@@ -1636,6 +1636,74 @@ footer nav a:hover {
   color: var(--text-secondary);
 }
 
+/* Reading progress — crimson track in sticky TOC + mobile top line */
+.top-reading-prog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  pointer-events: none;
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .top-reading-prog {
+    display: block;
+  }
+}
+
+.reading-prog {
+  margin-top: 1.5rem;
+  padding-inline-start: 1.25rem;
+  margin-inline-start: -1.25rem;
+  max-width: 100%;
+  min-width: 0;
+  font-family: GeistMono, var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.reading-prog__row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.reading-prog__track {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 2px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.reading-prog__fill {
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+}
+
+.reading-prog__pct {
+  flex: 0 0 auto;
+  min-width: 2.75ch;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  white-space: nowrap;
+}
+
+.reading-prog__time {
+  margin-top: 0.625rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
 /*
  * Blog tiles: same hover language as project cards (crimson border).
  */

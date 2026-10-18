@@ -39,6 +39,7 @@ I'm a Software Engineer at IBM on **Event Streams** (Apache Kafka on Kubernetes/
 
 ## Side projects
 
+- **[Standing](https://joelhanson.com/standing/)** — Desk posture tracker for macOS. ([writeup](https://joelhanson.com/projects/standing/) · [GitHub](https://github.com/Joel-hanson/standing))
 - **[Foldmark](https://foldmark.joelhanson.com/)** — Printable bookmark maker. Pick a shape, download a PDF, fold. ([writeup](https://joelhanson.com/projects/foldmark/) · [GitHub](https://github.com/Joel-hanson/foldmark))
 - **[Where Is My Commit](https://joelhanson.com/whereismycommit/)** — Client-side GitHub tools for “when did this ship?” ([GitHub](https://github.com/Joel-hanson/whereismycommit))
 
