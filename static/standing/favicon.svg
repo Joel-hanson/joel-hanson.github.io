@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Standing">
-  <rect width="36" height="36" rx="8" fill="#0a0a0a"/>
-  <!-- Standing i in brand crimson (site primary) -->
-  <g fill="#dc143c">
-    <circle cx="18" cy="9.5" r="3.6"/>
-    <rect x="15.15" y="14.4" width="5.7" height="15.2" rx="2.85"/>
-  </g>
-</svg>

@@ -5,7 +5,7 @@ draft: false
 featured: true
 weight: 10
 category: "personal"
-demoUrl: "https://joelhanson.com/standing/"
+demoUrl: "https://standing.joelhanson.com/"
 summary: "Quiet macOS menu bar app that watches desk posture and nudges you when you’ve sat too long."
 tags: ["Side Project", "macOS", "Swift", "Python", "AI"]
 featureimage: "img/posts/standing.png"
@@ -18,7 +18,7 @@ I sit too long at a desk job. Standing is a quiet menu bar app for Mac that watc
 
 Calibration is yours, the API key lives in Keychain, and shipping is DMG-first with optional Sparkle updates later.
 
-**Links:** [Landing](https://joelhanson.com/standing/) · [GitHub](https://github.com/Joel-hanson/standing) · [Latest release](https://github.com/Joel-hanson/standing/releases/latest)
+**Links:** [Landing](https://standing.joelhanson.com/) · [GitHub](https://github.com/Joel-hanson/standing) · [Latest release](https://github.com/Joel-hanson/standing/releases/latest)
 
 ## What it does
 
