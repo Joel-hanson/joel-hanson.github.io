@@ -9,6 +9,7 @@ summary: "Schema registry migration and upstream MCP work for IBM Event Streams.
 outcome: "V2→V3 · zero downtime · Event Streams v12.1 critical path"
 tags: ["Schema Registry", "Kubernetes", "Java", "Open Source", "MCP"]
 featureimage: "img/posts/apicurio-registry.png"
+blogPost: "/posts/34-apicurio-registry-mcp-http-oauth-token-forwarding/"
 ---
 
 [Apicurio Registry](https://github.com/Apicurio/apicurio-registry) is the API and schema registry used across event-driven systems — including IBM Event Streams.
@@ -27,8 +28,10 @@ As lead developer for the Event Streams schema-registry migration (Oct 2025–Ja
 
 **Why it matters:** Shipped with **zero data loss** and **no customer service interruption** — on the critical path for Event Streams **v12.1.0**.
 
-### Upstream: HTTP MCP + OAuth forwarding (in progress)
+### Upstream: HTTP MCP + OAuth forwarding (merged)
 
-I'm also working on an **open pull request** that adds an HTTP transport for the Registry MCP server with inbound OIDC and per-caller bearer-token forwarding — so remote MCP clients authenticate as themselves and Registry applies their RBAC (same as the UI), instead of sharing a single service account over stdio. Not merged yet; still under maintainer review.
+[PR #8460](https://github.com/Apicurio/apicurio-registry/pull/8460) (merged August 2026) adds optional HTTP MCP with inbound OIDC and per-caller bearer-token forwarding.
 
-**Links:** [Repository](https://github.com/Apicurio/apicurio-registry) · [Open PR #8460](https://github.com/Apicurio/apicurio-registry/pull/8460)
+Stdio MCP used one shared service account for every tool call. HTTP mode lets clients log in as themselves; MCP forwards that token to Registry, so `sr-readonly` and `sr-admin` behave like the UI. Stdio stays the default. `/mcp` returns 404 until you opt in at runtime.
+
+**Links:** [Repository](https://github.com/Apicurio/apicurio-registry) · [Merged PR #8460](https://github.com/Apicurio/apicurio-registry/pull/8460) · [Write-up](/posts/34-apicurio-registry-mcp-http-oauth-token-forwarding/)

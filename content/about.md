@@ -42,13 +42,14 @@ Earlier: full-stack web and CRM work at Travidux and Mobishala.
 ## Selected impact
 
 - Led Apicurio Registry V2→V3 across multiple repos with hybrid auth, zero data loss, and no customer service interruption. This was on the critical path for Event Streams v12.1.0.
+- Upstream Apicurio: HTTP MCP transport with OIDC and per-user bearer-token forwarding so Registry RBAC applies to agent tool calls ([PR #8460](https://github.com/Apicurio/apicurio-registry/pull/8460))
 - Connectivity Pack / MQ connectors: poison-message isolation (ErrantRecordReporter, DLQ), idle-poll heartbeats, and exactly-once under reconnect
 - Eureka Incite Gold: ACL-aware RAG over Box Notes (retrieval filtered by document permissions)
 - Open source: ContextLayer, Kafka MCP Server, and SSE→Kafka connector (adopted in Event Streams demo materials)
 
 ## Open source
 
-- [Apicurio Registry](/projects/apicurio-registry/): V2→V3 migration lead for Event Streams; upstream HTTP MCP + OAuth PR in progress
+- [Apicurio Registry](/projects/apicurio-registry/): V2→V3 migration lead for Event Streams; upstream HTTP MCP + OAuth token forwarding ([PR #8460](https://github.com/Apicurio/apicurio-registry/pull/8460), merged)
 - [ibm-messaging](https://github.com/ibm-messaging): maintainer-level work on MQ Kafka source/sink, XML converter, kafka-java-vertx-starter
 - [Aiven JDBC connector](https://github.com/Aiven-Open/jdbc-connector-for-apache-kafka): contributions outside the IBM ecosystem
 - Personal OSS: [ContextLayer](https://github.com/Joel-hanson/contextlayer), [kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server), [sse-kafka-connector](https://github.com/Joel-hanson/sse-kafka-connector), [Memstream](https://github.com/Joel-hanson/memstream), [Bijou](https://github.com/Joel-hanson/bijou), [Where Is My Commit](https://github.com/Joel-hanson/whereismycommit)

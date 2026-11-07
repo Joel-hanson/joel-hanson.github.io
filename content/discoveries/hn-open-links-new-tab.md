@@ -5,7 +5,7 @@ draft: false
 discoveryType: snippet
 summary: "A tiny Tampermonkey script that sets target=_blank on HN story titles so you keep the list while reading."
 tags: ["Userscript", "Hacker News", "Browser"]
-codeLang: javascript
+codeLang: js
 code: |
   // ==UserScript==
   // @name         Hacker News Open Links in New Tab
@@ -18,8 +18,9 @@ code: |
     link.setAttribute('rel', 'noopener noreferrer');
   });
 externalUrl: "/hn-new-tab/hn-new-tab.user.js"
+externalLabel: "install userscript →"
 ---
 
 HN story clicks replace the listing by default. This userscript tags each `.titleline` link with `target="_blank"` (and `rel="noopener noreferrer"`) so the front page stays put.
 
-Install [Tampermonkey](https://www.tampermonkey.net/), then open [`/hn-new-tab/hn-new-tab.user.js`](/hn-new-tab/hn-new-tab.user.js).
+Install [Tampermonkey](https://www.tampermonkey.net/), then open the [userscript file](/hn-new-tab/hn-new-tab.user.js).

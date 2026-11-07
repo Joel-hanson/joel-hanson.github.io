@@ -2155,6 +2155,19 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   margin-bottom: 0;
 }
 
+.discovery-body a {
+  color: var(--accent-text);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.discovery-body a:hover,
+.discovery-body a:focus {
+  color: var(--accent-text-hover);
+  border-bottom-color: var(--accent-text-hover);
+}
+
 .discovery-code {
   margin: 0.15rem 0;
   overflow-x: auto;
@@ -2162,6 +2175,10 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   border-radius: 0.25rem;
   font-size: 0.8rem;
   pointer-events: none;
+}
+
+.discovery-code .highlight {
+  margin: 0;
 }
 
 .discovery-code pre {
@@ -2208,6 +2225,19 @@ a:has(> .cursor-pointer):focus > .cursor-pointer > span {
   margin: 0;
   gap: 0.65rem;
   font-size: 0.8rem;
+}
+
+.discovery-links a {
+  color: var(--accent-text);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.discovery-links a:hover,
+.discovery-links a:focus {
+  color: var(--accent-text-hover);
+  border-bottom-color: var(--accent-text-hover);
 }
 
 .discoveries-progress {

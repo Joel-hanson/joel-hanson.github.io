@@ -33,7 +33,7 @@ I'm a Software Engineer at IBM on **Event Streams** (Apache Kafka on Kubernetes/
 - **[ContextLayer](https://contextlayer.joelhanson.com/)** — Turn REST APIs into MCP servers
 - **[kafka-mcp-server](https://github.com/Joel-hanson/kafka-mcp-server)** — Kafka ops as MCP tools
 - **[sse-kafka-connector](https://github.com/Joel-hanson/sse-kafka-connector)** — SSE → Kafka Connect (used in Event Streams demos)
-- **[Apicurio Registry](https://joelhanson.com/projects/apicurio-registry/)** — V2→V3 migration lead; upstream MCP HTTP PR in progress
+- **[Apicurio Registry](https://joelhanson.com/projects/apicurio-registry/)** — V2→V3 migration lead; upstream MCP HTTP + OAuth forwarding ([PR #8460](https://github.com/Apicurio/apicurio-registry/pull/8460), merged)
 - **[Memstream](https://github.com/Joel-hanson/memstream)** — CockroachDB writes → searchable agent memory (same DB)
 - **[Bijou](https://github.com/Joel-hanson/bijou)** — Variable-length integer encodings + Kafka serializers
 

@@ -32,8 +32,9 @@
   {{ end }}
 
   {{ if and (eq $kind "snippet") .Params.code }}
+    {{ $lang := .Params.codeLang | default "text" }}
     <div class="discovery-code" tabindex="-1">
-      <pre><code>{{ .Params.code }}</code></pre>
+      {{ highlight .Params.code $lang "" }}
     </div>
   {{ end }}
 
@@ -49,7 +50,8 @@
     {{ end }}
     <div class="discovery-links terminal-links">
       {{ with .Params.externalUrl }}
-        <a href="{{ . }}" target="_blank" rel="noopener noreferrer">[open →]</a>
+        {{ $label := $.Params.externalLabel | default "open →" }}
+        <a class="discovery-external" href="{{ . }}" target="_blank" rel="noopener noreferrer">[{{ $label }}]</a>
       {{ end }}
       {{ with .Params.relatedPost }}
         <a href="{{ . | relLangURL }}">[full post →]</a>
