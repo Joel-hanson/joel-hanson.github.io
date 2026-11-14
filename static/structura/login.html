@@ -94,6 +94,24 @@
         display: block; width: 100%; margin-top: 10px; text-align: center;
         font-size: 13px; color: var(--muted-foreground); font-weight: 500;
       }
+      .channel {
+        display: none; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;
+      }
+      .channel.on { display: grid; }
+      .channel button {
+        padding: 10px; border-radius: var(--radius-md);
+        border: 1.5px solid var(--border); font-weight: 500; font-size: 12px;
+        background: var(--card); color: var(--muted-foreground);
+      }
+      .channel button.on {
+        border-color: var(--foreground); color: var(--foreground); background: var(--muted);
+      }
+      .email-field { display: none; margin-bottom: 8px; }
+      .email-field.on { display: block; }
+      .email-field input {
+        width: 100%; padding: 12px 14px; border-radius: var(--radius-md);
+        border: 1.5px solid var(--input); font: inherit; font-size: 15px;
+      }
     </style>
   </head>
   <body>
@@ -124,12 +142,22 @@
             <button type="button" class="on" data-role="firm">Firm team</button>
             <button type="button" data-role="client">Client / site</button>
           </div>
-          <label class="field-label" for="phone">Mobile number</label>
-          <div class="phone-row">
-            <div class="cc">+91</div>
-            <input class="phone" id="phone" inputmode="numeric" maxlength="10" placeholder="98XXX XX210" value="9876543210" />
+          <div class="channel on" id="channel" role="group" aria-label="Code via">
+            <button type="button" class="on" data-ch="phone">Phone</button>
+            <button type="button" data-ch="email">Work email</button>
           </div>
-          <p class="help" id="phone-help">Staff: OTP on WhatsApp / SMS. No email password to remember.</p>
+          <div id="phone-block">
+            <label class="field-label" for="phone">Mobile number</label>
+            <div class="phone-row">
+              <div class="cc">+91</div>
+              <input class="phone" id="phone" inputmode="numeric" maxlength="10" placeholder="98XXX XX210" value="9876543210" />
+            </div>
+          </div>
+          <div class="email-field" id="email-block">
+            <label class="field-label" for="email">Work email</label>
+            <input id="email" type="email" value="joel@xarchitects.in" />
+          </div>
+          <p class="help" id="phone-help">Staff: phone OTP, or email code for desk login. No password.</p>
           <button class="btn btn-primary" type="button" id="send-code">Send code</button>
         </div>
 
@@ -152,22 +180,55 @@
 
     <script>
       let role = "firm";
+      let channel = "phone";
+
+      function syncChannelUI() {
+        const showEmail = role === "firm" && channel === "email";
+        document.getElementById("channel").classList.toggle("on", role === "firm");
+        document.getElementById("phone-block").style.display = showEmail ? "none" : "block";
+        document.getElementById("email-block").classList.toggle("on", showEmail);
+        document.getElementById("phone-help").textContent =
+          role === "client"
+            ? "Client or contractor: code on the firm WhatsApp chat. Stay signed in for months."
+            : showEmail
+              ? "Staff desk login: 6-digit code to work email (Resend). Phone still works on site."
+              : "Staff: OTP on WhatsApp / SMS. Or switch to work email above.";
+        document.querySelector(".brand p").textContent = showEmail
+          ? "Sign in with work email"
+          : "Sign in with your phone";
+      }
+
       document.querySelectorAll(".who button").forEach((btn) => {
         btn.addEventListener("click", () => {
           role = btn.dataset.role;
           document.querySelectorAll(".who button").forEach((b) => b.classList.toggle("on", b === btn));
-          document.getElementById("phone-help").textContent =
-            role === "firm"
-              ? "Staff: OTP on WhatsApp / SMS. No email password to remember."
-              : "Client or contractor: code on the firm WhatsApp chat. Stay signed in for months.";
+          if (role === "client") channel = "phone";
+          document.querySelectorAll(".channel button").forEach((b) =>
+            b.classList.toggle("on", b.dataset.ch === channel)
+          );
+          syncChannelUI();
+        });
+      });
+
+      document.querySelectorAll(".channel button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          channel = btn.dataset.ch;
+          document.querySelectorAll(".channel button").forEach((b) => b.classList.toggle("on", b === btn));
+          syncChannelUI();
         });
       });
 
       document.getElementById("send-code").onclick = () => {
-        const raw = document.getElementById("phone").value.replace(/\D/g, "");
-        const pretty = raw.length === 10 ? raw.slice(0, 5) + " " + raw.slice(5) : raw || "98XXX XX210";
-        document.getElementById("otp-help").textContent =
-          "Sent to +91 " + pretty + " · demo: any digits";
+        if (role === "firm" && channel === "email") {
+          const em = document.getElementById("email").value || "joel@xarchitects.in";
+          document.getElementById("otp-help").textContent =
+            "Sent to " + em + " · demo: any digits";
+        } else {
+          const raw = document.getElementById("phone").value.replace(/\D/g, "");
+          const pretty = raw.length === 10 ? raw.slice(0, 5) + " " + raw.slice(5) : raw || "98XXX XX210";
+          document.getElementById("otp-help").textContent =
+            "Sent to +91 " + pretty + " · demo: any digits";
+        }
         document.getElementById("step-phone").classList.remove("on");
         document.getElementById("step-otp").classList.add("on");
         document.querySelector(".otp input").focus();
@@ -187,6 +248,8 @@
           if (input.value && arr[i + 1]) arr[i + 1].focus();
         });
       });
+
+      syncChannelUI();
     </script>
   </body>
 </html>

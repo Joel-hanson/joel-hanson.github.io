@@ -194,14 +194,14 @@
         <div class="grid">
           <a class="card hot" href="login.html">
             <small>00 · Access</small>
-            <h2>Phone login</h2>
-            <p>Number + OTP — firm or client. No password.</p>
+            <h2>Phone / email login</h2>
+            <p>Phone OTP · staff can use work email. No password.</p>
             <span class="go">Sign in →</span>
           </a>
           <a class="card" href="firm.html#home">
             <small>01 · Firm</small>
             <h2>Firm app</h2>
-            <p>Home → All projects → switcher inside a project.</p>
+            <p>Queue first → All projects → drawings.</p>
             <span class="go">Open →</span>
           </a>
           <a class="card" href="whatsapp.html">
@@ -215,7 +215,19 @@
           <a class="card" href="client.html#project">
             <small>03 · Client</small>
             <h2>Client / contractor</h2>
-            <p>Structura in the browser — not WhatsApp chrome. Approve + OTP.</p>
+            <p>Approve, revise, price confirm — browser, not WhatsApp chrome.</p>
+            <span class="go">Open →</span>
+          </a>
+          <a class="card" href="firm.html#waiting">
+            <small>04 · Firm</small>
+            <h2>Waiting on whom</h2>
+            <p>Cross-project: you, client, site, priced decisions.</p>
+            <span class="go">Open →</span>
+          </a>
+          <a class="card" href="whatsapp.html#summary">
+            <small>05 · Channel</small>
+            <h2>Saturday summary</h2>
+            <p>EN / Malayalam weekly digest on WhatsApp.</p>
             <span class="go">Open →</span>
           </a>
         </div>
@@ -237,7 +249,7 @@
           <a class="card" href="firm.html#gates">
             <small>Step 4</small>
             <h2>Stage gates</h2>
-            <p>Engineer checklist · plain owner summary.</p>
+            <p>Engineer checklist · <a href="client.html#gate" onclick="event.stopPropagation()">owner summary</a>.</p>
             <span class="go">Peek →</span>
           </a>
         </div>
@@ -245,17 +257,17 @@
         <div class="path">
           <h3>Suggested click path</h3>
           <ol>
-            <li><a href="login.html">Login</a> — phone + OTP (firm or client)</li>
-            <li><a href="firm.html#projects">All projects</a> → open one → overview → drawings</li>
-            <li><a href="whatsapp.html">WhatsApp</a> — share &amp; approve</li>
-            <li><a href="client.html#project">Client project</a> → drawing / decision OTP</li>
-            <li><a href="firm.html#decisions">Decisions</a> → Variation PDF</li>
+            <li><a href="login.html">Login</a> — phone or staff email OTP</li>
+            <li><a href="firm.html#home">Firm home</a> → Needs you → drawings → Share (wa.me + email)</li>
+            <li><a href="client.html#drawing">Client drawing</a> → Approve or Request revision</li>
+            <li><a href="firm.html#waiting">Waiting on whom</a> · <a href="whatsapp.html#summary">Saturday summary</a></li>
+            <li><a href="firm.html#decisions">Decisions</a> → <a href="client.html#gate">Owner gate</a></li>
           </ol>
         </div>
       </main>
       <p class="note">
-        Product mockup · <a href="design-system.html">Design system</a>
-        · not the production app yet
+        Plan: <code class="mono">docs/Structura-Revised-Plan.md</code>
+        · DS: <code class="mono">docs/Design-System.md</code>
       </p>
     </div>
   </body>

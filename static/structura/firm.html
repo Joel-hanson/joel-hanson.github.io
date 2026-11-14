@@ -380,14 +380,43 @@
 
       .home-board {
         display: grid;
-        grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.95fr);
-        grid-template-rows: minmax(260px, 1.2fr) minmax(200px, 0.9fr);
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(0, 1fr);
         gap: 12px;
         flex: 1;
-        min-height: 520px;
+        min-height: 0;
+        align-items: stretch;
+      }
+      .home-board .attn-panel,
+      .home-board .home-secondary {
+        min-height: 0;
+        height: 100%;
+      }
+      .home-secondary {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 12px;
+        min-height: 0;
+        align-items: stretch;
+      }
+      .home-secondary .proj-panel,
+      .home-secondary .map-panel {
+        min-height: 0;
+        height: 100%;
+      }
+      .home-secondary .map-panel .sites-map {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+      }
+      @media (max-width: 1100px) {
+        .home-board {
+          grid-template-columns: 1fr;
+          grid-template-rows: minmax(280px, 1fr) minmax(320px, 1fr);
+        }
       }
       .map-panel {
-        grid-row: 1 / 3;
         background: var(--card);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow-md);
@@ -980,13 +1009,37 @@
       }
       .toast.show { display: block; }
       @media (max-width: 1200px) {
-        .home-board {
-          grid-template-columns: 1fr;
-          grid-template-rows: 320px auto auto;
-          min-height: 0;
-        }
-        .map-panel { grid-row: auto; min-height: 320px; }
+        .map-panel { min-height: 280px; }
         .proj-stats { grid-template-columns: 1fr 1fr; }
+      }
+      .more-details {
+        background: var(--card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        padding: 0;
+      }
+      .more-details > summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 12px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+      }
+      .more-details > summary::-webkit-details-marker { display: none; }
+      .more-details[open] > summary { border-bottom: 1px solid var(--border); }
+      .more-details .more-body {
+        padding: 12px 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .more-details .register { box-shadow: none; padding: 0; }
+      .more-details .audit { padding-top: 4px; }
+      .detail-bar.simple {
+        grid-template-columns: 1.4fr auto auto;
       }
       @media (max-width: 1100px) {
         .stage { grid-template-columns: 1fr; }
@@ -1045,6 +1098,11 @@
             Needs answer
             <span class="nav-count">3</span>
           </button>
+          <button type="button" data-view="waiting">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Waiting on whom
+            <span class="nav-count">4</span>
+          </button>
         </div>
 
         <div class="rail-group project-nav">
@@ -1062,20 +1120,20 @@
             Decisions
             <span class="nav-count">1</span>
           </button>
-          <button type="button" data-view="photos">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-            Site photos
-          </button>
-          <button type="button" data-view="gates">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-            Stage gates
-          </button>
         </div>
 
         <div class="spacer"></div>
 
         <div class="rail-group">
-          <div class="rail-label">Demo</div>
+          <div class="rail-label">Later</div>
+          <button type="button" data-view="photos">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            Photos peek
+          </button>
+          <button type="button" data-view="gates">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+            Gates peek
+          </button>
           <a href="whatsapp.html">
             <svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
             WhatsApp journey
@@ -1102,8 +1160,6 @@
             <button type="button" data-view="project">Overview</button>
             <button type="button" data-view="drawings">Drawings</button>
             <button type="button" data-view="decisions">Decisions</button>
-            <button type="button" data-view="photos">Photos</button>
-            <button type="button" data-view="gates">Gates</button>
           </div>
         </div>
 
@@ -1115,9 +1171,9 @@
           <div class="home-top">
             <div>
               <h1>Today</h1>
-              <p class="sub">Map · queue · projects</p>
+              <p class="sub">What needs you</p>
             </div>
-            <button class="btn btn-primary btn-sm" type="button" id="open-share-home">Share with client</button>
+            <button class="btn btn-outline btn-sm" type="button" data-view="projects">All projects</button>
           </div>
 
           <div class="now-bar">
@@ -1140,34 +1196,11 @@
           </div>
 
           <div class="home-board">
-            <section class="map-panel" aria-label="Project sites">
-              <div class="panel-head">
-                <div>
-                  <h1 style="font-size:18px">Projects on the map</h1>
-                  <p class="sub">Tap a pin or a name below to open</p>
-                </div>
-                <button class="btn btn-outline btn-sm" type="button" data-view="projects">All projects</button>
-              </div>
-              <div class="sites-map" id="sites-map" role="application" aria-label="Map of project sites"></div>
-              <div class="map-footer">
-                <div class="map-sites" id="map-sites" role="list" aria-label="Open project from map"></div>
-                <div class="map-legend">
-                  <span><i style="background:var(--brand)"></i>Needs action</span>
-                  <span><i style="background:#ca8a04"></i>Waiting</span>
-                  <span><i style="background:var(--foreground)"></i>On track</span>
-                  <span class="map-credit">
-                    © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a>
-                    · <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>
-                  </span>
-                </div>
-              </div>
-            </section>
-
             <section class="panel attn-panel">
               <div class="panel-head">
                 <div>
                   <h1 style="font-size:18px">Needs you</h1>
-                  <p class="sub">Real work — not counts</p>
+                  <p class="sub">Pending actions first</p>
                 </div>
               </div>
               <div class="attn-list" id="attn-list">
@@ -1219,81 +1252,99 @@
               </div>
             </section>
 
-            <section class="panel proj-panel">
-              <div class="panel-head">
-                <div>
-                  <h1 style="font-size:18px">Projects</h1>
-                  <p class="sub">Blocked with people</p>
+            <div class="home-secondary">
+              <section class="panel proj-panel">
+                <div class="panel-head">
+                  <div>
+                    <h1 style="font-size:18px">Jump to a project</h1>
+                    <p class="sub">Open when the queue is clear</p>
+                  </div>
+                  <button class="btn btn-outline btn-sm" type="button" data-view="projects">All</button>
                 </div>
-                <button class="btn btn-outline btn-sm" type="button" data-view="projects">All</button>
-              </div>
-              <div class="proj-list">
-                <button class="proj" type="button" data-open-project="meera" data-open-view="drawings">
-                  <div class="proj-thumb" aria-hidden="true">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                  </div>
-                  <div class="proj-body">
-                    <div class="proj-id">
-                      <span class="mono">PR-0142</span>
-                      <span class="chip">RESIDENTIAL</span>
+                <div class="proj-list">
+                  <button class="proj" type="button" data-open-project="meera" data-open-view="drawings">
+                    <div class="proj-thumb" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                     </div>
-                    <h3>Meera Residence</h3>
-                    <p class="meta">Kochi</p>
-                  </div>
-                  <div class="proj-side">
-                    <span class="home-badge emph">1 waiting</span>
-                  </div>
-                </button>
-                <button class="proj" type="button" data-open-project="anil" data-open-view="inbox">
-                  <div class="proj-thumb" aria-hidden="true">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
-                  </div>
-                  <div class="proj-body">
-                    <div class="proj-id">
-                      <span class="mono">PR-0138</span>
-                      <span class="chip">RESIDENTIAL</span>
+                    <div class="proj-body">
+                      <div class="proj-id">
+                        <span class="mono">PR-0142</span>
+                        <span class="chip">RESIDENTIAL</span>
+                      </div>
+                      <h3>Meera Residence</h3>
+                      <p class="meta">Kochi</p>
                     </div>
-                    <h3>Anil Villa</h3>
-                    <p class="meta">Thrissur</p>
-                  </div>
-                  <div class="proj-side">
-                    <span class="home-badge">Question</span>
-                  </div>
-                </button>
-                <button class="proj" type="button" data-open-project="priya" data-open-view="drawings">
-                  <div class="proj-thumb" aria-hidden="true">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-                  </div>
-                  <div class="proj-body">
-                    <div class="proj-id">
-                      <span class="mono">PR-0129</span>
-                      <span class="chip">RESIDENTIAL</span>
+                    <div class="proj-side">
+                      <span class="home-badge emph">1 waiting</span>
                     </div>
-                    <h3>Priya Heights</h3>
-                    <p class="meta">Ernakulam</p>
-                  </div>
-                  <div class="proj-side">
-                    <span class="home-badge">Consultant</span>
-                  </div>
-                </button>
-                <button class="proj" type="button" data-open-project="nair" data-open-view="gates">
-                  <div class="proj-thumb" aria-hidden="true">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
-                  </div>
-                  <div class="proj-body">
-                    <div class="proj-id">
-                      <span class="mono">PR-0117</span>
-                      <span class="chip">CLINIC</span>
+                  </button>
+                  <button class="proj" type="button" data-open-project="anil" data-open-view="inbox">
+                    <div class="proj-thumb" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
                     </div>
-                    <h3>Nair Clinic</h3>
-                    <p class="meta">Kozhikode</p>
+                    <div class="proj-body">
+                      <div class="proj-id">
+                        <span class="mono">PR-0138</span>
+                        <span class="chip">RESIDENTIAL</span>
+                      </div>
+                      <h3>Anil Villa</h3>
+                      <p class="meta">Thrissur</p>
+                    </div>
+                    <div class="proj-side">
+                      <span class="home-badge">Question</span>
+                    </div>
+                  </button>
+                  <button class="proj" type="button" data-open-project="priya" data-open-view="drawings">
+                    <div class="proj-thumb" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+                    </div>
+                    <div class="proj-body">
+                      <div class="proj-id">
+                        <span class="mono">PR-0129</span>
+                        <span class="chip">RESIDENTIAL</span>
+                      </div>
+                      <h3>Priya Heights</h3>
+                      <p class="meta">Ernakulam</p>
+                    </div>
+                    <div class="proj-side">
+                      <span class="home-badge">Consultant</span>
+                    </div>
+                  </button>
+                  <button class="proj" type="button" data-open-project="nair" data-open-view="project">
+                    <div class="proj-thumb" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
+                    </div>
+                    <div class="proj-body">
+                      <div class="proj-id">
+                        <span class="mono">PR-0117</span>
+                        <span class="chip">CLINIC</span>
+                      </div>
+                      <h3>Nair Clinic</h3>
+                      <p class="meta">Kozhikode</p>
+                    </div>
+                    <div class="proj-side">
+                      <span class="home-badge">On track</span>
+                    </div>
+                  </button>
+                </div>
+              </section>
+
+              <section class="map-panel" aria-label="Project sites">
+                <div class="sites-map" id="sites-map" role="application" aria-label="Map of project sites"></div>
+                <div class="map-footer">
+                  <div class="map-sites" id="map-sites" role="list" aria-label="Open project from map"></div>
+                  <div class="map-legend">
+                    <span><i style="background:var(--brand)"></i>Needs action</span>
+                    <span><i style="background:#ca8a04"></i>Waiting</span>
+                    <span><i style="background:var(--foreground)"></i>On track</span>
+                    <span class="map-credit">
+                      © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a>
+                      · <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>
+                    </span>
                   </div>
-                  <div class="proj-side">
-                    <span class="home-badge">Gate</span>
-                  </div>
-                </button>
-              </div>
-            </section>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </div>
@@ -1312,6 +1363,56 @@
         </div>
       </div>
 
+
+      <!-- WAITING ON WHOM -->
+      <div class="stage solo" id="view-waiting">
+        <div class="home-shell">
+          <div class="home-top">
+            <div>
+              <h1>Waiting on whom</h1>
+              <p class="sub">Across all projects · who owes the next move</p>
+            </div>
+            <button class="btn btn-outline btn-sm" type="button" data-view="inbox">Needs answer</button>
+          </div>
+          <div class="panel" style="padding:8px 0 16px">
+            <div class="attn-list" style="padding-top:8px">
+              <button class="attn" type="button" data-goto="inbox" data-project="meera">
+                <span class="tag tag-overdue">You</span>
+                <div>
+                  <h3>Reply to Meera</h3>
+                  <p class="line"><span>Kitchen window · Kochi</span></p>
+                </div>
+                <div class="stake"><em>26h</em>overdue</div>
+              </button>
+              <button class="attn" type="button" data-goto="drawings" data-project="meera">
+                <span class="tag tag-waiting">Client</span>
+                <div>
+                  <h3>Meera · approve GA-A-101 R03</h3>
+                  <p class="line"><span>Seen today · no decision yet</span></p>
+                </div>
+                <div class="stake"><em>2d</em>waiting</div>
+              </button>
+              <button class="attn" type="button" data-goto="drawings" data-project="meera">
+                <span class="tag tag-old">Site</span>
+                <div>
+                  <h3>Ravi still on R02</h3>
+                  <p class="line"><span>Foundation issue · reshare R04</span></p>
+                </div>
+                <div class="stake"><em>Old</em>copy</div>
+              </button>
+              <button class="attn" type="button" data-goto="decisions" data-project="meera">
+                <span class="tag tag-money">Client</span>
+                <div>
+                  <h3>Meera · D-007 priced</h3>
+                  <p class="line"><span>+₹18,000 · +3 days</span></p>
+                </div>
+                <div class="stake"><em>Approve</em>?</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- PROJECT -->
       <div class="stage" id="view-project">
         <section class="panel">
@@ -1321,8 +1422,7 @@
               <p class="sub">Folders · people · stage</p>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn btn-outline btn-sm" type="button" data-goto="drawings">Open drawings</button>
-              <button class="btn btn-primary btn-sm" type="button" data-share>Share</button>
+              <button class="btn btn-primary btn-sm" type="button" data-goto="drawings">Open drawings</button>
             </div>
           </div>
           <div class="proj-hero">
@@ -1405,7 +1505,7 @@
               <span class="home-badge">Pending</span>
             </div>
           </div>
-          <button class="btn btn-outline btn-sm" type="button" style="align-self:flex-start">+ Invite by phone</button>
+          <button class="btn btn-outline btn-sm" type="button" id="open-invite" style="align-self:flex-start">+ Invite by phone</button>
           <div>
             <h2 style="margin:8px 0 12px;font-size:16px">Recent activity</h2>
             <div class="activity-item">
@@ -1446,27 +1546,33 @@
             <button type="button">Drafts</button>
             <button type="button">Issued</button>
           </div>
-          <div class="strip">Pending · 1 waiting on Meera · contractor on old R03</div>
+          <div class="strip" id="drawings-strip">Pending · 1 waiting on Meera · contractor on old R03</div>
           <div class="scroll stack">
-            <article class="card-row selected" data-doc="gf">
+            <article class="card-row" data-doc="gf-rev" id="doc-revision" hidden>
               <div class="card-top">
                 <div>
                   <p class="card-title">Ground floor → Client</p>
-                  <p class="card-meta">GA-A-101 · R03</p>
+                  <p class="card-meta" id="rev-meta">GA-A-101 · R03 · client note</p>
+                </div>
+                <span class="badge badge-revision">Revision required</span>
+              </div>
+              <div class="party">
+                <div class="avatar">MR</div>
+                <div class="party-name">Meera Rajan<span id="rev-note">Client · revision requested</span></div>
+                <button class="round" type="button" data-goto="inbox" title="Thread"><svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg></button>
+              </div>
+            </article>
+            <article class="card-row selected" data-doc="gf" id="doc-under-review">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">Ground floor → Client</p>
+                  <p class="card-meta">GA-A-101 · R03 · seen today</p>
                 </div>
                 <span class="badge badge-review">Under review</span>
-              </div>
-              <div class="progress"><span style="width:72%"></span></div>
-              <div class="meta-grid">
-                <div><small>Shared</small><b>12 Nov 26</b></div>
-                <div><small>Seen</small><b>Today 9:14</b></div>
-                <div><small>Download</small><b id="dl-label">Allowed</b></div>
-                <div><small>Scale</small><b>1:100</b></div>
               </div>
               <div class="party">
                 <div class="avatar">MR</div>
                 <div class="party-name">Meera Rajan<span>Client · WhatsApp · New</span></div>
-                <button class="round" type="button" data-share title="Share"><svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></button>
                 <button class="round" type="button" data-goto="inbox" title="Thread"><svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg></button>
               </div>
             </article>
@@ -1538,36 +1644,7 @@
           </div>
           <div class="detail-stack">
             <div class="register">
-              <h3>Revision history</h3>
-              <div class="hist-list">
-                <button class="hist-item current" type="button">
-                  <span class="rev">R03</span>
-                  <div>
-                    <p class="h-title">Under review · client</p>
-                    <p class="h-note">Kitchen window moved 300 mm east. Stair cleared against beam.</p>
-                  </div>
-                  <span class="h-when">12 Nov</span>
-                </button>
-                <button class="hist-item" type="button" id="open-compare-hist">
-                  <span class="rev rev-old">R02</span>
-                  <div>
-                    <p class="h-title">Superseded</p>
-                    <p class="h-note">First client share · approved then revised</p>
-                  </div>
-                  <span class="h-when">28 Oct</span>
-                </button>
-                <button class="hist-item" type="button">
-                  <span class="rev rev-old">R01</span>
-                  <div>
-                    <p class="h-title">Internal draft</p>
-                    <p class="h-note">SHA-256 a3f9…c21e</p>
-                  </div>
-                  <span class="h-when">12 Oct</span>
-                </button>
-              </div>
-            </div>
-            <div class="register">
-              <h3>Who has which version</h3>
+              <h3>Who has this</h3>
               <div class="reg-row">
                 <div class="reg-who">Meera Rajan<span>Client · seen today 9:14</span></div>
                 <span class="rev">R03</span>
@@ -1587,13 +1664,13 @@
                 <button class="btn btn-outline btn-sm" type="button" data-share>Share</button>
               </div>
             </div>
-            <div class="detail-bar">
+            <div class="detail-bar simple">
               <div>
                 <div class="lead">
-                  <span class="mono" style="font-weight:600">GA-A-101</span>
+                  <span style="font-weight:600">Ground floor plan</span>
                   <span class="badge badge-review">Under review</span>
                 </div>
-                <div class="label" style="margin-top:6px">Ground floor plan · R03</div>
+                <div class="label" style="margin-top:6px"><span class="mono">GA-A-101</span> · R03 · download <span id="dl-label">Allowed</span></div>
               </div>
               <div>
                 <div class="label">Download</div>
@@ -1603,17 +1680,52 @@
                   <span id="dl-text">On</span>
                 </label>
               </div>
-              <div><div class="label">Last open</div><div class="value">Today 9:14</div></div>
-              <div><div class="label">Questions</div><div class="value">1 open</div></div>
-              <button class="btn btn-outline btn-sm" type="button" data-share>Send on WhatsApp</button>
+              <div>
+                <div class="label">Last open</div>
+                <div class="value">Today 9:14</div>
+              </div>
             </div>
-            <div class="audit" aria-label="Audit strip">
-              <span>SHA-256 <b>a3f9…c21e</b></span>
-              <span>Shared <b>12 Nov 09:02</b></span>
-              <span>Viewed <b>Meera · today 9:14</b></span>
-              <span>Downloaded <b>Meera · 12 Nov 10:03</b></span>
-              <span>Link <b id="link-state">active</b></span>
-            </div>
+            <details class="more-details">
+              <summary>History &amp; audit</summary>
+              <div class="more-body">
+                <div class="register">
+                  <h3>Revision history</h3>
+                  <div class="hist-list">
+                    <button class="hist-item current" type="button">
+                      <span class="rev">R03</span>
+                      <div>
+                        <p class="h-title">Under review · client</p>
+                        <p class="h-note">Kitchen window moved 300 mm east. Stair cleared against beam.</p>
+                      </div>
+                      <span class="h-when">12 Nov</span>
+                    </button>
+                    <button class="hist-item" type="button" id="open-compare-hist">
+                      <span class="rev rev-old">R02</span>
+                      <div>
+                        <p class="h-title">Superseded</p>
+                        <p class="h-note">First client share · approved then revised</p>
+                      </div>
+                      <span class="h-when">28 Oct</span>
+                    </button>
+                    <button class="hist-item" type="button">
+                      <span class="rev rev-old">R01</span>
+                      <div>
+                        <p class="h-title">Internal draft</p>
+                        <p class="h-note">SHA-256 a3f9…c21e</p>
+                      </div>
+                      <span class="h-when">12 Oct</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="audit" aria-label="Audit strip">
+                  <span>SHA-256 <b>a3f9…c21e</b></span>
+                  <span>Shared <b>12 Nov 09:02</b></span>
+                  <span>Viewed <b>Meera · today 9:14</b></span>
+                  <span>Downloaded <b>Meera · 12 Nov 10:03</b></span>
+                  <span>Link <b id="link-state">active</b></span>
+                </div>
+              </div>
+            </details>
           </div>
         </section>
       </div>
@@ -1626,11 +1738,6 @@
               <h1>Needs answer</h1>
               <p class="sub">WhatsApp replies attached to drawings</p>
             </div>
-          </div>
-          <div class="stat-row">
-            <div class="stat hot"><small>Unanswered</small><b>3</b></div>
-            <div class="stat"><small>Over 24h</small><b>1</b></div>
-            <div class="stat"><small>This week</small><b>11</b></div>
           </div>
           <div class="scroll stack">
             <button class="card-row selected" type="button">
@@ -1693,6 +1800,14 @@
               <button class="btn btn-primary btn-sm" type="button" id="open-decision-new">+ Decision</button>
             </div>
           </div>
+          <div class="detail-card" style="margin:0 22px 10px;padding:12px 14px">
+            <div class="meta-grid">
+              <div><small>Agreement baseline</small><b>₹42,00,000 · 10 months</b></div>
+              <div><small>Signed</small><b>12 Aug 2026 · PDF</b></div>
+              <div><small>Clause</small><b style="font-size:12px;font-weight:500">Changes in Structura form part of this agreement</b></div>
+              <div><small>Waiting approval</small><b class="cost-up">₹18,000 · +3 days</b></div>
+            </div>
+          </div>
           <div class="totals">
             <div class="totals-hero">
               <div class="was">
@@ -1727,6 +1842,20 @@
               <div class="dec-side">
                 <span class="badge badge-priced">Priced</span>
                 <div class="dec-money cost-up">+₹18,000<span class="days">+3 days</span></div>
+              </div>
+            </button>
+            <button class="dec-row" type="button" data-dec="d010">
+              <div>
+                <div class="dec-id">
+                  <span class="mono">D-010</span>
+                  <span class="type-chip">Revision</span>
+                </div>
+                <p class="dec-title">Window to 1.8 m instead</p>
+                <p class="dec-meta">Revises D-007 · not editable original</p>
+              </div>
+              <div class="dec-side">
+                <span class="badge badge-proposed">Proposed</span>
+                <div class="dec-money cost-up">+₹6,000<span class="days">+1 day</span></div>
               </div>
             </button>
             <button class="dec-row" type="button">
@@ -1811,7 +1940,11 @@
           <div class="audit">
             <span>Fingerprint <b>d007…9af2</b></span>
             <span>Evidence <b>WhatsApp msg · 13 Nov 9:18</b></span>
-            <span>No edit after approve — revise = new row</span>
+            <span>No edit after approve — revise = new row (see D-010)</span>
+          </div>
+          <div class="detail-card">
+            <small style="display:block;color:var(--muted-foreground);margin-bottom:6px">When Done</small>
+            <b style="font-size:13px;font-weight:500">Contractor marks complete with a site photo · links into the diary (Step 3).</b>
           </div>
         </section>
       </div>
@@ -1988,6 +2121,7 @@
           <p style="margin:0;font-size:12px;color:var(--muted-foreground)">
             Homeowners pay for checks (~₹3–5K / visit). Structura is the platform; the engineer is the professional.
           </p>
+          <a class="btn btn-outline btn-sm" href="client.html#gate" style="align-self:flex-start">Owner plain summary →</a>
         </section>
       </div>
 
@@ -2028,9 +2162,14 @@
             </div>
           </div>
         </div>
+        <label class="switch" style="margin:0">
+          <input type="checkbox" id="share-email" checked />
+          <span class="track" aria-hidden="true"></span>
+          Also email Meera (backup channel)
+        </label>
         <div class="panel-actions">
-          <button class="btn btn-primary" type="button">Send via WhatsApp API</button>
-          <a class="btn btn-outline" href="whatsapp.html" style="text-align:center">Day-one fallback · open wa.me</a>
+          <button class="btn btn-primary" type="button" id="send-share-api">Send via WhatsApp API</button>
+          <a class="btn btn-outline" href="https://wa.me/919876543210?text=Ground%20Floor%20Plan%20R03%20is%20ready%20for%20your%20approval%0A%0Ahttps%3A%2F%2Fstructura.app%2Fd%2Fga-a-101-r03" target="_blank" rel="noopener" style="text-align:center">Day-one · open wa.me</a>
           <button class="btn btn-ghost" type="button" id="close-share">Cancel</button>
         </div>
       </div>
@@ -2115,9 +2254,86 @@
 
     <div class="toast" id="toast" role="status"></div>
 
+    
+    <div class="drawer" id="invite" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <h2>Invite by phone</h2>
+        <p style="margin:0;color:var(--muted-foreground)">Name + mobile once. No password. WhatsApp opt-in required before we message.</p>
+        <div>
+          <label style="display:block;font-weight:500;margin-bottom:6px" for="inv-name">Name</label>
+          <input class="field" id="inv-name" value="Lekshmi Engg" />
+        </div>
+        <div>
+          <label style="display:block;font-weight:500;margin-bottom:6px" for="inv-phone">Mobile</label>
+          <input class="field" id="inv-phone" value="+91 96XXX XX880" />
+        </div>
+        <div>
+          <label style="display:block;font-weight:500;margin-bottom:6px">Role</label>
+          <div class="audience" role="radiogroup">
+            <label><input type="radio" name="inv-role" value="client" /><span>Client</span></label>
+            <label><input type="radio" name="inv-role" value="contractor" /><span>Contractor</span></label>
+            <label><input type="radio" name="inv-role" value="consultant" checked /><span>Consultant</span></label>
+          </div>
+        </div>
+        <label class="switch" style="margin:0">
+          <input type="checkbox" id="inv-optin" checked />
+          <span class="track" aria-hidden="true"></span>
+          WhatsApp opt-in proof (verbal · store on contact)
+        </label>
+        <p class="help" style="margin:0">They can reply STOP anytime. Language: English / Malayalam.</p>
+        <div class="panel-actions">
+          <button class="btn btn-primary" type="button" id="save-invite">Send invite on WhatsApp</button>
+          <button class="btn btn-ghost" type="button" id="close-invite">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer" id="upload" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <h2>Upload next revision</h2>
+        <p style="margin:0;color:var(--muted-foreground)">GA-A-101 · database issues <b class="mono">R04</b> automatically. SHA-256 on save.</p>
+        <div class="detail-card" style="padding:16px;border:1.5px dashed var(--input);text-align:center">
+          <b style="display:block;margin-bottom:6px">Drop PDF / DWG here</b>
+          <span style="font-size:12px;color:var(--muted-foreground)">Demo file · GF_Plan_R04.pdf · 18.2 MB</span>
+        </div>
+        <div>
+          <label style="display:block;font-weight:500;margin-bottom:6px" for="up-note">What changed</label>
+          <input class="field" id="up-note" value="Kitchen window to 1.5 m · beam seat clear" />
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-primary" type="button" id="save-upload">Save as R04</button>
+          <button class="btn btn-ghost" type="button" id="close-upload">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer" id="photo-stage" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <h2>Add site photo</h2>
+        <p style="margin:0;color:var(--muted-foreground)">Stage is asked before capture so the diary stays honest. In-app only — carries time &amp; location.</p>
+        <div>
+          <div style="font-weight:500;margin-bottom:8px">Stage</div>
+          <div class="audience" role="radiogroup" id="photo-stage-pick">
+            <label><input type="radio" name="ph-stage" value="foundation" /><span>Foundation</span></label>
+            <label><input type="radio" name="ph-stage" value="plinth" checked /><span>Plinth</span></label>
+            <label><input type="radio" name="ph-stage" value="slab" /><span>GF slab</span></label>
+          </div>
+        </div>
+        <label class="switch" style="margin:0">
+          <input type="checkbox" id="ph-pin" checked />
+          <span class="track" aria-hidden="true"></span>
+          Pin on GA-A-101 after capture
+        </label>
+        <div class="panel-actions">
+          <button class="btn btn-primary" type="button" id="save-photo">Open camera (demo)</button>
+          <button class="btn btn-ghost" type="button" id="close-photo-stage">Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" crossorigin=""></script>
     <script>
-      const FIRM_VIEWS = ["home", "projects", "inbox"];
+      const FIRM_VIEWS = ["home", "projects", "inbox", "waiting"];
       const PROJECT_VIEWS = ["project", "drawings", "decisions", "photos", "gates"];
       const views = [...FIRM_VIEWS, ...PROJECT_VIEWS];
       let sitesMap = null;
@@ -2440,6 +2656,11 @@
         if (app) app.classList.toggle("project-level", PROJECT_VIEWS.includes(name));
         history.replaceState(null, "", "#" + name);
         if (name === "home") refreshSitesMap();
+        if (name === "drawings") {
+          try {
+            if (sessionStorage.getItem("structura-revision")) applyClientRevision();
+          } catch (e) {}
+        }
         closeProjSwitch();
       }
 
@@ -2494,6 +2715,7 @@
       renderMapSites();
       setProject(currentProjectId);
 
+
       document.querySelectorAll("[data-attn-filter]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const filter = btn.dataset.attnFilter;
@@ -2509,7 +2731,7 @@
 
       const drawer = document.getElementById("share");
       const openShare = () => drawer.classList.add("open");
-      document.querySelectorAll("[data-share], #open-share, #open-share-home").forEach((el) => {
+      document.querySelectorAll("[data-share], #open-share").forEach((el) => {
         el.addEventListener("click", openShare);
       });
       document.getElementById("close-share").onclick = () => drawer.classList.remove("open");
@@ -2543,8 +2765,68 @@
         canvas.classList.add("compare-on");
         toast("Comparing R02 · R03");
       };
-      document.getElementById("fake-upload").onclick = () => toast("Upload → next revision R04 (demo)");
-      document.getElementById("fake-photo").onclick = () => toast("Pick stage → capture in-app (demo)");
+      const uploadDrawer = document.getElementById("upload");
+      document.getElementById("fake-upload").onclick = () => uploadDrawer.classList.add("open");
+      document.getElementById("close-upload").onclick = () => uploadDrawer.classList.remove("open");
+      uploadDrawer.addEventListener("click", (e) => { if (e.target === uploadDrawer) uploadDrawer.classList.remove("open"); });
+      document.getElementById("save-upload").onclick = () => {
+        uploadDrawer.classList.remove("open");
+        const strip = document.getElementById("drawings-strip");
+        if (strip) strip.textContent = "R04 saved · ready to Share · fingerprint queued";
+        toast("GA-A-101 R04 saved · SHA-256 recorded");
+        show("drawings");
+      };
+
+      const photoStage = document.getElementById("photo-stage");
+      document.getElementById("fake-photo").onclick = () => photoStage.classList.add("open");
+      document.getElementById("close-photo-stage").onclick = () => photoStage.classList.remove("open");
+      photoStage.addEventListener("click", (e) => { if (e.target === photoStage) photoStage.classList.remove("open"); });
+      document.getElementById("save-photo").onclick = () => {
+        photoStage.classList.remove("open");
+        const stage = (document.querySelector('input[name="ph-stage"]:checked') || {}).value || "plinth";
+        toast("Captured · stage " + stage + (document.getElementById("ph-pin").checked ? " · pin on drawing" : ""));
+        show("photos");
+      };
+
+      const inviteDrawer = document.getElementById("invite");
+      document.getElementById("open-invite").onclick = () => inviteDrawer.classList.add("open");
+      document.getElementById("close-invite").onclick = () => inviteDrawer.classList.remove("open");
+      inviteDrawer.addEventListener("click", (e) => { if (e.target === inviteDrawer) inviteDrawer.classList.remove("open"); });
+      document.getElementById("save-invite").onclick = () => {
+        inviteDrawer.classList.remove("open");
+        const ok = document.getElementById("inv-optin").checked;
+        toast(ok ? "Invite queued · opt-in stored on contact" : "Need WhatsApp opt-in before messaging");
+      };
+
+      const sendShare = document.getElementById("send-share-api");
+      if (sendShare) {
+        sendShare.onclick = () => {
+          const email = document.getElementById("share-email") && document.getElementById("share-email").checked;
+          document.getElementById("share").classList.remove("open");
+          toast(email ? "WhatsApp sent · email backup queued" : "WhatsApp sent from firm number");
+        };
+      }
+
+      function applyClientRevision() {
+        let note = null;
+        try { note = sessionStorage.getItem("structura-revision"); } catch (e) {}
+        if (!note) return;
+        try { sessionStorage.removeItem("structura-revision"); } catch (e) {}
+        const rev = document.getElementById("doc-revision");
+        const under = document.getElementById("doc-under-review");
+        if (rev && under) {
+          rev.hidden = false;
+          under.classList.remove("selected");
+          rev.classList.add("selected");
+          const meta = document.getElementById("rev-meta");
+          const span = document.getElementById("rev-note");
+          if (meta) meta.textContent = "GA-A-101 · R03 · “" + note.slice(0, 48) + "”";
+          if (span) span.textContent = "Client · Revision Required";
+          const strip = document.getElementById("drawings-strip");
+          if (strip) strip.textContent = "Revision Required · Meera’s note on R03 · upload R04 when ready";
+        }
+        toast("Client requested revision · status updated");
+      }
 
       const PHOTO_DETAIL = {
         pour: {
@@ -2642,6 +2924,17 @@
       const hash = (location.hash || "").replace("#", "");
       if (views.includes(hash)) show(hash);
       else refreshSitesMap();
+      if (hash === "drawings" || hash === "revision") {
+        if (hash === "revision") show("drawings");
+        applyClientRevision();
+      }
+      // Client revise deep-link
+      try {
+        if (sessionStorage.getItem("structura-revision") && (hash === "drawings" || !hash)) {
+          show("drawings");
+          applyClientRevision();
+        }
+      } catch (e) {}
     </script>
   </body>
 </html>

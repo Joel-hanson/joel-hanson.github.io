@@ -246,6 +246,7 @@
         <a href="#drawing" data-mode="drawing">Drawing</a>
         <a href="#decision" data-mode="decision">Decision</a>
         <a href="#contractor" data-mode="contractor">Contractor</a>
+        <a href="#gate" data-mode="gate">Stage gate</a>
       </div>
 
       <div class="device" id="phone">
@@ -273,11 +274,6 @@
               <div class="note need">
                 <strong>Needs you</strong>
                 Approve ground floor R03, or decide on D-007 (+₹18,000).
-              </div>
-              <div class="totals-mini">
-                <div class="row"><span>Agreement</span><span class="mono">₹42,00,000</span></div>
-                <div class="row"><span>Approved changes</span><span class="mono cost-up">+₹1,77,000</span></div>
-                <div class="row"><span>Current total</span><span class="mono">₹43,70,000 · +12 days</span></div>
               </div>
               <div class="list">
                 <button class="doc" type="button" data-jump="drawing">
@@ -308,9 +304,6 @@
                   </div>
                 </button>
               </div>
-            </div>
-            <div class="actions">
-              <a class="btn btn-outline" href="login.html" style="text-align:center">Phone login demo</a>
             </div>
             <p class="via">Opened from a WhatsApp link · <a href="whatsapp.html">see chat journey</a></p>
           </div>
@@ -350,6 +343,13 @@
               <h2>Drawing approved</h2>
               <p>Recorded with your WhatsApp number and the file fingerprint. Your architect was notified.</p>
               <button class="btn btn-outline btn-sm" type="button" data-jump="project" style="margin-top:20px;display:inline-flex">Back to project</button>
+            </div>
+            <div class="done" id="revise-done">
+              <div class="check" style="background:var(--status-revision-bg);color:var(--status-revision-fg)"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
+              <h2>Revision requested</h2>
+              <p id="revise-done-copy">Sent to X Architects. Drawing is now Revision Required until they issue the next revision.</p>
+              <a class="btn btn-primary btn-sm" href="firm.html#drawings" style="margin-top:20px;display:inline-flex">See firm register</a>
+              <button class="btn btn-ghost btn-sm" type="button" data-jump="project" style="margin-top:8px;display:inline-flex">Back to project</button>
             </div>
           </div>
 
@@ -427,6 +427,49 @@
               <a class="btn btn-outline btn-sm" href="client.html#decision" style="margin-top:20px;display:inline-flex">Client approve next</a>
             </div>
           </div>
+
+          <!-- OWNER STAGE GATE -->
+          <div class="screen" id="screen-gate">
+            <header class="hdr">
+              <p class="from">Nair Clinic · stage check</p>
+              <h1>Pre-pour · ground floor slab</h1>
+              <div class="row">
+                <span class="badge badge-revision">Fix needed</span>
+                <span class="mono">Eng. Suresh</span>
+              </div>
+            </header>
+            <div class="body">
+              <div class="note need">
+                <strong>In plain language</strong>
+                One item needs fixing before concrete. Release this stage payment only after it passes.
+              </div>
+              <div class="list" style="padding-top:4px">
+                <div class="doc" style="cursor:default">
+                  <div>
+                    <h3>Cover blocks · beam steel · formwork</h3>
+                    <p class="meta">3 of 4 checks passed</p>
+                  </div>
+                  <div class="side"><span class="badge badge-approved">OK</span></div>
+                </div>
+                <div class="doc" style="cursor:default">
+                  <div>
+                    <h3>Lap length at grid B</h3>
+                    <p class="meta">Short — fix before pour</p>
+                  </div>
+                  <div class="side"><span class="badge badge-revision">Fix</span></div>
+                </div>
+              </div>
+              <div class="totals-mini">
+                <div class="row"><span>Your check fee</span><span class="mono">₹4,000</span></div>
+                <div class="row"><span>Stage payment</span><span class="mono">Hold until pass</span></div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" type="button" disabled style="opacity:.55">Release payment · locked</button>
+              <a class="btn btn-outline" href="firm.html#gates" style="text-align:center">Firm checklist</a>
+            </div>
+            <p class="via">Homeowners pay for checks · Structura is the platform</p>
+          </div>
         </div>
       </div>
     </div>
@@ -456,14 +499,15 @@
         <p class="hint-otp">
           Flags the drawing as Revision Required. Or reply on WhatsApp — same firm inbox.
         </p>
-        <textarea placeholder="e.g. Can the kitchen window be wider?"></textarea>
+        <textarea id="revise-note" placeholder="e.g. Can the kitchen window be wider?"></textarea>
+        <button class="btn btn-outline" type="button" id="fake-voice" style="width:100%;margin-bottom:8px">Record voice note (demo)</button>
         <button class="btn btn-primary" type="button" id="send-revise" style="width:100%">Send to architect</button>
         <button class="btn btn-ghost" type="button" id="cancel-revise" style="width:100%;margin-top:8px">Cancel</button>
       </div>
     </div>
 
     <script>
-      const modes = ["project", "drawing", "decision", "contractor"];
+      const modes = ["project", "drawing", "decision", "contractor", "gate"];
       let pendingOtp = "drawing";
 
       function showMode(mode) {
@@ -475,14 +519,14 @@
           a.classList.toggle("on", a.dataset.mode === mode);
         });
         history.replaceState(null, "", "#" + mode);
-        document.title =
-          mode === "contractor"
-            ? "Structura — Contractor"
-            : mode === "project"
-              ? "Structura — Client · Project"
-              : mode === "decision"
-                ? "Structura — Client · Decision"
-                : "Structura — Client · Drawing";
+        const titles = {
+          contractor: "Structura — Contractor",
+          project: "Structura — Client · Project",
+          decision: "Structura — Client · Decision",
+          gate: "Structura — Client · Stage gate",
+          drawing: "Structura — Client · Drawing",
+        };
+        document.title = titles[mode] || titles.drawing;
       }
 
       document.querySelectorAll(".mode-link a").forEach((a) => {
@@ -514,6 +558,11 @@
       document.getElementById("revise").onclick = () => revise.classList.add("open");
       document.getElementById("cancel-otp").onclick = () => otp.classList.remove("open");
       document.getElementById("cancel-revise").onclick = () => revise.classList.remove("open");
+      document.getElementById("fake-voice").onclick = () => {
+        const ta = document.getElementById("revise-note");
+        ta.value = (ta.value ? ta.value + "\n" : "") + "[Voice note · 0:12] Kitchen window wider please";
+        ta.focus();
+      };
       document.getElementById("confirm-otp").onclick = () => {
         otp.classList.remove("open");
         const actions = document.getElementById(pendingOtp + "-actions");
@@ -522,8 +571,14 @@
         if (done) done.classList.add("open");
       };
       document.getElementById("send-revise").onclick = () => {
+        const note = (document.getElementById("revise-note").value || "").trim();
         revise.classList.remove("open");
-        window.location.href = "firm.html#inbox";
+        document.getElementById("drawing-actions").style.display = "none";
+        const copy = document.getElementById("revise-done-copy");
+        if (copy && note) copy.textContent = "“" + note.slice(0, 120) + "” · Revision Required on the firm register.";
+        document.getElementById("revise-done").classList.add("open");
+        // Firm register lands on drawings with revision badge highlighted via hash
+        try { sessionStorage.setItem("structura-revision", note || "Wider kitchen window"); } catch (e) {}
       };
       document.querySelectorAll(".otp input").forEach((input, i, arr) => {
         input.addEventListener("input", () => {

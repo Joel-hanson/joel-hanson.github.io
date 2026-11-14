@@ -30,7 +30,7 @@
       }
       .steps {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         gap: 10px;
         margin-bottom: 28px;
       }
@@ -265,6 +265,10 @@
           <small>Step 5 · later</small>
           <strong>Decision ask</strong>
         </button>
+        <button class="step-tab" type="button" data-step="6">
+          <small>Step 6</small>
+          <strong>Saturday summary</strong>
+        </button>
       </div>
 
       <!-- STEP 1 -->
@@ -481,7 +485,7 @@
           <div class="actions">
             <a class="btn btn-primary btn-sm" href="client.html#decision">Open client decision</a>
             <a class="btn btn-outline btn-sm" href="firm.html#decisions">Firm decision log</a>
-            <button class="btn btn-ghost btn-sm" type="button" data-step="1">Restart</button>
+            <button class="btn btn-outline btn-sm" type="button" data-step="6">Next · Saturday summary</button>
           </div>
         </div>
         <div class="phone">
@@ -520,20 +524,74 @@
       </div>
     </main>
 
-    <script>
+    
+      <!-- STEP 6 · Saturday summary -->
+      <div class="stage" id="step-6">
+        <div class="copy">
+          <h2>Weekly summary · EN or Malayalam</h2>
+          <p>
+            Every Saturday a short digest from the firm number. Keeps NRIs and quiet clients
+            informed without opening the full app. Reply STOP anytime.
+          </p>
+          <ol>
+            <li>Counts only: shared, waiting approval, questions answered.</li>
+            <li>Language from contact preference (Malayalam path ready).</li>
+            <li>Links deep into Structura browser pages.</li>
+          </ol>
+          <div class="actions">
+            <button class="btn btn-outline btn-sm" type="button" data-step="5">← Decision ask</button>
+            <button class="btn btn-primary btn-sm" type="button" data-step="1">Restart journey</button>
+            <a class="btn btn-ghost btn-sm" href="client.html#project">Client project</a>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="wa-bar">
+              <div class="ava">XA</div>
+              <div class="who">
+                <strong>X Architects</strong>
+                <span>Business account</span>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="day">Saturday</div>
+              <div class="msg in">
+                <div class="label">X Architects</div>
+                This week on Meera Residence:
+                <br /><br />
+                · 2 drawings shared<br />
+                · 1 waiting for your approval<br />
+                · 1 question answered
+                <br /><br />
+                <span class="ml">ഈ ആഴ്ച: 2 ഡ്രോയിംഗ് · 1 അംഗീകാരം കാത്തിരിപ്പ്</span>
+                <br /><br />
+                <a href="client.html#project">structura.app/p/meera</a>
+                <span class="time">09:00 ✓✓</span>
+              </div>
+            </div>
+            <div class="composer">
+              <div class="field">Message</div>
+              <div class="send"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script>
       function go(n) {
         document.querySelectorAll(".stage").forEach((el) => el.classList.remove("on"));
         document.getElementById("step-" + n).classList.add("on");
         document.querySelectorAll(".step-tab").forEach((t) => {
           t.classList.toggle("active", t.dataset.step === String(n));
         });
-        history.replaceState(null, "", n === "5" || n === 5 ? "#decision" : "#step-" + n);
+        history.replaceState(null, "", n == 5 ? "#decision" : n == 6 ? "#summary" : "#step-" + n);
       }
       document.querySelectorAll("[data-step]").forEach((el) => {
         el.addEventListener("click", () => go(el.dataset.step));
       });
       const h = (location.hash || "").replace("#", "");
       if (h === "decision") go(5);
+      else if (h === "summary") go(6);
       else if (h.startsWith("step-")) go(h.replace("step-", ""));
     </script>
   </body>
