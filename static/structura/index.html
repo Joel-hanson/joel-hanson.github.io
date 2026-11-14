@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Structura — Product mockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      .shell {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 8px 16px 48px;
+      }
+      .panel {
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        padding: 28px 28px 32px;
+      }
+      .brand-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--brand);
+        color: #faf8f4;
+        display: grid;
+        place-items: center;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .brand-row h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+      .brand-row p {
+        margin: 2px 0 0;
+        font-size: 13px;
+        color: var(--muted-foreground);
+      }
+      .lede {
+        margin: 0 0 22px;
+        font-size: 15px;
+        color: var(--muted-foreground);
+        max-width: 38em;
+        line-height: 1.5;
+      }
+      .grid {
+        display: grid;
+        gap: 10px;
+      }
+      @media (min-width: 720px) {
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .grid.later {
+          grid-template-columns: repeat(3, 1fr);
+          margin-top: 10px;
+        }
+      }
+      .section-label {
+        margin: 22px 0 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 18px;
+        border-radius: var(--radius-lg);
+        min-height: 150px;
+        background: var(--card);
+        border: 1.5px solid var(--border);
+        color: var(--foreground);
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+      .card:hover {
+        border-color: var(--foreground);
+        box-shadow: var(--shadow-md);
+      }
+      .card.hot {
+        border-color: var(--foreground);
+      }
+      .card small {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted-foreground);
+      }
+      .card h2 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .card p {
+        margin: 0;
+        flex: 1;
+        font-size: 13px;
+        color: var(--muted-foreground);
+        line-height: 1.45;
+      }
+      .card .go {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .path {
+        margin-top: 20px;
+        padding: 18px 20px;
+        background: var(--muted);
+        border-radius: var(--radius-lg);
+      }
+      .path h3 {
+        margin: 0 0 10px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .path ol {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted-foreground);
+        font-size: 13px;
+      }
+      .path li {
+        margin-bottom: 6px;
+      }
+      .path a {
+        color: var(--foreground);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .note {
+        margin-top: 20px;
+        color: var(--muted-foreground);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="flow-nav" aria-label="Flows">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="design-system.html">Design system</a>
+      <a href="login.html">Login</a>
+      <a href="firm.html">Firm</a>
+      <a href="whatsapp.html">WhatsApp</a>
+      <a href="client.html">Client</a>
+    </nav>
+
+    <div class="shell">
+      <main class="panel">
+        <div class="brand-row">
+          <div class="logo" aria-hidden="true">S</div>
+          <div>
+            <h1>Structura</h1>
+            <p>Coordination mockup · firm · WhatsApp · client</p>
+          </div>
+        </div>
+
+        <p class="lede">
+          Step 1 first. Client surfaces match the firm design system (English for now).
+          Decision / photos / gates stay optional for “what’s next?”
+        </p>
+
+        <p class="section-label">Design · local</p>
+        <div class="grid">
+          <a class="card" href="design-system.html">
+            <small>DS</small>
+            <h2>Design system</h2>
+            <p>Tokens, badges, buttons — no Figma required.</p>
+            <span class="go">Open catalog →</span>
+          </a>
+        </div>
+
+        <p class="section-label">Step 1 · Drawing register</p>
+        <div class="grid">
+          <a class="card hot" href="login.html">
+            <small>00 · Access</small>
+            <h2>Phone login</h2>
+            <p>Number + OTP — firm or client. No password.</p>
+            <span class="go">Sign in →</span>
+          </a>
+          <a class="card" href="firm.html#home">
+            <small>01 · Firm</small>
+            <h2>Firm app</h2>
+            <p>Home → All projects → switcher inside a project.</p>
+            <span class="go">Open →</span>
+          </a>
+          <a class="card" href="whatsapp.html">
+            <small>02 · Channel</small>
+            <h2>WhatsApp</h2>
+            <p>Share → approve → reply → answer.</p>
+            <span class="go">Walk through →</span>
+          </a>
+        </div>
+        <div class="grid" style="margin-top:10px">
+          <a class="card" href="client.html#project">
+            <small>03 · Client</small>
+            <h2>Client / contractor</h2>
+            <p>Structura in the browser — not WhatsApp chrome. Approve + OTP.</p>
+            <span class="go">Open →</span>
+          </a>
+        </div>
+
+        <p class="section-label">Later · Differentiation</p>
+        <div class="grid later">
+          <a class="card" href="firm.html#decisions">
+            <small>Step 2</small>
+            <h2>Decision log</h2>
+            <p>Totals, variation PDF, turn inbox → decision.</p>
+            <span class="go">Firm decisions →</span>
+          </a>
+          <a class="card" href="firm.html#photos">
+            <small>Step 3</small>
+            <h2>Site photos</h2>
+            <p>Site diary by stage · before/after · pins.</p>
+            <span class="go">Peek →</span>
+          </a>
+          <a class="card" href="firm.html#gates">
+            <small>Step 4</small>
+            <h2>Stage gates</h2>
+            <p>Engineer checklist · plain owner summary.</p>
+            <span class="go">Peek →</span>
+          </a>
+        </div>
+
+        <div class="path">
+          <h3>Suggested click path</h3>
+          <ol>
+            <li><a href="login.html">Login</a> — phone + OTP (firm or client)</li>
+            <li><a href="firm.html#projects">All projects</a> → open one → overview → drawings</li>
+            <li><a href="whatsapp.html">WhatsApp</a> — share &amp; approve</li>
+            <li><a href="client.html#project">Client project</a> → drawing / decision OTP</li>
+            <li><a href="firm.html#decisions">Decisions</a> → Variation PDF</li>
+          </ol>
+        </div>
+      </main>
+      <p class="note">
+        Product mockup · <a href="design-system.html">Design system</a>
+        · not the production app yet
+      </p>
+    </div>
+  </body>
+</html>

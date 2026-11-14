@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Structura — Design system</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      .shell { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
+      .hero {
+        background: var(--card); border-radius: var(--radius-xl); box-shadow: var(--shadow-md);
+        padding: 28px; margin-bottom: 16px;
+      }
+      .hero-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+      .logo {
+        width: 44px; height: 44px; border-radius: 50%;
+        background: var(--brand); color: #faf8f4;
+        display: grid; place-items: center; font-weight: 600; font-size: 15px;
+      }
+      .hero h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.03em; }
+      .hero .lede { margin: 2px 0 0; font-size: 13px; color: var(--muted-foreground); }
+      .hero p { margin: 0; color: var(--muted-foreground); font-size: 14px; max-width: 40em; line-height: 1.5; }
+
+      .section {
+        background: var(--card); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm);
+        padding: 22px 24px 24px; margin-bottom: 12px;
+      }
+      .section h2 {
+        margin: 0 0 4px; font-size: 15px; font-weight: 600; letter-spacing: -0.02em;
+      }
+      .section .hint {
+        margin: 0 0 16px; font-size: 12px; color: var(--muted-foreground);
+      }
+
+      .swatch-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px;
+      }
+      .swatch {
+        border-radius: var(--radius-md); overflow: hidden;
+        border: 1.5px solid var(--border);
+      }
+      .swatch .chip { height: 48px; }
+      .swatch .meta { padding: 8px 10px; background: var(--card); }
+      .swatch .meta strong { display: block; font-size: 12px; font-weight: 600; }
+      .swatch .meta code {
+        font-family: var(--font-mono); font-size: 10px; color: var(--muted-foreground);
+      }
+
+      .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+      .stack { display: flex; flex-direction: column; gap: 10px; }
+
+      .type-sample { margin: 0 0 12px; }
+      .type-sample .label {
+        font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+        text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 4px;
+      }
+      .type-xl { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; }
+      .type-lg { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+      .type-body { font-size: 14px; }
+      .type-mono { font-family: var(--font-mono); font-size: 13px; font-weight: 500; }
+      .type-ml { font-family: "Noto Sans Malayalam", var(--font-sans); font-size: 14px; }
+
+      .radius-demo {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+      }
+      .radius-demo div {
+        height: 64px; background: var(--muted); display: grid; place-items: center;
+        font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground);
+      }
+
+      .shadow-demo { display: flex; flex-wrap: wrap; gap: 16px; }
+      .shadow-demo > div {
+        width: 120px; height: 72px; background: var(--card); border-radius: var(--radius-lg);
+        display: grid; place-items: center;
+        font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground);
+      }
+
+      .panel-demo {
+        padding: 16px; border-radius: var(--radius-lg); background: var(--background);
+        display: grid; gap: 10px;
+      }
+      .panel-demo .float {
+        background: var(--card); border-radius: var(--radius-lg); padding: 14px 16px;
+        box-shadow: var(--shadow-md);
+      }
+
+      .rules {
+        margin: 0; padding-left: 18px; font-size: 13px; color: var(--foreground);
+      }
+      .rules li { margin-bottom: 6px; }
+      .rules code { font-family: var(--font-mono); font-size: 12px; }
+
+      .surface-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      }
+      @media (max-width: 720px) {
+        .surface-grid, .radius-demo { grid-template-columns: 1fr; }
+      }
+      .surface {
+        padding: 14px; border-radius: var(--radius-lg); border: 1.5px solid var(--border);
+      }
+      .surface h3 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+      .surface p { margin: 0; font-size: 12px; color: var(--muted-foreground); line-height: 1.4; }
+      .surface.wa {
+        background: #0b141a; color: #e9edef; border-color: #1f2c34;
+      }
+      .surface.wa p { color: #8696a0; }
+      .surface.wa h3 { color: #e9edef; }
+
+      .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+      .links a {
+        font-size: 12px; font-weight: 500; padding: 7px 12px; border-radius: 999px;
+        background: var(--muted); color: var(--foreground);
+      }
+      .links a:hover { background: var(--secondary); }
+    </style>
+  </head>
+  <body>
+    <nav class="flow-nav" aria-label="Flows">
+      <a href="index.html">Overview</a>
+      <a href="design-system.html" aria-current="page">Design system</a>
+      <a href="login.html">Login</a>
+      <a href="firm.html">Firm</a>
+      <a href="whatsapp.html">WhatsApp</a>
+      <a href="client.html">Client</a>
+    </nav>
+
+    <div class="shell">
+      <header class="hero">
+        <div class="hero-top">
+          <div class="logo" aria-hidden="true">S</div>
+          <div>
+            <h1>Design system</h1>
+            <p class="lede">Local catalog · tokens.css · Light only</p>
+          </div>
+        </div>
+        <p>
+          Working source for mockups and upcoming Next.js. Figma file stays the long-term design target;
+          sync Patterns when MCP works. Brand green is for the logo mark only.
+        </p>
+        <div class="links">
+          <a href="tokens.css">tokens.css</a>
+          <a href="../docs/Design-System.md">docs/Design-System.md</a>
+          <a href="firm.html">Firm mockup</a>
+          <a href="client.html">Client mockup</a>
+        </div>
+      </header>
+
+      <section class="section">
+        <h2>Surfaces</h2>
+        <p class="hint">Keep these distinguishable</p>
+        <div class="surface-grid">
+          <div class="surface">
+            <h3>Firm</h3>
+            <p>Desktop Structura — rail, floating panels, map + queue. Same tokens.</p>
+          </div>
+          <div class="surface">
+            <h3>Client</h3>
+            <p>Phone Structura browser — same DS as firm. Not WhatsApp chrome.</p>
+          </div>
+          <div class="surface wa">
+            <h3>WhatsApp</h3>
+            <p>Chat UI only — notify, OTP, reply context. Never the product shell.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Core colours</h2>
+        <p class="hint">Bind these names — don’t invent hex in screens</p>
+        <div class="swatch-grid" id="core-swatches"></div>
+      </section>
+
+      <section class="section">
+        <h2>Status · drawings</h2>
+        <p class="hint">Draft → Under Review → Revision Required → Approved → Issued → Archived</p>
+        <div class="row" style="margin-bottom:14px">
+          <span class="badge badge-draft">Draft</span>
+          <span class="badge badge-review">Under review</span>
+          <span class="badge badge-revision">Revision required</span>
+          <span class="badge badge-approved">Approved</span>
+          <span class="badge badge-issued">Issued</span>
+        </div>
+        <div class="swatch-grid" id="status-draw-swatches"></div>
+      </section>
+
+      <section class="section">
+        <h2>Status · decisions</h2>
+        <p class="hint">Proposed → Priced → Approved/Rejected → Done/Cancelled</p>
+        <div class="row" style="margin-bottom:14px">
+          <span class="badge badge-proposed">Proposed</span>
+          <span class="badge badge-priced">Priced</span>
+          <span class="badge badge-approved">Approved</span>
+          <span class="badge badge-done">Done</span>
+        </div>
+        <div class="row" style="margin-bottom:14px">
+          <span class="cost-up">+₹18,000</span>
+          <span class="cost-down">−₹65,000</span>
+          <span class="rev">R03</span>
+          <span class="rev rev-old">R02</span>
+        </div>
+        <div class="swatch-grid" id="status-dec-swatches"></div>
+      </section>
+
+      <section class="section">
+        <h2>Typography</h2>
+        <p class="hint">IBM Plex Sans / Mono · Noto Sans Malayalam fallback</p>
+        <div class="type-sample">
+          <div class="label">Display</div>
+          <div class="type-xl">Meera Residence</div>
+        </div>
+        <div class="type-sample">
+          <div class="label">Title</div>
+          <div class="type-lg">Ground floor plan</div>
+        </div>
+        <div class="type-sample">
+          <div class="label">Body</div>
+          <div class="type-body">Kitchen window moved 300 mm east. Stair flight cleared against beam.</div>
+        </div>
+        <div class="type-sample">
+          <div class="label">Mono · codes / ₹ / revisions</div>
+          <div class="type-mono">GA-A-101 · R03 · ₹43,70,000 · D-007</div>
+        </div>
+        <div class="type-sample">
+          <div class="label">Malayalam path (deferred copy)</div>
+          <div class="type-ml">അംഗീകാരത്തിനായി തയ്യാർ</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Buttons</h2>
+        <p class="hint">Pill shape · near-black primary</p>
+        <div class="row">
+          <button class="btn btn-primary" type="button">Primary</button>
+          <button class="btn btn-outline" type="button">Outline</button>
+          <button class="btn btn-secondary" type="button">Secondary</button>
+          <button class="btn btn-ghost" type="button">Ghost</button>
+          <button class="btn btn-primary btn-sm" type="button">Small</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Radius &amp; elevation</h2>
+        <p class="hint">Large radius (~20px) · soft floating panels</p>
+        <div class="radius-demo" style="margin-bottom:16px">
+          <div style="border-radius:var(--radius-sm)">sm 8</div>
+          <div style="border-radius:var(--radius-md)">md 12</div>
+          <div style="border-radius:var(--radius-lg)">lg 20</div>
+          <div style="border-radius:var(--radius-xl)">xl 28</div>
+        </div>
+        <div class="shadow-demo">
+          <div style="box-shadow:var(--shadow-sm)">sm</div>
+          <div style="box-shadow:var(--shadow-md)">md</div>
+          <div style="box-shadow:var(--shadow-lg)">lg</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Composition</h2>
+        <p class="hint">Cool gray canvas · white floating panels</p>
+        <div class="panel-demo">
+          <div class="float">
+            <strong style="display:block;margin-bottom:4px">Panel</strong>
+            <span style="font-size:13px;color:var(--muted-foreground)">List + detail live on panels, not on the canvas.</span>
+          </div>
+          <div class="float" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <span style="font-size:13px">Selected drawing + sheet preview</span>
+            <span class="badge badge-review">Under review</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Icons</h2>
+        <p class="hint">Lucide only · stroke 1.75 · use lucide-react in app code</p>
+        <div class="row">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="m8 7 4-4 4 4"/><path d="M4 12h16"/><path d="m8 17 4 4 4-4"/></svg>
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Rules for agents</h2>
+        <p class="hint">Also in AGENTS.md</p>
+        <ul class="rules">
+          <li>Edit <code>prototypes/tokens.css</code> first; screens consume it.</li>
+          <li>Status colour is the loudest signal — don’t mute badges.</li>
+          <li>No Inter / Roboto / purple gradients / cream+terracotta AI defaults.</li>
+          <li>Don’t put WhatsApp green chrome on client or firm pages.</li>
+          <li>Avoid metric-card strips; prefer next action + real work lists.</li>
+          <li>When Figma MCP is available: screenshot Patterns from these mockups — don’t redesign from scratch.</li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      function swatches(hostId, items) {
+        const host = document.getElementById(hostId);
+        if (!host) return;
+        host.innerHTML = items
+          .map(
+            ([name, cssVar]) => `
+          <div class="swatch">
+            <div class="chip" style="background:var(${cssVar})"></div>
+            <div class="meta">
+              <strong>${name}</strong>
+              <code>${cssVar}</code>
+            </div>
+          </div>`
+          )
+          .join("");
+      }
+
+      swatches("core-swatches", [
+        ["Background", "--background"],
+        ["Foreground", "--foreground"],
+        ["Card", "--card"],
+        ["Primary", "--primary"],
+        ["Muted", "--muted"],
+        ["Muted fg", "--muted-foreground"],
+        ["Border", "--border"],
+        ["Brand", "--brand"],
+        ["Brand soft", "--brand-soft"],
+        ["Destructive", "--destructive"],
+        ["Cost up", "--cost-increase"],
+        ["Cost down", "--cost-saving"],
+      ]);
+
+      swatches("status-draw-swatches", [
+        ["Draft bg", "--status-draft-bg"],
+        ["Review bg", "--status-review-bg"],
+        ["Revision bg", "--status-revision-bg"],
+        ["Approved bg", "--status-approved-bg"],
+        ["Issued bg", "--status-issued-bg"],
+      ]);
+
+      swatches("status-dec-swatches", [
+        ["Proposed bg", "--status-proposed-bg"],
+        ["Priced bg", "--status-priced-bg"],
+        ["Done bg", "--status-done-bg"],
+        ["Cost up bg", "--cost-increase-bg"],
+        ["Cost save bg", "--cost-saving-bg"],
+      ]);
+    </script>
+  </body>
+</html>

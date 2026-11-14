@@ -1,0 +1,2647 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Structura — Firm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      body { min-height: 100vh; overflow: hidden; }
+      .app {
+        display: grid;
+        grid-template-columns: 208px 1fr;
+        gap: 12px;
+        height: calc(100vh - 44px);
+        padding: 0 12px 12px;
+      }
+      .workspace {
+        display: flex; flex-direction: column; gap: 10px;
+        min-width: 0; min-height: 0;
+      }
+      .workspace-body {
+        flex: 1; min-height: 0; display: flex; flex-direction: column;
+      }
+      .workspace-body > .stage {
+        flex: 1; min-height: 0;
+      }
+      .context-bar {
+        display: none; align-items: center; gap: 12px; flex-wrap: wrap;
+        padding: 10px 14px; background: var(--card); border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm); flex-shrink: 0;
+      }
+      .app.project-level .context-bar { display: flex; }
+      .context-bar .crumb {
+        font-size: 12px; color: var(--muted-foreground); font-weight: 500;
+      }
+      .context-bar .crumb button {
+        color: var(--muted-foreground); font-weight: 500; font-size: 12px;
+        text-decoration: underline; text-underline-offset: 2px;
+      }
+      .context-bar .crumb button:hover { color: var(--foreground); }
+      .proj-switch {
+        position: relative;
+      }
+      .proj-switch-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 12px; border-radius: 999px;
+        background: var(--muted); font-weight: 600; font-size: 13px;
+      }
+      .proj-switch-btn .code {
+        font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--muted-foreground);
+      }
+      .proj-switch-menu {
+        display: none; position: absolute; top: calc(100% + 6px); left: 0; z-index: 20;
+        min-width: 260px; padding: 6px; background: var(--card);
+        border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+        border: 1.5px solid var(--border);
+      }
+      .proj-switch.open .proj-switch-menu { display: block; }
+      .proj-switch-menu button {
+        display: flex; width: 100%; text-align: left; gap: 10px; align-items: center;
+        padding: 10px 12px; border-radius: var(--radius-md); font-size: 13px;
+      }
+      .proj-switch-menu button:hover { background: var(--muted); }
+      .proj-switch-menu button.active { background: var(--muted); font-weight: 600; }
+      .proj-switch-menu .pm-meta {
+        display: block; font-size: 11px; color: var(--muted-foreground); font-weight: 400;
+      }
+      .context-nav {
+        display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto;
+      }
+      .context-nav button {
+        padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 500;
+        color: var(--muted-foreground);
+      }
+      .context-nav button:hover { background: var(--muted); color: var(--foreground); }
+      .context-nav button.active {
+        background: var(--primary); color: var(--primary-foreground);
+      }
+      .rail-group.project-nav .rail-label::after {
+        content: "";
+      }
+      .app:not(.project-level) .rail-group.project-nav {
+        opacity: 0.72;
+      }
+      .projects-list { padding: 8px 14px 20px; display: flex; flex-direction: column; gap: 8px; }
+      .project-row {
+        display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center;
+        width: 100%; text-align: left; padding: 14px; border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border); background: var(--card);
+      }
+      .project-row:hover { border-color: var(--foreground); box-shadow: var(--shadow-sm); }
+      .project-row.active { border-color: var(--foreground); }
+      .project-row h3 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+      .project-row .meta { margin: 4px 0 0; font-size: 12px; color: var(--muted-foreground); }
+      .proj-switch-btn .icon { stroke: currentColor; fill: none; }
+      .rail {
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 12px;
+        gap: 4px;
+        min-height: 0;
+        overflow: auto;
+      }
+      .rail-brand {
+        display: flex; align-items: center; gap: 10px;
+        padding: 4px 8px 14px; margin-bottom: 4px;
+      }
+      .logo {
+        width: 36px; height: 36px; border-radius: 50%;
+        background: var(--brand); color: #faf8f4;
+        display: grid; place-items: center;
+        font-weight: 600; font-size: 13px; flex-shrink: 0;
+      }
+      .rail-brand .firm-name {
+        font-weight: 600; font-size: 13px; letter-spacing: -0.02em; line-height: 1.2;
+      }
+      .rail-brand .firm-name span {
+        display: block; font-weight: 400; font-size: 11px; color: var(--muted-foreground);
+      }
+      .rail-group {
+        display: flex; flex-direction: column; gap: 2px;
+        margin-bottom: 10px;
+      }
+      .rail-label {
+        font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+        text-transform: uppercase; color: var(--muted-foreground);
+        padding: 6px 10px 4px;
+      }
+      .rail a, .rail button {
+        width: 100%; border-radius: 12px;
+        display: flex; align-items: center; gap: 10px;
+        padding: 9px 10px; color: var(--muted-foreground);
+        position: relative; text-align: left; font-size: 13px; font-weight: 500;
+      }
+      .rail a .icon, .rail button .icon { flex-shrink: 0; }
+      .rail a.active, .rail button.active {
+        background: var(--muted); color: var(--foreground);
+      }
+      .rail a:hover, .rail button:hover {
+        color: var(--foreground); background: var(--muted);
+      }
+      .rail .nav-count {
+        margin-left: auto;
+        font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+        min-width: 20px; height: 20px; border-radius: 999px;
+        display: grid; place-items: center;
+        background: var(--foreground); color: var(--primary-foreground);
+      }
+      .rail .badge-dot {
+        position: absolute; top: 10px; left: 28px;
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #84cc16; border: 2px solid var(--card);
+      }
+      .rail .spacer { flex: 1; min-height: 8px; }
+      .stage {
+        min-width: 0; min-height: 0; display: none;
+        grid-template-columns: 380px 1fr; gap: 12px;
+      }
+      .stage.on { display: grid; }
+      .stage.solo { grid-template-columns: 1fr; }
+      .stage.solo > .home-shell { min-height: 0; height: 100%; }
+      .panel {
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        display: flex; flex-direction: column;
+        overflow: hidden; min-height: 0;
+      }
+      .panel-head {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 22px 22px 8px; gap: 12px;
+      }
+      .panel-head h1 {
+        margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.03em;
+      }
+      .panel-head .sub {
+        margin: 4px 0 0; font-size: 13px; color: var(--muted-foreground);
+      }
+      .seg {
+        display: flex; gap: 4px; margin: 12px 22px 8px; padding: 4px;
+        background: var(--muted); border-radius: 999px;
+      }
+      .seg button {
+        flex: 1; padding: 8px 12px; border-radius: 999px;
+        font-size: 13px; font-weight: 500; color: var(--muted-foreground);
+      }
+      .seg button.active { background: var(--primary); color: var(--primary-foreground); }
+      .scroll { flex: 1; overflow: auto; padding: 12px 14px 20px; }
+      .stack { display: flex; flex-direction: column; gap: 10px; }
+      .card-row {
+        border-radius: var(--radius-lg); padding: 14px 16px;
+        border: 1.5px solid transparent; text-align: left; background: transparent;
+        width: 100%;
+      }
+      .card-row:hover { background: var(--muted); }
+      .card-row.selected {
+        border-color: var(--foreground); background: var(--card);
+        box-shadow: var(--shadow-sm);
+      }
+      .card-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+      .card-title { margin: 0 0 4px; font-weight: 600; font-size: 15px; letter-spacing: -0.02em; }
+      .card-meta { margin: 0; font-family: var(--font-mono); font-size: 12px; color: var(--muted-foreground); }
+      .progress { height: 3px; border-radius: 999px; background: var(--muted); margin: 14px 0 12px; overflow: hidden; }
+      .progress > span { display: block; height: 100%; background: #84cc16; border-radius: 999px; }
+      .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+      .meta-grid small { display: block; font-size: 11px; color: var(--muted-foreground); margin-bottom: 2px; }
+      .meta-grid b { font-size: 13px; font-weight: 500; }
+      .party {
+        display: flex; align-items: center; gap: 10px;
+        margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
+      }
+      .avatar {
+        width: 36px; height: 36px; border-radius: 50%;
+        background: linear-gradient(135deg, #a7f3d0, #99f6e4);
+        display: grid; place-items: center; font-size: 12px; font-weight: 600; color: var(--brand);
+      }
+      .party-name { flex: 1; font-weight: 500; font-size: 13px; }
+      .party-name span { display: block; font-weight: 400; font-size: 11px; color: var(--muted-foreground); }
+      .round {
+        width: 34px; height: 34px; border-radius: 50%;
+        box-shadow: inset 0 0 0 1.5px var(--input);
+        display: grid; place-items: center; color: var(--muted-foreground); background: var(--card);
+      }
+      .strip {
+        margin: 8px 22px 4px; padding: 10px 12px; border-radius: var(--radius-md);
+        background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 500;
+      }
+      .canvas {
+        position: relative; border-radius: var(--radius-xl);
+        background: linear-gradient(180deg, #f7f7f8 0%, #e9e9ec 100%);
+        box-shadow: var(--shadow-md); overflow: hidden; min-height: 0;
+        display: flex; flex-direction: column;
+      }
+      .canvas-tools { position: absolute; top: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 2; }
+      .sheet {
+        position: relative; flex: 1; margin: 48px 56px 12px; background: #fff;
+        border-radius: 4px; box-shadow: var(--shadow-lg);
+        display: grid; place-items: center; color: var(--muted-foreground); min-height: 180px;
+      }
+      .sheet strong { display: block; color: var(--foreground); font-size: 16px; margin: 12px 0 4px; }
+      .titleblock {
+        position: absolute; right: 16px; bottom: 16px; width: 200px;
+        border: 1.5px solid #0a0a0a; font-size: 10px; text-align: left;
+        padding: 8px; background: #fff;
+      }
+      .titleblock b { display: block; font-size: 12px; margin-bottom: 4px; }
+      .detail-stack {
+        margin: 0 16px 16px; display: flex; flex-direction: column; gap: 10px; z-index: 2;
+      }
+      .detail-bar {
+        background: var(--card); border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg); padding: 14px 18px;
+        display: grid; grid-template-columns: 1.2fr repeat(3, 1fr) auto;
+        gap: 14px; align-items: end;
+      }
+      .detail-bar .label { font-size: 11px; color: var(--muted-foreground); margin-bottom: 4px; }
+      .detail-bar .value { font-weight: 500; font-size: 13px; }
+      .detail-bar .lead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .register {
+        background: var(--card); border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md); padding: 14px 16px;
+      }
+      .register h3 {
+        margin: 0 0 10px; font-size: 12px; font-weight: 600;
+        letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted-foreground);
+      }
+      .reg-row {
+        display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px;
+        align-items: center; padding: 8px 0; border-top: 1px solid var(--border);
+        font-size: 13px;
+      }
+      .reg-row:first-of-type { border-top: none; padding-top: 0; }
+      .reg-who { font-weight: 500; }
+      .reg-who span { display: block; font-size: 11px; font-weight: 400; color: var(--muted-foreground); }
+      .pill-new {
+        font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+        padding: 3px 8px; border-radius: 999px; background: var(--status-approved-bg); color: var(--status-approved-fg);
+      }
+      .pill-old {
+        font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+        padding: 3px 8px; border-radius: 999px; background: var(--muted); color: var(--muted-foreground);
+      }
+      .switch {
+        display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500;
+      }
+      .switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+      .switch .track {
+        width: 36px; height: 20px; border-radius: 999px; background: var(--input);
+        position: relative; transition: background 0.15s;
+      }
+      .switch .track::after {
+        content: ""; position: absolute; top: 2px; left: 2px;
+        width: 16px; height: 16px; border-radius: 50%; background: #fff;
+        box-shadow: var(--shadow-sm); transition: transform 0.15s;
+      }
+      .switch input:checked + .track { background: var(--brand); }
+      .switch input:checked + .track::after { transform: translateX(16px); }
+      .audit {
+        font-size: 11px; color: var(--muted-foreground);
+        display: flex; flex-wrap: wrap; gap: 6px 14px;
+        font-family: var(--font-mono);
+      }
+      .audit b { color: var(--foreground); font-weight: 500; }
+      .controls-row {
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+        justify-content: space-between;
+      }
+
+      .home-shell {
+        display: flex; flex-direction: column; gap: 12px; min-height: 0; height: 100%;
+        overflow: auto; padding-right: 2px;
+      }
+      .home-top {
+        display: flex; align-items: flex-end; justify-content: space-between;
+        gap: 16px; flex-wrap: wrap; padding: 4px 4px 0; flex-shrink: 0;
+      }
+      .home-top h1 {
+        margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.03em;
+      }
+      .home-top .sub { margin: 4px 0 0; font-size: 13px; color: var(--muted-foreground); }
+
+      /* Compact next action + filters */
+      .now-bar {
+        display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+        flex-shrink: 0; padding: 0 2px;
+      }
+      .now-main {
+        display: inline-flex; align-items: center; gap: 10px;
+        max-width: 100%; text-align: left;
+        padding: 8px 12px; border-radius: 999px;
+        background: var(--card); color: var(--foreground);
+        box-shadow: var(--shadow-sm); border: 1.5px solid var(--border);
+        font-size: 13px;
+      }
+      .now-main:hover { border-color: var(--foreground); }
+      .now-kicker {
+        flex-shrink: 0; font-size: 10px; font-weight: 700;
+        letter-spacing: 0.04em; text-transform: uppercase;
+        padding: 3px 8px; border-radius: 999px;
+        background: var(--foreground); color: var(--primary-foreground);
+      }
+      .now-main strong {
+        font-weight: 500; letter-spacing: -0.01em;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        max-width: min(42vw, 420px);
+      }
+      .now-go {
+        flex-shrink: 0; font-size: 12px; font-weight: 600;
+        color: var(--muted-foreground);
+      }
+      .now-main:hover .now-go { color: var(--foreground); }
+      .now-trail {
+        display: flex; flex-wrap: wrap; gap: 2px; align-items: center;
+        font-size: 12px; color: var(--muted-foreground); margin-left: auto;
+      }
+      .now-trail button {
+        padding: 4px 8px; border-radius: 6px; font-weight: 500; color: var(--muted-foreground);
+      }
+      .now-trail button:hover { color: var(--foreground); background: rgba(10,10,10,.05); }
+      .now-trail button.on {
+        color: var(--foreground); background: var(--card); box-shadow: var(--shadow-sm);
+      }
+      .now-trail .sep { color: var(--border); user-select: none; padding: 0 1px; }
+      .attn[hidden] { display: none !important; }
+
+      .home-board {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.95fr);
+        grid-template-rows: minmax(260px, 1.2fr) minmax(200px, 0.9fr);
+        gap: 12px;
+        flex: 1;
+        min-height: 520px;
+      }
+      .map-panel {
+        grid-row: 1 / 3;
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        display: flex; flex-direction: column;
+        min-height: 0;
+      }
+      .map-panel .panel-head { flex-shrink: 0; }
+      .sites-map {
+        position: relative; flex: 1; min-height: 280px;
+        background: var(--muted);
+        z-index: 0;
+      }
+      .sites-map .maplibregl-map {
+        width: 100%; height: 100%;
+        font: inherit;
+        background: var(--background);
+      }
+      .sites-map .maplibregl-ctrl-group {
+        border: none !important;
+        border-radius: 12px !important;
+        box-shadow: var(--shadow-md) !important;
+        overflow: hidden;
+      }
+      .sites-map .maplibregl-ctrl-group button {
+        width: 32px !important; height: 32px !important;
+        background: var(--card) !important;
+      }
+      .sites-map .maplibregl-ctrl-attrib {
+        background: rgba(255,255,255,.85) !important;
+        color: var(--muted-foreground);
+        font-size: 10px;
+        border-radius: 8px 0 0 0;
+        padding: 3px 8px;
+      }
+      .sites-map .maplibregl-ctrl-attrib a { color: var(--muted-foreground); }
+      .map-footer {
+        border-top: 1px solid var(--border); flex-shrink: 0;
+        padding: 10px 12px 12px;
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .map-sites {
+        display: flex; flex-wrap: wrap; gap: 6px;
+      }
+      .map-site {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 7px 10px 7px 8px; border-radius: 999px;
+        background: var(--muted); font-size: 12px; font-weight: 500;
+        max-width: 100%;
+      }
+      .map-site:hover { background: var(--secondary); }
+      .map-site.is-active {
+        background: var(--primary); color: var(--primary-foreground);
+      }
+      .map-site.is-active .loc { color: rgba(255,255,255,.72); }
+      .map-site.is-active.hot .dot,
+      .map-site.is-active.wait .dot,
+      .map-site.is-active.ok .dot { background: #fff; }
+      .map-site:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+      .map-site .dot {
+        width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      }
+      .map-site.hot .dot { background: var(--brand); }
+      .map-site.wait .dot { background: #ca8a04; }
+      .map-site.ok .dot { background: var(--foreground); }
+      .map-site .name {
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 9.5em;
+      }
+      .map-site .loc {
+        font-size: 11px; color: var(--muted-foreground); font-weight: 400;
+      }
+      .map-legend {
+        display: flex; flex-wrap: wrap; gap: 10px 12px;
+        font-size: 11px; color: var(--muted-foreground); align-items: center;
+      }
+      .map-legend i {
+        display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+        margin-right: 5px; vertical-align: middle;
+      }
+      .map-credit {
+        font-size: 10px; color: var(--muted-foreground); margin-left: auto;
+      }
+      .map-credit a { color: var(--muted-foreground); text-decoration: underline; text-underline-offset: 2px; }
+      .site-marker {
+        width: 18px; height: 18px; cursor: pointer;
+      }
+      .site-marker .dot {
+        width: 18px; height: 18px; border-radius: 50%;
+        border: 2.5px solid #fff;
+        box-shadow: 0 2px 8px rgba(10,10,10,.28);
+        transition: transform 0.15s ease;
+      }
+      .site-marker:hover .dot,
+      .site-marker.is-active .dot { transform: scale(1.25); }
+      .site-marker.hot .dot { background: var(--brand); }
+      .site-marker.wait .dot { background: #ca8a04; }
+      .site-marker.ok .dot { background: var(--foreground); }
+      .site-popup {
+        padding: 4px 2px; font-family: var(--font-sans); min-width: 160px;
+      }
+      .site-popup strong { display: block; font-size: 13px; margin-bottom: 2px; color: var(--foreground); }
+      .site-popup .loc { font-size: 11px; color: var(--muted-foreground); margin-bottom: 8px; }
+      .site-popup .status {
+        display: inline-flex; padding: 3px 8px; border-radius: 999px;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+        background: var(--muted); margin-bottom: 10px;
+      }
+      .site-popup .status.hot { background: var(--brand-soft); color: var(--brand); }
+      .site-popup .status.wait { background: var(--cost-increase-bg); color: var(--cost-increase); }
+      .site-popup button {
+        width: 100%; padding: 8px 12px; border-radius: 999px; border: none;
+        background: var(--primary); color: var(--primary-foreground);
+        font-size: 12px; font-weight: 600; cursor: pointer;
+      }
+      .maplibregl-popup-content {
+        border-radius: 14px; box-shadow: var(--shadow-md);
+        padding: 12px 14px; font-family: var(--font-sans);
+      }
+      .maplibregl-popup-close-button {
+        font-size: 16px; padding: 4px 8px; color: var(--muted-foreground);
+      }
+      .attn-panel, .proj-panel {
+        min-height: 0; overflow: hidden;
+        display: flex; flex-direction: column;
+      }
+      .attn-panel .attn-list { overflow: auto; flex: 1; }
+      .proj-panel .proj-list { overflow: auto; flex: 1; }
+      .attn-list { display: flex; flex-direction: column; gap: 8px; padding: 8px 16px 18px; }
+      .attn {
+        display: grid; grid-template-columns: auto 1fr auto; gap: 12px 14px;
+        align-items: start; padding: 14px 14px; border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border); background: var(--card); text-align: left; width: 100%;
+      }
+      .attn:hover { border-color: var(--foreground); }
+      .tag {
+        display: inline-flex; align-items: center; padding: 3px 8px;
+        border-radius: 999px; font-size: 10px; font-weight: 700;
+        letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+      }
+      .tag-overdue { background: var(--foreground); color: var(--primary-foreground); }
+      .tag-waiting { background: var(--muted); color: var(--foreground); }
+      .tag-old { background: transparent; color: var(--muted-foreground); box-shadow: inset 0 0 0 1.5px var(--input); }
+      .tag-money { background: var(--cost-increase-bg); color: var(--cost-increase); }
+      .home-badge {
+        display: inline-flex; padding: 3px 8px; border-radius: 999px;
+        font-size: 11px; font-weight: 500; background: var(--muted); color: var(--muted-foreground);
+      }
+      .home-badge.emph { background: var(--foreground); color: var(--primary-foreground); }
+      .attn h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+      .attn .line {
+        margin: 0; font-size: 12px; color: var(--muted-foreground);
+        display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center;
+      }
+      .attn .line .mono { color: var(--foreground); font-weight: 500; }
+      .attn .stake {
+        font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+        color: var(--muted-foreground); text-align: right; white-space: nowrap;
+      }
+      .attn .stake em { display: block; font-style: normal; color: var(--foreground); font-size: 13px; }
+      .proj-list { display: flex; flex-direction: column; gap: 0; padding: 4px 8px 12px; }
+      .proj {
+        display: grid; grid-template-columns: 56px 1fr auto; gap: 12px;
+        align-items: center; padding: 12px 10px; border-radius: var(--radius-md);
+        text-align: left; width: 100%; border: none; background: transparent;
+      }
+      .proj:hover { background: var(--muted); }
+      .proj-thumb {
+        width: 56px; height: 44px; border-radius: 10px;
+        background: linear-gradient(135deg, #e7e5e4, #f5f5f4);
+        border: 1px solid var(--border);
+        display: grid; place-items: center; color: var(--muted-foreground);
+      }
+      .proj-body { min-width: 0; }
+      .proj-id {
+        display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 2px;
+      }
+      .proj-id .mono { font-size: 11px; color: var(--muted-foreground); }
+      .chip {
+        font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+        padding: 2px 6px; border-radius: 4px; background: var(--muted); color: var(--muted-foreground);
+      }
+      .proj h3 { margin: 0; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .proj .meta { margin: 2px 0 0; font-size: 11px; color: var(--muted-foreground); }
+      .proj-side { text-align: right; min-width: 110px; }
+      .proj-bar {
+        height: 4px; border-radius: 999px; background: var(--muted); margin-top: 8px; overflow: hidden;
+      }
+      .proj-bar > span { display: block; height: 100%; border-radius: 999px; background: var(--foreground); }
+      .proj-bar-label { font-size: 10px; color: var(--muted-foreground); margin-top: 4px; }
+
+      .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 22px 8px; }
+      .stat {
+        background: var(--muted); border-radius: var(--radius-md); padding: 14px;
+      }
+      .stat.hot { background: var(--brand-soft); }
+      .stat small { display: block; font-size: 11px; color: var(--muted-foreground); margin-bottom: 4px; }
+      .stat b { font-family: var(--font-mono); font-size: 22px; font-weight: 500; }
+
+      .thread-pane { padding: 22px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+      .bubble { max-width: 85%; padding: 10px 12px; border-radius: var(--radius-md); font-size: 14px; }
+      .bubble.client { background: var(--secondary); }
+      .bubble.sys { background: var(--muted); color: var(--muted-foreground); font-size: 12px; }
+      .bubble.arch { background: var(--brand-soft); color: var(--brand); margin-left: auto; }
+      .compose { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+      .compose input {
+        flex: 1; min-width: 160px; padding: 10px 14px; border: 1.5px solid var(--input);
+        border-radius: 999px; font: inherit;
+      }
+
+      .totals {
+        margin: 4px 16px 8px; padding: 14px;
+        border-radius: var(--radius-lg);
+        background: var(--muted);
+        display: flex; flex-direction: column; gap: 10px;
+      }
+      .totals-hero {
+        display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;
+        padding-bottom: 12px; border-bottom: 1px solid var(--border);
+      }
+      .totals-hero .was small,
+      .totals-hero .now small {
+        display: block; font-size: 11px; color: var(--muted-foreground); margin-bottom: 4px; font-weight: 500;
+      }
+      .totals-hero .was b {
+        font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: var(--muted-foreground);
+      }
+      .totals-hero .now { text-align: right; }
+      .totals-hero .now b {
+        font-family: var(--font-mono); font-size: 22px; font-weight: 500; letter-spacing: -0.03em;
+      }
+      .totals-hero .now .delta-time {
+        display: block; margin-top: 2px; font-family: var(--font-mono); font-size: 11px; color: var(--cost-increase);
+      }
+      .totals-delta {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      }
+      .totals-delta > div {
+        padding: 10px 12px; border-radius: var(--radius-md); background: var(--card);
+      }
+      .totals-delta .up { background: var(--cost-increase-bg); }
+      .totals-delta .down { background: var(--cost-saving-bg); }
+      .totals-delta small {
+        display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+        text-transform: uppercase; margin-bottom: 4px; opacity: 0.75;
+      }
+      .totals-delta .up small { color: var(--cost-increase); }
+      .totals-delta .down small { color: var(--cost-saving); }
+      .totals-delta b { font-family: var(--font-mono); font-size: 15px; font-weight: 500; }
+      .totals-delta .up b { color: var(--cost-increase); }
+      .totals-delta .down b { color: var(--cost-saving); }
+
+      .dec-wait {
+        margin: 0 16px 8px; padding: 10px 12px; border-radius: var(--radius-md);
+        background: var(--brand-soft); color: var(--brand);
+        display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 500;
+      }
+      .dec-wait .mono { font-weight: 600; }
+
+      .dec-row {
+        display: grid; grid-template-columns: 1fr auto; gap: 8px 12px;
+        width: 100%; text-align: left; padding: 14px 14px;
+        border-radius: var(--radius-lg); border: 1.5px solid transparent; background: transparent;
+      }
+      .dec-row:hover { background: var(--muted); }
+      .dec-row.selected {
+        border-color: var(--foreground); background: var(--card); box-shadow: var(--shadow-sm);
+      }
+      .dec-row .dec-id {
+        display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 4px;
+      }
+      .dec-row .dec-id .mono {
+        font-size: 11px; font-weight: 600; color: var(--muted-foreground);
+      }
+      .type-chip {
+        font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+        padding: 2px 6px; border-radius: 4px; background: var(--muted); color: var(--muted-foreground);
+      }
+      .dec-row .dec-title {
+        margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3;
+      }
+      .dec-row .dec-meta {
+        margin: 4px 0 0; font-size: 11px; color: var(--muted-foreground);
+      }
+      .dec-row .dec-side {
+        display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+      }
+      .dec-row .dec-money {
+        text-align: right; font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+      }
+      .dec-row .dec-money .days {
+        display: block; margin-top: 2px; font-size: 11px; color: var(--muted-foreground); font-weight: 400;
+      }
+
+      .decision-detail { padding: 22px; overflow: auto; display: flex; flex-direction: column; gap: 16px; }
+      .decision-detail h2 { margin: 0; font-size: 22px; letter-spacing: -0.03em; }
+      .decision-detail .detail-card {
+        padding: 16px; border-radius: var(--radius-lg); background: var(--muted);
+      }
+      .impact {
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      }
+      .impact .chip-cost {
+        padding: 8px 14px; border-radius: 999px; font-family: var(--font-mono); font-size: 14px; font-weight: 500;
+      }
+      .impact .chip-cost.up { background: var(--cost-increase-bg); color: var(--cost-increase); }
+      .impact .chip-cost.down { background: var(--cost-saving-bg); color: var(--cost-saving); }
+      .flow-steps {
+        display: flex; flex-wrap: wrap; gap: 0; align-items: center;
+        padding: 4px; background: var(--muted); border-radius: 999px; width: fit-content;
+      }
+      .flow-steps span {
+        padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 500;
+        color: var(--muted-foreground);
+      }
+      .flow-steps span.on {
+        background: var(--primary); color: var(--primary-foreground); font-weight: 600;
+      }
+      .flow-steps .sep { display: none; }
+
+      .hist-list { display: flex; flex-direction: column; gap: 0; }
+      .hist-item {
+        display: grid; grid-template-columns: 56px 1fr auto; gap: 10px;
+        padding: 10px 0; border-top: 1px solid var(--border); text-align: left; width: 100%;
+        background: transparent; align-items: start;
+      }
+      .hist-item:first-child { border-top: none; padding-top: 0; }
+      .hist-item .rev { justify-self: start; }
+      .hist-item .h-title { margin: 0; font-size: 13px; font-weight: 600; }
+      .hist-item .h-note { margin: 2px 0 0; font-size: 12px; color: var(--muted-foreground); }
+      .hist-item .h-when { font-size: 11px; color: var(--muted-foreground); font-family: var(--font-mono); white-space: nowrap; }
+      .hist-item.current { background: var(--muted); margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: var(--radius-md); border-top-color: transparent; }
+
+      .compare-grid {
+        display: none; grid-template-columns: 1fr 1fr; gap: 10px;
+        margin: 48px 16px 12px; flex: 1; min-height: 160px;
+      }
+      .canvas.compare-on .sheet { display: none; }
+      .canvas.compare-on .compare-grid { display: grid; }
+      .compare-pane {
+        background: #fff; border-radius: 4px; box-shadow: var(--shadow-md);
+        display: grid; place-items: center; color: var(--muted-foreground);
+        position: relative; padding: 16px; text-align: center;
+      }
+      .compare-pane .tag-rev {
+        position: absolute; top: 10px; left: 10px;
+        font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+        padding: 3px 8px; border-radius: 999px; background: var(--muted);
+      }
+      .compare-pane.newer .tag-rev { background: var(--foreground); color: var(--primary-foreground); }
+
+      .audience {
+        display: flex; flex-wrap: wrap; gap: 6px;
+      }
+      .audience label {
+        padding: 8px 12px; border-radius: 999px; font-size: 12px; font-weight: 500;
+        box-shadow: inset 0 0 0 1.5px var(--input); cursor: pointer; color: var(--muted-foreground);
+      }
+      .audience input { position: absolute; opacity: 0; pointer-events: none; }
+      .audience label:has(input:checked) {
+        background: var(--primary); color: var(--primary-foreground); box-shadow: none;
+      }
+
+      .folder-grid {
+        display: flex; flex-direction: column; gap: 6px;
+        padding: 4px 14px 16px;
+      }
+      .folder {
+        display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center;
+        padding: 12px 14px; border-radius: var(--radius-lg); border: 1.5px solid transparent;
+        text-align: left; background: transparent; width: 100%;
+      }
+      .folder:hover { background: var(--muted); }
+      .folder .fold-icon {
+        width: 40px; height: 40px; border-radius: 12px; background: var(--muted);
+        display: grid; place-items: center; color: var(--muted-foreground);
+      }
+      .folder .fold-name { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+      .folder .fold-sub { display: block; margin-top: 2px; font-size: 11px; color: var(--muted-foreground); font-weight: 400; }
+      .folder .count {
+        font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--muted-foreground);
+      }
+      .proj-hero {
+        margin: 8px 16px 10px; padding: 16px; border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, var(--brand-soft), var(--muted));
+      }
+      .proj-hero .code {
+        font-family: var(--font-mono); font-size: 12px; color: var(--brand); font-weight: 500;
+      }
+      .proj-hero h2 {
+        margin: 6px 0 4px; font-size: 20px; letter-spacing: -0.03em;
+      }
+      .proj-hero .where { margin: 0; font-size: 13px; color: var(--muted-foreground); }
+      .proj-stats {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+        margin: 0 16px 10px;
+      }
+      .proj-stats > div {
+        padding: 12px; border-radius: var(--radius-md); background: var(--muted);
+      }
+      .proj-stats small {
+        display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+        text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 4px;
+      }
+      .proj-stats b { font-size: 13px; font-weight: 600; font-family: var(--font-mono); }
+      .party-card {
+        display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+        padding: 12px 14px; border-radius: var(--radius-lg); border: 1.5px solid var(--border);
+        margin-bottom: 8px;
+      }
+      .activity-item {
+        display: grid; grid-template-columns: 8px 1fr auto; gap: 12px; align-items: start;
+        padding: 10px 0; border-top: 1px solid var(--border); font-size: 13px;
+      }
+      .activity-item:first-of-type { border-top: none; padding-top: 0; }
+      .activity-item .dot {
+        width: 8px; height: 8px; border-radius: 50%; background: var(--brand); margin-top: 5px;
+      }
+      .activity-item .when {
+        font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); white-space: nowrap;
+      }
+      .activity-item .act-title { font-weight: 500; }
+      .activity-item .act-sub { display: block; margin-top: 2px; font-size: 12px; color: var(--muted-foreground); }
+
+      .pdf-sheet {
+        background: #fff; border-radius: var(--radius-md);
+        box-shadow: inset 0 0 0 1px var(--border); padding: 20px; font-size: 13px;
+      }
+      .pdf-sheet h3 { margin: 0 0 4px; font-size: 16px; letter-spacing: -0.02em; }
+      .pdf-sheet .pdf-meta { color: var(--muted-foreground); font-size: 12px; margin-bottom: 16px; }
+      .pdf-sheet table { width: 100%; border-collapse: collapse; font-size: 12px; }
+      .pdf-sheet th, .pdf-sheet td {
+        text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border);
+      }
+      .pdf-sheet th { color: var(--muted-foreground); font-weight: 500; font-size: 11px; }
+      .pdf-sheet .num { font-family: var(--font-mono); text-align: right; }
+      .pdf-sheet .total-row td { font-weight: 600; border-bottom: none; padding-top: 12px; }
+
+      /* Site diary — chronological chapters, no fragile rail */
+      .photo-diary {
+        padding: 4px 14px 20px;
+        display: flex; flex-direction: column; gap: 18px;
+      }
+      .diary-chapter { display: flex; flex-direction: column; gap: 8px; }
+      .diary-head {
+        display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        padding: 0 2px;
+      }
+      .diary-head .left {
+        display: flex; align-items: center; gap: 8px; min-width: 0;
+      }
+      .diary-head h3 {
+        margin: 0; font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
+      }
+      .diary-head .range {
+        font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground);
+      }
+      .diary-card {
+        display: grid; grid-template-columns: 88px 1fr;
+        gap: 0; width: 100%; text-align: left;
+        border-radius: var(--radius-lg); border: 1.5px solid var(--border);
+        background: var(--card); overflow: hidden; padding: 0;
+        color: var(--foreground);
+      }
+      .diary-card:hover { border-color: var(--input); box-shadow: var(--shadow-sm); }
+      .diary-card.selected {
+        border-color: var(--foreground); box-shadow: var(--shadow-md);
+      }
+      .diary-card .thumbs {
+        display: grid; grid-template-rows: 1fr 1fr; gap: 2px;
+        background: var(--muted); min-height: 88px;
+      }
+      .diary-card .thumbs.single { grid-template-rows: 1fr; }
+      .diary-card .thumbs span {
+        display: block; min-height: 42px;
+        background: linear-gradient(135deg, #d6d3d1, #f5f5f4);
+      }
+      .diary-card .thumbs .a { background: linear-gradient(145deg, #a8a29e, #e7e5e4); }
+      .diary-card .thumbs .b { background: linear-gradient(145deg, #78716c, #d6d3d1); }
+      .diary-card .thumbs .c { background: linear-gradient(145deg, #57534e, #a8a29e); }
+      .diary-card .body {
+        padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0;
+      }
+      .diary-card .when {
+        font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground);
+      }
+      .diary-card .title {
+        margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25;
+      }
+      .diary-card .sub {
+        margin: 0; font-size: 12px; color: var(--muted-foreground); line-height: 1.35;
+      }
+      .diary-card .tags {
+        display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px;
+      }
+      .diary-upcoming {
+        padding: 16px; border-radius: var(--radius-lg);
+        border: 1.5px dashed var(--input); color: var(--muted-foreground);
+        font-size: 13px; text-align: center;
+      }
+
+      .photo-detail {
+        display: flex; flex-direction: column; gap: 12px;
+        padding: 16px; min-height: 0; overflow: auto; height: 100%;
+      }
+      .photo-hero {
+        position: relative; flex: 1; min-height: 240px;
+        border-radius: var(--radius-lg);
+        background: linear-gradient(160deg, #c4c0bb 0%, #e7e5e4 45%, #d6d3d1 100%);
+        box-shadow: var(--shadow-md); overflow: hidden;
+      }
+      .photo-hero .meta-float {
+        position: absolute; left: 12px; bottom: 12px; right: 12px;
+        display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      }
+      .photo-hero .meta-float span {
+        padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 500;
+        background: rgba(255,255,255,.92); color: var(--foreground); box-shadow: var(--shadow-sm);
+      }
+      .pin {
+        position: absolute; width: 28px; height: 28px; border-radius: 50% 50% 50% 0;
+        background: var(--destructive); color: #fff; transform: rotate(-45deg);
+        display: grid; place-items: center; font-size: 11px; font-weight: 700;
+        box-shadow: var(--shadow-md);
+      }
+      .pin span { transform: rotate(45deg); }
+      .issue-row {
+        display: flex; align-items: center; gap: 10px;
+        padding: 12px 14px; border-radius: var(--radius-md); background: var(--muted);
+        font-size: 13px;
+      }
+
+      .gate-card {
+        margin: 12px 14px; padding: 18px; border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border); text-align: left; width: calc(100% - 28px);
+        background: transparent;
+      }
+      .gate-card.selected { border-color: var(--foreground); box-shadow: var(--shadow-sm); }
+      .gate-card h3 { margin: 0 0 6px; font-size: 15px; }
+      .gate-card p { margin: 0; font-size: 12px; color: var(--muted-foreground); }
+      .checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+      .checklist li {
+        display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px;
+        border-radius: var(--radius-md); background: var(--muted); font-size: 13px;
+      }
+      .checklist .mark {
+        width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+        display: grid; place-items: center; font-size: 12px; font-weight: 700;
+      }
+      .checklist .ok { background: var(--status-approved-bg); color: var(--status-approved-fg); }
+      .checklist .fix { background: var(--cost-increase-bg); color: var(--cost-increase); }
+      .plain-summary {
+        padding: 16px; border-radius: var(--radius-lg); background: var(--brand-soft); color: var(--brand);
+        font-size: 14px; line-height: 1.5;
+      }
+
+      .drawer {
+        position: fixed; inset: 0; background: rgba(10, 10, 10, 0.28);
+        display: none; justify-content: flex-end; z-index: 30;
+      }
+      .drawer.open { display: flex; }
+      .drawer-panel {
+        width: min(420px, 100%); margin: 12px; background: var(--card);
+        border-radius: var(--radius-xl); height: calc(100% - 24px);
+        padding: 28px; display: flex; flex-direction: column; gap: 16px;
+        box-shadow: var(--shadow-lg); overflow: auto;
+      }
+      .drawer-panel h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+      .field {
+        width: 100%; padding: 10px 14px; border: 1.5px solid var(--input);
+        border-radius: var(--radius-md); background: var(--card); font: inherit;
+      }
+      .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .help { font-size: 12px; color: var(--muted-foreground); margin: 6px 0 0; }
+      .wa-preview {
+        background: #efeae2; border-radius: var(--radius-md); padding: 12px;
+        font-size: 13px; line-height: 1.45;
+      }
+      .wa-preview .from { font-size: 11px; color: #667781; margin-bottom: 6px; }
+      .wa-preview .bubble-wa {
+        background: #fff; border-radius: 8px; padding: 10px 12px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.06);
+      }
+      .wa-preview a { color: #027eb5; word-break: break-all; }
+      .panel-actions { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+      .toast {
+        position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+        background: var(--foreground); color: var(--primary-foreground);
+        padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 500;
+        box-shadow: var(--shadow-lg); display: none; z-index: 40;
+      }
+      .toast.show { display: block; }
+      @media (max-width: 1200px) {
+        .home-board {
+          grid-template-columns: 1fr;
+          grid-template-rows: 320px auto auto;
+          min-height: 0;
+        }
+        .map-panel { grid-row: auto; min-height: 320px; }
+        .proj-stats { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 1100px) {
+        .stage { grid-template-columns: 1fr; }
+        .canvas .sheet { margin: 24px 16px 8px; }
+        .detail-bar { grid-template-columns: 1fr 1fr; }
+        .totals-hero { flex-wrap: wrap; }
+        .totals-hero .now { text-align: left; }
+      }
+      @media (max-width: 700px) {
+        .app { grid-template-columns: 1fr; height: auto; }
+        body { overflow: auto; }
+        .rail {
+          flex-direction: row; flex-wrap: nowrap; align-items: center;
+          padding: 8px; overflow-x: auto; gap: 4px;
+        }
+        .rail-brand, .rail-label, .rail .spacer { display: none; }
+        .rail-group {
+          flex-direction: row; margin: 0; gap: 4px; flex-shrink: 0;
+        }
+        .rail a, .rail button {
+          width: auto; padding: 8px 12px; white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="flow-nav" aria-label="Flows">
+      <a href="index.html">Overview</a>
+      <a href="design-system.html">Design system</a>
+      <a href="login.html">Login</a>
+      <a href="firm.html" aria-current="page">Firm</a>
+      <a href="whatsapp.html">WhatsApp</a>
+      <a href="client.html">Client</a>
+    </nav>
+
+    <div class="app">
+      <aside class="rail" aria-label="Primary">
+        <div class="rail-brand">
+          <div class="logo" title="Structura">S</div>
+          <div class="firm-name">X Architects<span>Structura · firm</span></div>
+        </div>
+
+        <div class="rail-group">
+          <div class="rail-label">Firm</div>
+          <button type="button" class="active" data-view="home">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Home
+          </button>
+          <button type="button" data-view="projects">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+            All projects
+          </button>
+          <button type="button" data-view="inbox">
+            <span class="badge-dot"></span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+            Needs answer
+            <span class="nav-count">3</span>
+          </button>
+        </div>
+
+        <div class="rail-group project-nav">
+          <div class="rail-label">This project</div>
+          <button type="button" data-view="project">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            Overview
+          </button>
+          <button type="button" data-view="drawings">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            Drawings
+          </button>
+          <button type="button" data-view="decisions">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="m8 7 4-4 4 4"/><path d="M4 12h16"/><path d="m8 17 4 4 4-4"/></svg>
+            Decisions
+            <span class="nav-count">1</span>
+          </button>
+          <button type="button" data-view="photos">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            Site photos
+          </button>
+          <button type="button" data-view="gates">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+            Stage gates
+          </button>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="rail-group">
+          <div class="rail-label">Demo</div>
+          <a href="whatsapp.html">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
+            WhatsApp journey
+          </a>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <div class="context-bar" id="context-bar">
+          <div class="crumb">
+            <button type="button" data-view="projects">All projects</button>
+            <span aria-hidden="true"> · </span>
+            <span>This project</span>
+          </div>
+          <div class="proj-switch" id="proj-switch">
+            <button type="button" class="proj-switch-btn" id="proj-switch-btn" aria-haspopup="listbox" aria-expanded="false">
+              <span data-project-field="name">Meera Residence</span>
+              <span class="code" data-project-field="code">PR-0142</span>
+              <svg class="icon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </button>
+            <div class="proj-switch-menu" id="proj-switch-menu" role="listbox"></div>
+          </div>
+          <div class="context-nav" role="navigation" aria-label="Project sections">
+            <button type="button" data-view="project">Overview</button>
+            <button type="button" data-view="drawings">Drawings</button>
+            <button type="button" data-view="decisions">Decisions</button>
+            <button type="button" data-view="photos">Photos</button>
+            <button type="button" data-view="gates">Gates</button>
+          </div>
+        </div>
+
+        <div class="workspace-body">
+
+      <!-- HOME -->
+      <div class="stage solo on" id="view-home">
+        <div class="home-shell">
+          <div class="home-top">
+            <div>
+              <h1>Today</h1>
+              <p class="sub">Map · queue · projects</p>
+            </div>
+            <button class="btn btn-primary btn-sm" type="button" id="open-share-home">Share with client</button>
+          </div>
+
+          <div class="now-bar">
+            <button class="now-main" type="button" data-goto="inbox" data-project="meera">
+              <span class="now-kicker">26h</span>
+              <strong>Reply to Meera — kitchen window</strong>
+              <span class="now-go">Open →</span>
+            </button>
+            <div class="now-trail" role="group" aria-label="Filter what needs you">
+              <button type="button" class="on" data-attn-filter="all">All · 5</button>
+              <span class="sep" aria-hidden="true">·</span>
+              <button type="button" data-attn-filter="reply">Replies · 2</button>
+              <span class="sep" aria-hidden="true">·</span>
+              <button type="button" data-attn-filter="approve">Approvals · 1</button>
+              <span class="sep" aria-hidden="true">·</span>
+              <button type="button" data-attn-filter="stale">Old copies · 1</button>
+              <span class="sep" aria-hidden="true">·</span>
+              <button type="button" data-attn-filter="decision">Decisions · 1</button>
+            </div>
+          </div>
+
+          <div class="home-board">
+            <section class="map-panel" aria-label="Project sites">
+              <div class="panel-head">
+                <div>
+                  <h1 style="font-size:18px">Projects on the map</h1>
+                  <p class="sub">Tap a pin or a name below to open</p>
+                </div>
+                <button class="btn btn-outline btn-sm" type="button" data-view="projects">All projects</button>
+              </div>
+              <div class="sites-map" id="sites-map" role="application" aria-label="Map of project sites"></div>
+              <div class="map-footer">
+                <div class="map-sites" id="map-sites" role="list" aria-label="Open project from map"></div>
+                <div class="map-legend">
+                  <span><i style="background:var(--brand)"></i>Needs action</span>
+                  <span><i style="background:#ca8a04"></i>Waiting</span>
+                  <span><i style="background:var(--foreground)"></i>On track</span>
+                  <span class="map-credit">
+                    © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a>
+                    · <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel attn-panel">
+              <div class="panel-head">
+                <div>
+                  <h1 style="font-size:18px">Needs you</h1>
+                  <p class="sub">Real work — not counts</p>
+                </div>
+              </div>
+              <div class="attn-list" id="attn-list">
+                <button class="attn" type="button" data-attn="reply" data-goto="inbox" data-project="meera">
+                  <span class="tag tag-overdue">Overdue</span>
+                  <div>
+                    <h3>Meera is waiting on a reply</h3>
+                    <p class="line">
+                      <span>“Can the kitchen window be wider?”</span>
+                      <span>Kochi</span>
+                    </p>
+                  </div>
+                  <div class="stake"><em>26h</em>reminder</div>
+                </button>
+                <button class="attn" type="button" data-attn="decision" data-goto="decisions" data-project="meera">
+                  <span class="tag tag-money">Priced</span>
+                  <div>
+                    <h3>D-007 waiting on Meera</h3>
+                    <p class="line">
+                      <span>+₹18,000 · +3 days</span>
+                    </p>
+                  </div>
+                  <div class="stake"><em>Client</em>approve?</div>
+                </button>
+                <button class="attn" type="button" data-attn="approve" data-goto="drawings" data-project="meera">
+                  <span class="tag tag-waiting">Waiting</span>
+                  <div>
+                    <h3>Meera hasn’t approved yet</h3>
+                    <p class="line"><span class="mono">GA-A-101 · R03</span></p>
+                  </div>
+                  <div class="stake"><em>Client</em>review</div>
+                </button>
+                <button class="attn" type="button" data-attn="stale" data-goto="drawings" data-project="meera">
+                  <span class="tag tag-old">Stale</span>
+                  <div>
+                    <h3>Site on old issue</h3>
+                    <p class="line"><span>Foundation · holds R03</span></p>
+                  </div>
+                  <div class="stake"><em>Site</em>reshare</div>
+                </button>
+                <button class="attn" type="button" data-attn="reply" data-goto="inbox" data-project="anil">
+                  <span class="tag tag-waiting">Waiting</span>
+                  <div>
+                    <h3>Anil · car porch</h3>
+                    <p class="line"><span>Thrissur · WhatsApp</span></p>
+                  </div>
+                  <div class="stake"><em>4h</em>open</div>
+                </button>
+              </div>
+            </section>
+
+            <section class="panel proj-panel">
+              <div class="panel-head">
+                <div>
+                  <h1 style="font-size:18px">Projects</h1>
+                  <p class="sub">Blocked with people</p>
+                </div>
+                <button class="btn btn-outline btn-sm" type="button" data-view="projects">All</button>
+              </div>
+              <div class="proj-list">
+                <button class="proj" type="button" data-open-project="meera" data-open-view="drawings">
+                  <div class="proj-thumb" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  </div>
+                  <div class="proj-body">
+                    <div class="proj-id">
+                      <span class="mono">PR-0142</span>
+                      <span class="chip">RESIDENTIAL</span>
+                    </div>
+                    <h3>Meera Residence</h3>
+                    <p class="meta">Kochi</p>
+                  </div>
+                  <div class="proj-side">
+                    <span class="home-badge emph">1 waiting</span>
+                  </div>
+                </button>
+                <button class="proj" type="button" data-open-project="anil" data-open-view="inbox">
+                  <div class="proj-thumb" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+                  </div>
+                  <div class="proj-body">
+                    <div class="proj-id">
+                      <span class="mono">PR-0138</span>
+                      <span class="chip">RESIDENTIAL</span>
+                    </div>
+                    <h3>Anil Villa</h3>
+                    <p class="meta">Thrissur</p>
+                  </div>
+                  <div class="proj-side">
+                    <span class="home-badge">Question</span>
+                  </div>
+                </button>
+                <button class="proj" type="button" data-open-project="priya" data-open-view="drawings">
+                  <div class="proj-thumb" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+                  </div>
+                  <div class="proj-body">
+                    <div class="proj-id">
+                      <span class="mono">PR-0129</span>
+                      <span class="chip">RESIDENTIAL</span>
+                    </div>
+                    <h3>Priya Heights</h3>
+                    <p class="meta">Ernakulam</p>
+                  </div>
+                  <div class="proj-side">
+                    <span class="home-badge">Consultant</span>
+                  </div>
+                </button>
+                <button class="proj" type="button" data-open-project="nair" data-open-view="gates">
+                  <div class="proj-thumb" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
+                  </div>
+                  <div class="proj-body">
+                    <div class="proj-id">
+                      <span class="mono">PR-0117</span>
+                      <span class="chip">CLINIC</span>
+                    </div>
+                    <h3>Nair Clinic</h3>
+                    <p class="meta">Kozhikode</p>
+                  </div>
+                  <div class="proj-side">
+                    <span class="home-badge">Gate</span>
+                  </div>
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALL PROJECTS -->
+      <div class="stage solo" id="view-projects">
+        <div class="home-shell">
+          <div class="home-top">
+            <div>
+              <h1>All projects</h1>
+              <p class="sub">Firm-wide list · open one to work inside it</p>
+            </div>
+            <button class="btn btn-primary btn-sm" type="button">+ New project</button>
+          </div>
+          <div class="projects-list" id="projects-list"></div>
+        </div>
+      </div>
+
+      <!-- PROJECT -->
+      <div class="stage" id="view-project">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h1>Overview</h1>
+              <p class="sub">Folders · people · stage</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline btn-sm" type="button" data-goto="drawings">Open drawings</button>
+              <button class="btn btn-primary btn-sm" type="button" data-share>Share</button>
+            </div>
+          </div>
+          <div class="proj-hero">
+            <div class="code"><span data-project-field="code">PR-0142</span> · <span data-project-field="type">RESIDENTIAL</span></div>
+            <h2 data-project-field="name">Meera Residence</h2>
+            <p class="where"><span data-project-field="where">Kochi · Ernakulam · Meera Rajan</span></p>
+          </div>
+          <div class="proj-stats">
+            <div><small>Site</small><b>8.2 cent</b></div>
+            <div><small>Built-up</small><b>2,450 sft</b></div>
+            <div><small>Stage</small><b>GF works</b></div>
+            <div><small>Rev</small><b>R03</b></div>
+          </div>
+          <div class="dec-wait" style="cursor:pointer" data-goto="inbox" role="button" tabindex="0">
+            <span class="badge badge-revision">Pending</span>
+            <span>1 reply overdue · 1 approval · 1 decision on Meera</span>
+          </div>
+          <div class="panel-head" style="padding-top:8px">
+            <div>
+              <h1 style="font-size:15px">Folders</h1>
+              <p class="sub">Default template · rename anytime</p>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="folder-grid">
+              <button class="folder" type="button" data-goto="drawings">
+                <div class="fold-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+                <div><span class="fold-name">01 Working drawings</span><span class="fold-sub">1 waiting on client</span></div>
+                <span class="count">12</span>
+              </button>
+              <button class="folder" type="button" data-goto="drawings">
+                <div class="fold-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg></div>
+                <div><span class="fold-name">02 Structural</span><span class="fold-sub">Site on old R03</span></div>
+                <span class="count">4</span>
+              </button>
+              <button class="folder" type="button">
+                <div class="fold-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="m8 7 4-4 4 4"/><path d="M4 12h16"/></svg></div>
+                <div><span class="fold-name">03 Services</span><span class="fold-sub">MEP · quiet</span></div>
+                <span class="count">2</span>
+              </button>
+              <button class="folder" type="button" data-goto="decisions">
+                <div class="fold-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="m8 17 4 4 4-4"/><path d="M4 12h16"/></svg></div>
+                <div><span class="fold-name">05 Variations</span><span class="fold-sub">D-007 waiting</span></div>
+                <span class="count">4</span>
+              </button>
+              <button class="folder" type="button" data-goto="photos">
+                <div class="fold-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+                <div><span class="fold-name">06 Site photos</span><span class="fold-sub">Foundation stage</span></div>
+                <span class="count">18</span>
+              </button>
+              <button class="folder" type="button">
+                <div class="fold-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div>
+                <div><span class="fold-name">+ 15 more folders</span><span class="fold-sub">Approvals, contracts, specs…</span></div>
+                <span class="count">…</span>
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class="panel decision-detail">
+          <div>
+            <h2 style="margin:0;font-size:18px">People</h2>
+            <p style="margin:6px 0 0;color:var(--muted-foreground);font-size:13px">
+              Sign-in is phone + OTP. No passwords for client or contractor.
+            </p>
+          </div>
+          <div>
+            <div class="party-card">
+              <div class="avatar">MR</div>
+              <div class="party-name">Meera Rajan<span>+91 98XXX XX210 · Client</span></div>
+              <span class="badge badge-approved">Active</span>
+            </div>
+            <div class="party-card">
+              <div class="avatar">RB</div>
+              <div class="party-name">Ravi Builders<span>+91 97XXX XX440 · Contractor</span></div>
+              <span class="badge badge-review">Invited</span>
+            </div>
+            <div class="party-card">
+              <div class="avatar">LE</div>
+              <div class="party-name">Lekshmi Engg<span>Structural · not shared yet</span></div>
+              <span class="home-badge">Pending</span>
+            </div>
+          </div>
+          <button class="btn btn-outline btn-sm" type="button" style="align-self:flex-start">+ Invite by phone</button>
+          <div>
+            <h2 style="margin:8px 0 12px;font-size:16px">Recent activity</h2>
+            <div class="activity-item">
+              <span class="dot"></span>
+              <div><span class="act-title">Meera viewed GA-A-101 R03</span><span class="act-sub">Client · WhatsApp link</span></div>
+              <span class="when">Today 9:14</span>
+            </div>
+            <div class="activity-item">
+              <span class="dot" style="background:#ca8a04"></span>
+              <div><span class="act-title">Question needs answer</span><span class="act-sub">“Can the kitchen window be wider?”</span></div>
+              <span class="when">26h</span>
+            </div>
+            <div class="activity-item">
+              <span class="dot" style="background:var(--foreground)"></span>
+              <div><span class="act-title">R03 shared with Meera</span><span class="act-sub">Download allowed · Client + Architect</span></div>
+              <span class="when">12 Nov</span>
+            </div>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="login.html" style="align-self:flex-start">Preview phone login →</a>
+        </section>
+      </div>
+
+      <!-- DRAWINGS -->
+      <div class="stage" id="view-drawings">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h1>Drawings</h1>
+              <p class="sub" data-project-field="name">Meera Residence</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline btn-sm" type="button" id="fake-upload">Upload</button>
+              <button class="btn btn-primary btn-sm" type="button" id="open-share">Share</button>
+            </div>
+          </div>
+          <div class="seg" role="tablist">
+            <button class="active" type="button">With client</button>
+            <button type="button">Drafts</button>
+            <button type="button">Issued</button>
+          </div>
+          <div class="strip">Pending · 1 waiting on Meera · contractor on old R03</div>
+          <div class="scroll stack">
+            <article class="card-row selected" data-doc="gf">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">Ground floor → Client</p>
+                  <p class="card-meta">GA-A-101 · R03</p>
+                </div>
+                <span class="badge badge-review">Under review</span>
+              </div>
+              <div class="progress"><span style="width:72%"></span></div>
+              <div class="meta-grid">
+                <div><small>Shared</small><b>12 Nov 26</b></div>
+                <div><small>Seen</small><b>Today 9:14</b></div>
+                <div><small>Download</small><b id="dl-label">Allowed</b></div>
+                <div><small>Scale</small><b>1:100</b></div>
+              </div>
+              <div class="party">
+                <div class="avatar">MR</div>
+                <div class="party-name">Meera Rajan<span>Client · WhatsApp · New</span></div>
+                <button class="round" type="button" data-share title="Share"><svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></button>
+                <button class="round" type="button" data-goto="inbox" title="Thread"><svg class="icon" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg></button>
+              </div>
+            </article>
+            <article class="card-row">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">Foundation → Site</p>
+                  <p class="card-meta">ST-S-201 · R04 · site has R03</p>
+                </div>
+                <span class="badge badge-issued">Issued</span>
+              </div>
+            </article>
+            <article class="card-row">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">First floor · internal</p>
+                  <p class="card-meta">GA-A-102 · R01</p>
+                </div>
+                <span class="badge badge-draft">Draft</span>
+              </div>
+            </article>
+            <article class="card-row">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">Site plan → Client</p>
+                  <p class="card-meta">GA-A-001 · R02</p>
+                </div>
+                <span class="badge badge-approved">Approved</span>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="canvas" id="drawing-canvas" aria-label="Drawing preview">
+          <div class="canvas-tools">
+            <button class="round" type="button" id="toggle-compare" title="Compare revisions" aria-label="Compare revisions"><svg class="icon" viewBox="0 0 24 24"><rect width="13" height="13" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            <button class="round" type="button" aria-label="Search"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+            <button class="round" type="button" aria-label="Fit"><svg class="icon" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></button>
+          </div>
+          <div class="sheet">
+            <div style="text-align:center;position:relative;width:100%;height:100%;display:grid;place-items:center">
+              <div>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                <strong>Ground floor plan</strong>
+                Sheet preview · <span data-project-field="name">Meera Residence</span>
+              </div>
+              <div class="titleblock">
+                <b>X ARCHITECTS</b>
+                GA-A-101 · R03<br />Scale 1:100 · Working drawings
+              </div>
+            </div>
+          </div>
+          <div class="compare-grid" aria-label="Revision compare">
+            <div class="compare-pane">
+              <span class="tag-rev">R02</span>
+              <div>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                <strong style="display:block;color:var(--foreground);margin-top:8px">Previous</strong>
+                Window at original seat
+              </div>
+            </div>
+            <div class="compare-pane newer">
+              <span class="tag-rev">R03</span>
+              <div>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                <strong style="display:block;color:var(--foreground);margin-top:8px">Current</strong>
+                Kitchen window +300 mm east
+              </div>
+            </div>
+          </div>
+          <div class="detail-stack">
+            <div class="register">
+              <h3>Revision history</h3>
+              <div class="hist-list">
+                <button class="hist-item current" type="button">
+                  <span class="rev">R03</span>
+                  <div>
+                    <p class="h-title">Under review · client</p>
+                    <p class="h-note">Kitchen window moved 300 mm east. Stair cleared against beam.</p>
+                  </div>
+                  <span class="h-when">12 Nov</span>
+                </button>
+                <button class="hist-item" type="button" id="open-compare-hist">
+                  <span class="rev rev-old">R02</span>
+                  <div>
+                    <p class="h-title">Superseded</p>
+                    <p class="h-note">First client share · approved then revised</p>
+                  </div>
+                  <span class="h-when">28 Oct</span>
+                </button>
+                <button class="hist-item" type="button">
+                  <span class="rev rev-old">R01</span>
+                  <div>
+                    <p class="h-title">Internal draft</p>
+                    <p class="h-note">SHA-256 a3f9…c21e</p>
+                  </div>
+                  <span class="h-when">12 Oct</span>
+                </button>
+              </div>
+            </div>
+            <div class="register">
+              <h3>Who has which version</h3>
+              <div class="reg-row">
+                <div class="reg-who">Meera Rajan<span>Client · seen today 9:14</span></div>
+                <span class="rev">R03</span>
+                <span class="pill-new">New</span>
+                <button class="btn btn-ghost btn-sm" type="button" data-revoke data-who="Meera">Revoke</button>
+              </div>
+              <div class="reg-row">
+                <div class="reg-who">Ravi Builders<span>Contractor · last open 8 Nov</span></div>
+                <span class="rev rev-old">R02</span>
+                <span class="pill-old">Old</span>
+                <button class="btn btn-outline btn-sm" type="button" data-share>Reshare</button>
+              </div>
+              <div class="reg-row">
+                <div class="reg-who">Lekshmi Engg<span>Structural · not sent</span></div>
+                <span class="mono" style="font-size:12px;color:var(--muted-foreground)">—</span>
+                <span class="pill-old">—</span>
+                <button class="btn btn-outline btn-sm" type="button" data-share>Share</button>
+              </div>
+            </div>
+            <div class="detail-bar">
+              <div>
+                <div class="lead">
+                  <span class="mono" style="font-weight:600">GA-A-101</span>
+                  <span class="badge badge-review">Under review</span>
+                </div>
+                <div class="label" style="margin-top:6px">Ground floor plan · R03</div>
+              </div>
+              <div>
+                <div class="label">Download</div>
+                <label class="switch">
+                  <input type="checkbox" id="dl-toggle" checked />
+                  <span class="track" aria-hidden="true"></span>
+                  <span id="dl-text">On</span>
+                </label>
+              </div>
+              <div><div class="label">Last open</div><div class="value">Today 9:14</div></div>
+              <div><div class="label">Questions</div><div class="value">1 open</div></div>
+              <button class="btn btn-outline btn-sm" type="button" data-share>Send on WhatsApp</button>
+            </div>
+            <div class="audit" aria-label="Audit strip">
+              <span>SHA-256 <b>a3f9…c21e</b></span>
+              <span>Shared <b>12 Nov 09:02</b></span>
+              <span>Viewed <b>Meera · today 9:14</b></span>
+              <span>Downloaded <b>Meera · 12 Nov 10:03</b></span>
+              <span>Link <b id="link-state">active</b></span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- INBOX -->
+      <div class="stage" id="view-inbox">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h1>Needs answer</h1>
+              <p class="sub">WhatsApp replies attached to drawings</p>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat hot"><small>Unanswered</small><b>3</b></div>
+            <div class="stat"><small>Over 24h</small><b>1</b></div>
+            <div class="stat"><small>This week</small><b>11</b></div>
+          </div>
+          <div class="scroll stack">
+            <button class="card-row selected" type="button">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">Can the kitchen window be wider?</p>
+                  <p class="card-meta">Meera · GA-A-101 · 26h · reminder sent</p>
+                </div>
+                <span class="badge badge-revision">Open</span>
+              </div>
+            </button>
+            <button class="card-row" type="button">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">Is the car porch covered?</p>
+                  <p class="card-meta">Anil · GA-A-001 · 4h</p>
+                </div>
+                <span class="badge badge-review">Open</span>
+              </div>
+            </button>
+            <button class="card-row" type="button">
+              <div class="card-top">
+                <div>
+                  <p class="card-title">PDF for structural consultant?</p>
+                  <p class="card-meta">Priya · ST-S-201 · download off</p>
+                </div>
+                <span class="badge badge-draft">Open</span>
+              </div>
+            </button>
+          </div>
+        </section>
+        <section class="panel thread-pane">
+          <div>
+            <h2 style="margin:0 0 4px;font-size:18px;letter-spacing:-0.02em">Thread · GA-A-101 · Meera</h2>
+            <p style="margin:0;font-size:12px;color:var(--muted-foreground)">Reply lands in her WhatsApp under the quoted question</p>
+          </div>
+          <div class="bubble sys">WhatsApp reply attached to “Ground Floor Plan R03 is ready for your approval.”</div>
+          <div class="bubble client">Can the kitchen window be wider?</div>
+          <div class="compose">
+            <input type="text" id="reply" placeholder="Reply — sends on WhatsApp" />
+            <button class="btn btn-primary btn-sm" type="button" id="send-reply">Send</button>
+            <button class="btn btn-outline btn-sm" type="button" id="open-decision">Turn into decision</button>
+          </div>
+          <p style="margin:0;font-size:12px;color:var(--muted-foreground)">
+            Keeps the WhatsApp message as evidence · becomes D-007 in the decision log.
+          </p>
+        </section>
+      </div>
+
+      <!-- DECISIONS -->
+      <div class="stage" id="view-decisions">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h1>Decisions</h1>
+              <p class="sub" data-project-field="name">Meera Residence</p>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-outline btn-sm" type="button" id="open-variation">Variation PDF</button>
+              <button class="btn btn-primary btn-sm" type="button" id="open-decision-new">+ Decision</button>
+            </div>
+          </div>
+          <div class="totals">
+            <div class="totals-hero">
+              <div class="was">
+                <small>Agreement</small>
+                <b>₹42,00,000</b>
+              </div>
+              <div class="now">
+                <small>Current total</small>
+                <b>₹43,70,000</b>
+                <span class="delta-time">+12 days</span>
+              </div>
+            </div>
+            <div class="totals-delta">
+              <div class="up"><small>Additions</small><b>+₹2,35,000</b></div>
+              <div class="down"><small>Removals</small><b>−₹65,000</b></div>
+            </div>
+          </div>
+          <div class="dec-wait">
+            <span class="badge badge-priced">Priced</span>
+            <span><span class="mono">D-007</span> waiting on Meera</span>
+          </div>
+          <div class="scroll stack">
+            <button class="dec-row selected" type="button" data-dec="d007">
+              <div>
+                <div class="dec-id">
+                  <span class="mono">D-007</span>
+                  <span class="type-chip">Addition</span>
+                </div>
+                <p class="dec-title">Widen kitchen window to 6 ft</p>
+                <p class="dec-meta">GA-A-101 · from WhatsApp</p>
+              </div>
+              <div class="dec-side">
+                <span class="badge badge-priced">Priced</span>
+                <div class="dec-money cost-up">+₹18,000<span class="days">+3 days</span></div>
+              </div>
+            </button>
+            <button class="dec-row" type="button">
+              <div>
+                <div class="dec-id">
+                  <span class="mono">D-009</span>
+                  <span class="type-chip">Removal</span>
+                </div>
+                <p class="dec-title">Drop courtyard pergola</p>
+                <p class="dec-meta">GA-A-001 · both confirmed</p>
+              </div>
+              <div class="dec-side">
+                <span class="badge badge-approved">Approved</span>
+                <div class="dec-money cost-down">−₹65,000<span class="days">−3 days</span></div>
+              </div>
+            </button>
+            <button class="dec-row" type="button">
+              <div>
+                <div class="dec-id">
+                  <span class="mono">D-005</span>
+                  <span class="type-chip">Material</span>
+                </div>
+                <p class="dec-title">Upgrade lobby tiles</p>
+                <p class="dec-meta">Done with photo</p>
+              </div>
+              <div class="dec-side">
+                <span class="badge badge-done">Done</span>
+                <div class="dec-money cost-up">+₹42,000</div>
+              </div>
+            </button>
+            <button class="dec-row" type="button">
+              <div>
+                <div class="dec-id">
+                  <span class="mono">D-003</span>
+                  <span class="type-chip">Addition</span>
+                </div>
+                <p class="dec-title">Extend car porch 1.2 m</p>
+                <p class="dec-meta">Awaiting contractor price</p>
+              </div>
+              <div class="dec-side">
+                <span class="badge badge-proposed">Proposed</span>
+              </div>
+            </button>
+          </div>
+        </section>
+        <section class="panel decision-detail">
+          <div>
+            <div class="lead" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+              <span class="mono" style="font-weight:600">D-007</span>
+              <span class="badge badge-priced">Priced</span>
+              <span class="type-chip">Addition</span>
+            </div>
+            <h2>Widen kitchen window to 6 ft</h2>
+            <p style="margin:8px 0 0;color:var(--muted-foreground);font-size:13px;line-height:1.45;max-width:36em">
+              From Meera’s WhatsApp question on GA-A-101. Contractor confirmed price.
+              Client approval still open.
+            </p>
+          </div>
+          <div class="flow-steps" aria-label="Status flow">
+            <span>Proposed</span>
+            <span class="on">Priced</span>
+            <span>Approved</span>
+            <span>Done</span>
+          </div>
+          <div class="impact">
+            <span class="chip-cost up">+₹18,000</span>
+            <span class="chip-cost up">+3 days</span>
+            <span style="font-size:12px;color:var(--muted-foreground)">Linked · GA-A-101 R03 → R04</span>
+          </div>
+          <div class="detail-card">
+            <div class="meta-grid">
+              <div><small>Requested by</small><b>Meera Rajan · Client</b></div>
+              <div><small>Action owner</small><b>Ravi Builders</b></div>
+              <div><small>Contractor confirm</small><b>14 Nov · WhatsApp code</b></div>
+              <div><small>Client confirm</small><b style="color:var(--cost-increase)">Waiting</b></div>
+            </div>
+          </div>
+          <div class="controls-row">
+            <a class="btn btn-primary btn-sm" href="whatsapp.html#decision">Preview WhatsApp ask</a>
+            <a class="btn btn-outline btn-sm" href="client.html#decision">Client approve page</a>
+          </div>
+          <div class="audit">
+            <span>Fingerprint <b>d007…9af2</b></span>
+            <span>Evidence <b>WhatsApp msg · 13 Nov 9:18</b></span>
+            <span>No edit after approve — revise = new row</span>
+          </div>
+        </section>
+      </div>
+
+      <!-- PHOTOS — site diary by stage -->
+      <div class="stage" id="view-photos">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h1>Site diary</h1>
+              <p class="sub"><span data-project-field="name">Meera Residence</span> · chronological by stage</p>
+            </div>
+            <button class="btn btn-primary btn-sm" type="button" id="fake-photo">Add photo</button>
+          </div>
+          <div class="seg" role="tablist" id="photo-seg">
+            <button class="active" type="button" data-tl="all">All</button>
+            <button type="button" data-tl="foundation">Foundation</button>
+            <button type="button" data-tl="plinth">Plinth</button>
+          </div>
+          <div class="scroll">
+            <div class="photo-diary" id="photo-timeline">
+              <section class="diary-chapter" data-stage="foundation">
+                <div class="diary-head">
+                  <div class="left">
+                    <h3>Foundation</h3>
+                    <span class="badge badge-approved">Done</span>
+                  </div>
+                  <span class="range">10–12 Nov</span>
+                </div>
+                <button class="diary-card" type="button" data-photo="pour">
+                  <div class="thumbs"><span class="a"></span><span class="b"></span></div>
+                  <div class="body">
+                    <span class="when">10 Nov · 08:40</span>
+                    <p class="title">Footing pour</p>
+                    <p class="sub">Grid A–C · Ravi on site</p>
+                  </div>
+                </button>
+                <button class="diary-card" type="button" data-photo="steel">
+                  <div class="thumbs single"><span class="c"></span></div>
+                  <div class="body">
+                    <span class="when">11 Nov · 16:12</span>
+                    <p class="title">Steel check — issue raised</p>
+                    <p class="sub">Cover short at B2 · Lekshmi</p>
+                    <div class="tags"><span class="badge badge-revision">Open then</span></div>
+                  </div>
+                </button>
+                <button class="diary-card selected" type="button" data-photo="after">
+                  <div class="thumbs"><span class="a"></span><span class="c"></span></div>
+                  <div class="body">
+                    <span class="when">12 Nov · 11:05</span>
+                    <p class="title">After fix — verified</p>
+                    <p class="sub">Closes issue · pin on GA-A-101</p>
+                    <div class="tags"><span class="badge badge-approved">Fixed</span></div>
+                  </div>
+                </button>
+              </section>
+
+              <section class="diary-chapter" data-stage="plinth">
+                <div class="diary-head">
+                  <div class="left">
+                    <h3>Plinth</h3>
+                    <span class="badge badge-review">Current</span>
+                  </div>
+                  <span class="range">13–14 Nov</span>
+                </div>
+                <button class="diary-card" type="button" data-photo="beam">
+                  <div class="thumbs single"><span class="b"></span></div>
+                  <div class="body">
+                    <span class="when">13 Nov · 09:22</span>
+                    <p class="title">Beam seat</p>
+                    <p class="sub">North edge · matches R04</p>
+                  </div>
+                </button>
+                <button class="diary-card" type="button" data-photo="block">
+                  <div class="thumbs"><span class="a"></span><span class="b"></span></div>
+                  <div class="body">
+                    <span class="when">14 Nov · 15:48</span>
+                    <p class="title">Block work started</p>
+                    <p class="sub">Waiting engineer gate</p>
+                    <div class="tags"><span class="badge badge-review">In progress</span></div>
+                  </div>
+                </button>
+              </section>
+
+              <section class="diary-chapter" data-stage="slab">
+                <div class="diary-head">
+                  <div class="left">
+                    <h3>Ground floor slab</h3>
+                    <span class="home-badge">Upcoming</span>
+                  </div>
+                </div>
+                <div class="diary-upcoming">No photos yet · stage asked before first upload</div>
+              </section>
+            </div>
+          </div>
+        </section>
+        <section class="panel photo-detail" id="photo-detail">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+            <div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+                <span class="badge badge-approved" id="pd-stage">Foundation</span>
+                <span class="mono" style="font-size:12px;color:var(--muted-foreground)" id="pd-when">12 Nov · 11:05</span>
+              </div>
+              <h2 style="margin:0;font-size:20px;letter-spacing:-0.02em" id="pd-title">After fix — verified</h2>
+              <p style="margin:6px 0 0;font-size:13px;color:var(--muted-foreground)" id="pd-sub">
+                Closes steel cover issue at B2. Pinned on drawing so it isn’t lost in WhatsApp.
+              </p>
+            </div>
+            <button class="btn btn-outline btn-sm" type="button" data-goto="gates">Open gate</button>
+          </div>
+          <div class="photo-hero" aria-label="Photo preview">
+            <div class="pin" style="top:36%;left:48%"><span>1</span></div>
+            <div class="meta-float">
+              <span id="pd-gps">📍 9.9312, 76.2673</span>
+              <span>In-app capture</span>
+              <span>SHA …c21e</span>
+            </div>
+          </div>
+          <div class="issue-row">
+            <span class="badge badge-approved">Fixed</span>
+            <span style="flex:1">Issue · cover at B2 · raise → assign → fix → verify with after photo</span>
+          </div>
+          <div class="controls-row">
+            <button class="btn btn-primary btn-sm" type="button" data-goto="drawings">View pin on GA-A-101</button>
+            <button class="btn btn-ghost btn-sm" type="button">Download</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- GATES (later peek) -->
+      <div class="stage" id="view-gates">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h1>Stage gates</h1>
+              <p class="sub">Step 4 peek · independent engineer</p>
+            </div>
+          </div>
+          <div class="strip">Hand-test on 2–3 builds Jan–Mar before building this</div>
+          <div class="scroll">
+            <button class="gate-card selected" type="button">
+              <div class="card-top">
+                <h3>Pre-pour · ground floor slab</h3>
+                <span class="badge badge-revision">Fix needed</span>
+              </div>
+              <p>Nair Clinic · Eng. Suresh · 12 Nov visit</p>
+            </button>
+            <button class="gate-card" type="button">
+              <div class="card-top">
+                <h3>Foundation cover</h3>
+                <span class="badge badge-approved">Passed</span>
+              </div>
+              <p>Meera Residence · paid by owner</p>
+            </button>
+          </div>
+        </section>
+        <section class="panel decision-detail">
+          <div>
+            <h2>Pre-pour checklist</h2>
+            <p style="margin:8px 0 0;color:var(--muted-foreground);font-size:13px">
+              Engineer marks pass or fix. Owner sees a plain summary and releases stage payment only after pass.
+            </p>
+          </div>
+          <ul class="checklist">
+            <li><span class="mark ok">✓</span><div>Cover blocks present at designed spacing</div></li>
+            <li><span class="mark ok">✓</span><div>Beam steel matches GA-A-101 R04</div></li>
+            <li><span class="mark fix">!</span><div>Lap length short at grid B — fix before pour</div></li>
+            <li><span class="mark ok">✓</span><div>Formwork braced; no visible deflection</div></li>
+          </ul>
+          <div class="plain-summary">
+            <strong style="display:block;margin-bottom:6px">For the owner</strong>
+            One item needs fixing before concrete. Your engineer will re-check; release this stage payment only after it passes.
+          </div>
+          <p style="margin:0;font-size:12px;color:var(--muted-foreground)">
+            Homeowners pay for checks (~₹3–5K / visit). Structura is the platform; the engineer is the professional.
+          </p>
+        </section>
+      </div>
+
+        </div><!-- /.workspace-body -->
+      </div><!-- /.workspace -->
+    </div><!-- /.app -->
+
+    <div class="drawer" id="share" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <h2>Share on WhatsApp</h2>
+        <p style="margin:0;color:var(--muted-foreground)">From the firm’s Business number. Meera never installs an app.</p>
+        <div>
+          <label for="to" style="display:block;font-weight:500;margin-bottom:6px">Send to</label>
+          <input class="field" id="to" value="Meera · +91 98XXX XX210" readonly />
+        </div>
+        <div>
+          <div style="font-weight:500;margin-bottom:8px">Audience</div>
+          <div class="audience" role="radiogroup" aria-label="Audience">
+            <label><input type="radio" name="audience" value="everyone" /><span>Everyone</span></label>
+            <label><input type="radio" name="audience" value="pros" /><span>Professionals only</span></label>
+            <label><input type="radio" name="audience" value="client" checked /><span>Client + Architect</span></label>
+          </div>
+          <p class="help">Private threads stay in Structura — no extra WhatsApp group.</p>
+        </div>
+        <label class="switch" style="margin:0">
+          <input type="checkbox" id="share-dl" checked />
+          <span class="track" aria-hidden="true"></span>
+          Allow download (view always on)
+        </label>
+        <div>
+          <label style="display:block;font-weight:500;margin-bottom:6px">WhatsApp message preview</label>
+          <div class="wa-preview">
+            <div class="from">X Architects</div>
+            <div class="bubble-wa">
+              Ground Floor Plan R03 is ready for your approval.<br /><br />
+              What changed: kitchen window moved 300 mm east.<br /><br />
+              <a href="client.html">structura.app/d/ga-a-101-r03</a>
+            </div>
+          </div>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-primary" type="button">Send via WhatsApp API</button>
+          <a class="btn btn-outline" href="whatsapp.html" style="text-align:center">Day-one fallback · open wa.me</a>
+          <button class="btn btn-ghost" type="button" id="close-share">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer" id="variation" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <h2>Variation statement</h2>
+        <p style="margin:0;color:var(--muted-foreground)">
+          PDF at each payment milestone. Both sides acknowledge. Later: Aadhaar eSign.
+        </p>
+        <div class="pdf-sheet">
+          <h3><span data-project-field="name">Meera Residence</span> — variation statement</h3>
+          <div class="pdf-meta">As of 14 Nov 2026 · Agreement baseline ₹42,00,000 · 10 months</div>
+          <table>
+            <thead>
+              <tr><th>Ref</th><th>Change</th><th class="num">Cost</th><th class="num">Days</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">D-005</td><td>Upgrade lobby tiles</td><td class="num cost-up">+₹42,000</td><td class="num">0</td></tr>
+              <tr><td class="mono">D-009</td><td>Drop courtyard pergola</td><td class="num cost-down">−₹65,000</td><td class="num">−3</td></tr>
+              <tr><td class="mono">D-007</td><td>Widen kitchen window (pending)</td><td class="num" style="color:var(--muted-foreground)">+₹18,000*</td><td class="num" style="color:var(--muted-foreground)">+3*</td></tr>
+              <tr class="total-row"><td colspan="2">Current approved total</td><td class="num">₹43,70,000</td><td class="num">+12</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:14px 0 0;font-size:11px;color:var(--muted-foreground)">
+            * Not included until client + contractor confirm. Changes recorded in Structura form part of this agreement.
+          </p>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-primary" type="button" id="dl-variation">Download PDF</button>
+          <a class="btn btn-outline" href="client.html#project" style="text-align:center">Client project view</a>
+          <button class="btn btn-ghost" type="button" id="close-variation">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer" id="decision-drawer" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <h2>Turn into decision</h2>
+        <p style="margin:0;color:var(--muted-foreground)">
+          From Meera’s WhatsApp question. Becomes D-007 — contractor prices, then she approves with a code.
+        </p>
+        <div>
+          <label for="dec-title" style="display:block;font-weight:500;margin-bottom:6px">Title</label>
+          <input class="field" id="dec-title" value="Widen kitchen window to 6 ft" />
+        </div>
+        <div>
+          <label for="dec-type" style="display:block;font-weight:500;margin-bottom:6px">Type</label>
+          <select class="field" id="dec-type">
+            <option>Addition</option>
+            <option>Removal</option>
+            <option>Revision</option>
+            <option>Material change</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div>
+            <label for="dec-cost" style="display:block;font-weight:500;margin-bottom:6px">Cost (₹)</label>
+            <input class="field mono" id="dec-cost" value="18000" />
+          </div>
+          <div>
+            <label for="dec-days" style="display:block;font-weight:500;margin-bottom:6px">Days</label>
+            <input class="field mono" id="dec-days" value="3" />
+          </div>
+        </div>
+        <p class="help">Linked drawing: GA-A-101 · Evidence: WhatsApp 13 Nov 9:18</p>
+        <div class="wa-preview">
+          <div class="from">WhatsApp preview → Meera</div>
+          <div class="bubble-wa">
+            Change D-007: Widen kitchen window. +₹18,000, +3 days. Approve?<br /><br />
+            <a href="client.html#decision">structura.app/c/d-007</a>
+          </div>
+        </div>
+        <p class="help">Next: contractor confirms price on <a href="client.html#contractor">phone link</a>, then Meera.</p>
+        <div class="panel-actions">
+          <button class="btn btn-primary" type="button" id="save-decision">Save · ask contractor then Meera</button>
+          <button class="btn btn-ghost" type="button" id="close-decision">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" crossorigin=""></script>
+    <script>
+      const FIRM_VIEWS = ["home", "projects", "inbox"];
+      const PROJECT_VIEWS = ["project", "drawings", "decisions", "photos", "gates"];
+      const views = [...FIRM_VIEWS, ...PROJECT_VIEWS];
+      let sitesMap = null;
+      const siteMarkers = {};
+      const sitePopups = {};
+      let currentProjectId = "meera";
+
+      const PROJECTS = [
+        {
+          id: "meera",
+          code: "PR-0142",
+          name: "Meera Residence",
+          type: "RESIDENTIAL",
+          loc: "Kochi",
+          where: "Kochi · Ernakulam · Meera Rajan",
+          client: "Meera Rajan",
+          lat: 9.9312,
+          lng: 76.2673,
+          status: "hot",
+          statusLabel: "Needs action",
+          goto: "drawings",
+          detail: "1 waiting on client · R03",
+          badge: "1 waiting",
+          badgeEmph: true,
+        },
+        {
+          id: "anil",
+          code: "PR-0138",
+          name: "Anil Villa",
+          type: "RESIDENTIAL",
+          loc: "Thrissur",
+          where: "Thrissur · Anil Menon",
+          client: "Anil Menon",
+          lat: 10.5276,
+          lng: 76.2144,
+          status: "wait",
+          statusLabel: "Waiting",
+          goto: "inbox",
+          detail: "Open WhatsApp question",
+          badge: "Question",
+        },
+        {
+          id: "priya",
+          code: "PR-0129",
+          name: "Priya Heights",
+          type: "RESIDENTIAL",
+          loc: "Ernakulam",
+          where: "Ernakulam · Priya Nambiar",
+          client: "Priya Nambiar",
+          lat: 9.9816,
+          lng: 76.2999,
+          status: "ok",
+          statusLabel: "On track",
+          goto: "drawings",
+          detail: "Consultant ask · internal",
+          badge: "Consultant",
+        },
+        {
+          id: "nair",
+          code: "PR-0117",
+          name: "Nair Clinic",
+          type: "CLINIC",
+          loc: "Kozhikode",
+          where: "Kozhikode · Dr. Nair",
+          client: "Dr. Nair",
+          lat: 11.2588,
+          lng: 75.7804,
+          status: "wait",
+          statusLabel: "Waiting",
+          goto: "gates",
+          detail: "Pre-pour · fix needed",
+          badge: "Gate",
+        },
+      ];
+      const SITES = PROJECTS;
+
+      function getProject(id) {
+        return PROJECTS.find((p) => p.id === id) || PROJECTS[0];
+      }
+
+      function setProject(id) {
+        const p = getProject(id);
+        currentProjectId = p.id;
+        document.querySelectorAll("[data-project-field]").forEach((el) => {
+          const key = el.dataset.projectField;
+          if (p[key] != null) el.textContent = p[key];
+        });
+        document.querySelectorAll("#proj-switch-menu button").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.projectId === p.id);
+        });
+        document.querySelectorAll("#projects-list .project-row").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.openProject === p.id);
+        });
+      }
+
+      function openProject(id, view) {
+        setProject(id);
+        const p = getProject(id);
+        const target = view || "project";
+        if (target === "inbox") show("inbox");
+        else if (PROJECT_VIEWS.includes(target)) show(target);
+        else show(p.goto === "inbox" ? "project" : p.goto);
+        closeProjSwitch();
+      }
+
+      function renderProjectsList() {
+        const list = document.getElementById("projects-list");
+        if (!list) return;
+        list.innerHTML = PROJECTS.map((p) => `
+          <button class="project-row${p.id === currentProjectId ? " active" : ""}" type="button" data-open-project="${p.id}" data-open-view="project">
+            <div class="proj-thumb" aria-hidden="true" style="width:56px;height:56px;border-radius:14px;background:var(--muted);display:grid;place-items:center">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            </div>
+            <div>
+              <div class="proj-id" style="display:flex;gap:8px;align-items:center;margin-bottom:2px">
+                <span class="mono" style="font-size:11px;color:var(--muted-foreground)">${p.code}</span>
+                <span class="chip">${p.type}</span>
+              </div>
+              <h3>${p.name}</h3>
+              <p class="meta">${p.loc} · ${p.detail}</p>
+            </div>
+            <span class="home-badge${p.badgeEmph ? " emph" : ""}">${p.badge}</span>
+          </button>
+        `).join("");
+        list.querySelectorAll("[data-open-project]").forEach((btn) => {
+          btn.addEventListener("click", () => openProject(btn.dataset.openProject, btn.dataset.openView || "project"));
+        });
+      }
+
+      function renderProjSwitchMenu() {
+        const menu = document.getElementById("proj-switch-menu");
+        if (!menu) return;
+        menu.innerHTML = PROJECTS.map((p) => `
+          <button type="button" role="option" data-project-id="${p.id}" class="${p.id === currentProjectId ? "active" : ""}">
+            <span>
+              ${p.name}
+              <span class="pm-meta">${p.code} · ${p.loc}</span>
+            </span>
+          </button>
+        `).join("");
+        menu.querySelectorAll("[data-project-id]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const view = PROJECT_VIEWS.includes(
+              (document.querySelector(".rail [data-view].active") || {}).dataset?.view
+            )
+              ? document.querySelector(".rail [data-view].active").dataset.view
+              : "project";
+            openProject(btn.dataset.projectId, view);
+          });
+        });
+      }
+
+      function closeProjSwitch() {
+        const sw = document.getElementById("proj-switch");
+        const btn = document.getElementById("proj-switch-btn");
+        if (sw) sw.classList.remove("open");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      }
+
+      // CARTO Positron vector style — no API key required (raster Positron needs a key).
+      const POSITRON_STYLE = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
+
+      function ensureSitesMap() {
+        if (sitesMap || typeof maplibregl === "undefined") return sitesMap;
+        const el = document.getElementById("sites-map");
+        if (!el) return null;
+
+        sitesMap = new maplibregl.Map({
+          container: el,
+          style: POSITRON_STYLE,
+          center: [76.2, 10.4],
+          zoom: 7.2,
+          attributionControl: true,
+          scrollZoom: false,
+        });
+
+        sitesMap.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+
+        sitesMap.on("click", () => {
+          if (!sitesMap.scrollZoom.isEnabled()) sitesMap.scrollZoom.enable();
+        });
+
+        sitesMap.on("load", () => {
+          const bounds = new maplibregl.LngLatBounds();
+          SITES.forEach((site) => {
+            const el = document.createElement("div");
+            el.className = "site-marker " + site.status;
+            el.title = site.name + " — open project";
+            el.setAttribute("role", "button");
+            el.setAttribute("aria-label", "Open " + site.name);
+            el.innerHTML = '<div class="dot"></div>';
+
+            const popup = new maplibregl.Popup({ offset: 14, closeButton: true }).setHTML(
+              `<div class="site-popup">
+                <strong>${site.name}</strong>
+                <div class="loc">${site.loc} · ${site.detail}</div>
+                <span class="status ${site.status}">${site.statusLabel}</span>
+                <button type="button" data-map-open="${site.id}">Open project</button>
+              </div>`
+            );
+            popup.on("open", () => {
+              highlightMapSite(site.id);
+              const btn = popup.getElement() && popup.getElement().querySelector("[data-map-open]");
+              if (btn) {
+                btn.onclick = (e) => {
+                  e.stopPropagation();
+                  openSiteProject(site.id);
+                };
+              }
+            });
+
+            el.addEventListener("click", (e) => {
+              e.stopPropagation();
+              highlightMapSite(site.id);
+            });
+            el.addEventListener("dblclick", (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              openSiteProject(site.id);
+            });
+
+            const marker = new maplibregl.Marker({ element: el, anchor: "center" })
+              .setLngLat([site.lng, site.lat])
+              .setPopup(popup)
+              .addTo(sitesMap);
+
+            siteMarkers[site.id] = marker;
+            sitePopups[site.id] = popup;
+            bounds.extend([site.lng, site.lat]);
+          });
+          sitesMap.fitBounds(bounds, { padding: 48, maxZoom: 10, duration: 0 });
+          sitesMap.resize();
+        });
+
+        return sitesMap;
+      }
+
+      function openSiteProject(id) {
+        const p = getProject(id);
+        const view = p.goto === "inbox" ? "project" : p.goto;
+        openProject(id, view);
+      }
+
+      function highlightMapSite(id) {
+        document.querySelectorAll(".site-marker").forEach((m) => {
+          m.classList.toggle("is-active", m === (siteMarkers[id] && siteMarkers[id].getElement()));
+        });
+        Object.keys(siteMarkers).forEach((key) => {
+          const marker = siteMarkers[key];
+          if (marker && marker.getElement()) {
+            marker.getElement().classList.toggle("is-active", key === id);
+          }
+        });
+        document.querySelectorAll(".map-site").forEach((chip) => {
+          chip.classList.toggle("is-active", chip.dataset.siteId === id);
+        });
+      }
+
+      function renderMapSites() {
+        const host = document.getElementById("map-sites");
+        if (!host) return;
+        host.innerHTML = PROJECTS.map(
+          (p) => `
+          <button type="button" class="map-site ${p.status}" data-site-id="${p.id}" role="listitem" title="Open ${p.name}">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="name">${p.name}</span>
+            <span class="loc">${p.loc}</span>
+          </button>`
+        ).join("");
+        host.querySelectorAll(".map-site").forEach((chip) => {
+          chip.addEventListener("click", () => openSiteProject(chip.dataset.siteId));
+          chip.addEventListener("mouseenter", () => highlightMapSite(chip.dataset.siteId));
+        });
+      }
+
+      function refreshSitesMap() {
+        const map = ensureSitesMap();
+        if (!map) return;
+        requestAnimationFrame(() => {
+          map.resize();
+          if (map.isStyleLoaded()) {
+            const bounds = new maplibregl.LngLatBounds();
+            SITES.forEach((s) => bounds.extend([s.lng, s.lat]));
+            map.fitBounds(bounds, { padding: 48, maxZoom: 10, duration: 0 });
+          }
+        });
+      }
+
+      function focusSite(id) {
+        const map = ensureSitesMap();
+        const open = () => {
+          const marker = siteMarkers[id];
+          if (!marker) return;
+          const lngLat = marker.getLngLat();
+          map.flyTo({ center: lngLat, zoom: 12, essential: true });
+          const popup = marker.getPopup();
+          if (popup && !popup.isOpen()) marker.togglePopup();
+        };
+        if (!map) return;
+        if (siteMarkers[id]) open();
+        else map.once("load", open);
+      }
+
+      function show(name) {
+        if (PROJECT_VIEWS.includes(name) && !currentProjectId) {
+          currentProjectId = "meera";
+          setProject("meera");
+        }
+        views.forEach((v) => {
+          const el = document.getElementById("view-" + v);
+          if (el) el.classList.toggle("on", v === name);
+        });
+        document.querySelectorAll(".rail [data-view]").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.view === name);
+        });
+        document.querySelectorAll(".context-nav [data-view]").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.view === name);
+        });
+        const app = document.querySelector(".app");
+        if (app) app.classList.toggle("project-level", PROJECT_VIEWS.includes(name));
+        history.replaceState(null, "", "#" + name);
+        if (name === "home") refreshSitesMap();
+        closeProjSwitch();
+      }
+
+      document.querySelectorAll("[data-view]").forEach((btn) => {
+        btn.addEventListener("click", () => show(btn.dataset.view));
+      });
+
+      document.querySelectorAll("[data-open-project]").forEach((el) => {
+        el.addEventListener("click", () => {
+          openProject(el.dataset.openProject, el.dataset.openView || "project");
+        });
+      });
+
+      document.querySelectorAll("[data-goto]").forEach((el) => {
+        el.addEventListener("click", () => {
+          if (el.dataset.focusSite) {
+            show("home");
+            setTimeout(() => focusSite(el.dataset.focusSite), 60);
+            return;
+          }
+          const goto = el.dataset.goto;
+          if (el.dataset.project) {
+            if (goto === "inbox") {
+              setProject(el.dataset.project);
+              show("inbox");
+            } else {
+              openProject(el.dataset.project, goto);
+            }
+            return;
+          }
+          show(goto);
+        });
+      });
+
+      const switchBtn = document.getElementById("proj-switch-btn");
+      if (switchBtn) {
+        switchBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const sw = document.getElementById("proj-switch");
+          const open = !sw.classList.contains("open");
+          sw.classList.toggle("open", open);
+          switchBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+      }
+      document.addEventListener("click", (e) => {
+        const sw = document.getElementById("proj-switch");
+        if (sw && !sw.contains(e.target)) closeProjSwitch();
+      });
+
+      renderProjectsList();
+      renderProjSwitchMenu();
+      renderMapSites();
+      setProject(currentProjectId);
+
+      document.querySelectorAll("[data-attn-filter]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.dataset.attnFilter;
+          document.querySelectorAll("[data-attn-filter]").forEach((b) => {
+            b.classList.toggle("on", b === btn);
+          });
+          document.querySelectorAll("#attn-list .attn").forEach((row) => {
+            const show = filter === "all" || row.dataset.attn === filter;
+            row.hidden = !show;
+          });
+        });
+      });
+
+      const drawer = document.getElementById("share");
+      const openShare = () => drawer.classList.add("open");
+      document.querySelectorAll("[data-share], #open-share, #open-share-home").forEach((el) => {
+        el.addEventListener("click", openShare);
+      });
+      document.getElementById("close-share").onclick = () => drawer.classList.remove("open");
+      drawer.addEventListener("click", (e) => { if (e.target === drawer) drawer.classList.remove("open"); });
+
+      const decDrawer = document.getElementById("decision-drawer");
+      const openDec = () => decDrawer.classList.add("open");
+      document.getElementById("open-decision").onclick = openDec;
+      document.getElementById("open-decision-new").onclick = openDec;
+      document.getElementById("close-decision").onclick = () => decDrawer.classList.remove("open");
+      decDrawer.addEventListener("click", (e) => { if (e.target === decDrawer) decDrawer.classList.remove("open"); });
+      document.getElementById("save-decision").onclick = () => {
+        decDrawer.classList.remove("open");
+        show("decisions");
+        toast("D-007 saved · WhatsApp ask queued for Meera");
+      };
+
+      const varDrawer = document.getElementById("variation");
+      document.getElementById("open-variation").onclick = () => varDrawer.classList.add("open");
+      document.getElementById("close-variation").onclick = () => varDrawer.classList.remove("open");
+      varDrawer.addEventListener("click", (e) => { if (e.target === varDrawer) varDrawer.classList.remove("open"); });
+      document.getElementById("dl-variation").onclick = () => toast("Variation statement PDF downloaded");
+
+      const canvas = document.getElementById("drawing-canvas");
+      const toggleCompare = () => {
+        canvas.classList.toggle("compare-on");
+        toast(canvas.classList.contains("compare-on") ? "Comparing R02 · R03" : "Single sheet");
+      };
+      document.getElementById("toggle-compare").onclick = toggleCompare;
+      document.getElementById("open-compare-hist").onclick = () => {
+        canvas.classList.add("compare-on");
+        toast("Comparing R02 · R03");
+      };
+      document.getElementById("fake-upload").onclick = () => toast("Upload → next revision R04 (demo)");
+      document.getElementById("fake-photo").onclick = () => toast("Pick stage → capture in-app (demo)");
+
+      const PHOTO_DETAIL = {
+        pour: {
+          stage: "Foundation", stageClass: "badge-issued",
+          when: "10 Nov · 08:40", title: "Footing pour",
+          sub: "Grid A–C. Ravi on site. First pour of the week.",
+        },
+        steel: {
+          stage: "Foundation", stageClass: "badge-revision",
+          when: "11 Nov · 16:12", title: "Steel check — issue raised",
+          sub: "Cover short at B2. Assigned to Lekshmi. Needs after photo to close.",
+        },
+        after: {
+          stage: "Foundation", stageClass: "badge-approved",
+          when: "12 Nov · 11:05", title: "After fix — verified",
+          sub: "Closes steel cover issue at B2. Pinned on drawing so it isn’t lost in WhatsApp.",
+        },
+        beam: {
+          stage: "Plinth", stageClass: "badge-approved",
+          when: "13 Nov · 09:22", title: "Beam seat",
+          sub: "North edge checked against GA-A-101 R04.",
+        },
+        block: {
+          stage: "Plinth", stageClass: "badge-review",
+          when: "14 Nov · 15:48", title: "Block work started",
+          sub: "Current stage. Pre-pour gate still open on Nair Clinic pattern.",
+        },
+      };
+
+      function selectPhoto(id) {
+        const d = PHOTO_DETAIL[id];
+        if (!d) return;
+        document.querySelectorAll(".diary-card").forEach((el) => {
+          el.classList.toggle("selected", el.dataset.photo === id);
+        });
+        const badge = document.getElementById("pd-stage");
+        badge.className = "badge " + d.stageClass;
+        badge.textContent = d.stage;
+        document.getElementById("pd-when").textContent = d.when;
+        document.getElementById("pd-title").textContent = d.title;
+        document.getElementById("pd-sub").textContent = d.sub;
+      }
+
+      document.querySelectorAll(".diary-card").forEach((el) => {
+        el.addEventListener("click", () => selectPhoto(el.dataset.photo));
+      });
+
+      document.querySelectorAll("#photo-seg button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#photo-seg button").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.dataset.tl;
+          document.querySelectorAll(".diary-chapter").forEach((node) => {
+            const show = filter === "all" || node.dataset.stage === filter;
+            node.style.display = show ? "" : "none";
+          });
+        });
+      });
+
+      document.getElementById("send-reply").onclick = () => {
+        const input = document.getElementById("reply");
+        if (!input.value.trim()) return;
+        const b = document.createElement("div");
+        b.className = "bubble arch";
+        b.textContent = input.value.trim();
+        input.closest(".compose").before(b);
+        input.value = "";
+      };
+
+      const dlToggle = document.getElementById("dl-toggle");
+      const syncDl = () => {
+        const on = dlToggle.checked;
+        document.getElementById("dl-text").textContent = on ? "On" : "Off";
+        document.getElementById("dl-label").textContent = on ? "Allowed" : "View only";
+      };
+      dlToggle.addEventListener("change", syncDl);
+
+      document.querySelectorAll("[data-revoke]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("link-state").textContent = "revoked";
+          btn.textContent = "Revoked";
+          btn.disabled = true;
+          toast("Share link revoked for " + (btn.dataset.who || "recipient"));
+        });
+      });
+
+      function toast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toast._t);
+        toast._t = setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      const hash = (location.hash || "").replace("#", "");
+      if (views.includes(hash)) show(hash);
+      else refreshSitesMap();
+    </script>
+  </body>
+</html>

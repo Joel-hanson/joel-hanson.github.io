@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Structura — Sign in</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background:
+          radial-gradient(ellipse at 20% 0%, #edf5f2 0%, transparent 45%),
+          radial-gradient(ellipse at 90% 20%, #e8eef5 0%, transparent 40%),
+          var(--background);
+      }
+      .flow-nav { max-width: 440px; margin: 0 auto; width: 100%; }
+      .wrap {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        padding: 24px 16px 48px;
+      }
+      .card {
+        width: min(400px, 100%);
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        padding: 32px 28px 28px;
+      }
+      .brand {
+        display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+      }
+      .logo {
+        width: 44px; height: 44px; border-radius: 50%;
+        background: var(--brand); color: #faf8f4;
+        display: grid; place-items: center; font-weight: 600;
+      }
+      .brand h1 { margin: 0; font-size: 20px; letter-spacing: -0.03em; }
+      .brand p { margin: 2px 0 0; font-size: 13px; color: var(--muted-foreground); }
+      .lede {
+        margin: 0 0 22px; font-size: 15px; color: var(--muted-foreground); line-height: 1.45;
+      }
+      .who {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px;
+      }
+      .who button {
+        padding: 12px; border-radius: var(--radius-md);
+        border: 1.5px solid var(--border); font-weight: 500; font-size: 13px;
+        background: var(--card); color: var(--muted-foreground);
+      }
+      .who button.on {
+        border-color: var(--foreground); color: var(--foreground); background: var(--muted);
+      }
+      .field-label {
+        display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px;
+      }
+      .phone-row {
+        display: flex; gap: 8px; margin-bottom: 8px;
+      }
+      .cc {
+        width: 72px; padding: 12px; border-radius: var(--radius-md);
+        border: 1.5px solid var(--input); background: var(--muted);
+        font-family: var(--font-mono); font-size: 14px; text-align: center;
+      }
+      .phone {
+        flex: 1; padding: 12px 14px; border-radius: var(--radius-md);
+        border: 1.5px solid var(--input); font: inherit; font-family: var(--font-mono);
+        font-size: 16px; letter-spacing: 0.02em;
+      }
+      .phone:focus, .otp input:focus {
+        outline: 2px solid var(--ring); border-color: var(--ring);
+      }
+      .help { margin: 0 0 18px; font-size: 12px; color: var(--muted-foreground); }
+      .step { display: none; }
+      .step.on { display: block; }
+      .otp {
+        display: flex; gap: 8px; justify-content: space-between; margin: 8px 0 18px;
+      }
+      .otp input {
+        width: 48px; height: 56px; text-align: center;
+        font-family: var(--font-mono); font-size: 20px;
+        border: 1.5px solid var(--input); border-radius: var(--radius-md); background: var(--card);
+      }
+      .btn { width: 100%; padding: 14px 18px; border-radius: 999px; }
+      .back {
+        display: block; width: 100%; margin-top: 10px; text-align: center;
+        font-size: 13px; color: var(--muted-foreground); font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="flow-nav" aria-label="Flows">
+      <a href="index.html">Overview</a>
+      <a href="design-system.html">Design system</a>
+      <a href="login.html" aria-current="page">Login</a>
+      <a href="firm.html">Firm</a>
+      <a href="whatsapp.html">WhatsApp</a>
+      <a href="client.html">Client</a>
+    </nav>
+
+    <div class="wrap">
+      <main class="card">
+        <div class="brand">
+          <div class="logo">S</div>
+          <div>
+            <h1>Structura</h1>
+            <p>Sign in with your phone</p>
+          </div>
+        </div>
+        <p class="lede">
+          No password. We send a one-time code by WhatsApp (or SMS). Same number the firm already has for you.
+        </p>
+
+        <div class="step on" id="step-phone">
+          <div class="who" role="group" aria-label="I am">
+            <button type="button" class="on" data-role="firm">Firm team</button>
+            <button type="button" data-role="client">Client / site</button>
+          </div>
+          <label class="field-label" for="phone">Mobile number</label>
+          <div class="phone-row">
+            <div class="cc">+91</div>
+            <input class="phone" id="phone" inputmode="numeric" maxlength="10" placeholder="98XXX XX210" value="9876543210" />
+          </div>
+          <p class="help" id="phone-help">Staff: OTP on WhatsApp / SMS. No email password to remember.</p>
+          <button class="btn btn-primary" type="button" id="send-code">Send code</button>
+        </div>
+
+        <div class="step" id="step-otp">
+          <label class="field-label">Enter 6-digit code</label>
+          <p class="help" id="otp-help">Sent to +91 98765 43210 · demo: any digits</p>
+          <div class="otp" aria-label="One-time code">
+            <input maxlength="1" inputmode="numeric" />
+            <input maxlength="1" inputmode="numeric" />
+            <input maxlength="1" inputmode="numeric" />
+            <input maxlength="1" inputmode="numeric" />
+            <input maxlength="1" inputmode="numeric" />
+            <input maxlength="1" inputmode="numeric" />
+          </div>
+          <button class="btn btn-primary" type="button" id="verify">Continue</button>
+          <button class="back" type="button" id="back-phone">Use a different number</button>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      let role = "firm";
+      document.querySelectorAll(".who button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          role = btn.dataset.role;
+          document.querySelectorAll(".who button").forEach((b) => b.classList.toggle("on", b === btn));
+          document.getElementById("phone-help").textContent =
+            role === "firm"
+              ? "Staff: OTP on WhatsApp / SMS. No email password to remember."
+              : "Client or contractor: code on the firm WhatsApp chat. Stay signed in for months.";
+        });
+      });
+
+      document.getElementById("send-code").onclick = () => {
+        const raw = document.getElementById("phone").value.replace(/\D/g, "");
+        const pretty = raw.length === 10 ? raw.slice(0, 5) + " " + raw.slice(5) : raw || "98XXX XX210";
+        document.getElementById("otp-help").textContent =
+          "Sent to +91 " + pretty + " · demo: any digits";
+        document.getElementById("step-phone").classList.remove("on");
+        document.getElementById("step-otp").classList.add("on");
+        document.querySelector(".otp input").focus();
+      };
+
+      document.getElementById("back-phone").onclick = () => {
+        document.getElementById("step-otp").classList.remove("on");
+        document.getElementById("step-phone").classList.add("on");
+      };
+
+      document.getElementById("verify").onclick = () => {
+        window.location.href = role === "firm" ? "firm.html" : "client.html#project";
+      };
+
+      document.querySelectorAll(".otp input").forEach((input, i, arr) => {
+        input.addEventListener("input", () => {
+          if (input.value && arr[i + 1]) arr[i + 1].focus();
+        });
+      });
+    </script>
+  </body>
+</html>

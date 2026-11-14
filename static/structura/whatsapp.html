@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Structura — WhatsApp journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px 20px 64px;
+      }
+      .intro h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+      .intro p {
+        margin: 0 0 28px;
+        color: var(--muted-foreground);
+        max-width: 42em;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      @media (max-width: 900px) {
+        .steps { grid-template-columns: 1fr 1fr; }
+      }
+      .step-tab {
+        text-align: left;
+        padding: 14px 16px;
+        border-radius: var(--radius-lg);
+        background: var(--card);
+        box-shadow: var(--shadow-sm);
+        border: 1.5px solid transparent;
+      }
+      .step-tab.active {
+        border-color: var(--foreground);
+        box-shadow: var(--shadow-md);
+      }
+      .step-tab small {
+        display: block;
+        font-size: 11px;
+        color: var(--muted-foreground);
+        margin-bottom: 4px;
+        font-weight: 500;
+      }
+      .step-tab strong {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .stage {
+        display: none;
+        grid-template-columns: 1fr 340px;
+        gap: 20px;
+        align-items: start;
+      }
+      .stage.on { display: grid; }
+      @media (max-width: 900px) {
+        .stage.on { grid-template-columns: 1fr; }
+      }
+      .copy {
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        padding: 28px;
+      }
+      .copy h2 {
+        margin: 0 0 8px;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+      }
+      .copy p {
+        margin: 0 0 16px;
+        color: var(--muted-foreground);
+      }
+      .copy ol {
+        margin: 0 0 20px;
+        padding-left: 18px;
+        color: var(--foreground);
+      }
+      .copy li { margin-bottom: 8px; }
+      .copy .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+      /* WhatsApp phone chrome */
+      .phone {
+        width: 100%;
+        max-width: 340px;
+        margin: 0 auto;
+        background: #0b141a;
+        border-radius: 32px;
+        padding: 12px;
+        box-shadow: var(--shadow-lg);
+      }
+      .phone-inner {
+        background: #efeae2;
+        border-radius: 24px;
+        overflow: hidden;
+        min-height: 560px;
+        display: flex;
+        flex-direction: column;
+      }
+      .wa-bar {
+        background: #1f2c34;
+        color: #e9edef;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .wa-bar .ava {
+        width: 36px; height: 36px; border-radius: 50%;
+        background: var(--brand); color: #fff;
+        display: grid; place-items: center;
+        font-size: 12px; font-weight: 600;
+      }
+      .wa-bar .who { flex: 1; }
+      .wa-bar .who strong { display: block; font-size: 14px; }
+      .wa-bar .who span { font-size: 11px; color: #8696a0; }
+      .chat {
+        flex: 1;
+        padding: 12px 10px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background:
+          url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='%23efeae2'/%3E%3Cpath d='M10 10h1v1H10zm20 15h1v1h-1zm15-8h1v1h-1z' fill='%23d5d0c8' opacity='.35'/%3E%3C/svg%3E");
+      }
+      .day {
+        align-self: center;
+        background: #e1f2fa;
+        color: #54656f;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        margin: 4px 0 8px;
+      }
+      .msg {
+        max-width: 88%;
+        padding: 8px 10px 6px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        line-height: 1.4;
+        position: relative;
+        box-shadow: 0 1px 0.5px rgba(0,0,0,.08);
+      }
+      .msg.in {
+        align-self: flex-start;
+        background: #fff;
+        border-top-left-radius: 0;
+      }
+      .msg.out {
+        align-self: flex-end;
+        background: #d9fdd3;
+        border-top-right-radius: 0;
+      }
+      .msg .label {
+        font-size: 11px;
+        color: #027eb5;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .msg a {
+        color: #027eb5;
+        word-break: break-all;
+      }
+      .msg .time {
+        float: right;
+        margin: 4px 0 0 12px;
+        font-size: 10px;
+        color: #667781;
+      }
+      .msg .quote {
+        border-left: 3px solid #06cf9c;
+        background: rgba(0,0,0,.04);
+        padding: 6px 8px;
+        border-radius: 4px;
+        margin-bottom: 6px;
+        font-size: 12px;
+        color: #54656f;
+      }
+      .composer {
+        background: #f0f2f5;
+        padding: 8px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .composer .field {
+        flex: 1;
+        background: #fff;
+        border-radius: 24px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #667781;
+      }
+      .composer .send {
+        width: 40px; height: 40px; border-radius: 50%;
+        background: #00a884; color: #fff;
+        display: grid; place-items: center;
+      }
+      .otp-card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px dashed #ccc;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        letter-spacing: 0.2em;
+        text-align: center;
+        margin: 6px 0;
+      }
+      .ml { font-family: "Noto Sans Malayalam", var(--font-sans); }
+    </style>
+  </head>
+  <body>
+    <nav class="flow-nav" aria-label="Flows">
+      <a href="index.html">Overview</a>
+      <a href="design-system.html">Design system</a>
+      <a href="login.html">Login</a>
+      <a href="firm.html">Firm</a>
+      <a href="whatsapp.html" aria-current="page">WhatsApp</a>
+      <a href="client.html">Client</a>
+    </nav>
+
+    <main class="page">
+      <div class="intro">
+        <h1>How WhatsApp fits</h1>
+        <p>
+          Clients never install an app. Notifications come from the firm’s Business
+          number (Meta coexistence). Links open in the phone browser. Replies to a
+          drawing message attach back to that drawing as <strong>needs answer</strong>.
+        </p>
+      </div>
+
+      <div class="steps" role="tablist">
+        <button class="step-tab active" type="button" data-step="1">
+          <small>Step 1</small>
+          <strong>Drawing ready</strong>
+        </button>
+        <button class="step-tab" type="button" data-step="2">
+          <small>Step 2</small>
+          <strong>Open &amp; approve</strong>
+        </button>
+        <button class="step-tab" type="button" data-step="3">
+          <small>Step 3</small>
+          <strong>Ask on WhatsApp</strong>
+        </button>
+        <button class="step-tab" type="button" data-step="4">
+          <small>Step 4</small>
+          <strong>Architect replies</strong>
+        </button>
+        <button class="step-tab" type="button" data-step="5">
+          <small>Step 5 · later</small>
+          <strong>Decision ask</strong>
+        </button>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="stage on" id="step-1">
+        <div class="copy">
+          <h2>Architect shares from Structura</h2>
+          <p>
+            The architect uploads Ground Floor Plan R03 and taps Share. Structura sends a
+            utility template from the firm number — or day-one, opens wa.me with the
+            message already typed.
+          </p>
+          <ol>
+            <li>Firm keeps its existing WhatsApp Business chat on the phone.</li>
+            <li>Client sees X Architects — not a random Structura number.</li>
+            <li>Link is revocable; download can be off while viewing stays on.</li>
+          </ol>
+          <div class="actions">
+            <a class="btn btn-primary btn-sm" href="firm.html#drawings">Open firm share</a>
+            <button class="btn btn-outline btn-sm" type="button" data-step="2">Next · client opens link</button>
+          </div>
+        </div>
+        <div class="phone" aria-label="WhatsApp mock">
+          <div class="phone-inner">
+            <div class="wa-bar">
+              <div class="ava">XA</div>
+              <div class="who">
+                <strong>X Architects</strong>
+                <span>Business account</span>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="day">Today</div>
+              <div class="msg in">
+                <div class="label">X Architects</div>
+                Ground Floor Plan R03 is ready for your approval.
+                <br /><br />
+                What changed: kitchen window moved 300 mm east.
+                <br /><br />
+                <a href="client.html">structura.app/d/ga-a-101-r03</a>
+                <span class="time">9:02 ✓✓</span>
+              </div>
+            </div>
+            <div class="composer">
+              <div class="field">Message</div>
+              <div class="send"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="stage" id="step-2">
+        <div class="copy">
+          <h2>Tap the link → Structura in the browser</h2>
+          <p>
+            No App Store. The link leaves WhatsApp and opens Structura in Safari/Chrome —
+            same design as the firm app, phone-width. She pinches to zoom, then Approve.
+            The 6-digit code arrives back in this WhatsApp chat.
+          </p>
+          <ol>
+            <li>OTP proves the phone that received the drawing.</li>
+            <li>Structura stores who / when / version / SHA-256 fingerprint.</li>
+            <li>Architect’s firm dashboard flips to Approved.</li>
+          </ol>
+          <div class="actions">
+            <a class="btn btn-primary btn-sm" href="client.html">Open client page</a>
+            <button class="btn btn-outline btn-sm" type="button" data-step="3">Next · she asks a question</button>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="wa-bar">
+              <div class="ava">XA</div>
+              <div class="who">
+                <strong>X Architects</strong>
+                <span>online</span>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="day">Today</div>
+              <div class="msg in">
+                Your approval code for Ground Floor Plan R03:
+                <div class="otp-card">482 913</div>
+                Valid for 10 minutes. Don’t share this code.
+                <span class="time">9:05</span>
+              </div>
+              <div class="msg out">
+                <span class="ml">കോഡ് ലഭിച്ചു</span> — approving now
+                <span class="time">9:05 ✓✓</span>
+              </div>
+            </div>
+            <div class="composer">
+              <div class="field">Message</div>
+              <div class="send"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="stage" id="step-3">
+        <div class="copy">
+          <h2>She just replies to the drawing message</h2>
+          <p>
+            No form required. Meera long-presses the original “R03 ready” message and
+            replies. WhatsApp reply context tells Structura which drawing it belongs to.
+            Firm inbox shows <strong>Needs answer</strong>; 24h reminder if silent.
+          </p>
+          <ol>
+            <li>Question never dies in a group scroll.</li>
+            <li>Audience stays Client + Architect — no extra private group.</li>
+            <li>Works inside the 24-hour customer-care window.</li>
+          </ol>
+          <div class="actions">
+            <a class="btn btn-primary btn-sm" href="firm.html#inbox">Open firm inbox</a>
+            <button class="btn btn-outline btn-sm" type="button" data-step="4">Next · architect answers</button>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="wa-bar">
+              <div class="ava">XA</div>
+              <div class="who">
+                <strong>X Architects</strong>
+                <span>Business account</span>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="msg in">
+                <div class="label">X Architects</div>
+                Ground Floor Plan R03 is ready…
+                <span class="time">9:02</span>
+              </div>
+              <div class="msg out">
+                <div class="quote">Ground Floor Plan R03 is ready for your approval.</div>
+                Can the kitchen window be wider?
+                <span class="time">9:18 ✓✓</span>
+              </div>
+            </div>
+            <div class="composer">
+              <div class="field">Message</div>
+              <div class="send"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="stage" id="step-4">
+        <div class="copy">
+          <h2>Answer from Structura → her WhatsApp</h2>
+          <p>
+            Architect types in the firm inbox. The reply is delivered as a WhatsApp
+            message quoted under her question. Outside the 24h window, a pre-approved
+            template nudges her to open the thread.
+          </p>
+          <ol>
+            <li>Saturday summary (EN / Malayalam) keeps NRIs informed.</li>
+            <li>STOP anytime; opt-in proof stored on the contact.</li>
+            <li>~₹0.115 / utility message — pilot cost is noise.</li>
+          </ol>
+          <div class="actions">
+            <a class="btn btn-primary btn-sm" href="firm.html#inbox">Firm inbox</a>
+            <button class="btn btn-outline btn-sm" type="button" data-step="5">Next · decision ask</button>
+            <a class="btn btn-ghost btn-sm" href="client.html">Client page</a>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="wa-bar">
+              <div class="ava">XA</div>
+              <div class="who">
+                <strong>X Architects</strong>
+                <span>online</span>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="msg out">
+                <div class="quote">Ground Floor Plan R03…</div>
+                Can the kitchen window be wider?
+                <span class="time">9:18</span>
+              </div>
+              <div class="msg in">
+                <div class="label">X Architects</div>
+                <div class="quote">Can the kitchen window be wider?</div>
+                Yes — we can go to 1.5 m if the beam seat stays. I’ll issue R04 with the change for your approval.
+                <br /><br />
+                <a href="client.html">structura.app/d/ga-a-101-r04</a>
+                <span class="time">11:40 ✓✓</span>
+              </div>
+            </div>
+            <div class="composer">
+              <div class="field">Message</div>
+              <div class="send"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 · Decision (Step 2 product) -->
+      <div class="stage" id="step-5">
+        <div class="copy">
+          <h2>Question becomes a priced decision</h2>
+          <p>
+            Architect taps <strong>Turn into decision</strong> in the inbox. Contractor confirms
+            +₹18,000 / +3 days. Meera gets a WhatsApp ask — same OTP pattern as drawings.
+            Approved decisions are never edited; a change of mind is a new row.
+          </p>
+          <ol>
+            <li>Both sides confirm: contractor prices, client approves.</li>
+            <li>Running project total updates from approved rows only.</li>
+            <li>Original WhatsApp question stays attached as evidence.</li>
+          </ol>
+          <div class="actions">
+            <a class="btn btn-primary btn-sm" href="client.html#decision">Open client decision</a>
+            <a class="btn btn-outline btn-sm" href="firm.html#decisions">Firm decision log</a>
+            <button class="btn btn-ghost btn-sm" type="button" data-step="1">Restart</button>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="wa-bar">
+              <div class="ava">XA</div>
+              <div class="who">
+                <strong>X Architects</strong>
+                <span>Business account</span>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="day">Today</div>
+              <div class="msg in">
+                <div class="label">X Architects</div>
+                Change D-007: Widen kitchen window.
+                <br /><br />
+                <span class="mono">+₹18,000</span> · +3 days
+                <br /><br />
+                Approve?
+                <br /><br />
+                <a href="client.html#decision">structura.app/c/d-007</a>
+                <span class="time">14:02 ✓✓</span>
+              </div>
+              <div class="msg out">
+                Opening now
+                <span class="time">14:05 ✓✓</span>
+              </div>
+            </div>
+            <div class="composer">
+              <div class="field">Message</div>
+              <div class="send"><svg class="icon" viewBox="0 0 24 24" style="stroke:#fff"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      function go(n) {
+        document.querySelectorAll(".stage").forEach((el) => el.classList.remove("on"));
+        document.getElementById("step-" + n).classList.add("on");
+        document.querySelectorAll(".step-tab").forEach((t) => {
+          t.classList.toggle("active", t.dataset.step === String(n));
+        });
+        history.replaceState(null, "", n === "5" || n === 5 ? "#decision" : "#step-" + n);
+      }
+      document.querySelectorAll("[data-step]").forEach((el) => {
+        el.addEventListener("click", () => go(el.dataset.step));
+      });
+      const h = (location.hash || "").replace("#", "");
+      if (h === "decision") go(5);
+      else if (h.startsWith("step-")) go(h.replace("step-", ""));
+    </script>
+  </body>
+</html>

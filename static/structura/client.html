@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Structura — Client</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      /* Client = Structura in the phone browser (same DS as firm).
+         WhatsApp chrome lives only in whatsapp.html. */
+      body {
+        background: var(--background);
+        min-height: 100vh;
+      }
+      .flow-nav { max-width: 440px; margin: 0 auto; }
+
+      .wrap {
+        width: min(420px, 100%);
+        margin: 0 auto 48px;
+        padding: 0 12px 24px;
+      }
+      .mode-link {
+        display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+        margin: 0 0 14px;
+      }
+      .mode-link a {
+        font-size: 12px; font-weight: 500; padding: 7px 12px; border-radius: 999px;
+        background: var(--card); color: var(--muted-foreground); box-shadow: var(--shadow-sm);
+      }
+      .mode-link a.on {
+        background: var(--primary); color: var(--primary-foreground); font-weight: 600;
+      }
+
+      .device {
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 720px;
+      }
+
+      /* Firm-like top chrome — brand S, not WhatsApp green */
+      .app-bar {
+        display: flex; align-items: center; gap: 12px;
+        padding: 12px 14px;
+        background: var(--card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+      }
+      .app-bar .logo {
+        width: 32px; height: 32px; border-radius: 50%;
+        background: var(--brand); color: #faf8f4;
+        display: grid; place-items: center;
+        font-weight: 600; font-size: 12px; flex-shrink: 0;
+      }
+      .app-bar .who { flex: 1; min-width: 0; }
+      .app-bar .who strong {
+        display: block; font-size: 14px; font-weight: 600; letter-spacing: -0.02em;
+      }
+      .app-bar .who span {
+        display: block; font-size: 11px; color: var(--muted-foreground); margin-top: 1px;
+      }
+      .app-bar .pill {
+        font-size: 11px; font-weight: 500; padding: 5px 10px; border-radius: 999px;
+        background: var(--muted); color: var(--muted-foreground); white-space: nowrap;
+      }
+
+      .panel {
+        background: var(--card);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .screen { display: none; flex-direction: column; flex: 1; min-height: 0; }
+      .screen.on { display: flex; }
+
+      .hdr {
+        padding: 20px 18px 16px;
+        border-bottom: 1.5px solid var(--border);
+      }
+      .hdr .from {
+        margin: 0 0 6px; font-size: 12px; color: var(--muted-foreground); font-weight: 500;
+      }
+      .hdr h1 {
+        margin: 0 0 10px; font-size: 22px; font-weight: 600; letter-spacing: -0.03em;
+      }
+      .hdr .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+      .hdr .mono {
+        font-family: var(--font-mono); font-size: 12px; color: var(--muted-foreground);
+      }
+      .hdr .rev {
+        font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+        padding: 3px 8px; border-radius: 6px; background: var(--muted);
+      }
+
+      .body { padding: 0 0 8px; flex: 1; }
+
+      .note {
+        margin: 12px 14px 0; padding: 14px 16px;
+        background: var(--muted); border-radius: var(--radius-lg); font-size: 13px; line-height: 1.45;
+      }
+      .note strong {
+        display: block; margin-bottom: 4px; font-size: 11px; font-weight: 600;
+        letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted-foreground);
+      }
+      .note.need {
+        background: var(--brand-soft); color: var(--brand);
+      }
+      .note.need strong { color: var(--brand); }
+
+      .impact-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 14px 0; }
+      .impact-pill {
+        padding: 8px 12px; border-radius: 999px; font-family: var(--font-mono);
+        font-size: 13px; font-weight: 500;
+        background: var(--cost-increase-bg); color: var(--cost-increase);
+      }
+
+      .canvas {
+        margin: 12px 14px; height: 260px;
+        background: linear-gradient(180deg, #f7f7f8, #e9e9ec);
+        border-radius: var(--radius-lg);
+        display: grid; place-items: center;
+        color: var(--muted-foreground); position: relative;
+        box-shadow: inset 0 0 0 1.5px var(--border);
+      }
+      .canvas .hint {
+        position: absolute; bottom: 12px; right: 12px;
+        font-size: 11px; background: var(--card); padding: 4px 10px; border-radius: 999px;
+        box-shadow: var(--shadow-sm);
+      }
+      .titleblock {
+        position: absolute; left: 12px; bottom: 12px; width: 140px;
+        border: 1.5px solid var(--foreground); background: #fff;
+        padding: 6px 8px; font-size: 9px; text-align: left; color: var(--foreground);
+      }
+      .titleblock b { display: block; font-size: 10px; margin-bottom: 2px; }
+
+      .actions {
+        margin-top: auto; padding: 14px;
+        display: flex; flex-direction: column; gap: 8px;
+        border-top: 1.5px solid var(--border);
+        background: var(--card);
+      }
+      .actions .btn { width: 100%; padding: 14px 16px; border-radius: 999px; }
+
+      .done {
+        display: none; margin: 24px 14px; padding: 32px 20px; text-align: center;
+        background: var(--muted); border-radius: var(--radius-xl);
+      }
+      .done.open { display: block; }
+      .done h2 { margin: 16px 0 8px; font-size: 22px; letter-spacing: -0.02em; }
+      .done p { margin: 0; color: var(--muted-foreground); font-size: 14px; }
+      .check {
+        width: 56px; height: 56px; margin: 0 auto; border-radius: 50%;
+        background: var(--status-approved-bg); color: var(--status-approved-fg);
+        display: grid; place-items: center;
+      }
+
+      .list { padding: 8px 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+      .doc {
+        display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
+        padding: 14px; border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border); background: var(--card); text-align: left; width: 100%;
+      }
+      .doc:hover { border-color: var(--foreground); box-shadow: var(--shadow-sm); }
+      .doc h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+      .doc .meta { margin: 0; font-size: 11px; color: var(--muted-foreground); font-family: var(--font-mono); }
+      .doc .side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+
+      .totals-mini {
+        margin: 12px 14px 0; padding: 14px; border-radius: var(--radius-lg); background: var(--muted);
+      }
+      .totals-mini .row {
+        display: flex; justify-content: space-between; gap: 12px;
+        font-size: 13px; margin-bottom: 6px;
+      }
+      .totals-mini .row:last-child {
+        margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--border); font-weight: 600;
+      }
+      .totals-mini .mono { font-family: var(--font-mono); font-weight: 500; }
+
+      .sheet {
+        display: none; position: fixed; inset: 0;
+        background: rgba(10, 10, 10, 0.35);
+        align-items: flex-end; justify-content: center; z-index: 30;
+        padding: 0 12px 12px;
+      }
+      .sheet.open { display: flex; }
+      .sheet-panel {
+        width: min(400px, 100%); background: var(--card);
+        border-radius: var(--radius-xl); padding: 24px; box-shadow: var(--shadow-lg);
+      }
+      .sheet-panel h2 { margin: 0 0 8px; font-size: 20px; letter-spacing: -0.02em; }
+      .otp {
+        display: flex; gap: 8px; margin: 16px 0; justify-content: space-between;
+      }
+      .otp input {
+        width: 44px; height: 52px; text-align: center;
+        font-family: var(--font-mono); font-size: 18px;
+        border: 1.5px solid var(--input); border-radius: var(--radius-md); background: var(--card);
+      }
+      .otp input:focus { outline: 2px solid var(--ring); border-color: var(--ring); }
+      textarea {
+        width: 100%; min-height: 96px; padding: 12px 14px;
+        border: 1.5px solid var(--input); border-radius: var(--radius-md);
+        font: inherit; resize: vertical; margin: 12px 0;
+      }
+      .hint-otp { font-size: 12px; color: var(--muted-foreground); margin: 0 0 12px; line-height: 1.45; }
+      .field {
+        width: 100%; padding: 10px 14px; border: 1.5px solid var(--input);
+        border-radius: var(--radius-md); background: var(--card); font: inherit;
+        font-family: var(--font-mono);
+      }
+      .field-label { display: block; font-weight: 500; margin-bottom: 6px; font-size: 13px; }
+
+      .via {
+        margin: 0 14px 12px; font-size: 11px; color: var(--muted-foreground); text-align: center;
+      }
+      .via a { color: var(--muted-foreground); text-decoration: underline; text-underline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <nav class="flow-nav" aria-label="Flows">
+      <a href="index.html">Overview</a>
+      <a href="design-system.html">Design system</a>
+      <a href="login.html">Login</a>
+      <a href="firm.html">Firm</a>
+      <a href="whatsapp.html">WhatsApp</a>
+      <a href="client.html" aria-current="page">Client</a>
+    </nav>
+
+    <div class="wrap">
+      <div class="mode-link" aria-label="Client surfaces">
+        <a href="#project" data-mode="project">My project</a>
+        <a href="#drawing" data-mode="drawing">Drawing</a>
+        <a href="#decision" data-mode="decision">Decision</a>
+        <a href="#contractor" data-mode="contractor">Contractor</a>
+      </div>
+
+      <div class="device" id="phone">
+        <header class="app-bar">
+          <div class="logo" title="Structura">S</div>
+          <div class="who">
+            <strong>Structura</strong>
+            <span>X Architects · phone browser</span>
+          </div>
+          <span class="pill">Meera</span>
+        </header>
+
+        <div class="panel">
+          <!-- PROJECT HOME -->
+          <div class="screen" id="screen-project">
+            <header class="hdr">
+              <p class="from">Signed in · +91 98XXX XX210</p>
+              <h1>Meera Residence</h1>
+              <div class="row">
+                <span class="mono">PR-0142</span>
+                <span class="badge badge-review">2 need you</span>
+              </div>
+            </header>
+            <div class="body">
+              <div class="note need">
+                <strong>Needs you</strong>
+                Approve ground floor R03, or decide on D-007 (+₹18,000).
+              </div>
+              <div class="totals-mini">
+                <div class="row"><span>Agreement</span><span class="mono">₹42,00,000</span></div>
+                <div class="row"><span>Approved changes</span><span class="mono cost-up">+₹1,77,000</span></div>
+                <div class="row"><span>Current total</span><span class="mono">₹43,70,000 · +12 days</span></div>
+              </div>
+              <div class="list">
+                <button class="doc" type="button" data-jump="drawing">
+                  <div>
+                    <h3>Ground floor plan</h3>
+                    <p class="meta">GA-A-101 · R03 · New for you</p>
+                  </div>
+                  <div class="side">
+                    <span class="badge badge-review">Approve</span>
+                  </div>
+                </button>
+                <button class="doc" type="button" data-jump="decision">
+                  <div>
+                    <h3>Widen kitchen window</h3>
+                    <p class="meta">D-007 · +₹18,000 · +3 days</p>
+                  </div>
+                  <div class="side">
+                    <span class="badge badge-priced">Decide</span>
+                  </div>
+                </button>
+                <button class="doc" type="button">
+                  <div>
+                    <h3>Site plan</h3>
+                    <p class="meta">GA-A-001 · R02 · Current</p>
+                  </div>
+                  <div class="side">
+                    <span class="badge badge-approved">Done</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="actions">
+              <a class="btn btn-outline" href="login.html" style="text-align:center">Phone login demo</a>
+            </div>
+            <p class="via">Opened from a WhatsApp link · <a href="whatsapp.html">see chat journey</a></p>
+          </div>
+
+          <!-- DRAWING APPROVE -->
+          <div class="screen" id="screen-drawing">
+            <header class="hdr">
+              <p class="from">Meera Residence · for your approval</p>
+              <h1>Ground floor plan</h1>
+              <div class="row">
+                <span class="mono">GA-A-101</span>
+                <span class="rev">R03</span>
+                <span class="badge badge-review">Under review</span>
+              </div>
+            </header>
+            <div class="body">
+              <div class="note">
+                <strong>What changed since R02</strong>
+                Kitchen window moved 300 mm east. Stair flight cleared against beam.
+              </div>
+              <div class="canvas">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="titleblock">
+                  <b>X ARCHITECTS</b>
+                  GA-A-101 · R03<br />1:100
+                </div>
+                <span class="hint">Pinch to zoom</span>
+              </div>
+            </div>
+            <div class="actions" id="drawing-actions">
+              <button class="btn btn-primary" type="button" data-otp="drawing">Approve</button>
+              <button class="btn btn-outline" type="button" id="revise">Request revision</button>
+              <button class="btn btn-ghost" type="button" data-jump="project">← My project</button>
+            </div>
+            <div class="done" id="drawing-done">
+              <div class="check"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h2>Drawing approved</h2>
+              <p>Recorded with your WhatsApp number and the file fingerprint. Your architect was notified.</p>
+              <button class="btn btn-outline btn-sm" type="button" data-jump="project" style="margin-top:20px;display:inline-flex">Back to project</button>
+            </div>
+          </div>
+
+          <!-- DECISION APPROVE -->
+          <div class="screen" id="screen-decision">
+            <header class="hdr">
+              <p class="from">Meera Residence · change for your approval</p>
+              <h1>Widen kitchen window</h1>
+              <div class="row">
+                <span class="mono">D-007</span>
+                <span class="badge badge-priced">Priced</span>
+                <span class="type-chip" style="font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--muted)">Addition</span>
+              </div>
+            </header>
+            <div class="body">
+              <div class="impact-row">
+                <span class="impact-pill">+₹18,000</span>
+                <span class="impact-pill">+3 days</span>
+              </div>
+              <div class="note">
+                <strong>Linked drawing</strong>
+                Ground floor GA-A-101 — contractor Ravi confirmed the price. Your WhatsApp question is attached as evidence.
+              </div>
+              <div class="totals-mini">
+                <div class="row"><span>If you approve</span><span class="mono">₹43,70,000</span></div>
+                <div class="row"><span>Time impact</span><span class="mono">+12 days vs agreement</span></div>
+              </div>
+            </div>
+            <div class="actions" id="decision-actions">
+              <button class="btn btn-primary" type="button" data-otp="decision">Approve change</button>
+              <button class="btn btn-outline" type="button" data-jump="project">Reject · back to project</button>
+            </div>
+            <div class="done" id="decision-done">
+              <div class="check"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h2>Change approved</h2>
+              <p>D-007 is locked. Cost and time are in the project total. Contractor can start.</p>
+              <a class="btn btn-outline btn-sm" href="firm.html#decisions" style="margin-top:20px;display:inline-flex">See firm decision log</a>
+            </div>
+          </div>
+
+          <!-- CONTRACTOR PRICE CONFIRM -->
+          <div class="screen" id="screen-contractor">
+            <header class="hdr">
+              <p class="from">Ravi Builders · confirm price</p>
+              <h1>Widen kitchen window</h1>
+              <div class="row">
+                <span class="mono">D-007</span>
+                <span class="badge badge-proposed">Proposed</span>
+              </div>
+            </header>
+            <div class="body">
+              <div class="note">
+                <strong>From the architect</strong>
+                Client asked on WhatsApp. Enter cost and days, then confirm with the code sent to your WhatsApp. No extras without an approved decision.
+              </div>
+              <div style="padding:14px 14px 0;display:flex;flex-direction:column;gap:12px">
+                <div>
+                  <label class="field-label" for="c-cost">Cost impact (₹)</label>
+                  <input class="field" id="c-cost" value="18000" />
+                </div>
+                <div>
+                  <label class="field-label" for="c-days">Time impact (days)</label>
+                  <input class="field" id="c-days" value="3" />
+                </div>
+              </div>
+            </div>
+            <div class="actions" id="contractor-actions">
+              <button class="btn btn-primary" type="button" data-otp="contractor">Confirm price</button>
+              <button class="btn btn-ghost" type="button" data-jump="project">Cancel</button>
+            </div>
+            <div class="done" id="contractor-done">
+              <div class="check"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h2>Price confirmed</h2>
+              <p>Waiting on Meera’s approval. Both sides must confirm before work starts.</p>
+              <a class="btn btn-outline btn-sm" href="client.html#decision" style="margin-top:20px;display:inline-flex">Client approve next</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet" id="otp-sheet">
+      <div class="sheet-panel">
+        <h2 id="otp-title">Confirm with WhatsApp code</h2>
+        <p class="hint-otp">
+          Code arrives in the firm’s WhatsApp chat. This screen stays Structura — demo: type any digits.
+        </p>
+        <div class="otp" aria-label="One-time code">
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+        </div>
+        <button class="btn btn-primary" type="button" id="confirm-otp" style="width:100%">Confirm</button>
+        <button class="btn btn-ghost" type="button" id="cancel-otp" style="width:100%;margin-top:8px">Cancel</button>
+      </div>
+    </div>
+
+    <div class="sheet" id="revise-sheet">
+      <div class="sheet-panel">
+        <h2>Request revision</h2>
+        <p class="hint-otp">
+          Flags the drawing as Revision Required. Or reply on WhatsApp — same firm inbox.
+        </p>
+        <textarea placeholder="e.g. Can the kitchen window be wider?"></textarea>
+        <button class="btn btn-primary" type="button" id="send-revise" style="width:100%">Send to architect</button>
+        <button class="btn btn-ghost" type="button" id="cancel-revise" style="width:100%;margin-top:8px">Cancel</button>
+      </div>
+    </div>
+
+    <script>
+      const modes = ["project", "drawing", "decision", "contractor"];
+      let pendingOtp = "drawing";
+
+      function showMode(mode) {
+        if (!modes.includes(mode)) mode = "drawing";
+        modes.forEach((m) => {
+          document.getElementById("screen-" + m).classList.toggle("on", m === mode);
+        });
+        document.querySelectorAll(".mode-link a").forEach((a) => {
+          a.classList.toggle("on", a.dataset.mode === mode);
+        });
+        history.replaceState(null, "", "#" + mode);
+        document.title =
+          mode === "contractor"
+            ? "Structura — Contractor"
+            : mode === "project"
+              ? "Structura — Client · Project"
+              : mode === "decision"
+                ? "Structura — Client · Decision"
+                : "Structura — Client · Drawing";
+      }
+
+      document.querySelectorAll(".mode-link a").forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          showMode(a.dataset.mode);
+        });
+      });
+      document.querySelectorAll("[data-jump]").forEach((el) => {
+        el.addEventListener("click", () => showMode(el.dataset.jump));
+      });
+
+      const otp = document.getElementById("otp-sheet");
+      const revise = document.getElementById("revise-sheet");
+      document.querySelectorAll("[data-otp]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          pendingOtp = btn.dataset.otp;
+          document.getElementById("otp-title").textContent =
+            pendingOtp === "contractor"
+              ? "Confirm price with WhatsApp code"
+              : pendingOtp === "decision"
+                ? "Confirm change with WhatsApp code"
+                : "Confirm approval with WhatsApp code";
+          document.getElementById("confirm-otp").textContent =
+            pendingOtp === "contractor" ? "Confirm price" : "Confirm";
+          otp.classList.add("open");
+        });
+      });
+      document.getElementById("revise").onclick = () => revise.classList.add("open");
+      document.getElementById("cancel-otp").onclick = () => otp.classList.remove("open");
+      document.getElementById("cancel-revise").onclick = () => revise.classList.remove("open");
+      document.getElementById("confirm-otp").onclick = () => {
+        otp.classList.remove("open");
+        const actions = document.getElementById(pendingOtp + "-actions");
+        const done = document.getElementById(pendingOtp + "-done");
+        if (actions) actions.style.display = "none";
+        if (done) done.classList.add("open");
+      };
+      document.getElementById("send-revise").onclick = () => {
+        revise.classList.remove("open");
+        window.location.href = "firm.html#inbox";
+      };
+      document.querySelectorAll(".otp input").forEach((input, i, arr) => {
+        input.addEventListener("input", () => {
+          if (input.value && arr[i + 1]) arr[i + 1].focus();
+        });
+      });
+
+      const h = (location.hash || "#drawing").replace("#", "");
+      showMode(modes.includes(h) ? h : "drawing");
+    </script>
+  </body>
+</html>
